@@ -1,6 +1,6 @@
 import 'package:ioc/ioc.dart';
 
-abstract class BaseModule{
+abstract class AbstractModule{
 
   void register();
 

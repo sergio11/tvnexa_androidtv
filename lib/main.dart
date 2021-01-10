@@ -1,8 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/presentation/features/voucherlist/voucher_list_page.dart';
-import 'package:flutter_clean_architecture/presentation/injection/dependency_injection.dart';
+import 'package:flutter_clean_architecture/presentation/injection/dependencyInjection.dart';
+import 'presentation/features/jokeList/jokeListPage.dart';
+import 'package:logging/logging.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  _setupLogging();
+  runApp(MyApp());
+}
+
+void _setupLogging() {
+  Logger.root.level = Level.ALL;
+  Logger.root.onRecord.listen((rec) {
+    print('${rec.level.name}: ${rec.time}: ${rec.message}');
+  });
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -16,7 +27,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.amber,
       ),
-      home: VoucherListPage(),
+      home: JokeListPage(),
     );
   }
+
 }

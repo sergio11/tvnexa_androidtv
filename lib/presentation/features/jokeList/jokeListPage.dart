@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/presentation/features/voucherlist/vouchers_manager.dart';
+import 'package:flutter_clean_architecture/presentation/features/jokeList/jokeListManager.dart';
 
-class VoucherListPage extends StatelessWidget {
+class JokeListPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Vouchers"),
+          title: Text("Jokes"),
         ),
         body: buildContent());
   }
@@ -16,7 +16,7 @@ class VoucherListPage extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          VouchersManager(),
+          JokeListManager(),
         ],
       ),
     );

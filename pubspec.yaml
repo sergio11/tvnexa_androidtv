@@ -24,10 +24,17 @@ dependencies:
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
+  chopper: ^3.0.6 # makes the REST API call.
+  json_annotation: ^3.0.1 # marks your models as serializable.
+  logging: ^0.11.4 # logs your network requests.
+
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  build_runner: ^1.9.0 # generates code.
+  chopper_generator: ^3.0.6 # generates Chopper related code.
+  json_serializable: ^3.3.0 # generates JSON serializable code for your models.
 
 
 # For information on the generic Dart part of this file, see the

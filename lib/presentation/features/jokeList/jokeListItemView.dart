@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/domain/models/voucher.dart';
+import 'package:flutter_clean_architecture/domain/models/jokeModel.dart';
 
-class VoucherListItemView extends StatelessWidget {
-  final Voucher voucher;
+class JokeListItemView extends StatelessWidget {
 
-  VoucherListItemView(
-    this.voucher,
+  final JokeModel jokeModel;
+
+  JokeListItemView(
+    this.jokeModel,
   );
 
   @override
@@ -14,9 +15,9 @@ class VoucherListItemView extends StatelessWidget {
       margin: EdgeInsets.all(8),
       child: Column(
         children: [
-          Image.network(this.voucher.imageUrl),
+          Image.network(this.jokeModel.iconUrl),
           Text(
-            this.voucher.name,
+            this.jokeModel.value,
             style: TextStyle(fontSize: 22),
           )
         ],

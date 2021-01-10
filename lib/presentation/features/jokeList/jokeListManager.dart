@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_clean_architecture/domain/models/voucher.dart';
+import 'package:flutter_clean_architecture/domain/models/jokeModel.dart';
 import 'package:flutter_clean_architecture/presentation/commons/no_result_view.dart';
 import 'package:flutter_clean_architecture/presentation/commons/progress_indicator_view.dart';
-import 'package:flutter_clean_architecture/presentation/features/voucherlist/voucher_list_view.dart';
-import 'package:flutter_clean_architecture/presentation/features/voucherlist/voucher_list_view_model.dart';
-import 'package:flutter_clean_architecture/presentation/injection/modules/voucher_module.dart';
-import 'package:flutter_clean_architecture/presentation/utils/alert_helper.dart';
+import 'package:flutter_clean_architecture/presentation/features/jokeList/jokeListView.dart';
+import 'package:flutter_clean_architecture/presentation/features/jokeList/jokeListViewModel.dart';
+import 'package:flutter_clean_architecture/presentation/injection/modules/jokeListModule.dart';
+import 'package:flutter_clean_architecture/presentation/utils/alertHelper.dart';
 
-class VouchersManager extends StatefulWidget {
+class JokeListManager extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return VouchersManagerState();
+    return JokeListManagerState();
   }
 }
 
-class VouchersManagerState extends State<VouchersManager>
+class JokeListManagerState extends State<JokeListManager>
     with WidgetsBindingObserver {
-  final VoucherListViewModel viewModel = VoucherModule.provideModule();
+
+  final AbstractJokeListViewModel viewModel = JokeListModule.provideViewModel();
 
   @override
   void initState() {
@@ -34,15 +35,15 @@ class VouchersManagerState extends State<VouchersManager>
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<List<Voucher>>(
-      stream: viewModel.vouchers,
+    return StreamBuilder<List<JokeModel>>(
+      stream: viewModel.jokeList,
       builder: (context, snapshot) {
         if (dataHasError(snapshot)) {
           AlertHelper.showSnackBar(context, snapshot.error.toString());
         }
 
-        var vouchers = snapshot.data;
-        if (null != vouchers) return VoucherListView(vouchers);
+        var jokeList = snapshot.data;
+        if (null != jokeList) return JokeListView(jokeList);
 
         if (connectionIsWaiting(snapshot)) {
           return ProgressIndicatorView();
@@ -61,12 +62,12 @@ class VouchersManagerState extends State<VouchersManager>
     WidgetsBinding.instance.removeObserver(this);
   }
 
-  bool dataHasError(AsyncSnapshot<List<Voucher>> snapshot) => snapshot.hasError;
+  bool dataHasError(AsyncSnapshot<List<JokeModel>> snapshot) => snapshot.hasError;
 
-  bool connectionIsActive(AsyncSnapshot<List<Voucher>> snapshot) =>
+  bool connectionIsActive(AsyncSnapshot<List<JokeModel>> snapshot) =>
       snapshot.connectionState == ConnectionState.active;
 
-  bool connectionIsWaiting(AsyncSnapshot<List<Voucher>> snapshot) =>
+  bool connectionIsWaiting(AsyncSnapshot<List<JokeModel>> snapshot) =>
       snapshot.connectionState == ConnectionState.waiting &&
       snapshot.data == null;
 
