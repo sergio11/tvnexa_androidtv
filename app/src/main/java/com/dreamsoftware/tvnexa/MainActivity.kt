@@ -10,9 +10,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import com.dreamsoftware.tvnexa.features.home.HomeViewModel
-import com.dreamsoftware.tvnexa.navigation.AppNavigation
-import com.dreamsoftware.tvnexa.theme.TvNexaTheme
+import com.dreamsoftware.tvnexa.ui.navigation.AppNavigation
+import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
+import com.dreamsoftware.tvnexa.ui.components.CustomDialog
+import com.dreamsoftware.tvnexa.ui.extensions.registerOnBackPress
+import com.dreamsoftware.tvnexa.ui.features.home.HomeViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
