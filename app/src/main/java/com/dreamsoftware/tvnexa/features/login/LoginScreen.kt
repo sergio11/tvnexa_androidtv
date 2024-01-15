@@ -1,4 +1,4 @@
-package com.dreamsoftware.tvnexa.features.login.withEmailPassword
+package com.dreamsoftware.tvnexa.features.login
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -9,7 +9,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dreamsoftware.tvnexa.theme.ComposeTvTheme
+import com.dreamsoftware.tvnexa.theme.TvNexaTheme
 
 @Composable
 fun LoginScreen(
@@ -31,7 +31,7 @@ fun LoginScreen(
 @Preview(device = Devices.TV_1080p)
 @Composable
 fun LoginScreenPrev() {
-    ComposeTvTheme {
+    TvNexaTheme {
         LoginScreen(Modifier.fillMaxSize()) {
         }
     }

@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTvMaterial3Api::class)
 
-package com.dreamsoftware.tvnexa.features.login.withEmailPassword
+package com.dreamsoftware.tvnexa.features.login
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -25,7 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Text
-import com.dreamsoftware.tvnexa.theme.ComposeTvTheme
+import com.dreamsoftware.tvnexa.theme.TvNexaTheme
 import com.dreamsoftware.tvnexa.widgets.TvButton
 
 @Composable
@@ -75,7 +75,7 @@ fun LoginPage(
 @Preview(device = Devices.TV_1080p)
 @Composable
 fun LoginPagePrev() {
-    ComposeTvTheme {
+    TvNexaTheme {
         LoginPage { u, p ->
         }
     }

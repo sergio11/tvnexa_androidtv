@@ -81,7 +81,7 @@ fun ProfilePicture() {
 @Composable
 fun UserDetails() {
     Column {
-        Text(text = "Umair Khalid", style = MaterialTheme.typography.headlineSmall)
+        Text(text = "Sergio Sánchez", style = MaterialTheme.typography.headlineSmall)
         Spacer(modifier = Modifier.size(8.dp))
         Text(
             text = "Android Developer",
@@ -89,7 +89,7 @@ fun UserDetails() {
             color = LocalContentColor.current.copy(alpha = 0.4f),
         )
         Text(
-            text = "Github: https://github.com/UmairKhalid786",
+            text = "Github: https://github.com/sergio11",
             style = MaterialTheme.typography.labelSmall,
             color = LocalContentColor.current.copy(alpha = 0.4f),
         )

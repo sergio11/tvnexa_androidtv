@@ -25,7 +25,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.R
-import com.dreamsoftware.tvnexa.theme.ComposeTvTheme
+import com.dreamsoftware.tvnexa.theme.TvNexaTheme
 import com.dreamsoftware.utils.testing.HERO_ITEM_TAG
 
 @Composable
@@ -70,7 +70,7 @@ fun HeroItem(modifier: Modifier = Modifier) {
 @Preview
 @Composable
 fun HeroItemPrev() {
-    ComposeTvTheme {
+    TvNexaTheme {
         HeroItem()
     }
 }

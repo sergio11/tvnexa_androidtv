@@ -1,4 +1,4 @@
-package com.dreamsoftware.tvnexa.features.login.withEmailPassword
+package com.dreamsoftware.tvnexa.features.login
 
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.text.KeyboardOptions

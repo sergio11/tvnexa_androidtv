@@ -5,10 +5,13 @@ import androidx.compose.runtime.Composable
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel,
-    onItemFocus: (parent: Int, child: Int) -> Unit,
-    onSongClick: () -> Unit,
+    onItemFocus: (parent: Int, child: Int) -> Unit
 ) {
-    HomeScreenContent(onItemFocus, homeViewModel.usedTopBar,
-        { homeViewModel.toggleTopBar() }, onSongClick
-    )
+    with(homeViewModel) {
+        HomeScreenContent(
+            onItemFocus = onItemFocus,
+            usedTopBar = usedTopBar,
+            toggleNavigationBar = ::toggleTopBar
+        )
+    }
 }

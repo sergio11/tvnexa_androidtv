@@ -12,7 +12,7 @@ import androidx.navigation.NavHostController
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.dreamsoftware.tvnexa.features.home.HomeViewModel
 import com.dreamsoftware.tvnexa.navigation.AppNavigation
-import com.dreamsoftware.tvnexa.theme.ComposeTvTheme
+import com.dreamsoftware.tvnexa.theme.TvNexaTheme
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -42,7 +42,7 @@ class MainActivity : ComponentActivity() {
 
     @Composable
     fun App(navController: NavHostController, homeViewModel: HomeViewModel) {
-        ComposeTvTheme {
+        TvNexaTheme {
             AppNavigation(navController, homeViewModel)
         }
     }

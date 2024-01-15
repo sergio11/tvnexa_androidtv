@@ -6,12 +6,10 @@ import com.dreamsoftware.tvnexa.features.home.navigation.NestedScreens.Home
 import com.dreamsoftware.tvnexa.features.home.navigation.NestedScreens.Movies
 import com.dreamsoftware.tvnexa.features.home.navigation.NestedScreens.Search
 import com.dreamsoftware.tvnexa.features.home.navigation.NestedScreens.Settings
-import com.dreamsoftware.tvnexa.features.home.navigation.NestedScreens.Songs
 import compose.icons.LineAwesomeIcons
 import compose.icons.lineawesomeicons.CogSolid
 import compose.icons.lineawesomeicons.HeartSolid
 import compose.icons.lineawesomeicons.HomeSolid
-import compose.icons.lineawesomeicons.MusicSolid
 import compose.icons.lineawesomeicons.SearchSolid
 import compose.icons.lineawesomeicons.UserCircle
 import compose.icons.lineawesomeicons.VideoSolid
@@ -21,7 +19,6 @@ object MenuData {
         MenuItem(Home.title, "Home", LineAwesomeIcons.HomeSolid),
         MenuItem(Search.title, "Search", LineAwesomeIcons.SearchSolid),
         MenuItem(Movies.title, "Movies", LineAwesomeIcons.VideoSolid),
-        MenuItem(Songs.title, "Songs", LineAwesomeIcons.MusicSolid),
         MenuItem(Favorites.title, "Favorites", LineAwesomeIcons.HeartSolid),
     )
 

@@ -24,7 +24,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.features.home.carousel.VerticalCarouselItem
 import com.dreamsoftware.tvnexa.features.keyboard.MiniKeyboard
-import com.dreamsoftware.tvnexa.theme.ComposeTvTheme
+import com.dreamsoftware.tvnexa.theme.TvNexaTheme
 
 @Composable
 fun SearchScreen() {
@@ -79,7 +79,7 @@ fun SearchView() {
 @Preview(device = Devices.TV_1080p)
 @Composable
 fun SearchScreenPrev() {
-    ComposeTvTheme {
+    TvNexaTheme {
         SearchScreen()
     }
 }

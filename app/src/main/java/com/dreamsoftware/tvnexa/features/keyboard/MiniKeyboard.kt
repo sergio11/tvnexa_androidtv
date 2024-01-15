@@ -39,7 +39,7 @@ import androidx.tv.material3.Icon
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Surface
 import androidx.tv.material3.Text
-import com.dreamsoftware.tvnexa.theme.ComposeTvTheme
+import com.dreamsoftware.tvnexa.theme.TvNexaTheme
 
 @Composable
 fun MiniKeyboard(modifier: Modifier) {
@@ -142,7 +142,7 @@ fun KeyItem(
 @Preview
 @Composable
 fun MiniKeyboardPrev() {
-    ComposeTvTheme {
+    TvNexaTheme {
         MiniKeyboard(modifier = Modifier.size(400.dp))
     }
 }
