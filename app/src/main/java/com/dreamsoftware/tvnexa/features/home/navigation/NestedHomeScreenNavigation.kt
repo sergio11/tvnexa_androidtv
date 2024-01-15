@@ -20,8 +20,7 @@ fun NestedHomeScreenNavigation(
     usedTopBar: StateFlow<Boolean>,
     toggleTopBar: () -> Unit,
     navController: NavHostController,
-    onItemClick: (parent: Int, child: Int) -> Unit,
-    onSongClick: () -> Unit
+    onItemClick: (parent: Int, child: Int) -> Unit
 ) {
     AnimatedNavHost(navController = navController, startDestination = NestedScreens.Home.title) {
         // e.g will add auth routes here if when we will extend project

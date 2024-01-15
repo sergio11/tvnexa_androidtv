@@ -12,7 +12,7 @@ import com.dreamsoftware.tvnexa.features.home.leftmenu.data.MenuData
 import com.dreamsoftware.tvnexa.features.home.navigation.NestedHomeNavigation
 import com.dreamsoftware.tvnexa.features.home.navigation.drawer.HomeDrawer
 import com.dreamsoftware.tvnexa.features.home.navigation.topbar.HomeTopBar
-import com.dreamsoftware.tvnexa.theme.ComposeTvTheme
+import com.dreamsoftware.tvnexa.theme.TvNexaTheme
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -21,8 +21,7 @@ import kotlinx.coroutines.flow.StateFlow
 fun HomeScreenContent(
     onItemFocus: (parent: Int, child: Int) -> Unit,
     usedTopBar: StateFlow<Boolean>,
-    toggleNavigationBar: () -> Unit,
-    onSongClick: () -> Unit,
+    toggleNavigationBar: () -> Unit
 ) {
     val navController = rememberAnimatedNavController()
 
@@ -41,7 +40,7 @@ fun HomeScreenContent(
         when (selectedTopBar) {
             true -> HomeTopBar(content = {
                 NestedHomeNavigation(
-                    usedTopBar, toggleNavigationBar, navController, onItemFocus, onSongClick
+                    usedTopBar, toggleNavigationBar, navController, onItemFocus
                 )
             }, selectedId = selectedId.value) {
                 navController.navigate(it.id)
@@ -49,7 +48,7 @@ fun HomeScreenContent(
 
             false -> HomeDrawer(content = {
                 NestedHomeNavigation(
-                    usedTopBar, toggleNavigationBar, navController, onItemFocus, onSongClick
+                    usedTopBar, toggleNavigationBar, navController, onItemFocus
                 )
             }, selectedId = selectedId.value) {
                 navController.navigate(it.id)
@@ -61,9 +60,9 @@ fun HomeScreenContent(
 @Preview
 @Composable
 fun HomeScreenContentPrev() {
-    ComposeTvTheme {
+    TvNexaTheme {
         HomeScreenContent(onItemFocus = { _, _ -> },
             usedTopBar = MutableStateFlow(false),
-            toggleNavigationBar = {}) {}
+            toggleNavigationBar = {})
     }
 }

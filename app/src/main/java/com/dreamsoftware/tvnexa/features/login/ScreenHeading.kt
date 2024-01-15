@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTvMaterial3Api::class)
 
-package com.dreamsoftware.tvnexa.features.login.withEmailPassword
+package com.dreamsoftware.tvnexa.features.login
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable

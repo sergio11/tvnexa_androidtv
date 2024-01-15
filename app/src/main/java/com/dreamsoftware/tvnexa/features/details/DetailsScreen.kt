@@ -39,7 +39,7 @@ import androidx.tv.material3.LocalContentColor
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.R
-import com.dreamsoftware.tvnexa.theme.ComposeTvTheme
+import com.dreamsoftware.tvnexa.theme.TvNexaTheme
 import com.dreamsoftware.tvnexa.widgets.ThumbnailImageCard
 import com.dreamsoftware.tvnexa.widgets.TvButton
 import com.dreamsoftware.utils.testing.PRODUCT_DETAIL_BANNER_TAG
@@ -48,12 +48,12 @@ import kotlinx.coroutines.delay
 const val ANIMATION_DELAY = 600L
 
 @Composable
-fun ProductDetailsScreen(onBackPressed: () -> Unit, onPlayClick: () -> Unit) {
-    ProductDetailsContent(onBackPressed, onPlayClick = onPlayClick)
+fun DetailsScreen(onBackPressed: () -> Unit, onPlayClick: () -> Unit) {
+    DetailsContent(onBackPressed, onPlayClick = onPlayClick)
 }
 
 @Composable
-private fun ProductDetailsContent(onBackPressed: () -> Unit, onPlayClick: () -> Unit) {
+private fun DetailsContent(onBackPressed: () -> Unit, onPlayClick: () -> Unit) {
     BackHandler(onBack = onBackPressed)
 
     val isLoaded = remember {
@@ -255,7 +255,7 @@ fun Rating(rating: String) {
 @Preview(device = Devices.TV_1080p)
 @Composable
 fun DetailsScreenPrev() {
-    ComposeTvTheme {
-        ProductDetailsScreen(onPlayClick = {}, onBackPressed = {})
+    TvNexaTheme {
+        DetailsScreen(onPlayClick = {}, onBackPressed = {})
     }
 }

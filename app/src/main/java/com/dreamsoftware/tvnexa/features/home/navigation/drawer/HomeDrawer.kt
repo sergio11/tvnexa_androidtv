@@ -35,7 +35,7 @@ import com.dreamsoftware.tvnexa.features.home.leftmenu.model.MenuItem
 
 
 @Composable
-fun  HomeDrawer(
+fun HomeDrawer(
     content: @Composable () -> Unit,
     selectedId: String = MenuData.menuItems.first().id,
     onMenuSelected: ((menuItem: MenuItem) -> Unit)?
@@ -44,7 +44,7 @@ fun  HomeDrawer(
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
 
     ModalNavigationDrawer(
-        drawerState = drawerState, drawerContent = { drawer ->
+        drawerState = drawerState, drawerContent = {
             Column(
                 Modifier
                     .background(MaterialTheme.colorScheme.surface)
@@ -56,7 +56,7 @@ fun  HomeDrawer(
                     8.dp, alignment = Alignment.CenterVertically
                 ),
             ) {
-                Spacer(modifier = Modifier.height(8.dp))
+                Spacer(modifier = Modifier.height(20.dp))
                 Header(item = MenuData.profile, onMenuSelected = {
                     drawerState.setValue(DrawerValue.Closed)
                 })
@@ -101,9 +101,7 @@ fun NavigationDrawerScope.NavigationRow(
 ) {
     NavigationDrawerItem(selected = isSelected, enabled = enabled,
         colors = NavigationDrawerItemDefaults.colors(
-            selectedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(
-                alpha = 0.5f
-            ),
+            selectedContainerColor = MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
             selectedContentColor = MaterialTheme.colorScheme.onSurface,
         ),
         onClick = {
