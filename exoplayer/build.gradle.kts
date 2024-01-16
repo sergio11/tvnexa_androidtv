@@ -39,7 +39,7 @@ dependencies {
     implementation(project(mapOf("path" to ":player")))
 
     implementation(libs.androidx.core.ktx)
-    implementation(libs.bundles.media3)
+    api(libs.bundles.media3)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

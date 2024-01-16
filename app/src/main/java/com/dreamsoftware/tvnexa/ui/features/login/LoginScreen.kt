@@ -22,7 +22,7 @@ fun LoginScreen(
             .padding(bottom = 68.dp),
         contentAlignment = Alignment.Center,
     ) {
-        LoginPage { _, _ ->
+        LoginScreenContent { _, _ ->
             goToHomeScreen()
         }
     }
