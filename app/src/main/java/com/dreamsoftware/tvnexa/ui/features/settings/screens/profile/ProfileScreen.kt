@@ -7,7 +7,6 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
@@ -17,14 +16,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.LocalContentColor
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.R
-import com.dreamsoftware.tvnexa.ui.components.TvButton
+import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.features.settings.data.SettingsMenuModel
 import com.dreamsoftware.tvnexa.ui.features.settings.screens.PreferencesContainer
 
@@ -46,21 +44,9 @@ fun ProfilesContent() {
         Spacer(modifier = Modifier.size(5.dp))
         Row {
             Spacer(modifier = Modifier.size(120.dp))
-            TvButton(onClick = {}, modifier = Modifier.width(120.dp)) {
-                Text(
-                    text = "Save",
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                )
-            }
+            CommonButton(onClick = {}, modifier = Modifier.width(120.dp), text = "Save")
             Spacer(modifier = Modifier.size(16.dp))
-            TvButton(onClick = {}, modifier = Modifier.width(120.dp)) {
-                Text(
-                    text = "Cancel",
-                    modifier = Modifier.fillMaxWidth(),
-                    textAlign = TextAlign.Center,
-                )
-            }
+            CommonButton(onClick = {}, modifier = Modifier.width(120.dp), text = "Cancel")
         }
     }
 }

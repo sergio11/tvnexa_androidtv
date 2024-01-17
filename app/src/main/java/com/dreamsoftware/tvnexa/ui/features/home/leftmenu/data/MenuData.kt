@@ -13,7 +13,7 @@ import compose.icons.lineawesomeicons.VideoSolid
 
 object MenuData {
     val menuItems = listOf(
-        MenuItem(Screens.Home.title, "Home", LineAwesomeIcons.HomeSolid),
+        MenuItem(Screens.Home.path, "Home", LineAwesomeIcons.HomeSolid),
         MenuItem(NestedScreens.Search.title, "Search", LineAwesomeIcons.SearchSolid),
         MenuItem(NestedScreens.Movies.title, "Movies", LineAwesomeIcons.VideoSolid),
         MenuItem(NestedScreens.Favorites.title, "Favorites", LineAwesomeIcons.HeartSolid),
