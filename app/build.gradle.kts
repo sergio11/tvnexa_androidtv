@@ -67,6 +67,7 @@ dependencies {
     implementation(libs.bundles.androidx.compose.bom)
     implementation(libs.bundles.compose.tv)
     implementation(libs.bundles.compose.accompanist)
+    implementation(libs.androidx.material.icons.extended)
 
     implementation(libs.hilt.android)
     implementation(libs.profileinstaller)
