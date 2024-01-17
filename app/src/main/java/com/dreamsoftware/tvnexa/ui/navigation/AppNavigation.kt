@@ -10,7 +10,8 @@ import androidx.navigation.NavHostController
 import com.dreamsoftware.tvnexa.ui.features.details.DetailsScreen
 import com.dreamsoftware.tvnexa.ui.features.home.HomeScreen
 import com.dreamsoftware.tvnexa.ui.features.home.HomeViewModel
-import com.dreamsoftware.tvnexa.ui.features.login.LoginScreen
+import com.dreamsoftware.tvnexa.ui.features.onboarding.OnboardingScreen
+import com.dreamsoftware.tvnexa.ui.features.signin.SignInScreen
 import com.dreamsoftware.tvnexa.ui.features.player.PlayerScreen
 import com.dreamsoftware.tvnexa.ui.features.wiw.WhoIsWatchingScreen
 import com.dreamsoftware.tvnexa.ui.navigation.extensions.navigateSingleTopTo
@@ -20,32 +21,37 @@ import com.google.accompanist.navigation.animation.composable
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun AppNavigation(navController: NavHostController, homeViewModel: HomeViewModel) {
-    AnimatedNavHost(navController = navController, startDestination = Screens.Login.title) {
-        composable(
-            Screens.Login.title,
-        ) {
-            LoginScreen {
-                navController.navigateSingleTopTo(Screens.WhoIsWatching.title)
+    AnimatedNavHost(navController = navController, startDestination = Screens.Onboarding.path) {
+
+        composable(Screens.Onboarding.path) {
+            OnboardingScreen(
+                onGoToSignIn = {
+                    navController.navigate(Screens.SignIn.path)
+                },
+                onGoToSignUp = {}
+            )
+        }
+
+        composable(Screens.SignIn.path) {
+            SignInScreen {
+                navController.navigateSingleTopTo(Screens.WhoIsWatching.path)
             }
         }
 
-        composable(
-            Screens.WhoIsWatching.title,
-        ) {
+        composable(Screens.WhoIsWatching.path) {
             WhoIsWatchingScreen {
-                navController.navigateSingleTopTo(Screens.Home.title)
+                navController.navigateSingleTopTo(Screens.Home.path)
             }
         }
 
-        composable(
-            Screens.Home.title,) {
+        composable(Screens.Home.path) {
             HomeScreen(homeViewModel) { _, _ ->
-                navController.navigate(Screens.ProductDetail.title)
+                navController.navigate(Screens.ProductDetail.path)
             }
         }
 
         composable(
-            Screens.Player.title,
+            Screens.Player.path,
         ) {
             PlayerScreen(
                 "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
@@ -56,14 +62,14 @@ fun AppNavigation(navController: NavHostController, homeViewModel: HomeViewModel
         }
 
         composable(
-            Screens.ProductDetail.title,
+            Screens.ProductDetail.path,
         ) {
             DetailsScreen(
                 onBackPressed = {
                     navController.navigateUp()
                 },
                 onPlayClick = {
-                    navController.navigate(Screens.Player.title)
+                    navController.navigate(Screens.Player.path)
                 },
             )
         }

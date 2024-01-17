@@ -1,29 +1,19 @@
-package com.dreamsoftware.tvnexa.ui.features.login
+package com.dreamsoftware.tvnexa.ui.features.signin
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
-fun LoginScreen(
+fun SignInScreen(
     modifier: Modifier = Modifier,
     goToHomeScreen: () -> Unit,
 ) {
-    Box(
-        modifier = modifier
-            .fillMaxSize(),
-        contentAlignment = Alignment.Center,
-    ) {
-        LoginScreenContent { _, _ ->
-            goToHomeScreen()
-        }
+    SignInScreenContent(modifier = modifier) { _, _ ->
+        goToHomeScreen()
     }
 }
 
@@ -31,7 +21,7 @@ fun LoginScreen(
 @Composable
 fun LoginScreenPrev() {
     TvNexaTheme {
-        LoginScreen(Modifier.fillMaxSize()) {
+        SignInScreen(Modifier.fillMaxSize()) {
         }
     }
 }

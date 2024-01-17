@@ -41,7 +41,7 @@ import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 import com.dreamsoftware.tvnexa.ui.components.ThumbnailImageCard
-import com.dreamsoftware.tvnexa.ui.components.TvButton
+import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.utils.testing.PRODUCT_DETAIL_BANNER_TAG
 import kotlinx.coroutines.delay
 
@@ -145,14 +145,13 @@ fun ButtonSection(onPlayClick: () -> Unit) {
     ) {
         Spacer(modifier = Modifier.width(280.dp))
 
-        TvButton(
+        CommonButton(
             modifier = Modifier
                 .padding(horizontal = 16.dp, vertical = 4.dp)
                 .focusRequester(focusRequester),
             onClick = onPlayClick,
-        ) {
-            Text("Play")
-        }
+            text = "Play"
+        )
         Spacer(modifier = Modifier.size(16.dp))
         Text(
             color = LocalContentColor.current,
