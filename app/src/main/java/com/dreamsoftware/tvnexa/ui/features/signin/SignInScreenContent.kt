@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTvMaterial3Api::class)
 
-package com.dreamsoftware.tvnexa.ui.features.login
+package com.dreamsoftware.tvnexa.ui.features.signin
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -33,14 +33,18 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
-import com.dreamsoftware.tvnexa.ui.components.TvButton
+import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
-fun LoginScreenContent(
+fun SignInScreenContent(
+    modifier: Modifier = Modifier,
     onLoginClick: (email: String, password: String) -> Unit,
 ) {
-    Box {
+    Box(
+        modifier = modifier.fillMaxSize(),
+        contentAlignment = Alignment.Center
+    ) {
         LoginVideoBackground()
         Row(
             modifier = Modifier.fillMaxSize(),
@@ -127,21 +131,11 @@ private fun LoginFormContent(
             keyboardType = KeyboardType.Password,
         ) { password.value = it }
         Spacer(modifier = Modifier.height(40.dp))
-
-        TvButton(
+        CommonButton(
             modifier = Modifier.padding(start = 20.dp, end = 20.dp),
             onClick = { onLoginClick(username.value, password.value) },
-        ) {
-            Text(
-                modifier = Modifier.fillMaxWidth(),
-                text = "Sign In",
-                style = TextStyle(
-                    fontFamily = FontFamily.SansSerif,
-                    fontWeight = FontWeight.Light,
-                    textAlign = TextAlign.Center,
-                ),
-            )
-        }
+            text = "Sign In"
+        )
     }
 }
 
@@ -158,7 +152,7 @@ private fun LoginScreenHeading(heading: String) {
 @Composable
 fun LoginPagePrev() {
     TvNexaTheme {
-        LoginScreenContent { u, p ->
+        SignInScreenContent { u, p ->
         }
     }
 }
