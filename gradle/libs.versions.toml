@@ -2,6 +2,7 @@
 
 # Project Environment Versions
 compileSdk = "34"
+materialIconsExtended = "1.5.4"
 targetSdk = "34"
 minSdk = "23"
 minSdkTv = "21"
@@ -43,6 +44,7 @@ profileinstaller = "1.3.0"
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "androidx-corektx" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activity-compose" }
 
+androidx-material-icons-extended = { module = "androidx.compose.material:material-icons-extended", version.ref = "materialIconsExtended" }
 androidx-tv-foundation = { module = "androidx.tv:tv-foundation", version.ref = "tv-compose" }
 androidx-tv-material = { module = "androidx.tv:tv-material", version.ref = "tv-compose" }
 
