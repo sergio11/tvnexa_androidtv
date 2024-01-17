@@ -10,20 +10,17 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Password
+import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
@@ -32,8 +29,10 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.R
-import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
+import com.dreamsoftware.tvnexa.ui.components.CommonTextField
+import com.dreamsoftware.tvnexa.ui.components.CommonTextFieldTypeEnum
+import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
@@ -120,16 +119,24 @@ private fun LoginFormContent(
 
         LoginScreenHeading("Access Your Account")
         Spacer(modifier = Modifier.height(20.dp))
-        TvTextField(value = username.value, label = "Username") {
-            username.value = it
-        }
+        CommonTextField(
+            icon = Icons.Filled.Person,
+            value = username.value,
+            label = "Username",
+            onValueChange =  {
+                username.value = it
+            }
+        )
         Spacer(modifier = Modifier.height(20.dp))
-        TvTextField(
+        CommonTextField(
+            icon = Icons.Filled.Password,
             value = password.value,
+            type = CommonTextFieldTypeEnum.PASSWORD,
             label = "Password",
-            visualTransformation = PasswordVisualTransformation(),
-            keyboardType = KeyboardType.Password,
-        ) { password.value = it }
+            onValueChange =  {
+                password.value = it
+            }
+        )
         Spacer(modifier = Modifier.height(40.dp))
         CommonButton(
             modifier = Modifier.padding(start = 20.dp, end = 20.dp),
