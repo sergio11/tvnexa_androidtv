@@ -53,17 +53,13 @@ fun CustomDialogUI(
         Column(modifier.background(MaterialTheme.colorScheme.surface)) {
             // .......................................................................
             Image(
-                painter = painterResource(id = R.drawable.ic_info),
+                painter = painterResource(id = R.drawable.tvnexa_logo),
                 contentDescription = null, // decorative
                 contentScale = ContentScale.Fit,
-                colorFilter = ColorFilter.tint(
-                    color = MaterialTheme.colorScheme.onSurface,
-                ),
                 modifier = Modifier
                     .padding(top = 35.dp)
                     .height(70.dp)
                     .fillMaxWidth(),
-
             )
 
             Column(modifier = Modifier.padding(16.dp)) {
