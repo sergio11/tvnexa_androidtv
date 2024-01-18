@@ -39,7 +39,7 @@ fun OnboardingScreenContent(
 
 @Composable
 private fun OnboardingVideoBackground() {
-    CommonVideoBackground(videoResourceId = R.raw.login_screen_video_background)
+    CommonVideoBackground(videoResourceId = R.raw.onboarding_screen_video_background)
     Box(
         modifier = Modifier
             .fillMaxSize()
