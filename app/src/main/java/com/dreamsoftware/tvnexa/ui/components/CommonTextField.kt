@@ -48,14 +48,16 @@ fun CommonTextField(
     errorMessage: String? = null
 ) {
     with(MaterialTheme.colorScheme) {
-        var passwordVisible by remember { mutableStateOf(false) }
         val isError = !errorMessage.isNullOrBlank()
         OutlinedTextField(
             modifier = modifier,
             value = value,
             enabled = enabled,
-            colors = TextFieldDefaults.colors(),
-            visualTransformation = if (type != CommonTextFieldTypeEnum.PASSWORD || passwordVisible)
+            colors = TextFieldDefaults.colors(
+                focusedLabelColor = onPrimary,
+                unfocusedLabelColor = primary
+            ),
+            visualTransformation = if (type != CommonTextFieldTypeEnum.PASSWORD)
                 VisualTransformation.None
             else
                 PasswordVisualTransformation(),
@@ -72,22 +74,13 @@ fun CommonTextField(
                         contentDescription = "error",
                         tint = errorContainer
                     )
-                } else if (type == CommonTextFieldTypeEnum.PASSWORD) {
-                    val image =
-                        if (passwordVisible) Icons.Filled.Visibility else Icons.Filled.VisibilityOff
-                    val description = if (passwordVisible) "Hide password" else "Show password"
-                    IconButton(onClick = { passwordVisible = !passwordVisible }) {
-                        Icon(
-                            imageVector = image,
-                            contentDescription = description
-                        )
-                    }
                 }
             },
             isError = isError,
             leadingIcon = {
                 Icon(
                     imageVector = icon,
+                    tint = primary,
                     contentDescription = ""
                 )
             },
