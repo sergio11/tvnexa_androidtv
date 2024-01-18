@@ -30,9 +30,9 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
+import com.dreamsoftware.tvnexa.ui.components.CommonFullScreenImage
 import com.dreamsoftware.tvnexa.ui.components.CommonTextField
 import com.dreamsoftware.tvnexa.ui.components.CommonTextFieldTypeEnum
-import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
@@ -62,11 +62,11 @@ fun SignInScreenContent(
 
 @Composable
 private fun LoginVideoBackground() {
-    CommonVideoBackground(videoResourceId = R.raw.login_screen_video_background)
+    CommonFullScreenImage(resourceId = R.drawable.login_background)
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.7f))
+            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.5f))
     )
 }
 
@@ -77,7 +77,7 @@ private fun LoginFormInfo(modifier: Modifier) {
         contentAlignment = Alignment.Center
     ) {
         Image(
-            painter = painterResource(id = R.drawable.tvnexa_logo),
+            painter = painterResource(id = R.drawable.tvnexa_logo_inverse),
             contentDescription = null,
             modifier = Modifier
                 .height(120.dp)
