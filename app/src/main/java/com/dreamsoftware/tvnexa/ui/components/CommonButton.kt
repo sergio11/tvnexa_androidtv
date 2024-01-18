@@ -33,6 +33,7 @@ fun CommonButton(
     textType: CommonTextTypeEnum = CommonTextTypeEnum.TITLE_MEDIUM,
     buttonShape: Shape = RoundedCornerShape(percent = 20),
     text: String,
+    inverseStyle: Boolean = false,
     onClick: () -> Unit,
 ) {
     with(MaterialTheme.colorScheme) {
@@ -49,20 +50,40 @@ fun CommonButton(
                         } else {
                             0.dp
                         },
-                        color = onPrimaryContainer,
+                        color = if(inverseStyle) {
+                            onSecondaryContainer
+                        } else {
+                            onPrimaryContainer
+                        },
                         shape = buttonShape
                     )
             ),
             enabled = enabled,
             shape = ButtonDefaults.shape(shape = buttonShape),
             colors = ButtonDefaults.colors(
-                containerColor =
-                if (enableBorder) {
-                    primaryContainer.copy(alpha = 0.8f)
+                containerColor = if(inverseStyle) {
+                    if (enableBorder) {
+                        secondaryContainer.copy(alpha = 0.8f)
+                    } else {
+                        secondaryContainer
+                    }
                 } else {
-                    primaryContainer
+                    if (enableBorder) {
+                        primaryContainer.copy(alpha = 0.8f)
+                    } else {
+                        primaryContainer
+                    }
                 },
-                contentColor = onPrimaryContainer
+                contentColor = if(inverseStyle) {
+                    onSecondaryContainer
+                } else {
+                    onPrimaryContainer
+                },
+                focusedContainerColor = if(inverseStyle) {
+                    onSecondary.copy(alpha = 0.6f)
+                } else {
+                    onPrimary.copy(alpha = 0.6f)
+                }
             )
         ) {
             CommonText(
@@ -71,7 +92,11 @@ fun CommonButton(
                     .padding(vertical = 6.dp),
                 type = textType,
                 titleText = text,
-                textColor = onPrimaryContainer,
+                textColor = if(inverseStyle) {
+                    onSecondaryContainer
+                } else {
+                    onPrimaryContainer
+                },
                 textAlign = TextAlign.Center,
                 textBold = true
             )
