@@ -10,18 +10,26 @@ import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 @Composable
 fun SignInScreen(
     modifier: Modifier = Modifier,
-    goToHomeScreen: () -> Unit,
+    onGoToHome: () -> Unit,
+    onGoToSignUp: () -> Unit
 ) {
-    SignInScreenContent(modifier = modifier) { _, _ ->
-        goToHomeScreen()
-    }
+    SignInScreenContent(
+        modifier = modifier,
+        onLoginClick = { _, _ ->
+            onGoToHome()
+        },
+        onGoToSignUp = onGoToSignUp
+    )
 }
 
 @Preview(device = Devices.TV_1080p)
 @Composable
-fun LoginScreenPrev() {
+fun SignInScreenPrev() {
     TvNexaTheme {
-        SignInScreen(Modifier.fillMaxSize()) {
-        }
+        SignInScreen(
+            modifier = Modifier.fillMaxSize(),
+            onGoToHome = {},
+            onGoToSignUp = {}
+        )
     }
 }

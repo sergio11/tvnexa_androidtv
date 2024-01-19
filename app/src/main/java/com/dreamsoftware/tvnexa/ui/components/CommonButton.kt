@@ -13,24 +13,31 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Button
 import androidx.tv.material3.ButtonDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 
-private val DEFAULT_BUTTON_WIDTH = 200.dp
-private val DEFAULT_BUTTON_HEIGHT = 55.dp
+private val DEFAULT_BUTTON_LARGE_WIDTH = 200.dp
+private val DEFAULT_BUTTON_LARGE_HEIGHT = 55.dp
+private val DEFAULT_BUTTON_MEDIUM_WIDTH = 150.dp
+private val DEFAULT_BUTTON_MEDIUM_HEIGHT = 40.dp
+private val DEFAULT_BUTTON_SMALL_WIDTH = 100.dp
+private val DEFAULT_BUTTON_SMALL_HEIGHT = 35.dp
+
+enum class CommonButtonTypeEnum {
+    SMALL,
+    MEDIUM,
+    LARGE
+}
 
 @Composable
 fun CommonButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
-    widthDp: Dp = DEFAULT_BUTTON_WIDTH,
-    heightDp: Dp = DEFAULT_BUTTON_HEIGHT,
+    type: CommonButtonTypeEnum = CommonButtonTypeEnum.MEDIUM,
     enableBorder: Boolean = true,
-    textType: CommonTextTypeEnum = CommonTextTypeEnum.TITLE_MEDIUM,
     buttonShape: Shape = RoundedCornerShape(percent = 20),
     text: String,
     inverseStyle: Boolean = false,
@@ -41,8 +48,16 @@ fun CommonButton(
             onClick = onClick,
             modifier = modifier.then(
                 Modifier
-                    .width(widthDp)
-                    .height(heightDp)
+                    .width(when(type) {
+                        CommonButtonTypeEnum.SMALL -> DEFAULT_BUTTON_SMALL_WIDTH
+                        CommonButtonTypeEnum.MEDIUM -> DEFAULT_BUTTON_MEDIUM_WIDTH
+                        CommonButtonTypeEnum.LARGE -> DEFAULT_BUTTON_LARGE_WIDTH
+                    })
+                    .height(when(type) {
+                        CommonButtonTypeEnum.SMALL -> DEFAULT_BUTTON_SMALL_HEIGHT
+                        CommonButtonTypeEnum.MEDIUM -> DEFAULT_BUTTON_MEDIUM_HEIGHT
+                        CommonButtonTypeEnum.LARGE -> DEFAULT_BUTTON_LARGE_HEIGHT
+                    })
                     .clip(buttonShape)
                     .border(
                         width = if (enableBorder) {
@@ -88,9 +103,12 @@ fun CommonButton(
         ) {
             CommonText(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .padding(vertical = 6.dp),
-                type = textType,
+                    .fillMaxSize(),
+                type = when(type) {
+                    CommonButtonTypeEnum.SMALL -> CommonTextTypeEnum.BODY_SMALL
+                    CommonButtonTypeEnum.MEDIUM -> CommonTextTypeEnum.BODY_MEDIUM
+                    CommonButtonTypeEnum.LARGE -> CommonTextTypeEnum.BODY_LARGE
+                },
                 titleText = text,
                 textColor = if(inverseStyle) {
                     onSecondaryContainer

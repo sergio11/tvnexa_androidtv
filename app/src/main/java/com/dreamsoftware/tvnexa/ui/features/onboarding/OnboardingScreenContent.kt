@@ -4,12 +4,14 @@ package com.dreamsoftware.tvnexa.ui.features.onboarding
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -21,9 +23,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
+import com.dreamsoftware.tvnexa.ui.components.CommonButtonTypeEnum
+import com.dreamsoftware.tvnexa.ui.components.CommonText
+import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
 
 @Composable
@@ -33,20 +37,34 @@ fun OnboardingScreenContent(
     onGoToSignUp: () -> Unit,
 ) {
     Box(
-        modifier = modifier.fillMaxSize()
+        modifier = modifier
+            .fillMaxSize(),
+        contentAlignment = Alignment.Center
     ) {
         OnboardingVideoBackground()
-        Row {
-            val commonModifier = Modifier
-                .fillMaxSize()
-                .weight(0.8f)
-            OnBoardingLogo(modifier = commonModifier)
-            OnboardingContentInfo(modifier = commonModifier)
+        Column(
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth(0.9f)
+        ) {
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.8f)
+            ) {
+                val commonModifier = Modifier
+                    .fillMaxSize()
+                    .weight(0.8f)
+                OnBoardingLogo(modifier = commonModifier)
+                OnboardingContentInfo(modifier = commonModifier)
+            }
+            OnBoardingActions(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                onGoToSignIn = onGoToSignIn,
+                onGoToSignUp = onGoToSignUp
+            )
         }
-        OnBoardingActions(
-            onGoToSignIn = onGoToSignIn,
-            onGoToSignUp = onGoToSignUp
-        )
     }
 }
 
@@ -77,23 +95,23 @@ private fun OnboardingContentInfo(modifier: Modifier) {
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
-            Text(
-                text = "Explore the World of TVNexa!",
-                style = MaterialTheme.typography.headlineLarge,
+            CommonText(
+                titleText = "Explore the World of TVNexa!",
+                type = CommonTextTypeEnum.HEADLINE_LARGE,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             Spacer(modifier = Modifier.height(20.dp))
-            Text(
-                text = "Discover a vast collection of television channels and enjoy an immersive viewing experience. Explore international channels with IPTV, bringing you content from around the globe.",
-                style = MaterialTheme.typography.bodyLarge,
+            CommonText(
+                titleText = "Discover a vast collection of television channels and enjoy an immersive viewing experience. Explore international channels with IPTV, bringing you content from around the globe.",
+                type = CommonTextTypeEnum.BODY_LARGE,
                 textAlign = TextAlign.Center
             )
             Spacer(modifier = Modifier.height(40.dp))
-            Text(
-                text = "Sign in or Sign up to unlock the full potential of TVNexa.",
-                style = MaterialTheme.typography.bodyMedium,
-                textAlign = TextAlign.Center,
+            CommonText(
+                titleText = "Sign in or Sign up to unlock the full potential of TVNexa.",
+                type = CommonTextTypeEnum.BODY_MEDIUM,
+                textAlign = TextAlign.Center
             )
         }
     }
@@ -110,21 +128,30 @@ private fun OnboardingVideoBackground() {
 }
 
 @Composable
-private fun BoxScope.OnBoardingActions(
+private fun OnBoardingActions(
+    modifier: Modifier,
     onGoToSignIn: () -> Unit,
     onGoToSignUp: () -> Unit
 ) {
     Row (
-        modifier = Modifier
-            .align(Alignment.BottomEnd)
-            .padding(30.dp)
+        modifier = modifier,
+        horizontalArrangement = Arrangement.End,
+        verticalAlignment = Alignment.CenterVertically
     ){
+        CommonText(
+            titleText = "Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024",
+            type = CommonTextTypeEnum.LABEL_MEDIUM,
+            textAlign = TextAlign.Center
+        )
+        Spacer(modifier = Modifier.weight(1f))
         CommonButton(
+            type = CommonButtonTypeEnum.LARGE,
+            text = "Sign In",
             onClick = onGoToSignIn,
-            text = "Sign In"
         )
         Spacer(modifier = Modifier.width(30.dp))
         CommonButton(
+            type = CommonButtonTypeEnum.LARGE,
             onClick = onGoToSignUp,
             text = "Sign Up",
             inverseStyle = true
