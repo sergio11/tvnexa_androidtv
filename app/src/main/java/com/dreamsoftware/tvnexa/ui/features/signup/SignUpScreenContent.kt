@@ -7,6 +7,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -14,12 +15,13 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.PersonOutline
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -29,18 +31,21 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
-import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
+import com.dreamsoftware.tvnexa.ui.components.CommonButtonTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonFullScreenImage
+import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextField
 import com.dreamsoftware.tvnexa.ui.components.CommonTextFieldTypeEnum
+import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
 fun SignUpScreenContent(
     modifier: Modifier = Modifier,
-    onLoginClick: (email: String, password: String) -> Unit,
+    onSigUpButtonPressed: () -> Unit,
+    onCancelPressed: () -> Unit
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
@@ -48,34 +53,29 @@ fun SignUpScreenContent(
     ) {
         SignUpVideoBackground()
         Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
+            modifier = Modifier
+                .fillMaxHeight()
+                .fillMaxWidth(0.8f),
+            verticalArrangement = Arrangement.SpaceEvenly,
         ) {
-            Row(
+            SignUpFormContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.8f),
-                verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceEvenly
-            ) {
-                val commonModifier = Modifier
-                    .fillMaxSize()
-                    .weight(1f)
-                    .padding(16.dp)
-                SignUpFormInfo(modifier = commonModifier)
-                SignUpFormContent(modifier = commonModifier, onLoginClick = onLoginClick)
-            }
+                onCancelPressed = onCancelPressed,
+                onSigUpButtonPressed = onSigUpButtonPressed
+            )
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.2f),
-                horizontalArrangement = Arrangement.SpaceEvenly
+                horizontalArrangement = Arrangement.SpaceEvenly,
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(
-                    text = "Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024",
-                    style = MaterialTheme.typography.labelMedium,
-                    textAlign = TextAlign.Start,
-                    modifier = Modifier.padding(bottom = 8.dp)
+                CommonText(
+                    titleText = "Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024",
+                    type = CommonTextTypeEnum.LABEL_MEDIUM,
+                    textAlign = TextAlign.Start
                 )
             }
         }
@@ -93,94 +93,133 @@ private fun SignUpVideoBackground() {
 }
 
 @Composable
-private fun SignUpFormInfo(modifier: Modifier) {
+private fun SignUpFormContent(
+    modifier: Modifier,
+    onSigUpButtonPressed: () -> Unit,
+    onCancelPressed: () -> Unit
+) {
     Box(
-        modifier = modifier,
-        contentAlignment = Alignment.Center
+        modifier = modifier
     ) {
+        CommonButton(
+            modifier = Modifier
+                .align(Alignment.TopStart),
+            type = CommonButtonTypeEnum.SMALL,
+            onClick = onCancelPressed,
+            inverseStyle = true,
+            text = "Cancel"
+        )
         Image(
             painter = painterResource(id = R.drawable.tvnexa_logo_inverse),
             contentDescription = null,
             modifier = Modifier
-                .height(120.dp)
-                .align(Alignment.TopStart)
+                .height(80.dp)
+                .align(Alignment.TopEnd)
         )
         Column(
-            modifier = Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier
+                .align(Alignment.TopCenter)
+                .fillMaxWidth(0.5f)
+                .padding(top = 20.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Text(
-                text = "Welcome to TVNexa!",
-                style = MaterialTheme.typography.headlineMedium,
-                textAlign = TextAlign.Center,
-                modifier = Modifier.padding(bottom = 8.dp)
+            CommonText(
+                titleText = "Explore global TV on TVNexa!",
+                type = CommonTextTypeEnum.TITLE_LARGE,
             )
-            Spacer(modifier = Modifier.height(20.dp))
-            Text(
-                text = "Enter your credentials to explore a diverse universe of television channels from around the world.",
-                style = MaterialTheme.typography.bodyLarge,
+            Spacer(modifier = Modifier.height(10.dp))
+            CommonText(
+                titleText = "Sign up now for diverse channels and captivating content",
+                type = CommonTextTypeEnum.TITLE_SMALL,
                 textAlign = TextAlign.Center
             )
         }
+        Row(
+            modifier = Modifier
+                .align(Alignment.Center)
+                .fillMaxHeight(0.7f),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            UserInfoFormColumn()
+            Spacer(modifier = Modifier.width(40.dp))
+            UserCredentialsInfoFormColumn()
+        }
+        CommonButton(
+            modifier = Modifier.align(Alignment.BottomCenter),
+            onClick = onSigUpButtonPressed,
+            text = "Create Account"
+        )
     }
 }
 
 @Composable
-private fun SignUpFormContent(
-    modifier: Modifier,
-    onLoginClick: (email: String, password: String) -> Unit
-) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        val username = remember { mutableStateOf("") }
-        val password = remember { mutableStateOf("") }
-
-        SignUpScreenHeading("Access Your Account")
-        Spacer(modifier = Modifier.height(20.dp))
+private fun UserInfoFormColumn() {
+    FormColumn {
         CommonTextField(
             icon = Icons.Filled.Person,
-            value = username.value,
-            label = "Username",
-            onValueChange =  {
-                username.value = it
-            }
+            value = "",
+            label = "Firstname",
+            onValueChange =  {}
         )
-        Spacer(modifier = Modifier.height(20.dp))
         CommonTextField(
-            icon = Icons.Filled.Password,
-            value = password.value,
-            type = CommonTextFieldTypeEnum.PASSWORD,
-            label = "Password",
-            onValueChange =  {
-                password.value = it
-            }
+            icon = Icons.Filled.PersonOutline,
+            value = "",
+            label = "Surname",
+            onValueChange =  {}
         )
-        Spacer(modifier = Modifier.height(40.dp))
-        CommonButton(
-            modifier = Modifier.padding(start = 20.dp, end = 20.dp),
-            onClick = { onLoginClick(username.value, password.value) },
-            text = "Sign In"
+        CommonTextField(
+            icon = Icons.Filled.Email,
+            value = "",
+            type = CommonTextFieldTypeEnum.EMAIL,
+            label = "Email",
+            onValueChange =  {}
         )
     }
 }
 
 @Composable
-private fun SignUpScreenHeading(heading: String) {
-    Text(
-        text = heading,
-        style = MaterialTheme.typography.headlineLarge,
-    )
+private fun UserCredentialsInfoFormColumn() {
+    FormColumn {
+        CommonTextField(
+            icon = Icons.Filled.Person,
+            value = "",
+            label = "Username",
+            onValueChange =  {}
+        )
+        CommonTextField(
+            icon = Icons.Filled.Password,
+            value = "",
+            type = CommonTextFieldTypeEnum.PASSWORD,
+            label = "Password",
+            onValueChange =  {}
+        )
+        CommonTextField(
+            icon = Icons.Filled.Password,
+            value = "",
+            type = CommonTextFieldTypeEnum.PASSWORD,
+            label = "Repeat Password",
+            onValueChange =  {}
+        )
+    }
 }
 
+@Composable
+private fun FormColumn(content: @Composable ColumnScope.() -> Unit) {
+    Column(
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        content = content
+    )
+}
 
 @Preview(device = Devices.TV_1080p)
 @Composable
 fun SignUpPrev() {
     TvNexaTheme {
-        SignUpScreenContent { u, p ->
-        }
+        SignUpScreenContent(
+            onSigUpButtonPressed = {},
+            onCancelPressed = {}
+        )
     }
 }
