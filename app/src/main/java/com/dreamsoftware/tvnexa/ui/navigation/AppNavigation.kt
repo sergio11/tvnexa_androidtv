@@ -13,6 +13,7 @@ import com.dreamsoftware.tvnexa.ui.features.home.HomeViewModel
 import com.dreamsoftware.tvnexa.ui.features.onboarding.OnboardingScreen
 import com.dreamsoftware.tvnexa.ui.features.signin.SignInScreen
 import com.dreamsoftware.tvnexa.ui.features.player.PlayerScreen
+import com.dreamsoftware.tvnexa.ui.features.signup.SignUpScreen
 import com.dreamsoftware.tvnexa.ui.features.wiw.WhoIsWatchingScreen
 import com.dreamsoftware.tvnexa.ui.navigation.extensions.navigateSingleTopTo
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -24,17 +25,34 @@ fun AppNavigation(navController: NavHostController, homeViewModel: HomeViewModel
     AnimatedNavHost(navController = navController, startDestination = Screens.Onboarding.path) {
 
         composable(Screens.Onboarding.path) {
-            OnboardingScreen(
-                onGoToSignIn = {
-                    navController.navigate(Screens.SignIn.path)
-                },
-                onGoToSignUp = {}
-            )
+            with(navController) {
+                OnboardingScreen(
+                    onGoToSignIn = {
+                        navigate(Screens.SignIn.path)
+                    },
+                    onGoToSignUp = {
+                        navigate(Screens.SignUp.path)
+                    }
+                )
+            }
         }
 
         composable(Screens.SignIn.path) {
-            SignInScreen {
-                navController.navigateSingleTopTo(Screens.WhoIsWatching.path)
+            with(navController) {
+                SignInScreen(
+                    onGoToHome = {
+                        navigateSingleTopTo(Screens.WhoIsWatching.path)
+                    },
+                    onGoToSignUp = {
+                        navigateSingleTopTo(Screens.SignUp.path)
+                    }
+                )
+            }
+        }
+
+        composable(Screens.SignUp.path) {
+            SignUpScreen {
+
             }
         }
 
