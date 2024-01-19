@@ -1,6 +1,5 @@
 package com.dreamsoftware.tvnexa.ui.components
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -16,35 +15,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.Dialog
 import com.dreamsoftware.tvnexa.R
-
-@Composable
-fun CustomDialog(openDialogCustom: MutableState<Boolean>, onExitClick: () -> Unit) {
-    Dialog(onDismissRequest = { openDialogCustom.value = false }) {
-        CustomDialogUI(openDialogCustom = openDialogCustom) {
-            onExitClick()
-        }
-    }
-}
 
 // Layout
 @Composable
-fun CustomDialogUI(
+fun CommonDialogUI(
     modifier: Modifier = Modifier,
-    openDialogCustom: MutableState<Boolean>,
-    onExitClick: () -> Unit,
+    onDismissPressed: () -> Unit,
+    onExitPressed: () -> Unit,
 ) {
     Card(
         shape = RoundedCornerShape(10.dp),
@@ -89,9 +74,7 @@ fun CustomDialogUI(
                     .padding(top = 10.dp)
                     .background(MaterialTheme.colorScheme.background.copy(0.2F)),
             ) {
-                TextButton(onClick = {
-                    openDialogCustom.value = false
-                }, modifier = Modifier.weight(1F), shape = RoundedCornerShape(0.dp)) {
+                TextButton(onClick = onDismissPressed, modifier = Modifier.weight(1F), shape = RoundedCornerShape(0.dp)) {
                     Text(
                         "No",
                         fontWeight = FontWeight.Bold,
@@ -105,10 +88,7 @@ fun CustomDialogUI(
                         .width(1.dp),
                 )
 
-                TextButton(onClick = {
-                    openDialogCustom.value = false
-                    onExitClick()
-                }, modifier = Modifier.weight(1F), shape = RoundedCornerShape(0.dp)) {
+                TextButton(onClick = onExitPressed, modifier = Modifier.weight(1F), shape = RoundedCornerShape(0.dp)) {
                     Text(
                         "Yes",
                         fontWeight = FontWeight.ExtraBold,
@@ -118,11 +98,4 @@ fun CustomDialogUI(
             }
         }
     }
-}
-
-@SuppressLint("UnrememberedMutableState")
-@Preview(name = "Custom Dialog")
-@Composable
-fun MyDialogUIPreview() {
-    CustomDialogUI(openDialogCustom = mutableStateOf(false)) {}
 }
