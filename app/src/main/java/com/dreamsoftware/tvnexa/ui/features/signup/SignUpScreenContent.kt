@@ -207,7 +207,7 @@ private fun UserCredentialsInfoFormColumn() {
 @Composable
 private fun FormColumn(content: @Composable ColumnScope.() -> Unit) {
     Column(
-        verticalArrangement = Arrangement.SpaceEvenly,
+        verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally,
         content = content
     )
