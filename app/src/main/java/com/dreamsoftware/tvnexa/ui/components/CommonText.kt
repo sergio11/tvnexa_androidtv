@@ -16,7 +16,6 @@ import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.tvnexa.R
 
 private const val DEFAULT_MAX_LINES = Int.MAX_VALUE
-private val DEFAULT_TEXT_COLOR = Color.Black
 
 enum class CommonTextTypeEnum {
     TITLE_LARGE,
@@ -42,36 +41,38 @@ fun CommonText(
     singleLine: Boolean = false,
     textBold: Boolean = false,
     maxLines: Int = DEFAULT_MAX_LINES,
-    textColor: Color = DEFAULT_TEXT_COLOR,
+    textColor: Color? = null,
     textAlign: TextAlign? = null
 ) {
-    CommonTextComponent(
-        modifier = modifier,
-        singleLine = singleLine,
-        text = titleRes?.let {
-            stringResource(id = it)
-        } ?: titleText ?: stringResource(id = R.string.no_text_value),
-        maxLines = maxLines,
-        textColor = textColor,
-        textAlign = textAlign,
-        textBold = textBold,
-        textStyle = with(MaterialTheme.typography) {
-            when (type) {
-                CommonTextTypeEnum.TITLE_LARGE -> titleLarge
-                CommonTextTypeEnum.TITLE_MEDIUM -> titleMedium
-                CommonTextTypeEnum.TITLE_SMALL -> titleSmall
-                CommonTextTypeEnum.LABEL_LARGE -> labelLarge
-                CommonTextTypeEnum.LABEL_MEDIUM -> labelMedium
-                CommonTextTypeEnum.LABEL_SMALL -> labelSmall
-                CommonTextTypeEnum.BODY_SMALL -> bodySmall
-                CommonTextTypeEnum.BODY_MEDIUM -> bodyMedium
-                CommonTextTypeEnum.BODY_LARGE -> bodyLarge
-                CommonTextTypeEnum.HEADLINE_SMALL -> headlineSmall
-                CommonTextTypeEnum.HEADLINE_MEDIUM -> headlineMedium
-                CommonTextTypeEnum.HEADLINE_LARGE -> headlineLarge
+    with(MaterialTheme.colorScheme) {
+        CommonTextComponent(
+            modifier = modifier,
+            singleLine = singleLine,
+            text = titleRes?.let {
+                stringResource(id = it)
+            } ?: titleText ?: stringResource(id = R.string.no_text_value),
+            maxLines = maxLines,
+            textColor = textColor ?: onPrimary,
+            textAlign = textAlign,
+            textBold = textBold,
+            textStyle = with(MaterialTheme.typography) {
+                when (type) {
+                    CommonTextTypeEnum.TITLE_LARGE -> titleLarge
+                    CommonTextTypeEnum.TITLE_MEDIUM -> titleMedium
+                    CommonTextTypeEnum.TITLE_SMALL -> titleSmall
+                    CommonTextTypeEnum.LABEL_LARGE -> labelLarge
+                    CommonTextTypeEnum.LABEL_MEDIUM -> labelMedium
+                    CommonTextTypeEnum.LABEL_SMALL -> labelSmall
+                    CommonTextTypeEnum.BODY_SMALL -> bodySmall
+                    CommonTextTypeEnum.BODY_MEDIUM -> bodyMedium
+                    CommonTextTypeEnum.BODY_LARGE -> bodyLarge
+                    CommonTextTypeEnum.HEADLINE_SMALL -> headlineSmall
+                    CommonTextTypeEnum.HEADLINE_MEDIUM -> headlineMedium
+                    CommonTextTypeEnum.HEADLINE_LARGE -> headlineLarge
+                }
             }
-        }
-    )
+        )
+    }
 }
 
 @Composable
