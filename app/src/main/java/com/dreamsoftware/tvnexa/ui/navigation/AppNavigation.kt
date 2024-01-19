@@ -51,8 +51,15 @@ fun AppNavigation(navController: NavHostController, homeViewModel: HomeViewModel
         }
 
         composable(Screens.SignUp.path) {
-            SignUpScreen {
+            with(navController) {
+                SignUpScreen(
+                    onGoToHomeScreen = {
 
+                    },
+                    onBack = {
+                        popBackStack()
+                    }
+                )
             }
         }
 
