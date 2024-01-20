@@ -21,7 +21,7 @@ import com.google.accompanist.navigation.animation.composable
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun AppNavigation(navController: NavHostController, homeViewModel: HomeViewModel) {
+fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewModel) {
     AnimatedNavHost(navController = navController, startDestination = Screens.Onboarding.path) {
 
         composable(Screens.Onboarding.path) {
@@ -65,11 +65,11 @@ fun AppNavigation(navController: NavHostController, homeViewModel: HomeViewModel
 
         composable(Screens.WhoIsWatching.path) {
             WhoIsWatchingScreen {
-                navController.navigateSingleTopTo(Screens.Home.path)
+                navController.navigateSingleTopTo(Screens.Home.DEFAULT.path)
             }
         }
 
-        composable(Screens.Home.path) {
+        composable(Screens.Home.DEFAULT.path) {
             HomeScreen(homeViewModel) { _, _ ->
                 navController.navigate(Screens.ProductDetail.path)
             }
