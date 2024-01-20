@@ -44,7 +44,7 @@ fun AppNavigation(navController: NavHostController, homeViewModel: HomeViewModel
                         navigateSingleTopTo(Screens.WhoIsWatching.path)
                     },
                     onGoToSignUp = {
-                        navigateSingleTopTo(Screens.SignUp.path)
+                        navigate(Screens.SignUp.path)
                     }
                 )
             }
