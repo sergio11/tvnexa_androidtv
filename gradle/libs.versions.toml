@@ -24,9 +24,8 @@ androidx-corektx = "1.12.0"
 accompanist = "0.31.0-alpha"
 androidx-lifecycle = "2.6.1"
 androidxHiltNavigationCompose = "1.1.0-alpha01"
-qr_code = "1.5.3"
 timber = "5.0.1"
-hilt = "2.45"
+hilt = "2.48"
 datastore-preferences = "1.0.0"
 tv-compose = "1.0.0-alpha10"
 line_awesome = "1.0.0"
@@ -73,7 +72,6 @@ hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt"
 hilt-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 
 moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshiKotlin" }
-qrcode = { module = "com.github.alexzhirkevich:custom-qr-generator", version.ref = "qr_code" }
 line-awesome-icons = { module = "br.com.devsrsouza.compose.icons.android:line-awesome", version.ref = "line_awesome" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
