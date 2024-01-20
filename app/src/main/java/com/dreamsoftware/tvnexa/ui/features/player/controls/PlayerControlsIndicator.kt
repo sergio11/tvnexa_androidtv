@@ -26,7 +26,7 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
-import com.dreamsoftware.tvnexa.utils.handleDPadKeyEvents
+import com.dreamsoftware.tvnexa.ui.extensions.handleDPadKeyEvents
 
 @OptIn(ExperimentalComposeUiApi::class, ExperimentalTvMaterial3Api::class)
 @Composable
