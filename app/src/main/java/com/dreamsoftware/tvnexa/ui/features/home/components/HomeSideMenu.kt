@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTvMaterial3Api::class)
 
-package com.dreamsoftware.tvnexa.ui.features.home.navigation.drawer
+package com.dreamsoftware.tvnexa.ui.features.home.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -141,7 +141,7 @@ private fun NavigationDrawerScope.SideMenuItem(
             enabled = enabled,
             colors = NavigationDrawerItemDefaults.colors(
                 selectedContainerColor = primary.copy(alpha = 0.5f),
-                focusedContainerColor = primary.copy(alpha = 0.5f),
+                focusedContainerColor = primary,
             ),
             onClick = {
                 onMenuItemSelected?.invoke(item)
@@ -150,7 +150,7 @@ private fun NavigationDrawerScope.SideMenuItem(
                 Icon(
                     imageVector = item.icon ?: return@NavigationDrawerItem,
                     contentDescription = item.text,
-                    tint = if(isFocused) {
+                    tint = if(isFocused || isSelected) {
                         onPrimary
                     } else {
                         primary
@@ -162,7 +162,7 @@ private fun NavigationDrawerScope.SideMenuItem(
             CommonText(
                 titleText = item.text,
                 type = CommonTextTypeEnum.TITLE_MEDIUM,
-                textColor = if(isFocused) {
+                textColor = if(isFocused || isSelected) {
                     onPrimary
                 } else {
                     primary

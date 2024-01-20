@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTvMaterial3Api::class)
 
-package com.dreamsoftware.tvnexa.ui.features.home.hero
+package com.dreamsoftware.tvnexa.ui.features.channels.hero
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

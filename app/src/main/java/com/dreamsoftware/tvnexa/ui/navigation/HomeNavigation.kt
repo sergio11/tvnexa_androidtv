@@ -1,55 +1,53 @@
-package com.dreamsoftware.tvnexa.ui.features.home.navigation
+package com.dreamsoftware.tvnexa.ui.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.dreamsoftware.tvnexa.ui.features.favorites.FavoritesScreen
-import com.dreamsoftware.tvnexa.ui.features.home.HomeNestedScreen
+import com.dreamsoftware.tvnexa.ui.features.channels.ChannelsScreen
 import com.dreamsoftware.tvnexa.ui.features.movies.MoviesScreen
 import com.dreamsoftware.tvnexa.ui.features.search.SearchScreen
 import com.dreamsoftware.tvnexa.ui.features.settings.SettingsScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
-import com.dreamsoftware.tvnexa.ui.navigation.tabEnterTransition
-import com.dreamsoftware.tvnexa.ui.navigation.tabExitTransition
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun NestedHomeScreenNavigation(
+fun HomeNavigation(
     navController: NavHostController,
     onItemClick: (parent: Int, child: Int) -> Unit
 ) {
-    AnimatedNavHost(navController = navController, startDestination = NestedScreens.Home.title) {
+    AnimatedNavHost(navController = navController, startDestination = Screens.Home.Channels.path) {
         composable(
-            NestedScreens.Home.title,
+            Screens.Home.Channels.path,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
-            HomeNestedScreen(onItemFocus = { _, _ -> }, onItemClick = onItemClick)
+            ChannelsScreen(onItemFocus = { _, _ -> }, onItemClick = onItemClick)
         }
 
         composable(
-            NestedScreens.Search.title,
+            Screens.Home.Search.path,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
             SearchScreen()
         }
 
         composable(
-            NestedScreens.Movies.title,
+            Screens.Home.Movies.path,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
             MoviesScreen(onItemClick)
         }
 
         composable(
-            NestedScreens.Favorites.title,
+            Screens.Home.Favorites.path,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
             FavoritesScreen()
         }
 
         composable(
-            NestedScreens.Settings.title,
+            Screens.Home.Settings.path,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
             SettingsScreen()
