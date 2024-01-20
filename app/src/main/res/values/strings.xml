@@ -7,4 +7,16 @@
     <string name="release_year">2022</string>
     <string name="movie_duration_text">2h 56mm</string>
     <string name="no_text_value">--</string>
+
+    <!-- Common -->
+    <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
+
+    <!-- Onboarding -->
+    <string name="onboarding_main_title_text">Explore the World of TVNexa!</string>
+    <string name="onboarding_secondary_title_text">Discover a vast collection of television channels and enjoy an immersive viewing experience. Explore international channels with IPTV, bringing you content from around the globe.</string>
+    <string name="onboarding_additional_info_text">Sign in or Sign up to unlock the full potential of TVNexa.</string>
+    <string name="onboarding_sign_in_button_text">Sign In</string>
+    <string name="onboarding_sign_up_button_text">Sign Up</string>
+
+
 </resources>
