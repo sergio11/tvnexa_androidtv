@@ -19,10 +19,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.viewinterop.AndroidView
-import com.dreamsoftware.tvnexa.utils.handleDPadKeyEvents
 import com.dreamsoftware.exoplayer.PlayerFactory
 import com.dreamsoftware.player.domain.state.PlayerState
 import com.dreamsoftware.player.domain.state.PlayerStateListener
+import com.dreamsoftware.tvnexa.ui.extensions.handleDPadKeyEvents
 import com.dreamsoftware.tvnexa.ui.features.player.controls.PlayerControls
 import com.dreamsoftware.tvnexa.ui.features.player.controls.rememberVideoPlayerState
 import kotlinx.coroutines.delay
