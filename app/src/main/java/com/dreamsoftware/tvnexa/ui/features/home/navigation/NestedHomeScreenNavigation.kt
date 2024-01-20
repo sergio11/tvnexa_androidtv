@@ -12,18 +12,14 @@ import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.dreamsoftware.tvnexa.ui.navigation.tabEnterTransition
 import com.dreamsoftware.tvnexa.ui.navigation.tabExitTransition
-import kotlinx.coroutines.flow.StateFlow
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun NestedHomeScreenNavigation(
-    usedTopBar: StateFlow<Boolean>,
-    toggleTopBar: () -> Unit,
     navController: NavHostController,
     onItemClick: (parent: Int, child: Int) -> Unit
 ) {
     AnimatedNavHost(navController = navController, startDestination = NestedScreens.Home.title) {
-        // e.g will add auth routes here if when we will extend project
         composable(
             NestedScreens.Home.title,
             enterTransition = { tabEnterTransition() },
@@ -56,7 +52,7 @@ fun NestedHomeScreenNavigation(
             NestedScreens.Settings.title,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
-            SettingsScreen(toggleTopBar = toggleTopBar, usedTopBar = usedTopBar)
+            SettingsScreen()
         }
     }
 }
