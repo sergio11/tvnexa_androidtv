@@ -14,7 +14,7 @@ import androidx.tv.foundation.lazy.grid.TvGridItemSpan
 import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.Text
-import com.dreamsoftware.tvnexa.ui.features.home.carousel.VerticalCarouselItem
+import com.dreamsoftware.tvnexa.ui.features.channels.carousel.VerticalCarouselItem
 
 @Composable
 fun FavoritesScreen() {

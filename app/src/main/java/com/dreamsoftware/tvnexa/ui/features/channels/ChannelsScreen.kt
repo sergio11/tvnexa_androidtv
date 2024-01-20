@@ -1,4 +1,4 @@
-package com.dreamsoftware.tvnexa.ui.features.home
+package com.dreamsoftware.tvnexa.ui.features.channels
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -6,11 +6,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
-import com.dreamsoftware.tvnexa.ui.features.home.carousel.HomeCarousel
-import com.dreamsoftware.tvnexa.ui.features.home.hero.HeroItem
+import com.dreamsoftware.tvnexa.ui.features.channels.carousel.HomeCarousel
+import com.dreamsoftware.tvnexa.ui.features.channels.hero.HeroItem
 
 @Composable
-fun HomeNestedScreen(
+fun ChannelsScreen(
     onItemFocus: (parent: Int, child: Int) -> Unit,
     onItemClick: (parent: Int, child: Int) -> Unit,
 ) {
