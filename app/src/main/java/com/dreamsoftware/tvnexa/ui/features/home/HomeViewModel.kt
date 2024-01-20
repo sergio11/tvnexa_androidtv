@@ -1,9 +1,9 @@
 package com.dreamsoftware.tvnexa.ui.features.home
 
 import androidx.lifecycle.ViewModel
+import com.dreamsoftware.tvnexa.ui.extensions.toMutable
 import com.dreamsoftware.tvnexa.ui.features.home.leftmenu.data.MenuData
 import com.dreamsoftware.tvnexa.ui.features.home.leftmenu.model.MenuItem
-import com.dreamsoftware.tvnexa.utils.toMutable
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
