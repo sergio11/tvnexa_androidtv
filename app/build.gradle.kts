@@ -70,13 +70,13 @@ dependencies {
     implementation(libs.androidx.material.icons.extended)
 
     implementation(libs.hilt.android)
-    implementation(libs.profileinstaller)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
 
     implementation(libs.androidx.lifecycle.viewModelCompose)
-    implementation(libs.qrcode)
     implementation(libs.line.awesome.icons)
+
+    implementation(libs.androidx.core.splashscreen)
 
     /*implementation "com.squareup.retrofit2:retrofit:2.9.0"
     implementation "com.squareup.retrofit2:converter-moshi:2.9.0"

@@ -2,5 +2,17 @@
 
     <style name="Theme.TvNexa" parent="android:Theme.Material">
         <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <style name="SplashScreenTheme" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimationDuration">800</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/tvnexa_logo_splash</item>
+        <item name="postSplashScreenTheme">@style/Theme.TvNexa</item>
+        <!-- Status bar and Nav bar configs -->
+        <item name="android:statusBarColor">@color/white</item>
+        <item name="android:navigationBarColor">@color/white</item>
+        <item name="android:windowLightStatusBar">true</item>
     </style>
 </resources>
