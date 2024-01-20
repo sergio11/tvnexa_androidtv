@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -33,16 +34,22 @@ enum class CommonButtonTypeEnum {
     LARGE
 }
 
+enum class CommonButtonStyleTypeEnum {
+    NORMAL,
+    INVERSE,
+    TRANSPARENT
+}
+
 @Composable
 fun CommonButton(
     modifier: Modifier = Modifier,
     enabled: Boolean = true,
     type: CommonButtonTypeEnum = CommonButtonTypeEnum.MEDIUM,
+    style: CommonButtonStyleTypeEnum = CommonButtonStyleTypeEnum.NORMAL,
     enableBorder: Boolean = true,
     buttonShape: Shape = RoundedCornerShape(percent = 20),
     text: String? = null,
     textRes: Int? = null,
-    inverseStyle: Boolean = false,
     onClick: () -> Unit,
 ) {
     with(MaterialTheme.colorScheme) {
@@ -71,10 +78,10 @@ fun CommonButton(
                         } else {
                             0.dp
                         },
-                        color = if (inverseStyle) {
-                            onSecondaryContainer
-                        } else {
-                            onPrimaryContainer
+                        color = when(style) {
+                            CommonButtonStyleTypeEnum.NORMAL -> onPrimaryContainer
+                            CommonButtonStyleTypeEnum.INVERSE -> onSecondaryContainer
+                            CommonButtonStyleTypeEnum.TRANSPARENT -> surface
                         },
                         shape = buttonShape
                     )
@@ -82,28 +89,28 @@ fun CommonButton(
             enabled = enabled,
             shape = ButtonDefaults.shape(shape = buttonShape),
             colors = ButtonDefaults.colors(
-                containerColor = if(inverseStyle) {
-                    if (enableBorder) {
-                        secondaryContainer.copy(alpha = 0.8f)
-                    } else {
-                        secondaryContainer
-                    }
-                } else {
-                    if (enableBorder) {
+                containerColor = when(style) {
+                    CommonButtonStyleTypeEnum.NORMAL -> if (enableBorder) {
                         primaryContainer.copy(alpha = 0.8f)
                     } else {
                         primaryContainer
                     }
+                    CommonButtonStyleTypeEnum.INVERSE -> if (enableBorder) {
+                        secondaryContainer.copy(alpha = 0.8f)
+                    } else {
+                        secondaryContainer
+                    }
+                    CommonButtonStyleTypeEnum.TRANSPARENT -> Color.Transparent
                 },
-                contentColor = if(inverseStyle) {
-                    onSecondaryContainer
-                } else {
-                    onPrimaryContainer
+                contentColor = when(style) {
+                    CommonButtonStyleTypeEnum.NORMAL -> onPrimaryContainer
+                    CommonButtonStyleTypeEnum.INVERSE -> onSecondaryContainer
+                    CommonButtonStyleTypeEnum.TRANSPARENT -> surface
                 },
-                focusedContainerColor = if(inverseStyle) {
-                    onSecondary.copy(alpha = 0.6f)
-                } else {
-                    onPrimary.copy(alpha = 0.6f)
+                focusedContainerColor = when(style) {
+                    CommonButtonStyleTypeEnum.NORMAL -> onPrimary.copy(alpha = 0.6f)
+                    CommonButtonStyleTypeEnum.INVERSE ->  onSecondary.copy(alpha = 0.6f)
+                    CommonButtonStyleTypeEnum.TRANSPARENT -> surface.copy(alpha = 0.6f)
                 }
             )
         ) {
@@ -120,10 +127,10 @@ fun CommonButton(
                     },
                     titleText = text,
                     titleRes = textRes,
-                    textColor = if(inverseStyle) {
-                        onSecondaryContainer
-                    } else {
-                        onPrimaryContainer
+                    textColor = when(style) {
+                        CommonButtonStyleTypeEnum.NORMAL -> onPrimaryContainer
+                        CommonButtonStyleTypeEnum.INVERSE -> onSecondaryContainer
+                        CommonButtonStyleTypeEnum.TRANSPARENT -> surface
                     },
                     textAlign = TextAlign.Center,
                     textBold = true

@@ -18,5 +18,25 @@
     <string name="onboarding_sign_in_button_text">Sign In</string>
     <string name="onboarding_sign_up_button_text">Sign Up</string>
 
+    <!-- Sign In -->
+    <string name="sign_in_main_title_text">Welcome to TVNexa!</string>
+    <string name="sign_in_secondary_title_text">Enter your credentials to explore a diverse universe of television channels from around the world.</string>
+    <string name="sign_in_do_not_have_account_yet_text">Don\'t have an account yet?</string>
+    <string name="sign_in_go_sign_up_button_text">Sign Up</string>
+    <string name="sign_in_main_button_text">Sign In</string>
+    <string name="sign_in_form_heading_text">Access Your Account</string>
+    <string name="sign_in_form_username_label_text">Username</string>
+    <string name="sign_in_form_password_label_text">Password</string>
+
+    <!-- Sign Up -->
+    <string name="sign_up_main_title_text">Explore global TV on TVNexa!</string>
+    <string name="sign_up_secondary_title_text">Sign up now for diverse channels and captivating content</string>
+    <string name="sign_up_main_button">Create Account</string>
+    <string name="sign_up_form_username_label_text">Username</string>
+    <string name="sign_up_form_password_label_text">Password</string>
+    <string name="sign_up_form_repeat_password_label_text">Repeat Password</string>
+    <string name="sign_up_form_first_name_label_text">FirstName</string>
+    <string name="sign_up_form_surname_label_text">Surname</string>
+    <string name="sign_up_form_email_label_text">Email</string>
 
 </resources>
