@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -20,14 +19,10 @@ import androidx.tv.material3.Switch
 import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.ui.components.FocusableItem
 import com.dreamsoftware.tvnexa.ui.features.settings.data.SettingsMenuModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 
 @Composable
 fun SettingsMenu(
     modifier: Modifier = Modifier,
-    usedTopBar: StateFlow<Boolean>,
-    toggleTopBar: () -> Unit,
     onMenuSelected: (SettingsMenuModel) -> Unit
 ) {
     val settingsMenu = remember {
@@ -43,7 +38,7 @@ fun SettingsMenu(
         }
         item {
             FocusableItem(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                onClick = { toggleTopBar() }) {
+                onClick = {  }) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.SpaceBetween,
@@ -55,8 +50,8 @@ fun SettingsMenu(
                         text = "Top Bar",
                         modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp)
                     )
-                    Switch(checked = usedTopBar.collectAsState().value,
-                        onCheckedChange = { toggleTopBar() })
+                    Switch(checked = true,
+                        onCheckedChange = { })
                 }
             }
         }
@@ -66,5 +61,5 @@ fun SettingsMenu(
 @Preview
 @Composable
 fun SettingsMenuPrev() {
-    SettingsMenu(usedTopBar = MutableStateFlow(false), toggleTopBar = {}) {}
+    SettingsMenu {}
 }
