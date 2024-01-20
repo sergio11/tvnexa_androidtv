@@ -33,6 +33,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
+import com.dreamsoftware.tvnexa.ui.components.CommonButtonStyleTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonFullScreenImage
 import com.dreamsoftware.tvnexa.ui.components.CommonText
@@ -73,7 +74,7 @@ fun SignUpScreenContent(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 CommonText(
-                    titleText = "Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024",
+                    titleRes = R.string.developer_credits_text,
                     type = CommonTextTypeEnum.LABEL_MEDIUM,
                     textAlign = TextAlign.Start
                 )
@@ -106,7 +107,7 @@ private fun SignUpFormContent(
                 .align(Alignment.TopStart),
             type = CommonButtonTypeEnum.SMALL,
             onClick = onCancelPressed,
-            inverseStyle = true,
+            style = CommonButtonStyleTypeEnum.TRANSPARENT,
             text = "Cancel"
         )
         Image(
@@ -124,12 +125,12 @@ private fun SignUpFormContent(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             CommonText(
-                titleText = "Explore global TV on TVNexa!",
+                titleRes = R.string.sign_up_main_title_text,
                 type = CommonTextTypeEnum.TITLE_LARGE,
             )
             Spacer(modifier = Modifier.height(10.dp))
             CommonText(
-                titleText = "Sign up now for diverse channels and captivating content",
+                titleRes = R.string.sign_up_secondary_title_text,
                 type = CommonTextTypeEnum.TITLE_SMALL,
                 textAlign = TextAlign.Center
             )
@@ -148,7 +149,7 @@ private fun SignUpFormContent(
         CommonButton(
             modifier = Modifier.align(Alignment.BottomCenter),
             onClick = onSigUpButtonPressed,
-            text = "Create Account"
+            textRes = R.string.sign_up_main_button
         )
     }
 }
@@ -159,20 +160,20 @@ private fun UserInfoFormColumn() {
         CommonTextField(
             icon = Icons.Filled.Person,
             value = "",
-            label = "Firstname",
+            labelRes = R.string.sign_up_form_first_name_label_text,
             onValueChange =  {}
         )
         CommonTextField(
             icon = Icons.Filled.PersonOutline,
             value = "",
-            label = "Surname",
+            labelRes = R.string.sign_up_form_surname_label_text,
             onValueChange =  {}
         )
         CommonTextField(
             icon = Icons.Filled.Email,
             value = "",
             type = CommonTextFieldTypeEnum.EMAIL,
-            label = "Email",
+            labelRes = R.string.sign_up_form_email_label_text,
             onValueChange =  {}
         )
     }
@@ -184,21 +185,21 @@ private fun UserCredentialsInfoFormColumn() {
         CommonTextField(
             icon = Icons.Filled.Person,
             value = "",
-            label = "Username",
+            labelRes = R.string.sign_up_form_username_label_text,
             onValueChange =  {}
         )
         CommonTextField(
             icon = Icons.Filled.Password,
             value = "",
             type = CommonTextFieldTypeEnum.PASSWORD,
-            label = "Password",
+            labelRes = R.string.sign_up_form_password_label_text,
             onValueChange =  {}
         )
         CommonTextField(
             icon = Icons.Filled.Password,
             value = "",
             type = CommonTextFieldTypeEnum.PASSWORD,
-            label = "Repeat Password",
+            labelRes = R.string.sign_up_form_repeat_password_label_text,
             onValueChange =  {}
         )
     }

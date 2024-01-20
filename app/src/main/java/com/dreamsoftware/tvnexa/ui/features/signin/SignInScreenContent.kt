@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.Row
@@ -33,6 +34,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
+import com.dreamsoftware.tvnexa.ui.components.CommonButtonStyleTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonFullScreenImage
 import com.dreamsoftware.tvnexa.ui.components.CommonText
@@ -52,6 +54,7 @@ fun SignInScreenContent(
         contentAlignment = Alignment.Center
     ) {
         SignInVideoBackground()
+        SignInLogo()
         Column(
             modifier = Modifier
                 .fillMaxHeight()
@@ -65,6 +68,18 @@ fun SignInScreenContent(
 }
 
 @Composable
+private fun BoxScope.SignInLogo() {
+    Image(
+        painter = painterResource(id = R.drawable.tvnexa_logo_inverse),
+        contentDescription = null,
+        modifier = Modifier
+            .height(120.dp)
+            .padding(horizontal = 20.dp)
+            .align(Alignment.TopStart)
+    )
+}
+
+@Composable
 private fun SignInMainContent(
     onLoginClick: (String, String) -> Unit
 ) {
@@ -75,9 +90,7 @@ private fun SignInMainContent(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        val commonModifier = Modifier
-            .fillMaxSize()
-            .weight(1f)
+        val commonModifier = Modifier.fillMaxHeight().weight(1f)
         SignInFormInfo(modifier = commonModifier)
         SignInFormContent(
             modifier = commonModifier,
@@ -90,26 +103,30 @@ private fun SignInMainContent(
 private fun ColumnScope.SignInSecondaryContent(onGoToSignUp: () -> Unit) {
     Row(
         modifier = Modifier
-            .fillMaxWidth(0.8f)
+            .fillMaxWidth(0.9f)
             .fillMaxHeight(0.3f)
             .align(Alignment.CenterHorizontally),
         verticalAlignment = Alignment.CenterVertically
     ) {
+        Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.Center
+        ) {
+            CommonText(
+                titleRes = R.string.developer_credits_text,
+                type = CommonTextTypeEnum.LABEL_MEDIUM,
+                textAlign = TextAlign.Center
+            )
+        }
         CommonText(
-            titleText = "Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024",
-            type = CommonTextTypeEnum.LABEL_MEDIUM,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.weight(1f))
-        CommonText(
-            titleText = "Don't have an account yet?",
+            titleRes = R.string.sign_in_do_not_have_account_yet_text,
             type = CommonTextTypeEnum.LABEL_LARGE
         )
         Spacer(modifier = Modifier.width(20.dp))
         CommonButton(
-            text = "Sign Up",
+            textRes = R.string.sign_in_go_sign_up_button_text,
             type = CommonButtonTypeEnum.SMALL,
-            inverseStyle = true,
+            style = CommonButtonStyleTypeEnum.TRANSPARENT,
             onClick = onGoToSignUp
         )
     }
@@ -125,37 +142,25 @@ private fun SignInVideoBackground() {
     )
 }
 
+
 @Composable
 private fun SignInFormInfo(modifier: Modifier) {
-    Box(
+    Column(
         modifier = modifier,
-        contentAlignment = Alignment.Center
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.tvnexa_logo_inverse),
-            contentDescription = null,
-            modifier = Modifier
-                .height(120.dp)
-                .align(Alignment.TopCenter)
+        CommonText(
+            titleRes = R.string.sign_in_main_title_text,
+            type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+            textAlign = TextAlign.Center
         )
-        Column(
-            modifier = Modifier.align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            CommonText(
-                modifier = Modifier.padding(bottom = 8.dp),
-                titleText = "Welcome to TVNexa!",
-                type = CommonTextTypeEnum.HEADLINE_MEDIUM,
-                textAlign = TextAlign.Center
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            CommonText(
-                modifier = Modifier.padding(bottom = 8.dp),
-                titleText = "Enter your credentials to explore a diverse universe of television channels from around the world.",
-                type = CommonTextTypeEnum.BODY_LARGE,
-                textAlign = TextAlign.Center
-            )
-        }
+        Spacer(modifier = Modifier.height(20.dp))
+        CommonText(
+            titleRes = R.string.sign_in_secondary_title_text,
+            type = CommonTextTypeEnum.BODY_LARGE,
+            textAlign = TextAlign.Center
+        )
     }
 }
 
@@ -174,14 +179,14 @@ private fun SignInFormContent(
         val password = remember { mutableStateOf("") }
 
         CommonText(
-            titleText = "Access Your Account",
+            titleRes = R.string.sign_in_form_heading_text,
             type = CommonTextTypeEnum.HEADLINE_MEDIUM,
         )
         Spacer(modifier = Modifier.height(20.dp))
         CommonTextField(
             icon = Icons.Filled.Person,
             value = username.value,
-            label = "Username",
+            labelRes = R.string.sign_in_form_username_label_text,
             onValueChange =  {
                 username.value = it
             }
@@ -191,16 +196,15 @@ private fun SignInFormContent(
             icon = Icons.Filled.Password,
             value = password.value,
             type = CommonTextFieldTypeEnum.PASSWORD,
-            label = "Password",
+            labelRes = R.string.sign_in_form_password_label_text,
             onValueChange =  {
                 password.value = it
             }
         )
         Spacer(modifier = Modifier.height(40.dp))
         CommonButton(
-            modifier = Modifier.padding(start = 20.dp, end = 20.dp),
             onClick = { onLoginClick(username.value, password.value) },
-            text = "Sign In"
+            textRes = R.string.sign_in_main_button_text
         )
     }
 }
