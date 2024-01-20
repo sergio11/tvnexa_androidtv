@@ -15,6 +15,9 @@ android {
         targetSdk = libs.versions.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
+
+        // Build Variables
+        buildConfigField("String", "BASE_URL", "\"https://localhost/\"")
     }
 
     buildTypes {
@@ -35,6 +38,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     composeOptions {
