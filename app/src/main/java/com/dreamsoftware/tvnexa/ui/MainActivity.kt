@@ -1,4 +1,4 @@
-package com.dreamsoftware.tvnexa
+package com.dreamsoftware.tvnexa.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

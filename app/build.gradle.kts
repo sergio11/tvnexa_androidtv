@@ -62,26 +62,20 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
-
     implementation(platform(libs.compose.bom))
     implementation(libs.bundles.androidx.compose.bom)
     implementation(libs.bundles.compose.tv)
     implementation(libs.bundles.compose.accompanist)
     implementation(libs.androidx.material.icons.extended)
-
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
-
     implementation(libs.androidx.lifecycle.viewModelCompose)
     implementation(libs.line.awesome.icons)
-
     implementation(libs.androidx.core.splashscreen)
-
-    /*implementation "com.squareup.retrofit2:retrofit:2.9.0"
-    implementation "com.squareup.retrofit2:converter-moshi:2.9.0"
-    implementation("com.squareup.moshi:moshi-kotlin:1.14.0")*/
-    // DATA STORE
+    implementation(libs.retrofit)
+    implementation(libs.converter.moshi)
+    implementation(libs.moshi.kotlin)
     implementation(libs.androidx.datastore.preferences)
 
     androidTestImplementation(platform(libs.compose.bom))
