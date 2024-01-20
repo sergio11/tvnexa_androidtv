@@ -8,7 +8,6 @@ import compose.icons.lineawesomeicons.CogSolid
 import compose.icons.lineawesomeicons.HeartSolid
 import compose.icons.lineawesomeicons.HomeSolid
 import compose.icons.lineawesomeicons.SearchSolid
-import compose.icons.lineawesomeicons.UserCircle
 import compose.icons.lineawesomeicons.VideoSolid
 
 object MenuData {
@@ -23,11 +22,5 @@ object MenuData {
         NestedScreens.Settings.title,
         "Settings",
         LineAwesomeIcons.CogSolid,
-    )
-
-    val profile = MenuItem(
-        NestedScreens.Home.title,
-        "My Profile",
-        LineAwesomeIcons.UserCircle,
     )
 }

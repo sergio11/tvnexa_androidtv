@@ -9,9 +9,7 @@ fun HomeScreen(
 ) {
     with(homeViewModel) {
         HomeScreenContent(
-            onItemFocus = onItemFocus,
-            usedTopBar = usedTopBar,
-            toggleNavigationBar = ::toggleTopBar
+            onItemFocus = onItemFocus
         )
     }
 }
