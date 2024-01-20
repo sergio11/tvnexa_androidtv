@@ -30,6 +30,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
+import com.dreamsoftware.tvnexa.ui.components.CommonButtonStyleTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
@@ -181,7 +182,7 @@ private fun OnBoardingActions(
             type = CommonButtonTypeEnum.LARGE,
             onClick = onGoToSignUp,
             textRes = R.string.onboarding_sign_up_button_text,
-            inverseStyle = true
+            style = CommonButtonStyleTypeEnum.INVERSE
         )
     }
 }
