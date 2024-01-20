@@ -119,20 +119,20 @@ private fun OnboardingContentInfo(modifier: Modifier) {
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             CommonText(
-                titleText = "Explore the World of TVNexa!",
+                titleRes = R.string.onboarding_main_title_text,
                 type = CommonTextTypeEnum.HEADLINE_LARGE,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(bottom = 8.dp)
             )
             Spacer(modifier = Modifier.height(20.dp))
             CommonText(
-                titleText = "Discover a vast collection of television channels and enjoy an immersive viewing experience. Explore international channels with IPTV, bringing you content from around the globe.",
+                titleRes = R.string.onboarding_secondary_title_text,
                 type = CommonTextTypeEnum.BODY_LARGE,
                 textAlign = TextAlign.Center
             )
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(50.dp))
             CommonText(
-                titleText = "Sign in or Sign up to unlock the full potential of TVNexa.",
+                titleRes = R.string.onboarding_additional_info_text,
                 type = CommonTextTypeEnum.BODY_MEDIUM,
                 textAlign = TextAlign.Center
             )
@@ -161,22 +161,26 @@ private fun OnBoardingActions(
         horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically
     ){
-        CommonText(
-            titleText = "Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024",
-            type = CommonTextTypeEnum.LABEL_MEDIUM,
-            textAlign = TextAlign.Center
-        )
-        Spacer(modifier = Modifier.weight(1f))
+        Box(
+            modifier = Modifier.weight(1f),
+            contentAlignment = Alignment.Center
+        ) {
+            CommonText(
+                titleRes = R.string.developer_credits_text,
+                type = CommonTextTypeEnum.LABEL_MEDIUM,
+                textAlign = TextAlign.Center
+            )
+        }
         CommonButton(
             type = CommonButtonTypeEnum.LARGE,
-            text = "Sign In",
+            textRes = R.string.onboarding_sign_in_button_text,
             onClick = onGoToSignIn,
         )
         Spacer(modifier = Modifier.width(30.dp))
         CommonButton(
             type = CommonButtonTypeEnum.LARGE,
             onClick = onGoToSignUp,
-            text = "Sign Up",
+            textRes = R.string.onboarding_sign_up_button_text,
             inverseStyle = true
         )
     }
