@@ -11,6 +11,9 @@
     <!-- Common -->
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
 
+    <!-- Splash -->
+    <string name="splash_main_title_text">We\'re getting the app ready for you! \n Exciting things are in progress, stay tuned!</string>
+
     <!-- Onboarding -->
     <string name="onboarding_main_title_text">Explore the World of TVNexa!</string>
     <string name="onboarding_secondary_title_text">Discover a vast collection of television channels and enjoy an immersive viewing experience. Explore international channels with IPTV, bringing you content from around the globe.</string>
