@@ -14,6 +14,7 @@ import com.dreamsoftware.tvnexa.ui.features.onboarding.OnboardingScreen
 import com.dreamsoftware.tvnexa.ui.features.signin.SignInScreen
 import com.dreamsoftware.tvnexa.ui.features.player.PlayerScreen
 import com.dreamsoftware.tvnexa.ui.features.signup.SignUpScreen
+import com.dreamsoftware.tvnexa.ui.features.splash.SplashScreen
 import com.dreamsoftware.tvnexa.ui.features.wiw.WhoIsWatchingScreen
 import com.dreamsoftware.tvnexa.ui.navigation.extensions.navigateSingleTopTo
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -22,7 +23,20 @@ import com.google.accompanist.navigation.animation.composable
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewModel) {
-    AnimatedNavHost(navController = navController, startDestination = Screens.Onboarding.path) {
+    AnimatedNavHost(navController = navController, startDestination = Screens.Splash.path) {
+
+        composable(Screens.Splash.path) {
+            with(navController) {
+                SplashScreen(
+                    onGoToHome = {
+                        navigateSingleTopTo(Screens.Home.DEFAULT.path)
+                    },
+                    onGoToOnboarding = {
+                        navigateSingleTopTo(Screens.Onboarding.path)
+                    }
+                )
+            }
+        }
 
         composable(Screens.Onboarding.path) {
             with(navController) {

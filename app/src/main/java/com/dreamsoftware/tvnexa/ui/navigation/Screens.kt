@@ -2,6 +2,7 @@ package com.dreamsoftware.tvnexa.ui.navigation
 
 sealed class Screens(val path: String) {
 
+    data object Splash: Screens("splash")
     data object Onboarding: Screens("onboarding")
     data object SignIn : Screens("sign_in")
     data object SignUp : Screens("sign_up")
