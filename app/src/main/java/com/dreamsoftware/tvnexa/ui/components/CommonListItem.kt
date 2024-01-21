@@ -1,0 +1,60 @@
+package com.dreamsoftware.tvnexa.ui.components
+
+import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import androidx.tv.material3.Border
+import androidx.tv.material3.ClickableSurfaceDefaults
+import androidx.tv.material3.ExperimentalTvMaterial3Api
+import androidx.tv.material3.MaterialTheme.colorScheme
+
+@OptIn(ExperimentalTvMaterial3Api::class)
+@Composable
+fun CommonListItem(
+    modifier: Modifier,
+    onClicked: () -> Unit,
+    content: @Composable (isFocused: Boolean) -> Unit
+) {
+    with(colorScheme) {
+        val interactionSource = remember { MutableInteractionSource() }
+        val isFocused by interactionSource.collectIsFocusedAsState()
+        BorderedFocusableItem(
+            onClick = onClicked,
+            color = ClickableSurfaceDefaults.colors(
+                containerColor = primaryContainer.copy(alpha = 0.6f),
+                focusedContainerColor = onPrimaryContainer
+            ),
+            border = ClickableSurfaceDefaults.border(
+                focusedBorder = Border(
+                    BorderStroke(
+                        width = 2.dp,
+                        color = if(isFocused) {
+                            primaryContainer
+                        } else {
+                            onPrimaryContainer
+                        }
+                    ),
+                    shape = RoundedCornerShape(12.dp)
+                )
+            ),
+            interactionSource = interactionSource,
+            modifier = modifier,
+        ) {
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                content(isFocused)
+            }
+        }
+    }
+}
