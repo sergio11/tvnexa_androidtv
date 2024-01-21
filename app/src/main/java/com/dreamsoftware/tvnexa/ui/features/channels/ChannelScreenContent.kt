@@ -12,27 +12,22 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.tv.foundation.lazy.grid.rememberTvLazyGridState
 import androidx.tv.foundation.lazy.list.TvLazyColumn
-import androidx.tv.material3.ExperimentalTvMaterial3Api
+import com.dreamsoftware.tvnexa.ui.components.ChannelPreview
+import com.dreamsoftware.tvnexa.ui.components.CommonLazyVerticalGrid
 import com.dreamsoftware.tvnexa.ui.components.CommonListItem
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
-import com.dreamsoftware.tvnexa.ui.features.channels.carousel.HomeCarousel
-import com.dreamsoftware.tvnexa.ui.features.channels.hero.HeroItem
-
-typealias FocusPosition = Pair<Int, Int>
 
 @Composable
 fun ChannelScreenContent(
     onItemFocus: (parent: Int, child: Int) -> Unit,
     onItemClick: (parent: Int, child: Int) -> Unit
 ) {
-    val focusState = remember { mutableStateOf(FocusPosition(0, 0)) }
     Row(
         horizontalArrangement = Arrangement.Center,
         verticalAlignment = Alignment.CenterVertically
@@ -43,21 +38,55 @@ fun ChannelScreenContent(
                 .fillMaxWidth(0.2f)
                 .background(MaterialTheme.colorScheme.secondaryContainer)
         )
-        Column(
+        ChannelsGrid(
             modifier = Modifier
-                .fillMaxHeight()
                 .fillMaxWidth()
-        ) {
-            HeroItem()
-            HomeCarousel(Modifier.weight(1f), onItemFocus = { parent, child ->
-                focusState.value = FocusPosition(parent, child)
-                onItemFocus(parent, child)
-            }, onItemClick = onItemClick)
+                .fillMaxHeight()
+        )
+
+    }
+}
+
+@Composable
+private fun ChannelsGrid(
+    modifier: Modifier
+) {
+    Column(
+        modifier = modifier
+    ) {
+        ChannelPreview(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.4f)
+                .padding(start = 10.dp)
+        )
+        CommonLazyVerticalGrid(
+            modifier = Modifier.fillMaxWidth(),
+            state = rememberTvLazyGridState(),
+            items = mutableListOf<String>().apply {
+                repeat(times = 100) { idx ->
+                    add("Channel $idx")
+                }
+            }
+        ) { item ->
+            CommonListItem(modifier = Modifier
+                .fillMaxWidth()
+                .height(100.dp)
+                .padding(8.dp),
+                onClicked = {  }
+            ) { isFocused ->
+                CommonText(
+                    type = CommonTextTypeEnum.TITLE_MEDIUM,
+                    titleText = item,
+                    textColor = with(MaterialTheme.colorScheme) {
+                        onPrimaryContainer
+                    }
+                )
+            }
         }
     }
 }
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 private fun CountryListColumn(
     modifier: Modifier
