@@ -11,8 +11,10 @@ import com.squareup.moshi.Json
  * @param UserResponseDTO The type representing user information in the API response.
  */
 data class AuthResponseDTO(
+    // Authentication token generated upon successful authentication.
     @field:Json(name = "token")
     val token: String,
+    // User information associated with the authenticated user.
     @field:Json(name = "user")
     val user: UserResponseDTO,
 )
