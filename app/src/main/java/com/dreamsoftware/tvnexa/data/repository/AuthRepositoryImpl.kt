@@ -25,6 +25,10 @@ internal class AuthRepositoryImpl(
         authSessionBOMapper.mapInToOut(authSessionDataSource.get())
     }
 
+    override suspend fun hasActiveSession(): Boolean = withContext(Dispatchers.IO) {
+        runCatching { authSessionDataSource.get() }.getOrNull() != null
+    }
+
     override suspend fun signIn(email: String, password: String): AuthSessionBO = withContext(Dispatchers.IO) {
         authRemoteDataSource.signIn(SignInUserNetworkDTO(email, password)).let {
             authResponseMapper.mapInToOut(it)

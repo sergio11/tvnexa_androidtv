@@ -6,9 +6,11 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import com.dreamsoftware.tvnexa.data.preferences.datasource.IAuthSessionDataSource
 import com.dreamsoftware.tvnexa.data.preferences.dto.AuthSessionPreferenceDTO
+import com.dreamsoftware.tvnexa.data.preferences.exception.PreferencesException
 import com.squareup.moshi.Moshi
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.mapNotNull
+import kotlinx.coroutines.flow.firstOrNull
+import kotlinx.coroutines.flow.map
+import kotlin.jvm.Throws
 
 /**
  * Implementation of [IAuthSessionDataSource] for handling authentication session data using DataStore.
@@ -28,6 +30,10 @@ internal class AuthSessionDataSourceImpl(
         const val AUTH_KEY = "AUTH_KEY"
     }
 
+    private val authSessionPreferenceAdapter by lazy {
+        moshi.adapter(AuthSessionPreferenceDTO::class.java)
+    }
+
     /**
      * Saves the provided authentication session data to preferences.
      *
@@ -36,8 +42,7 @@ internal class AuthSessionDataSourceImpl(
     override suspend fun save(authSession: AuthSessionPreferenceDTO) {
         val dataStoreKey = stringPreferencesKey(AUTH_KEY)
         dataStore.edit { pref ->
-            pref[dataStoreKey] = moshi.adapter(AuthSessionPreferenceDTO::class.java)
-                .toJson(authSession)
+            pref[dataStoreKey] = authSessionPreferenceAdapter.toJson(authSession)
         }
     }
 
@@ -46,12 +51,11 @@ internal class AuthSessionDataSourceImpl(
      *
      * @return The authentication session data, or null if not present.
      */
+    @Throws(PreferencesException.SessionNotFoundException::class)
     override suspend fun get(): AuthSessionPreferenceDTO {
         val dataStoreKey = stringPreferencesKey(AUTH_KEY)
-        return dataStore.data.mapNotNull { pref ->
-            pref[dataStoreKey]?.let {
-                moshi.adapter(AuthSessionPreferenceDTO::class.java).fromJson(it)
-            }
-        }.first()
+        return dataStore.data
+            .map { pref -> pref[dataStoreKey]?.let(authSessionPreferenceAdapter::fromJson) }
+            .firstOrNull() ?: throw PreferencesException.SessionNotFoundException("Session not found")
     }
 }

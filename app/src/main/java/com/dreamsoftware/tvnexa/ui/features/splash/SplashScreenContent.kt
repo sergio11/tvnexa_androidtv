@@ -30,6 +30,7 @@ import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 @Composable
 fun SplashScreenContent(
     modifier: Modifier,
+    uiState: SplashUiState
 ) {
     with(MaterialTheme.colorScheme) {
         Column(
