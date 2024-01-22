@@ -1,5 +1,6 @@
 package com.dreamsoftware.tvnexa.domain.usecase.core
 
+import android.util.Log
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
@@ -25,6 +26,8 @@ abstract class BaseUseCase<ReturnType> {
             try {
                 onSuccess(backgroundJob.await())
             } catch (ex: Exception) {
+                Log.d("ATV_VERIFY_SESSION", "error: ${ex.message}")
+                ex.printStackTrace()
                 onError(ex)
             }
         }
