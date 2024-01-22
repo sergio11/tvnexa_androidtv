@@ -5,6 +5,7 @@ package com.dreamsoftware.tvnexa.ui.components
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Error
@@ -13,8 +14,11 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
@@ -43,6 +47,7 @@ fun CommonTextField(
     errorMessage: String? = null
 ) {
     with(MaterialTheme.colorScheme) {
+        val focusManager = LocalFocusManager.current
         val isError = !errorMessage.isNullOrBlank()
         OutlinedTextField(
             modifier = modifier,
@@ -86,7 +91,11 @@ fun CommonTextField(
                     CommonTextFieldTypeEnum.NUMBER -> KeyboardType.Number
                     CommonTextFieldTypeEnum.PHONE -> KeyboardType.Phone
                     CommonTextFieldTypeEnum.PASSWORD -> KeyboardType.Password
-                }
+                },
+                imeAction = ImeAction.Next
+            ),
+            keyboardActions = KeyboardActions(
+                onNext = { focusManager.moveFocus(FocusDirection.Down) }
             )
         )
         if (isError) {
