@@ -2,6 +2,12 @@ package com.dreamsoftware.tvnexa.data.network.di
 
 import com.dreamsoftware.tvnexa.BuildConfig
 import com.dreamsoftware.tvnexa.data.network.service.IAuthService
+import com.dreamsoftware.tvnexa.data.network.service.ICategoryService
+import com.dreamsoftware.tvnexa.data.network.service.IChannelsService
+import com.dreamsoftware.tvnexa.data.network.service.ICountryService
+import com.dreamsoftware.tvnexa.data.network.service.IEpgService
+import com.dreamsoftware.tvnexa.data.network.service.IRegionService
+import com.dreamsoftware.tvnexa.data.network.service.ISubdivisionService
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
@@ -58,4 +64,34 @@ class NetworkModule {
     @Singleton
     fun provideAuthService(retrofit: Retrofit): IAuthService =
         retrofit.create(IAuthService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideCategoryService(retrofit: Retrofit): ICategoryService =
+        retrofit.create(ICategoryService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideChannelService(retrofit: Retrofit): IChannelsService =
+        retrofit.create(IChannelsService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideCountryService(retrofit: Retrofit): ICountryService =
+        retrofit.create(ICountryService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideEpgService(retrofit: Retrofit): IEpgService =
+        retrofit.create(IEpgService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideRegionService(retrofit: Retrofit): IRegionService =
+        retrofit.create(IRegionService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideSubdivisionService(retrofit: Retrofit): ISubdivisionService =
+        retrofit.create(ISubdivisionService::class.java)
 }
