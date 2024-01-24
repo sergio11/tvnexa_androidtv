@@ -4,6 +4,7 @@ import com.dreamsoftware.tvnexa.data.network.datasource.IAuthRemoteDataSource
 import com.dreamsoftware.tvnexa.data.network.datasource.ICategoryDataSource
 import com.dreamsoftware.tvnexa.data.network.datasource.IChannelsDataSource
 import com.dreamsoftware.tvnexa.data.network.datasource.ICountryDataSource
+import com.dreamsoftware.tvnexa.data.network.datasource.IEpgDataSource
 import com.dreamsoftware.tvnexa.data.network.datasource.IRegionDataSource
 import com.dreamsoftware.tvnexa.data.network.datasource.ISubdivisionDataSource
 import com.dreamsoftware.tvnexa.data.network.dto.request.SignUpUserNetworkDTO
@@ -11,6 +12,7 @@ import com.dreamsoftware.tvnexa.data.network.dto.response.AuthResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.CategoryResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.ChannelDetailResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.CountryResponseDTO
+import com.dreamsoftware.tvnexa.data.network.dto.response.EpgChannelProgrammeResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.RegionResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.SimpleChannelResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.SubdivisionResponseDTO
@@ -20,12 +22,14 @@ import com.dreamsoftware.tvnexa.data.repository.AuthRepositoryImpl
 import com.dreamsoftware.tvnexa.data.repository.CategoryRepositoryImpl
 import com.dreamsoftware.tvnexa.data.repository.ChannelRepositoryImpl
 import com.dreamsoftware.tvnexa.data.repository.CountryRepositoryImpl
+import com.dreamsoftware.tvnexa.data.repository.EpgRepositoryImpl
 import com.dreamsoftware.tvnexa.data.repository.RegionRepositoryImpl
 import com.dreamsoftware.tvnexa.data.repository.SubdivisionRepositoryImpl
 import com.dreamsoftware.tvnexa.domain.model.AuthSessionBO
 import com.dreamsoftware.tvnexa.domain.model.CategoryBO
 import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
 import com.dreamsoftware.tvnexa.domain.model.CountryBO
+import com.dreamsoftware.tvnexa.domain.model.EpgChannelProgrammeBO
 import com.dreamsoftware.tvnexa.domain.model.RegionBO
 import com.dreamsoftware.tvnexa.domain.model.SaveUserBO
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
@@ -34,6 +38,7 @@ import com.dreamsoftware.tvnexa.domain.repository.IAuthRepository
 import com.dreamsoftware.tvnexa.domain.repository.ICategoryRepository
 import com.dreamsoftware.tvnexa.domain.repository.IChannelRepository
 import com.dreamsoftware.tvnexa.domain.repository.ICountryRepository
+import com.dreamsoftware.tvnexa.domain.repository.IEpgRepository
 import com.dreamsoftware.tvnexa.domain.repository.IRegionRepository
 import com.dreamsoftware.tvnexa.domain.repository.ISubdivisionRepository
 import com.dreamsoftware.tvnexa.utils.IMapper
@@ -116,5 +121,15 @@ class DataModule {
         channelsDataSource = channelsDataSource,
         simpleChannelMapper = simpleChannelMapper,
         channelMapper = channelDetailMapper
+    )
+
+    @Provides
+    @Singleton
+    fun provideEpgRepository(
+        epgDataSource: IEpgDataSource,
+        epgMapper: IOneSideMapper<EpgChannelProgrammeResponseDTO, EpgChannelProgrammeBO>
+    ): IEpgRepository = EpgRepositoryImpl(
+        epgDataSource = epgDataSource,
+        epgMapper = epgMapper
     )
 }
