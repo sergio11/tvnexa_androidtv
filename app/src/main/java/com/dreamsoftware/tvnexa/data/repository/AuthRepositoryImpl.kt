@@ -6,6 +6,9 @@ import com.dreamsoftware.tvnexa.data.network.dto.request.SignUpUserNetworkDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.AuthResponseDTO
 import com.dreamsoftware.tvnexa.data.preferences.datasource.IAuthSessionDataSource
 import com.dreamsoftware.tvnexa.data.preferences.dto.AuthSessionPreferenceDTO
+import com.dreamsoftware.tvnexa.data.preferences.exception.PreferencesException
+import com.dreamsoftware.tvnexa.data.repository.core.SupportRepositoryImpl
+import com.dreamsoftware.tvnexa.domain.exception.DomainException
 import com.dreamsoftware.tvnexa.domain.model.AuthSessionBO
 import com.dreamsoftware.tvnexa.domain.model.SaveUserBO
 import com.dreamsoftware.tvnexa.domain.repository.IAuthRepository
@@ -13,6 +16,7 @@ import com.dreamsoftware.tvnexa.utils.IMapper
 import com.dreamsoftware.tvnexa.utils.IOneSideMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import kotlin.jvm.Throws
 
 internal class AuthRepositoryImpl(
     private val authRemoteDataSource: IAuthRemoteDataSource,
@@ -20,19 +24,28 @@ internal class AuthRepositoryImpl(
     private val signupUserBOMapper: IOneSideMapper<SaveUserBO, SignUpUserNetworkDTO>,
     private val authResponseMapper: IOneSideMapper<AuthResponseDTO, AuthSessionBO>,
     private val authSessionBOMapper: IMapper<AuthSessionPreferenceDTO, AuthSessionBO>
-): IAuthRepository {
-    override suspend fun getSession(): AuthSessionBO = withContext(Dispatchers.IO) {
-        authSessionBOMapper.mapInToOut(authSessionDataSource.get())
+): SupportRepositoryImpl(), IAuthRepository {
+
+    @Throws(
+        DomainException.InvalidSessionException::class,
+        DomainException.InternalErrorException::class
+    )
+    override suspend fun getSession(): AuthSessionBO = safeExecute {
+        try {
+            authSessionBOMapper.mapInToOut(authSessionDataSource.get())
+        } catch (ex: PreferencesException.SessionNotFoundException) {
+            throw DomainException.InvalidSessionException("No session found", ex)
+        }
     }
 
-    override suspend fun hasActiveSession(): Boolean = withContext(Dispatchers.IO) {
-        runCatching { authSessionDataSource.get() }.getOrNull() != null
-    }
-
-    override suspend fun signIn(email: String, password: String): AuthSessionBO = withContext(Dispatchers.IO) {
-        authRemoteDataSource.signIn(SignInUserNetworkDTO(email, password)).let {
-            authResponseMapper.mapInToOut(it)
-        }.also { saveSession(it) }
+    @Throws(
+        DomainException.SigInFailedException::class,
+        DomainException.InternalErrorException::class
+    )
+    override suspend fun signIn(email: String, password: String): AuthSessionBO = safeExecute {
+        authRemoteDataSource.signIn(SignInUserNetworkDTO(email, password))
+            .let(authResponseMapper::mapInToOut)
+            .also { saveSession(it) }
     }
 
     override suspend fun signUp(user: SaveUserBO): Boolean = withContext(Dispatchers.IO) {

@@ -43,6 +43,32 @@ sealed class DomainException(message: String? = null, cause: Throwable? = null) 
         override val cause: Throwable? = null
     ) : DomainException(message, cause)
 
+    data class InvalidSessionException(
+        override val message: String? = null,
+        override val cause: Throwable? = null
+    ) : DomainException(message, cause)
+
+    data class SigInFailedException(
+        override val message: String? = null,
+        override val cause: Throwable? = null
+    ) : DomainException(message, cause)
+
+    data class InvalidSigInDataException(
+        override val message: String? = null,
+        override val cause: Throwable? = null
+    ) : DomainException(message, cause)
+
+    data class InvalidSigUpDataException(
+        override val message: String? = null,
+        override val cause: Throwable? = null,
+        val field: FieldErrorName
+    ) : DomainException(message, cause) {
+
+        enum class FieldErrorName {
+            USERNAME, FIRST_NAME, LAST_NAME, EMAIL, PASSWORD
+        }
+    }
+
     data class InternalErrorException(
         override val message: String? = null,
         override val cause: Throwable? = null
