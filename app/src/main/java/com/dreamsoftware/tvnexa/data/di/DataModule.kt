@@ -1,14 +1,41 @@
 package com.dreamsoftware.tvnexa.data.di
 
 import com.dreamsoftware.tvnexa.data.network.datasource.IAuthRemoteDataSource
+import com.dreamsoftware.tvnexa.data.network.datasource.ICategoryDataSource
+import com.dreamsoftware.tvnexa.data.network.datasource.IChannelsDataSource
+import com.dreamsoftware.tvnexa.data.network.datasource.ICountryDataSource
+import com.dreamsoftware.tvnexa.data.network.datasource.IRegionDataSource
+import com.dreamsoftware.tvnexa.data.network.datasource.ISubdivisionDataSource
 import com.dreamsoftware.tvnexa.data.network.dto.request.SignUpUserNetworkDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.AuthResponseDTO
+import com.dreamsoftware.tvnexa.data.network.dto.response.CategoryResponseDTO
+import com.dreamsoftware.tvnexa.data.network.dto.response.ChannelDetailResponseDTO
+import com.dreamsoftware.tvnexa.data.network.dto.response.CountryResponseDTO
+import com.dreamsoftware.tvnexa.data.network.dto.response.RegionResponseDTO
+import com.dreamsoftware.tvnexa.data.network.dto.response.SimpleChannelResponseDTO
+import com.dreamsoftware.tvnexa.data.network.dto.response.SubdivisionResponseDTO
 import com.dreamsoftware.tvnexa.data.preferences.datasource.IAuthSessionDataSource
 import com.dreamsoftware.tvnexa.data.preferences.dto.AuthSessionPreferenceDTO
 import com.dreamsoftware.tvnexa.data.repository.AuthRepositoryImpl
+import com.dreamsoftware.tvnexa.data.repository.CategoryRepositoryImpl
+import com.dreamsoftware.tvnexa.data.repository.ChannelRepositoryImpl
+import com.dreamsoftware.tvnexa.data.repository.CountryRepositoryImpl
+import com.dreamsoftware.tvnexa.data.repository.RegionRepositoryImpl
+import com.dreamsoftware.tvnexa.data.repository.SubdivisionRepositoryImpl
 import com.dreamsoftware.tvnexa.domain.model.AuthSessionBO
+import com.dreamsoftware.tvnexa.domain.model.CategoryBO
+import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
+import com.dreamsoftware.tvnexa.domain.model.CountryBO
+import com.dreamsoftware.tvnexa.domain.model.RegionBO
 import com.dreamsoftware.tvnexa.domain.model.SaveUserBO
+import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
+import com.dreamsoftware.tvnexa.domain.model.SubdivisionBO
 import com.dreamsoftware.tvnexa.domain.repository.IAuthRepository
+import com.dreamsoftware.tvnexa.domain.repository.ICategoryRepository
+import com.dreamsoftware.tvnexa.domain.repository.IChannelRepository
+import com.dreamsoftware.tvnexa.domain.repository.ICountryRepository
+import com.dreamsoftware.tvnexa.domain.repository.IRegionRepository
+import com.dreamsoftware.tvnexa.domain.repository.ISubdivisionRepository
 import com.dreamsoftware.tvnexa.utils.IMapper
 import com.dreamsoftware.tvnexa.utils.IOneSideMapper
 import dagger.Module
@@ -35,5 +62,59 @@ class DataModule {
         signupUserBOMapper,
         authResponseMapper,
         authSessionBOMapper
+    )
+
+    @Provides
+    @Singleton
+    fun provideCategoryRepository(
+        categoryDataSource: ICategoryDataSource,
+        categoryMapper: IOneSideMapper<CategoryResponseDTO, CategoryBO>
+    ): ICategoryRepository = CategoryRepositoryImpl(
+        categoryDataSource = categoryDataSource,
+        categoryMapper = categoryMapper
+    )
+
+    @Provides
+    @Singleton
+    fun provideCountryRepository(
+        countryDataSource: ICountryDataSource,
+        countryMapper: IOneSideMapper<CountryResponseDTO, CountryBO>
+    ): ICountryRepository = CountryRepositoryImpl(
+        countryDataSource = countryDataSource,
+        countryMapper = countryMapper
+    )
+
+    @Provides
+    @Singleton
+    fun provideRegionRepository(
+        regionDataSource: IRegionDataSource,
+        regionMapper: IOneSideMapper<RegionResponseDTO, RegionBO>
+    ): IRegionRepository = RegionRepositoryImpl(
+        regionDataSource = regionDataSource,
+        regionMapper = regionMapper
+    )
+
+
+    @Provides
+    @Singleton
+    fun provideSubdivisionRepository(
+        subdivisionDataSource: ISubdivisionDataSource,
+        subdivisionMapper: IOneSideMapper<SubdivisionResponseDTO, SubdivisionBO>
+    ): ISubdivisionRepository = SubdivisionRepositoryImpl(
+        subdivisionDataSource = subdivisionDataSource,
+        subdivisionMapper = subdivisionMapper
+    )
+
+
+    @Provides
+    @Singleton
+    fun provideChannelRepository(
+        channelsDataSource: IChannelsDataSource,
+        simpleChannelMapper: IOneSideMapper<SimpleChannelResponseDTO, SimpleChannelBO>,
+        channelDetailMapper: IOneSideMapper<ChannelDetailResponseDTO, ChannelDetailBO>
+    ): IChannelRepository = ChannelRepositoryImpl(
+        channelsDataSource = channelsDataSource,
+        simpleChannelMapper = simpleChannelMapper,
+        channelMapper = channelDetailMapper
     )
 }
