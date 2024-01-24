@@ -1,6 +1,13 @@
 package com.dreamsoftware.tvnexa.domain.di
 
 import com.dreamsoftware.tvnexa.domain.repository.IAuthRepository
+import com.dreamsoftware.tvnexa.domain.repository.ICategoryRepository
+import com.dreamsoftware.tvnexa.domain.repository.IChannelRepository
+import com.dreamsoftware.tvnexa.domain.repository.ICountryRepository
+import com.dreamsoftware.tvnexa.domain.usecase.impl.GetCategoriesUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.GetChannelDetailUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.GetChannelsUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.GetCountriesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetSessionUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignInUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignUpUseCase
@@ -34,4 +41,24 @@ class DomainModule {
     @ViewModelScoped
     fun provideVerifyUserSessionUseCase(repository: IAuthRepository): VerifyUserSessionUseCase =
         VerifyUserSessionUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetCountriesUseCase(repository: ICountryRepository): GetCountriesUseCase =
+        GetCountriesUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetCategoriesUseCase(repository: ICategoryRepository): GetCategoriesUseCase =
+        GetCategoriesUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetChannelsUseCase(repository: IChannelRepository): GetChannelsUseCase =
+        GetChannelsUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetChannelDetailUseCase(repository: IChannelRepository): GetChannelDetailUseCase =
+        GetChannelDetailUseCase(repository)
 }
