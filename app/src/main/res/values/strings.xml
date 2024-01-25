@@ -7,6 +7,7 @@
     <string name="release_year">2022</string>
     <string name="movie_duration_text">2h 56mm</string>
     <string name="no_text_value">--</string>
+    <string name="generic_error_exception">An error occurred, please try again.</string>
 
     <!-- Common -->
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
@@ -28,8 +29,11 @@
     <string name="sign_in_go_sign_up_button_text">Sign Up</string>
     <string name="sign_in_main_button_text">Sign In</string>
     <string name="sign_in_form_heading_text">Access Your Account</string>
-    <string name="sign_in_form_username_label_text">Username</string>
+    <string name="sign_in_form_email_label_text">Email</string>
     <string name="sign_in_form_password_label_text">Password</string>
+    <string name="sign_in_form_invalid_data_provided">Invalid data provided, please check it and try again.</string>
+    <string name="sign_in_form_invalid_email_address">%s is not a valid email address</string>
+    <string name="sign_in_form_invalid_password">the password provided do not have the correct format</string>
 
     <!-- Sign Up -->
     <string name="sign_up_main_title_text">Explore global TV on TVNexa!</string>

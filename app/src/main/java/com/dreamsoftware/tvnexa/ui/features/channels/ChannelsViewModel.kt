@@ -99,7 +99,7 @@ class ChannelsViewModel @Inject constructor(
 
 data class ChannelsUiState(
     override val isLoading: Boolean = false,
-    override val error: Exception? = null,
+    override val error: String? = null,
     val countries: List<CountryBO> = emptyList(),
     val categories: List<CategoryBO> = emptyList(),
     val channels: List<SimpleChannelBO> = emptyList(),

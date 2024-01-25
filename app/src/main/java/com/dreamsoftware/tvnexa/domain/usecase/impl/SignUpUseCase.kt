@@ -1,10 +1,10 @@
 package com.dreamsoftware.tvnexa.domain.usecase.impl
 
 import com.dreamsoftware.tvnexa.domain.exception.DomainException
+import com.dreamsoftware.tvnexa.domain.exception.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.extensions.isFirstNameNotValid
 import com.dreamsoftware.tvnexa.domain.repository.IAuthRepository
 import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCaseWithParams
-import com.dreamsoftware.tvnexa.domain.exception.DomainException.InvalidSigUpDataException.FieldErrorName
 import com.dreamsoftware.tvnexa.domain.extensions.isLastNameNotValid
 import com.dreamsoftware.tvnexa.domain.extensions.isPasswordNotValid
 import com.dreamsoftware.tvnexa.domain.extensions.isUsernameNotValid
@@ -16,7 +16,7 @@ class SignUpUseCase(
 
     override suspend fun onExecuted(params: Params): Boolean =
         validateData(params)?.let {
-            throw DomainException.InvalidSigUpDataException("Invalid Data provided", field = it)
+            throw DomainException.InvalidSigUpDataException("Invalid Data provided", field = it.first)
         } ?: with(params) {
             authRepository.signUp(SaveUserBO(
                 username = username,
@@ -27,12 +27,12 @@ class SignUpUseCase(
             ))
         }
 
-    private fun validateData(params: Params): FieldErrorName? = with(params) {
+    private fun validateData(params: Params): Pair<FormFieldKey, String>? = with(params) {
         when {
-            username.isUsernameNotValid() -> FieldErrorName.USERNAME
-            password.isPasswordNotValid() -> FieldErrorName.PASSWORD
-            firstName.isFirstNameNotValid() -> FieldErrorName.FIRST_NAME
-            lastName.isLastNameNotValid() -> FieldErrorName.LAST_NAME
+            username.isUsernameNotValid() -> FormFieldKey.USERNAME to username
+            password.isPasswordNotValid() -> FormFieldKey.PASSWORD to password
+            firstName.isFirstNameNotValid() -> FormFieldKey.FIRST_NAME to firstName
+            lastName.isLastNameNotValid() -> FormFieldKey.LAST_NAME to lastName
             else -> null
         }
     }
