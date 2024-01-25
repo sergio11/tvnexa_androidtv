@@ -64,7 +64,7 @@ abstract class SupportViewModel<STATE : UiState, EFFECT : SideEffect> : ViewMode
  */
 interface UiState {
     val isLoading: Boolean
-    val error: Exception?
+    val error: String?
 }
 
 /**
