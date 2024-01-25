@@ -72,7 +72,7 @@ fun CommonTextField(
                     Icon(
                         imageVector = Icons.Filled.Error,
                         contentDescription = "error",
-                        tint = errorContainer
+                        tint = error
                     )
                 }
             },
@@ -103,7 +103,7 @@ fun CommonTextField(
                 modifier = Modifier.padding(top = 5.dp),
                 type = CommonTextTypeEnum.LABEL_MEDIUM,
                 titleText = errorMessage.orEmpty(),
-                textColor = errorContainer
+                textColor = error
             )
         }
     }

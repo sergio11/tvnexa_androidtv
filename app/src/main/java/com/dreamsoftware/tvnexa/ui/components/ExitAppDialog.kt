@@ -1,17 +1,19 @@
 package com.dreamsoftware.tvnexa.ui.components
 
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.window.Dialog
+import com.dreamsoftware.tvnexa.R
 
 @Composable
 fun ExitAppDialog(
+    isVisible: Boolean,
     onDismissPressed: () -> Unit,
     onExitPressed: () -> Unit
 ) {
-    Dialog(onDismissRequest = onDismissPressed) {
-        CommonDialogUI(
-            onDismissPressed = onDismissPressed,
-            onExitPressed = onExitPressed
-        )
-    }
+    CommonDialog(
+        isVisible = isVisible,
+        titleRes = R.string.onboarding_exit_app_dialog_title,
+        descriptionRes = R.string.onboarding_exit_app_dialog_description,
+        onCancelClicked = onDismissPressed,
+        onAcceptClicked = onExitPressed
+    )
 }

@@ -7,6 +7,7 @@ import com.dreamsoftware.tvnexa.domain.extensions.isPasswordNotValid
 import com.dreamsoftware.tvnexa.domain.model.AuthSessionBO
 import com.dreamsoftware.tvnexa.domain.repository.IAuthRepository
 import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCaseWithParams
+import kotlinx.coroutines.delay
 
 class SignInUseCase(
     private val repository: IAuthRepository
@@ -17,6 +18,7 @@ class SignInUseCase(
             throw DomainException.InvalidSigInDataException("Invalid data",
                 field = it.first, value = it.second)
         } ?: with(params) {
+            delay(5000)
             repository.signIn(email, password)
         }
 
