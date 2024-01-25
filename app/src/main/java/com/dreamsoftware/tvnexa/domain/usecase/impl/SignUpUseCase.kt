@@ -39,6 +39,7 @@ class SignUpUseCase(
 
     data class Params(
         val username: String,
+        val repeatPassword: String,
         val password: String,
         val email: String,
         val firstName: String,

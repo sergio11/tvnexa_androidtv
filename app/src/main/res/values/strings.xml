@@ -13,6 +13,7 @@
     <string name="dialog_error_title">Ops....</string>
     <!-- Common -->
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
+    <string name="developer_credits_text_single_line">Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024</string>
 
     <!-- Splash -->
     <string name="splash_main_title_text">We\'re getting the app ready for you! \n Exciting things are in progress, stay tuned!</string>
