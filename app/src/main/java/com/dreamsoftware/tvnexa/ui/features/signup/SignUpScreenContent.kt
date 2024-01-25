@@ -45,7 +45,14 @@ import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 @Composable
 fun SignUpScreenContent(
     modifier: Modifier = Modifier,
-    onSigUpButtonPressed: () -> Unit,
+    uiState: SignUpUiState,
+    onFirstNameChanged: (String) -> Unit,
+    onLastNameChanged: (String) -> Unit,
+    onEmailChanged: (String) -> Unit,
+    onUsernameChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onRepeatPasswordChanged: (String) -> Unit,
+    onSigUpPressed: () -> Unit,
     onCancelPressed: () -> Unit
 ) {
     Box(
@@ -63,8 +70,15 @@ fun SignUpScreenContent(
                 modifier = Modifier
                     .fillMaxWidth()
                     .fillMaxHeight(0.8f),
+                uiState = uiState,
+                onFirstNameChanged = onFirstNameChanged,
+                onLastNameChanged = onLastNameChanged,
+                onEmailChanged = onEmailChanged,
+                onUsernameChanged = onUsernameChanged,
+                onPasswordChanged = onPasswordChanged,
+                onRepeatPasswordChanged = onRepeatPasswordChanged,
                 onCancelPressed = onCancelPressed,
-                onSigUpButtonPressed = onSigUpButtonPressed
+                onSigUpPressed = onSigUpPressed
             )
             Row(
                 modifier = Modifier
@@ -74,8 +88,8 @@ fun SignUpScreenContent(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 CommonText(
-                    titleRes = R.string.developer_credits_text,
-                    type = CommonTextTypeEnum.LABEL_MEDIUM,
+                    titleRes = R.string.developer_credits_text_single_line,
+                    type = CommonTextTypeEnum.LABEL_SMALL,
                     textAlign = TextAlign.Start
                 )
             }
@@ -96,7 +110,14 @@ private fun SignUpVideoBackground() {
 @Composable
 private fun SignUpFormContent(
     modifier: Modifier,
-    onSigUpButtonPressed: () -> Unit,
+    uiState: SignUpUiState,
+    onFirstNameChanged: (String) -> Unit,
+    onLastNameChanged: (String) -> Unit,
+    onEmailChanged: (String) -> Unit,
+    onUsernameChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onRepeatPasswordChanged: (String) -> Unit,
+    onSigUpPressed: () -> Unit,
     onCancelPressed: () -> Unit
 ) {
     Box(
@@ -104,7 +125,8 @@ private fun SignUpFormContent(
     ) {
         CommonButton(
             modifier = Modifier
-                .align(Alignment.TopStart),
+                .align(Alignment.TopStart)
+                .padding(top = 20.dp),
             type = CommonButtonTypeEnum.SMALL,
             onClick = onCancelPressed,
             style = CommonButtonStyleTypeEnum.TRANSPARENT,
@@ -138,70 +160,100 @@ private fun SignUpFormContent(
         Row(
             modifier = Modifier
                 .align(Alignment.Center)
-                .fillMaxHeight(0.7f),
+                .fillMaxHeight(0.8f),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            UserInfoFormColumn()
+            UserInfoFormColumn(
+                uiState = uiState,
+                onFirstNameChanged = onFirstNameChanged,
+                onLastNameChanged = onLastNameChanged,
+                onEmailChanged = onEmailChanged
+            )
             Spacer(modifier = Modifier.width(40.dp))
-            UserCredentialsInfoFormColumn()
+            UserCredentialsInfoFormColumn(
+                uiState = uiState,
+                onUsernameChanged = onUsernameChanged,
+                onPasswordChanged = onPasswordChanged,
+                onRepeatPasswordChanged = onRepeatPasswordChanged
+            )
         }
         CommonButton(
             modifier = Modifier.align(Alignment.BottomCenter),
-            onClick = onSigUpButtonPressed,
+            onClick = onSigUpPressed,
             textRes = R.string.sign_up_main_button
         )
     }
 }
 
 @Composable
-private fun UserInfoFormColumn() {
-    FormColumn {
-        CommonTextField(
-            icon = Icons.Filled.Person,
-            value = "",
-            labelRes = R.string.sign_up_form_first_name_label_text,
-            onValueChange =  {}
-        )
-        CommonTextField(
-            icon = Icons.Filled.PersonOutline,
-            value = "",
-            labelRes = R.string.sign_up_form_surname_label_text,
-            onValueChange =  {}
-        )
-        CommonTextField(
-            icon = Icons.Filled.Email,
-            value = "",
-            type = CommonTextFieldTypeEnum.EMAIL,
-            labelRes = R.string.sign_up_form_email_label_text,
-            onValueChange =  {}
-        )
+private fun UserInfoFormColumn(
+    uiState: SignUpUiState,
+    onFirstNameChanged: (String) -> Unit,
+    onLastNameChanged: (String) -> Unit,
+    onEmailChanged: (String) -> Unit
+) {
+    with(uiState) {
+        FormColumn {
+            CommonTextField(
+                icon = Icons.Filled.Person,
+                value = firstName,
+                labelRes = R.string.sign_up_form_first_name_label_text,
+                errorMessage = firstNameError,
+                onValueChange = onFirstNameChanged
+            )
+            CommonTextField(
+                icon = Icons.Filled.PersonOutline,
+                value = lastName,
+                labelRes = R.string.sign_up_form_surname_label_text,
+                errorMessage = lastNameError,
+                onValueChange = onLastNameChanged
+            )
+            CommonTextField(
+                icon = Icons.Filled.Email,
+                value = email,
+                type = CommonTextFieldTypeEnum.EMAIL,
+                labelRes = R.string.sign_up_form_email_label_text,
+                errorMessage = emailError,
+                onValueChange = onEmailChanged
+            )
+        }
     }
 }
 
 @Composable
-private fun UserCredentialsInfoFormColumn() {
-    FormColumn {
-        CommonTextField(
-            icon = Icons.Filled.Person,
-            value = "",
-            labelRes = R.string.sign_up_form_username_label_text,
-            onValueChange =  {}
-        )
-        CommonTextField(
-            icon = Icons.Filled.Password,
-            value = "",
-            type = CommonTextFieldTypeEnum.PASSWORD,
-            labelRes = R.string.sign_up_form_password_label_text,
-            onValueChange =  {}
-        )
-        CommonTextField(
-            icon = Icons.Filled.Password,
-            value = "",
-            type = CommonTextFieldTypeEnum.PASSWORD,
-            labelRes = R.string.sign_up_form_repeat_password_label_text,
-            onValueChange =  {}
-        )
+private fun UserCredentialsInfoFormColumn(
+    uiState: SignUpUiState,
+    onUsernameChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onRepeatPasswordChanged: (String) -> Unit
+) {
+    with(uiState) {
+        FormColumn {
+            CommonTextField(
+                icon = Icons.Filled.Person,
+                value = username,
+                labelRes = R.string.sign_up_form_username_label_text,
+                errorMessage = usernameError,
+                onValueChange = onUsernameChanged
+            )
+            CommonTextField(
+                icon = Icons.Filled.Password,
+                value = password,
+                type = CommonTextFieldTypeEnum.PASSWORD,
+                labelRes = R.string.sign_up_form_password_label_text,
+                errorMessage = passwordError,
+                onValueChange = onPasswordChanged
+            )
+            CommonTextField(
+                icon = Icons.Filled.Password,
+                value = repeatPassword,
+                type = CommonTextFieldTypeEnum.PASSWORD,
+                labelRes = R.string.sign_up_form_repeat_password_label_text,
+                errorMessage = repeatPasswordError,
+                onValueChange = onRepeatPasswordChanged
+            )
+        }
     }
 }
 
@@ -219,7 +271,14 @@ private fun FormColumn(content: @Composable ColumnScope.() -> Unit) {
 fun SignUpPrev() {
     TvNexaTheme {
         SignUpScreenContent(
-            onSigUpButtonPressed = {},
+            uiState = SignUpUiState(),
+            onFirstNameChanged = {},
+            onLastNameChanged = {},
+            onEmailChanged = {},
+            onUsernameChanged = {},
+            onPasswordChanged = {},
+            onRepeatPasswordChanged = {},
+            onSigUpPressed = {},
             onCancelPressed = {}
         )
     }
