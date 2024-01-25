@@ -6,6 +6,9 @@ import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
 import com.dreamsoftware.tvnexa.ui.extensions.EMPTY
+import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInEmailErrorMapper
+import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInPasswordErrorMapper
+import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInScreenErrorMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -13,7 +16,8 @@ import javax.inject.Inject
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
     private val signInScreenErrorMapper: SignInScreenErrorMapper,
-    private val signInFormErrorMapper: SignInFormErrorMapper
+    private val signInEmailErrorMapper: SignInEmailErrorMapper,
+    private val signInPasswordErrorMapper: SignInPasswordErrorMapper
 ): SupportViewModel<SignInUiState, SignInSideEffects>() {
     override fun onGetDefaultState(): SignInUiState = SignInUiState()
 
@@ -39,6 +43,10 @@ class SignInViewModel @Inject constructor(
         updateState { it.copy(password = newPassword,) }
     }
 
+    fun onErrorAccepted() {
+        updateState { it.copy(error = null) }
+    }
+
     private fun onLoading() {
         updateState { it.copy(isLoading = true) }
     }
@@ -58,8 +66,8 @@ class SignInViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 error = signInScreenErrorMapper.mapToMessage(ex),
-                emailError = signInFormErrorMapper.mapToMessage(ex),
-                password = signInFormErrorMapper.mapToMessage(ex)
+                emailError = signInEmailErrorMapper.mapToMessage(ex),
+                passwordError = signInPasswordErrorMapper.mapToMessage(ex)
             )
         }
     }

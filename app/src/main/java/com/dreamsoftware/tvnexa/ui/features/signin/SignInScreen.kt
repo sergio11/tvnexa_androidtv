@@ -1,10 +1,8 @@
 package com.dreamsoftware.tvnexa.ui.features.signin
 
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Devices
@@ -32,7 +30,6 @@ fun SignInScreen(
             }
         }
 
-        val snackBarHostState = remember { SnackbarHostState() }
         val uiState by produceUiState(
             initialState = SignInUiState(),
             lifecycle = lifecycle,
@@ -42,9 +39,9 @@ fun SignInScreen(
         SignInScreenContent(
             modifier = modifier,
             uiState = uiState,
-            snackBarHostState = snackBarHostState,
             onEmailChanged = ::onEmailChanged,
             onPasswordChanged = ::onPasswordChanged,
+            onErrorAcceptPressed = ::onErrorAccepted,
             onSigInPressed = ::onSignIn,
             onGoToSignUp = onGoToSignUp
         )

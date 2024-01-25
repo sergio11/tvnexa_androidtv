@@ -20,9 +20,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -41,21 +39,23 @@ import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextField
 import com.dreamsoftware.tvnexa.ui.components.CommonTextFieldTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
+import com.dreamsoftware.tvnexa.ui.components.ErrorDialogDialog
+import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
 fun SignInScreenContent(
     modifier: Modifier = Modifier,
     uiState: SignInUiState,
-    snackBarHostState: SnackbarHostState,
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onSigInPressed: () -> Unit,
+    onErrorAcceptPressed: () -> Unit,
     onGoToSignUp: () -> Unit
 ) {
-    SignInSnackBar(
+    SignInDialog(
         uiState = uiState,
-        snackBarHostState = snackBarHostState
+        onErrorAcceptPressed = onErrorAcceptPressed
     )
     Box(
         modifier = modifier.fillMaxSize(),
@@ -81,16 +81,21 @@ fun SignInScreenContent(
 }
 
 @Composable
-private fun SignInSnackBar(
+private fun SignInDialog(
     uiState: SignInUiState,
-    snackBarHostState: SnackbarHostState,
+    onErrorAcceptPressed: () -> Unit
 ) {
-    uiState.error?.let {
-        LaunchedEffect(it) {
-            snackBarHostState.showSnackbar(
-                message = it
-            )
-        }
+    with(uiState) {
+        LoadingDialog(
+            isShowingDialog = isLoading,
+            titleRes = R.string.sign_in_progress_dialog_title,
+            descriptionRes = R.string.sign_in_progress_dialog_description
+        )
+        ErrorDialogDialog(
+            isVisible = !error.isNullOrBlank(),
+            description = error,
+            onAcceptClicked = onErrorAcceptPressed
+        )
     }
 }
 
@@ -120,7 +125,9 @@ private fun SignInMainContent(
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        val commonModifier = Modifier.fillMaxHeight().weight(1f)
+        val commonModifier = Modifier
+            .fillMaxHeight()
+            .weight(1f)
         SignInFormInfo(modifier = commonModifier)
         SignInFormContent(
             modifier = commonModifier,
@@ -249,11 +256,11 @@ fun SignInScreenContentPrev() {
     TvNexaTheme {
         SignInScreenContent(
             uiState = SignInUiState(),
-            snackBarHostState = SnackbarHostState(),
             onGoToSignUp = {},
             onEmailChanged = {},
             onPasswordChanged = {},
-            onSigInPressed = {}
+            onSigInPressed = {},
+            onErrorAcceptPressed = {}
         )
     }
 }
