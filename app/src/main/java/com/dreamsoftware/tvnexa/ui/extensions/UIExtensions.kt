@@ -60,3 +60,6 @@ fun Modifier.handleDPadKeyEvents(
     }
     false
 }
+
+val String.Companion.EMPTY: String
+    get() = ""

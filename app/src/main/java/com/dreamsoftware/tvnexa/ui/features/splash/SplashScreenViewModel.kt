@@ -46,13 +46,13 @@ class SplashScreenViewModel @Inject constructor(
     }
 
     private fun onIdle() {
-        updateState { it.copy(isLoading = true) }
+        updateState { it.copy(isLoading = false) }
     }
 }
 
 data class SplashUiState(
     override val isLoading: Boolean = false,
-    override val error: Exception? = null,
+    override val error: String? = null,
     val isAuth: Boolean = false
 ): UiState
 

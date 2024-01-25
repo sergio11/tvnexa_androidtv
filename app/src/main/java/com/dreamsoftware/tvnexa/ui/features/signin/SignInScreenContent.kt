@@ -20,9 +20,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Password
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -46,9 +46,17 @@ import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 @Composable
 fun SignInScreenContent(
     modifier: Modifier = Modifier,
-    onLoginClick: (String, String) -> Unit,
+    uiState: SignInUiState,
+    snackBarHostState: SnackbarHostState,
+    onEmailChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onSigInPressed: () -> Unit,
     onGoToSignUp: () -> Unit
 ) {
+    SignInSnackBar(
+        uiState = uiState,
+        snackBarHostState = snackBarHostState
+    )
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
@@ -61,8 +69,27 @@ fun SignInScreenContent(
                 .fillMaxWidth(0.9f),
             verticalArrangement = Arrangement.Center,
         ) {
-            SignInMainContent(onLoginClick = onLoginClick)
+            SignInMainContent(
+                uiState = uiState,
+                onEmailChanged = onEmailChanged,
+                onPasswordChanged = onPasswordChanged,
+                onSigInPressed = onSigInPressed
+            )
             SignInSecondaryContent(onGoToSignUp = onGoToSignUp)
+        }
+    }
+}
+
+@Composable
+private fun SignInSnackBar(
+    uiState: SignInUiState,
+    snackBarHostState: SnackbarHostState,
+) {
+    uiState.error?.let {
+        LaunchedEffect(it) {
+            snackBarHostState.showSnackbar(
+                message = it
+            )
         }
     }
 }
@@ -81,7 +108,10 @@ private fun BoxScope.SignInLogo() {
 
 @Composable
 private fun SignInMainContent(
-    onLoginClick: (String, String) -> Unit
+    uiState: SignInUiState,
+    onEmailChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onSigInPressed: () -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -94,7 +124,10 @@ private fun SignInMainContent(
         SignInFormInfo(modifier = commonModifier)
         SignInFormContent(
             modifier = commonModifier,
-            onLoginClick = onLoginClick
+            uiState = uiState,
+            onEmailChanged = onEmailChanged,
+            onPasswordChanged = onPasswordChanged,
+            onSigInPressed = onSigInPressed
         )
     }
 }
@@ -168,44 +201,45 @@ private fun SignInFormInfo(modifier: Modifier) {
 @Composable
 private fun SignInFormContent(
     modifier: Modifier,
-    onLoginClick: (String, String) -> Unit
+    uiState: SignInUiState,
+    onEmailChanged: (String) -> Unit,
+    onPasswordChanged: (String) -> Unit,
+    onSigInPressed: () -> Unit
 ) {
-    Column(
-        modifier = modifier,
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally,
-    ) {
-        val username = remember { mutableStateOf("") }
-        val password = remember { mutableStateOf("") }
-
-        CommonText(
-            titleRes = R.string.sign_in_form_heading_text,
-            type = CommonTextTypeEnum.HEADLINE_MEDIUM,
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        CommonTextField(
-            icon = Icons.Filled.Person,
-            value = username.value,
-            labelRes = R.string.sign_in_form_username_label_text,
-            onValueChange =  {
-                username.value = it
-            }
-        )
-        Spacer(modifier = Modifier.height(20.dp))
-        CommonTextField(
-            icon = Icons.Filled.Password,
-            value = password.value,
-            type = CommonTextFieldTypeEnum.PASSWORD,
-            labelRes = R.string.sign_in_form_password_label_text,
-            onValueChange =  {
-                password.value = it
-            }
-        )
-        Spacer(modifier = Modifier.height(40.dp))
-        CommonButton(
-            onClick = { onLoginClick(username.value, password.value) },
-            textRes = R.string.sign_in_main_button_text
-        )
+    with(uiState) {
+        Column(
+            modifier = modifier,
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally,
+        ) {
+            CommonText(
+                titleRes = R.string.sign_in_form_heading_text,
+                type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            CommonTextField(
+                icon = Icons.Filled.Person,
+                value = email,
+                type = CommonTextFieldTypeEnum.EMAIL,
+                labelRes = R.string.sign_in_form_email_label_text,
+                errorMessage = emailError,
+                onValueChange = onEmailChanged
+            )
+            Spacer(modifier = Modifier.height(20.dp))
+            CommonTextField(
+                icon = Icons.Filled.Password,
+                value = password,
+                type = CommonTextFieldTypeEnum.PASSWORD,
+                labelRes = R.string.sign_in_form_password_label_text,
+                errorMessage = passwordError,
+                onValueChange = onPasswordChanged
+            )
+            Spacer(modifier = Modifier.height(40.dp))
+            CommonButton(
+                onClick = onSigInPressed,
+                textRes = R.string.sign_in_main_button_text
+            )
+        }
     }
 }
 
@@ -213,6 +247,13 @@ private fun SignInFormContent(
 @Composable
 fun SignInScreenContentPrev() {
     TvNexaTheme {
-        SignInScreenContent(onLoginClick = { _, _ -> }) {}
+        SignInScreenContent(
+            uiState = SignInUiState(),
+            snackBarHostState = SnackbarHostState(),
+            onGoToSignUp = {},
+            onEmailChanged = {},
+            onPasswordChanged = {},
+            onSigInPressed = {}
+        )
     }
 }
