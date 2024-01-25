@@ -1,6 +1,7 @@
 package com.dreamsoftware.tvnexa.data.network.di
 
 import com.dreamsoftware.tvnexa.BuildConfig
+import com.dreamsoftware.tvnexa.data.network.interceptors.AuthInterceptor
 import com.dreamsoftware.tvnexa.data.network.service.IAuthService
 import com.dreamsoftware.tvnexa.data.network.service.ICategoryService
 import com.dreamsoftware.tvnexa.data.network.service.IChannelsService
@@ -8,16 +9,20 @@ import com.dreamsoftware.tvnexa.data.network.service.ICountryService
 import com.dreamsoftware.tvnexa.data.network.service.IEpgService
 import com.dreamsoftware.tvnexa.data.network.service.IRegionService
 import com.dreamsoftware.tvnexa.data.network.service.ISubdivisionService
+import com.dreamsoftware.tvnexa.utils.ISessionAware
 import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import dagger.multibindings.ElementsIntoSet
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
@@ -39,16 +44,35 @@ class NetworkModule {
         )
 
     /**
+     * Provide Request Interceptors
+     */
+    @Provides
+    @ElementsIntoSet
+    @Singleton
+    @Named("requestInterceptors")
+    fun provideRequestInterceptors(
+        sessionAware: ISessionAware
+    ): Set<Interceptor> =
+        setOf(AuthInterceptor(sessionAware))
+
+    /**
      * Provide HTTP Client Builder
      */
     @Provides
     @Singleton
-    fun provideHttpClient(): OkHttpClient = OkHttpClient.Builder()
-        .connectTimeout(TIMEOUT_IN_MINUTES, TimeUnit.MINUTES)
-        .readTimeout(TIMEOUT_IN_MINUTES, TimeUnit.MINUTES)
-        .writeTimeout(TIMEOUT_IN_MINUTES, TimeUnit.MINUTES)
-        .retryOnConnectionFailure(true)
-        .build()
+    fun provideHttpClient(
+        @Named("requestInterceptors") requestInterceptors: Set<@JvmSuppressWildcards Interceptor>
+    ): OkHttpClient {
+        val okHttpBuilder = OkHttpClient.Builder()
+            .connectTimeout(TIMEOUT_IN_MINUTES, TimeUnit.MINUTES)
+            .readTimeout(TIMEOUT_IN_MINUTES, TimeUnit.MINUTES)
+            .writeTimeout(TIMEOUT_IN_MINUTES, TimeUnit.MINUTES)
+            .retryOnConnectionFailure(true)
+        requestInterceptors.forEach {
+            okHttpBuilder.addInterceptor(it)
+        }
+        return okHttpBuilder.build()
+    }
 
     @Provides
     @Singleton
