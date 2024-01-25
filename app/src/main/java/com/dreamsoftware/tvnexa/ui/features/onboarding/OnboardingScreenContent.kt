@@ -80,16 +80,15 @@ fun OnboardingScreenContent(
 private fun ConfirmExitAppDialog() {
     var confirmExitApp by remember { mutableStateOf(false) }
     BackHandler { confirmExitApp = true }
-    if(confirmExitApp) {
-        ExitAppDialog(
-            onDismissPressed = {
-                confirmExitApp = false
-            },
-            onExitPressed = {
-                confirmExitApp = false
-            }
-        )
-    }
+    ExitAppDialog(
+        isVisible = confirmExitApp,
+        onDismissPressed = {
+            confirmExitApp = false
+        },
+        onExitPressed = {
+            confirmExitApp = false
+        }
+    )
 }
 
 @Composable
@@ -134,7 +133,7 @@ private fun OnboardingContentInfo(modifier: Modifier) {
             Spacer(modifier = Modifier.height(50.dp))
             CommonText(
                 titleRes = R.string.onboarding_additional_info_text,
-                type = CommonTextTypeEnum.BODY_MEDIUM,
+                type = CommonTextTypeEnum.HEADLINE_SMALL,
                 textAlign = TextAlign.Center
             )
         }

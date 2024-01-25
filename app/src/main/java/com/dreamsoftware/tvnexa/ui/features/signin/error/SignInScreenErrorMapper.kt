@@ -1,4 +1,4 @@
-package com.dreamsoftware.tvnexa.ui.features.signin
+package com.dreamsoftware.tvnexa.ui.features.signin.error
 
 import android.content.Context
 import com.dreamsoftware.tvnexa.R

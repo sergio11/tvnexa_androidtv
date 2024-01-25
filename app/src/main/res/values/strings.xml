@@ -8,7 +8,9 @@
     <string name="movie_duration_text">2h 56mm</string>
     <string name="no_text_value">--</string>
     <string name="generic_error_exception">An error occurred, please try again.</string>
-
+    <string name="dialog_generic_accept_button">Accept</string>
+    <string name="dialog_generic_cancel_button">Accept</string>
+    <string name="dialog_error_title">Ops....</string>
     <!-- Common -->
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
 
@@ -19,21 +21,27 @@
     <string name="onboarding_main_title_text">Explore the World of TVNexa!</string>
     <string name="onboarding_secondary_title_text">Discover a vast collection of television channels and enjoy an immersive viewing experience. Explore international channels with IPTV, bringing you content from around the globe.</string>
     <string name="onboarding_additional_info_text">Sign in or Sign up to unlock the full potential of TVNexa.</string>
-    <string name="onboarding_sign_in_button_text">Sign In</string>
-    <string name="onboarding_sign_up_button_text">Sign Up</string>
+    <string name="onboarding_sign_in_button_text">Get Started</string>
+    <string name="onboarding_sign_up_button_text">Create Account</string>
+    <string name="onboarding_exit_app_dialog_title">Exit TvNexa?</string>
+    <string name="onboarding_exit_app_dialog_description">Are you sure you want to exit the application?</string>
 
     <!-- Sign In -->
     <string name="sign_in_main_title_text">Welcome to TVNexa!</string>
     <string name="sign_in_secondary_title_text">Enter your credentials to explore a diverse universe of television channels from around the world.</string>
     <string name="sign_in_do_not_have_account_yet_text">Don\'t have an account yet?</string>
     <string name="sign_in_go_sign_up_button_text">Sign Up</string>
-    <string name="sign_in_main_button_text">Sign In</string>
-    <string name="sign_in_form_heading_text">Access Your Account</string>
+    <string name="sign_in_main_button_text">Let\'s Dive In</string>
+    <string name="sign_in_form_heading_text">Access your account</string>
     <string name="sign_in_form_email_label_text">Email</string>
     <string name="sign_in_form_password_label_text">Password</string>
     <string name="sign_in_form_invalid_data_provided">Invalid data provided, please check it and try again.</string>
-    <string name="sign_in_form_invalid_email_address">%s is not a valid email address</string>
-    <string name="sign_in_form_invalid_password">the password provided do not have the correct format</string>
+    <string name="sign_in_form_invalid_email_address" formatted="false">%s is not a valid email address</string>
+    <string name="sign_in_form_empty_email_address">You must provided a valid email address</string>
+    <string name="sign_in_form_invalid_password">You must provided a valid password</string>
+    <string name="sign_in_form_empty_password">The password provided do not have the correct format</string>
+    <string name="sign_in_progress_dialog_title">Signing In…</string>
+    <string name="sign_in_progress_dialog_description">Please wait while we sign you in. This may take a moment.</string>
 
     <!-- Sign Up -->
     <string name="sign_up_main_title_text">Explore global TV on TVNexa!</string>
