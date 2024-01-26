@@ -1,9 +1,10 @@
 package com.dreamsoftware.tvnexa.ui.di
 
 import android.content.Context
-import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInEmailErrorMapper
-import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInPasswordErrorMapper
-import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInScreenErrorMapper
+import com.dreamsoftware.tvnexa.ui.core.FormErrorMapperImpl
+import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInScreenSimpleErrorMapper
+import com.dreamsoftware.tvnexa.ui.core.IFormErrorMapper
+import com.dreamsoftware.tvnexa.ui.features.signup.error.SignUpScreenSimpleErrorMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,14 +18,13 @@ class UiModule {
 
     @Provides
     @ViewModelScoped
-    fun provideSignInScreenErrorMapper(@ApplicationContext context: Context) = SignInScreenErrorMapper(context)
+    fun provideSignInScreenErrorMapper(@ApplicationContext context: Context) = SignInScreenSimpleErrorMapper(context)
 
     @Provides
     @ViewModelScoped
-    fun provideSignInFormErrorMapper(@ApplicationContext context: Context) = SignInEmailErrorMapper(context)
+    fun provideSignUpScreenErrorMapper(@ApplicationContext context: Context) = SignUpScreenSimpleErrorMapper(context)
 
     @Provides
     @ViewModelScoped
-    fun provideSignInPasswordErrorMapper(@ApplicationContext context: Context) = SignInPasswordErrorMapper(context)
-
+    fun provideFormErrorMapper(@ApplicationContext context: Context): IFormErrorMapper = FormErrorMapperImpl(context)
 }

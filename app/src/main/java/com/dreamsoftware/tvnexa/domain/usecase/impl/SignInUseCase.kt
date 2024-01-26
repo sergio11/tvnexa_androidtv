@@ -1,10 +1,10 @@
 package com.dreamsoftware.tvnexa.domain.usecase.impl
 
 import com.dreamsoftware.tvnexa.domain.exception.DomainException
-import com.dreamsoftware.tvnexa.domain.exception.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.extensions.isEmailNotValid
 import com.dreamsoftware.tvnexa.domain.extensions.isPasswordNotValid
 import com.dreamsoftware.tvnexa.domain.model.AuthSessionBO
+import com.dreamsoftware.tvnexa.domain.model.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.repository.IAuthRepository
 import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCaseWithParams
 import kotlinx.coroutines.delay
@@ -15,7 +15,7 @@ class SignInUseCase(
 
     override suspend fun onExecuted(params: Params): AuthSessionBO =
         validateData(params)?.let {
-            throw DomainException.InvalidSigInDataException("Invalid data",
+            throw DomainException.InvalidDataException("Invalid data",
                 field = it.first, value = it.second)
         } ?: with(params) {
             delay(5000)

@@ -1,13 +1,13 @@
 package com.dreamsoftware.tvnexa.domain.usecase.impl
 
 import com.dreamsoftware.tvnexa.domain.exception.DomainException
-import com.dreamsoftware.tvnexa.domain.exception.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.extensions.isFirstNameNotValid
 import com.dreamsoftware.tvnexa.domain.repository.IAuthRepository
 import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCaseWithParams
 import com.dreamsoftware.tvnexa.domain.extensions.isLastNameNotValid
 import com.dreamsoftware.tvnexa.domain.extensions.isPasswordNotValid
 import com.dreamsoftware.tvnexa.domain.extensions.isUsernameNotValid
+import com.dreamsoftware.tvnexa.domain.model.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.model.SaveUserBO
 
 class SignUpUseCase(
@@ -16,7 +16,7 @@ class SignUpUseCase(
 
     override suspend fun onExecuted(params: Params): Boolean =
         validateData(params)?.let {
-            throw DomainException.InvalidSigUpDataException("Invalid Data provided", field = it.first)
+            throw DomainException.InvalidDataException("Invalid Data provided", field = it.first, value = it.second)
         } ?: with(params) {
             authRepository.signUp(SaveUserBO(
                 username = username,

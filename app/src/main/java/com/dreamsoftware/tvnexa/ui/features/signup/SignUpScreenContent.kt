@@ -40,6 +40,8 @@ import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextField
 import com.dreamsoftware.tvnexa.ui.components.CommonTextFieldTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
+import com.dreamsoftware.tvnexa.ui.components.ErrorDialogDialog
+import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
@@ -53,12 +55,17 @@ fun SignUpScreenContent(
     onPasswordChanged: (String) -> Unit,
     onRepeatPasswordChanged: (String) -> Unit,
     onSigUpPressed: () -> Unit,
-    onCancelPressed: () -> Unit
+    onCancelPressed: () -> Unit,
+    onErrorAcceptPressed: () -> Unit
 ) {
     Box(
         modifier = modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
+        SignUpDialog(
+            uiState = uiState,
+            onErrorAcceptPressed = onErrorAcceptPressed
+        )
         SignUpVideoBackground()
         Column(
             modifier = Modifier
@@ -98,6 +105,25 @@ fun SignUpScreenContent(
 }
 
 @Composable
+private fun SignUpDialog(
+    uiState: SignUpUiState,
+    onErrorAcceptPressed: () -> Unit
+) {
+    with(uiState) {
+        LoadingDialog(
+            isShowingDialog = isLoading,
+            titleRes = R.string.sign_up_progress_dialog_title,
+            descriptionRes = R.string.sign_up_progress_dialog_description
+        )
+        ErrorDialogDialog(
+            isVisible = !error.isNullOrBlank(),
+            description = error,
+            onAcceptClicked = onErrorAcceptPressed
+        )
+    }
+}
+
+@Composable
 private fun SignUpVideoBackground() {
     CommonFullScreenImage(resourceId = R.drawable.signup_background)
     Box(
@@ -120,51 +146,48 @@ private fun SignUpFormContent(
     onSigUpPressed: () -> Unit,
     onCancelPressed: () -> Unit
 ) {
-    Box(
-        modifier = modifier
+    Column(
+        modifier = modifier.padding(top = 20.dp),
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        CommonButton(
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(top = 20.dp),
-            type = CommonButtonTypeEnum.SMALL,
-            onClick = onCancelPressed,
-            style = CommonButtonStyleTypeEnum.TRANSPARENT,
-            text = "Cancel"
-        )
-        Image(
-            painter = painterResource(id = R.drawable.tvnexa_logo_inverse),
-            contentDescription = null,
-            modifier = Modifier
-                .height(80.dp)
-                .align(Alignment.TopEnd)
-        )
-        Column(
-            modifier = Modifier
-                .align(Alignment.TopCenter)
-                .fillMaxWidth(0.5f)
-                .padding(top = 20.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CommonText(
-                titleRes = R.string.sign_up_main_title_text,
-                type = CommonTextTypeEnum.TITLE_LARGE,
+        Row {
+            CommonButton(
+                modifier = Modifier.padding(end = 20.dp),
+                type = CommonButtonTypeEnum.SMALL,
+                onClick = onCancelPressed,
+                style = CommonButtonStyleTypeEnum.TRANSPARENT,
+                text = "Cancel"
             )
-            Spacer(modifier = Modifier.height(10.dp))
-            CommonText(
-                titleRes = R.string.sign_up_secondary_title_text,
-                type = CommonTextTypeEnum.TITLE_SMALL,
-                textAlign = TextAlign.Center
+            Column(
+                modifier = Modifier.weight(1f),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CommonText(
+                    titleRes = R.string.sign_up_main_title_text,
+                    type = CommonTextTypeEnum.TITLE_LARGE,
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                CommonText(
+                    titleRes = R.string.sign_up_secondary_title_text,
+                    type = CommonTextTypeEnum.TITLE_SMALL,
+                    textAlign = TextAlign.Center
+                )
+            }
+            Image(
+                painter = painterResource(id = R.drawable.tvnexa_logo_inverse),
+                contentDescription = null,
+                modifier = Modifier
+                    .height(80.dp)
+                    .padding(start = 20.dp),
             )
         }
         Row(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .fillMaxHeight(0.8f),
+            modifier = Modifier.weight(1f),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
             UserInfoFormColumn(
+                modifier = Modifier.fillMaxHeight(),
                 uiState = uiState,
                 onFirstNameChanged = onFirstNameChanged,
                 onLastNameChanged = onLastNameChanged,
@@ -172,6 +195,7 @@ private fun SignUpFormContent(
             )
             Spacer(modifier = Modifier.width(40.dp))
             UserCredentialsInfoFormColumn(
+                modifier = Modifier.fillMaxHeight(),
                 uiState = uiState,
                 onUsernameChanged = onUsernameChanged,
                 onPasswordChanged = onPasswordChanged,
@@ -179,7 +203,6 @@ private fun SignUpFormContent(
             )
         }
         CommonButton(
-            modifier = Modifier.align(Alignment.BottomCenter),
             onClick = onSigUpPressed,
             textRes = R.string.sign_up_main_button
         )
@@ -188,13 +211,14 @@ private fun SignUpFormContent(
 
 @Composable
 private fun UserInfoFormColumn(
+    modifier: Modifier,
     uiState: SignUpUiState,
     onFirstNameChanged: (String) -> Unit,
     onLastNameChanged: (String) -> Unit,
     onEmailChanged: (String) -> Unit
 ) {
     with(uiState) {
-        FormColumn {
+        FormColumn(modifier = modifier) {
             CommonTextField(
                 icon = Icons.Filled.Person,
                 value = firstName,
@@ -223,13 +247,14 @@ private fun UserInfoFormColumn(
 
 @Composable
 private fun UserCredentialsInfoFormColumn(
+    modifier: Modifier,
     uiState: SignUpUiState,
     onUsernameChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
     onRepeatPasswordChanged: (String) -> Unit
 ) {
     with(uiState) {
-        FormColumn {
+        FormColumn(modifier = modifier) {
             CommonTextField(
                 icon = Icons.Filled.Person,
                 value = username,
@@ -258,9 +283,13 @@ private fun UserCredentialsInfoFormColumn(
 }
 
 @Composable
-private fun FormColumn(content: @Composable ColumnScope.() -> Unit) {
+private fun FormColumn(
+    modifier: Modifier,
+    content: @Composable ColumnScope.() -> Unit
+) {
     Column(
-        verticalArrangement = Arrangement.SpaceBetween,
+        modifier = modifier,
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally,
         content = content
     )
@@ -279,7 +308,8 @@ fun SignUpPrev() {
             onPasswordChanged = {},
             onRepeatPasswordChanged = {},
             onSigUpPressed = {},
-            onCancelPressed = {}
+            onCancelPressed = {},
+            onErrorAcceptPressed = {}
         )
     }
 }
