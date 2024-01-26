@@ -15,7 +15,7 @@ import com.dreamsoftware.tvnexa.ui.features.signin.SignInScreen
 import com.dreamsoftware.tvnexa.ui.features.player.PlayerScreen
 import com.dreamsoftware.tvnexa.ui.features.signup.SignUpScreen
 import com.dreamsoftware.tvnexa.ui.features.splash.SplashScreen
-import com.dreamsoftware.tvnexa.ui.features.wiw.WhoIsWatchingScreen
+import com.dreamsoftware.tvnexa.ui.features.profiles.ProfileSelectorScreen
 import com.dreamsoftware.tvnexa.ui.navigation.extensions.navigateSingleTopTo
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
@@ -42,7 +42,7 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
             with(navController) {
                 OnboardingScreen(
                     onGoToSignIn = {
-                        navigate(Screens.SignIn.path)
+                        navigate(Screens.Profiles.path)
                     },
                     onGoToSignUp = {
                         navigate(Screens.SignUp.path)
@@ -55,7 +55,7 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
             with(navController) {
                 SignInScreen(
                     onGoToHome = {
-                        navigateSingleTopTo(Screens.WhoIsWatching.path)
+                        navigateSingleTopTo(Screens.Profiles.path)
                     },
                     onGoToSignUp = {
                         navigate(Screens.SignUp.path)
@@ -74,8 +74,8 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
             }
         }
 
-        composable(Screens.WhoIsWatching.path) {
-            WhoIsWatchingScreen {
+        composable(Screens.Profiles.path) {
+            ProfileSelectorScreen {
                 navController.navigateSingleTopTo(Screens.Home.DEFAULT.path)
             }
         }

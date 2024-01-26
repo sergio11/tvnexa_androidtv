@@ -59,7 +59,7 @@ fun ProfilePicture() {
             .clip(CircleShape)
             .shadow(elevation = 12.dp, shape = CircleShape, clip = true)
             .border(2.dp, LocalContentColor.current, CircleShape),
-        painter = painterResource(id = R.drawable.profile),
+        painter = painterResource(id = R.drawable.profile_avatar_boy),
         contentDescription = "User profile",
     )
 }

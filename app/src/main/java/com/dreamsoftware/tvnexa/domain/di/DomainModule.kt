@@ -8,6 +8,7 @@ import com.dreamsoftware.tvnexa.domain.usecase.impl.GetCategoriesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetChannelDetailUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetChannelsUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetCountriesUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfilesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetSessionUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignInUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignUpUseCase
@@ -61,4 +62,9 @@ class DomainModule {
     @ViewModelScoped
     fun provideGetChannelDetailUseCase(repository: IChannelRepository): GetChannelDetailUseCase =
         GetChannelDetailUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetProfilesUseCase(): GetProfilesUseCase =
+        GetProfilesUseCase()
 }
