@@ -3,6 +3,8 @@ package com.dreamsoftware.tvnexa.ui.extensions
 import android.view.KeyEvent
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
+import com.dreamsoftware.tvnexa.R
+import com.dreamsoftware.tvnexa.domain.model.ProfileTypeEnum
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -63,3 +65,11 @@ fun Modifier.handleDPadKeyEvents(
 
 val String.Companion.EMPTY: String
     get() = ""
+
+fun ProfileTypeEnum.toDrawableResource(): Int = when(this) {
+    ProfileTypeEnum.BOY -> R.drawable.profile_avatar_boy
+    ProfileTypeEnum.GIRL -> R.drawable.profile_avatar_girl
+    ProfileTypeEnum.WOMAN -> R.drawable.profile_avatar_woman
+    ProfileTypeEnum.MAN -> R.drawable.profile_avatar_man
+}
+
