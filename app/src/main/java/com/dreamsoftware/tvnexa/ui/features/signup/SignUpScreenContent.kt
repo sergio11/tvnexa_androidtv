@@ -66,7 +66,7 @@ fun SignUpScreenContent(
             uiState = uiState,
             onErrorAcceptPressed = onErrorAcceptPressed
         )
-        SignUpVideoBackground()
+        SignUpBackground()
         Column(
             modifier = Modifier
                 .fillMaxHeight()
@@ -124,7 +124,7 @@ private fun SignUpDialog(
 }
 
 @Composable
-private fun SignUpVideoBackground() {
+private fun SignUpBackground() {
     CommonFullScreenImage(resourceId = R.drawable.signup_background)
     Box(
         modifier = Modifier
