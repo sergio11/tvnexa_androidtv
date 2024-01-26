@@ -80,7 +80,11 @@ fun CommonTextField(
             leadingIcon = {
                 Icon(
                     imageVector = icon,
-                    tint = primary,
+                    tint = if(isError) {
+                        error
+                    } else {
+                        primary
+                    },
                     contentDescription = ""
                 )
             },

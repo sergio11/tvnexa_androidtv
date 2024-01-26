@@ -1,17 +1,22 @@
 package com.dreamsoftware.tvnexa.ui.features.signup
 
 import androidx.lifecycle.viewModelScope
+import com.dreamsoftware.tvnexa.domain.model.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignUpUseCase
+import com.dreamsoftware.tvnexa.ui.core.IFormErrorMapper
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
 import com.dreamsoftware.tvnexa.ui.extensions.EMPTY
+import com.dreamsoftware.tvnexa.ui.features.signup.error.SignUpScreenSimpleErrorMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SignUpViewModel @Inject constructor(
-    private val signUpUseCase: SignUpUseCase
+    private val signUpUseCase: SignUpUseCase,
+    private val signUpScreenSimpleErrorMapper: SignUpScreenSimpleErrorMapper,
+    private val formErrorMapper: IFormErrorMapper
 ): SupportViewModel<SignUpUiState, SignUpSideEffects>() {
     override fun onGetDefaultState(): SignUpUiState = SignUpUiState()
 
@@ -78,11 +83,20 @@ class SignUpViewModel @Inject constructor(
     }
 
     private fun onErrorOccurred(ex: Exception) {
-        ex.printStackTrace()
-        updateState {
-            it.copy(
-                isLoading = false
-            )
+        with(formErrorMapper) {
+            ex.printStackTrace()
+            updateState {
+                it.copy(
+                    isLoading = false,
+                    error = signUpScreenSimpleErrorMapper.mapToMessage(ex),
+                    emailError = mapToMessage(key = FormFieldKey.EMAIL, ex),
+                    usernameError = mapToMessage(key = FormFieldKey.USERNAME, ex),
+                    passwordError = mapToMessage(key = FormFieldKey.PASSWORD, ex),
+                    repeatPasswordError = mapToMessage(key = FormFieldKey.EMAIL, ex),
+                    firstNameError = mapToMessage(key = FormFieldKey.FIRST_NAME, ex),
+                    lastNameError = mapToMessage(key = FormFieldKey.LAST_NAME, ex)
+                )
+            }
         }
     }
 }

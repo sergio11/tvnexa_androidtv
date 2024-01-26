@@ -11,6 +11,7 @@
     <string name="dialog_generic_accept_button">Accept</string>
     <string name="dialog_generic_cancel_button">Accept</string>
     <string name="dialog_error_title">Ops....</string>
+    <string name="generic_form_invalid_data_provided">Invalid data provided, please check it and try again.</string>
     <!-- Common -->
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
     <string name="developer_credits_text_single_line">Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024</string>
@@ -27,6 +28,16 @@
     <string name="onboarding_exit_app_dialog_title">Exit TvNexa?</string>
     <string name="onboarding_exit_app_dialog_description">Are you sure you want to exit the application?</string>
 
+    <!-- Profile Data Forms -->
+    <string name="account_form_invalid_email_address" formatted="false">%s is not a valid email address</string>
+    <string name="account_form_empty_email_address">You must provided a valid email address</string>
+    <string name="account_form_invalid_password">You must provided a valid password</string>
+    <string name="account_form_empty_password">The password provided do not have the correct format</string>
+    <string name="account_form_invalid_firstname">You must provided a valid firstname</string>
+    <string name="account_form_invalid_lastname">You must provided a valid lastname</string>
+    <string name="account_form_invalid_username">The username must have a minimum length of 5 characters</string>
+    <string name="account_form_empty_username">You must provided a valid username</string>
+
     <!-- Sign In -->
     <string name="sign_in_main_title_text">Welcome to TVNexa!</string>
     <string name="sign_in_secondary_title_text">Enter your credentials to explore a diverse universe of television channels from around the world.</string>
@@ -36,11 +47,6 @@
     <string name="sign_in_form_heading_text">Access your account</string>
     <string name="sign_in_form_email_label_text">Email</string>
     <string name="sign_in_form_password_label_text">Password</string>
-    <string name="sign_in_form_invalid_data_provided">Invalid data provided, please check it and try again.</string>
-    <string name="sign_in_form_invalid_email_address" formatted="false">%s is not a valid email address</string>
-    <string name="sign_in_form_empty_email_address">You must provided a valid email address</string>
-    <string name="sign_in_form_invalid_password">You must provided a valid password</string>
-    <string name="sign_in_form_empty_password">The password provided do not have the correct format</string>
     <string name="sign_in_progress_dialog_title">Signing In…</string>
     <string name="sign_in_progress_dialog_description">Please wait while we sign you in. This may take a moment.</string>
 
@@ -54,6 +60,8 @@
     <string name="sign_up_form_first_name_label_text">FirstName</string>
     <string name="sign_up_form_surname_label_text">Surname</string>
     <string name="sign_up_form_email_label_text">Email</string>
+    <string name="sign_up_progress_dialog_title">Creating Your Account</string>
+    <string name="sign_up_progress_dialog_description">Please wait while we set up your new TvNexa account. This may take a moment.</string>
 
 
     <!-- Profile -->
