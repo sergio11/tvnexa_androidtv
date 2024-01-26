@@ -1,23 +1,22 @@
 package com.dreamsoftware.tvnexa.ui.features.signin
 
 import androidx.lifecycle.viewModelScope
+import com.dreamsoftware.tvnexa.domain.model.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignInUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
 import com.dreamsoftware.tvnexa.ui.extensions.EMPTY
-import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInEmailErrorMapper
-import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInPasswordErrorMapper
-import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInScreenErrorMapper
+import com.dreamsoftware.tvnexa.ui.core.IFormErrorMapper
+import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInScreenSimpleErrorMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SignInViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
-    private val signInScreenErrorMapper: SignInScreenErrorMapper,
-    private val signInEmailErrorMapper: SignInEmailErrorMapper,
-    private val signInPasswordErrorMapper: SignInPasswordErrorMapper
+    private val signInScreenErrorMapper: SignInScreenSimpleErrorMapper,
+    private val formErrorMapper: IFormErrorMapper
 ): SupportViewModel<SignInUiState, SignInSideEffects>() {
     override fun onGetDefaultState(): SignInUiState = SignInUiState()
 
@@ -66,8 +65,8 @@ class SignInViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 error = signInScreenErrorMapper.mapToMessage(ex),
-                emailError = signInEmailErrorMapper.mapToMessage(ex),
-                passwordError = signInPasswordErrorMapper.mapToMessage(ex)
+                emailError = formErrorMapper.mapToMessage(key = FormFieldKey.EMAIL, ex),
+                passwordError = formErrorMapper.mapToMessage(key = FormFieldKey.PASSWORD,  ex)
             )
         }
     }
