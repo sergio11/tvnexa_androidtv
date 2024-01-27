@@ -14,6 +14,6 @@ interface ICountryService {
      *
      * @return A [ApiResponseDTO] containing a list of [CountryResponseDTO].
      */
-    @GET("/countries/")
+    @GET("countries/")
     suspend fun all(): ApiResponseDTO<List<CountryResponseDTO>>
 }

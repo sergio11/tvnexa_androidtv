@@ -14,6 +14,6 @@ interface ICategoryService {
      *
      * @return A [ApiResponseDTO] containing a list of [CategoryResponseDTO].
      */
-    @GET("/categories/")
+    @GET("categories/")
     suspend fun all(): ApiResponseDTO<List<CategoryResponseDTO>>
 }

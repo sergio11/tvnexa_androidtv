@@ -36,7 +36,7 @@ interface IChannelsService {
      * @param limit The page size for paginated requests (default is [DEFAULT_PAGE_SIZE]).
      * @return A [ApiResponseDTO] containing a list of [SimpleChannelResponseDTO].
      */
-    @GET("/channels/")
+    @GET("channels/")
     suspend fun findBy(
         @Query("category") category: String? = null,
         @Query("country") country: String? = null,
@@ -50,7 +50,7 @@ interface IChannelsService {
      * @param channelId The unique identifier of the channel.
      * @return A [ApiResponseDTO] containing detailed information about the channel.
      */
-    @GET("/channels/{channelId}")
+    @GET("channels/{channelId}")
     suspend fun detail(
         @Path("channelId") channelId: String
     ): ApiResponseDTO<ChannelDetailResponseDTO>

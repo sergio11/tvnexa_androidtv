@@ -14,6 +14,6 @@ interface ISubdivisionService {
      *
      * @return A [ApiResponseDTO] containing a list of [SubdivisionResponseDTO].
      */
-    @GET("/subdivisions/")
+    @GET("subdivisions/")
     suspend fun all(): ApiResponseDTO<List<SubdivisionResponseDTO>>
 }

@@ -19,7 +19,7 @@ interface IEpgService {
      * @param endAt The end date and time for filtering programmes (optional).
      * @return A [ApiResponseDTO] containing a list of [EpgChannelProgrammeResponseDTO].
      */
-    @GET("/channel-programmes/{channelId}")
+    @GET("channel-programmes/{channelId}")
     suspend fun findChannelProgrammes(
         @Path("channelId") channelId: String,
         @Query("startAt") startAt: String? = null,
@@ -34,7 +34,7 @@ interface IEpgService {
      * @param endAt The end date and time for filtering programmes (optional).
      * @return A [ApiResponseDTO] containing a list of [EpgChannelProgrammeResponseDTO].
      */
-    @GET("/country-programmes/{countryCode}")
+    @GET("country-programmes/{countryCode}")
     suspend fun findCountryProgrammes(
         @Path("channelId") channelId: String,
         @Query("startAt") startAt: String? = null,
