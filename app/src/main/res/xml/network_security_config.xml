@@ -1,17 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<network-security-config>
+<network-security-config xmlns:tools="http://schemas.android.com/tools">
 
-    <base-config cleartextTrafficPermitted="false">
+    <base-config cleartextTrafficPermitted="true"
+        tools:ignore="InsecureBaseConfiguration">
         <trust-anchors>
             <certificates src="system" />
         </trust-anchors>
     </base-config>
-
-    <domain-config cleartextTrafficPermitted="true">
-        <domain includeSubdomains="false">192.168.1.39</domain>
-        <trust-anchors>
-            <certificates src="system" overrides="true"/>
-        </trust-anchors>
-    </domain-config>
 
 </network-security-config>
