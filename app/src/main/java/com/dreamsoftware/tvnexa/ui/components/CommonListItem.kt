@@ -30,11 +30,11 @@ fun CommonListItem(
         BorderedFocusableItem(
             onClick = onClicked,
             color = ClickableSurfaceDefaults.colors(
-                containerColor = primaryContainer.copy(alpha = 0.6f),
+                containerColor = primaryContainer,
                 focusedContainerColor = onPrimaryContainer
             ),
             border = ClickableSurfaceDefaults.border(
-                focusedBorder = Border(
+                border = Border(
                     BorderStroke(
                         width = 2.dp,
                         color = if(isFocused) {
