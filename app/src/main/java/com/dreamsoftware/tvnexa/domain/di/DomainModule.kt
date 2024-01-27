@@ -13,6 +13,7 @@ import com.dreamsoftware.tvnexa.domain.usecase.impl.GetSessionUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignInUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignUpUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.VerifyUserSessionUseCase
+import com.dreamsoftware.tvnexa.utils.ISessionAware
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,8 +26,8 @@ class DomainModule {
 
     @Provides
     @ViewModelScoped
-    fun provideSignInUseCase(repository: IAuthRepository): SignInUseCase =
-        SignInUseCase(repository)
+    fun provideSignInUseCase(repository: IAuthRepository, sessionAware: ISessionAware): SignInUseCase =
+        SignInUseCase(repository, sessionAware)
 
     @Provides
     @ViewModelScoped
@@ -40,8 +41,8 @@ class DomainModule {
 
     @Provides
     @ViewModelScoped
-    fun provideVerifyUserSessionUseCase(repository: IAuthRepository): VerifyUserSessionUseCase =
-        VerifyUserSessionUseCase(repository)
+    fun provideVerifyUserSessionUseCase(repository: IAuthRepository, sessionAware: ISessionAware): VerifyUserSessionUseCase =
+        VerifyUserSessionUseCase(repository, sessionAware)
 
     @Provides
     @ViewModelScoped

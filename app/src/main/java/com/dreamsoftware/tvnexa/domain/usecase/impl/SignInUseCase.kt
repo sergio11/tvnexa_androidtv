@@ -7,10 +7,12 @@ import com.dreamsoftware.tvnexa.domain.model.AuthSessionBO
 import com.dreamsoftware.tvnexa.domain.model.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.repository.IAuthRepository
 import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCaseWithParams
+import com.dreamsoftware.tvnexa.utils.ISessionAware
 import kotlinx.coroutines.delay
 
 class SignInUseCase(
-    private val repository: IAuthRepository
+    private val repository: IAuthRepository,
+    private val sessionAware: ISessionAware
 ): BaseUseCaseWithParams<SignInUseCase.Params, AuthSessionBO>() {
 
     override suspend fun onExecuted(params: Params): AuthSessionBO =
@@ -18,8 +20,10 @@ class SignInUseCase(
             throw DomainException.InvalidDataException("Invalid data",
                 field = it.first, value = it.second)
         } ?: with(params) {
-            delay(5000)
-            repository.signIn(email, password)
+            delay(3000)
+            repository.signIn(email, password).also {
+                sessionAware.session = it
+            }
         }
 
     private fun validateData(params: Params): Pair<FormFieldKey, String>? = with(params) {
