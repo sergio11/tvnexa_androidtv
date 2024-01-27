@@ -12,9 +12,9 @@ import com.squareup.moshi.Json
  */
 data class AuthResponseDTO(
     // Authentication token generated upon successful authentication.
-    @field:Json(name = "token")
+    @Json(name = "token")
     val token: String,
     // User information associated with the authenticated user.
-    @field:Json(name = "user")
+    @Json(name = "user")
     val user: UserResponseDTO,
 )

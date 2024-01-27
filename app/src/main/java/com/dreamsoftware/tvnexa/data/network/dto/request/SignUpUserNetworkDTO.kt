@@ -12,14 +12,14 @@ import com.squareup.moshi.Json
  * @property lastName The last name of the user.
  */
 data class SignUpUserNetworkDTO(
-    @field:Json(name = "username")
+    @Json(name = "username")
     val username: String,
-    @field:Json(name = "password")
+    @Json(name = "password")
     val password: String,
-    @field:Json(name = "email")
+    @Json(name = "email")
     val email: String,
-    @field:Json(name = "firstName")
+    @Json(name = "firstName")
     val firstName: String,
-    @field:Json(name = "lastName")
+    @Json(name = "lastName")
     val lastName: String
 )
