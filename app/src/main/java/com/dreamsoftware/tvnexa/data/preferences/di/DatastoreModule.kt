@@ -8,6 +8,7 @@ import androidx.datastore.preferences.preferencesDataStoreFile
 import com.dreamsoftware.tvnexa.data.preferences.datasource.IAuthSessionDataSource
 import com.dreamsoftware.tvnexa.data.preferences.datasource.impl.AuthSessionDataSourceImpl
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -37,7 +38,9 @@ class DatastoreModule {
     @Provides
     @Singleton
     fun provideMoshi(): Moshi =
-        Moshi.Builder().build()
+        Moshi.Builder()
+            .add(KotlinJsonAdapterFactory())
+            .build()
 
     /**
      * Provides a DataStore instance for storing preferences.

@@ -24,6 +24,10 @@ class ProfileSelectorViewModel @Inject constructor(
         )
     }
 
+    fun onProfileSelected(profileBO: ProfileBO) {
+        launchSideEffect(ProfileSelectorSideEffects.ProfileSelected)
+    }
+
     private fun onLoading() {
         updateState { it.copy(isLoading = true) }
     }
@@ -53,4 +57,7 @@ data class ProfileSelectorUiState(
     val profiles: List<ProfileBO> = emptyList()
 ): UiState
 
-sealed interface ProfileSelectorSideEffects: SideEffect
+sealed interface ProfileSelectorSideEffects: SideEffect {
+
+    data object ProfileSelected: ProfileSelectorSideEffects
+}

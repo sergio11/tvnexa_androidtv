@@ -11,6 +11,7 @@ import com.dreamsoftware.tvnexa.data.network.service.IRegionService
 import com.dreamsoftware.tvnexa.data.network.service.ISubdivisionService
 import com.dreamsoftware.tvnexa.utils.ISessionAware
 import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -18,6 +19,7 @@ import dagger.hilt.components.SingletonComponent
 import dagger.multibindings.ElementsIntoSet
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
@@ -40,7 +42,9 @@ class NetworkModule {
     @Singleton
     fun provideConverterFactory(): Converter.Factory =
         MoshiConverterFactory.create(
-            Moshi.Builder().build()
+            Moshi.Builder()
+                .add(KotlinJsonAdapterFactory())
+                .build()
         )
 
     /**
@@ -55,13 +59,27 @@ class NetworkModule {
     ): Set<Interceptor> =
         setOf(AuthInterceptor(sessionAware))
 
+
+    /**
+     * Provide Network Interceptors
+     */
+    @Provides
+    @ElementsIntoSet
+    @Singleton
+    @Named("networkInterceptors")
+    fun provideNetworkInterceptors(): Set<Interceptor> =
+        setOf(HttpLoggingInterceptor().apply {
+            setLevel(HttpLoggingInterceptor.Level.BASIC)
+        })
+
     /**
      * Provide HTTP Client Builder
      */
     @Provides
     @Singleton
     fun provideHttpClient(
-        @Named("requestInterceptors") requestInterceptors: Set<@JvmSuppressWildcards Interceptor>
+        @Named("requestInterceptors") requestInterceptors: Set<@JvmSuppressWildcards Interceptor>,
+        @Named("networkInterceptors") networkInterceptors: Set<@JvmSuppressWildcards Interceptor>
     ): OkHttpClient {
         val okHttpBuilder = OkHttpClient.Builder()
             .connectTimeout(TIMEOUT_IN_MINUTES, TimeUnit.MINUTES)
@@ -70,6 +88,9 @@ class NetworkModule {
             .retryOnConnectionFailure(true)
         requestInterceptors.forEach {
             okHttpBuilder.addInterceptor(it)
+        }
+        networkInterceptors.forEach {
+            okHttpBuilder.addNetworkInterceptor(it)
         }
         return okHttpBuilder.build()
     }
