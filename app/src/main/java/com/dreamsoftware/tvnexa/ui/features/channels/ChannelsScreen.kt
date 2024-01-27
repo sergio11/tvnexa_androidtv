@@ -34,7 +34,9 @@ fun ChannelsScreen(
         }
 
         ChannelScreenContent(
-            uiState = uiState
+            uiState = uiState,
+            onNewCountrySelected = ::onNewCountrySelected,
+            onChannelFocused = ::onNewChannelFocused
         )
     }
 }

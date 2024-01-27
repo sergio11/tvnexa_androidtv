@@ -1,5 +1,6 @@
 package com.dreamsoftware.tvnexa.ui.features.channels
 
+import android.util.Log
 import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.tvnexa.domain.model.CategoryBO
 import com.dreamsoftware.tvnexa.domain.model.CountryBO
@@ -29,39 +30,53 @@ class ChannelsViewModel @Inject constructor(
         onLoadData()
     }
 
+    fun onNewCountrySelected(newCountryBO: CountryBO) {
+        updateState {
+            it.copy(
+                isLoading = true,
+                countrySelected = newCountryBO
+            )
+        }
+        onLoadChannels()
+    }
+
+    fun onNewChannelFocused(newChannelFocused: SimpleChannelBO) {
+        updateState { it.copy(channelFocused = newChannelFocused) }
+    }
+
     private fun onLoadData() = viewModelScope.launch {
         runCatching {
             val getCountriesDeferred = async { getCountries() }
             val getCategoriesDeferred = async { getCategories() }
             val countries = getCountriesDeferred.await()
             val categories = getCategoriesDeferred.await()
-            val countrySelected = countries.firstOrNull()
-            val categorySelected = categories.firstOrNull()
             updateState {
                 it.copy(
                     isLoading = false,
                     countries = countries,
                     categories = categories,
-                    countrySelected = countrySelected,
-                    categorySelected = categorySelected
+                    countrySelected = countries.firstOrNull(),
+                    categorySelected = null
                 )
             }
-            onLoadChannels(countrySelected, categorySelected)
+            onLoadChannels()
         }.onFailure(::onErrorOccurred)
     }
 
-    private fun onLoadChannels(countrySelected: CountryBO?, categorySelected: CategoryBO?) {
-        getChannelsUseCase.invoke(
-            scope = viewModelScope,
-            params = GetChannelsUseCase.Params(
-                category = categorySelected?.id,
-                country = countrySelected?.code,
-                offset = 1,
-                limit = 100
-            ),
-            onSuccess = ::onLoadChannelsSuccessfully,
-            onError = ::onErrorOccurred
-        )
+    private fun onLoadChannels() {
+        with(uiState.value) {
+            getChannelsUseCase.invoke(
+                scope = viewModelScope,
+                params = GetChannelsUseCase.Params(
+                    category = categorySelected?.id,
+                    country = countrySelected?.code,
+                    offset = 1,
+                    limit = 100
+                ),
+                onSuccess = ::onLoadChannelsSuccessfully,
+                onError = ::onErrorOccurred
+            )
+        }
     }
 
     private fun onLoading() {
@@ -74,9 +89,12 @@ class ChannelsViewModel @Inject constructor(
     }
 
     private fun onLoadChannelsSuccessfully(channels: List<SimpleChannelBO>) {
+        Log.d("CHANNELS_LIST", "onLoadChannelsSuccessfully channels: ${channels.size} CALLED!")
         updateState {
             it.copy(
-                channels = channels
+                isLoading = false,
+                channels = channels,
+                channelFocused = channels.firstOrNull()
             )
         }
     }
@@ -104,7 +122,8 @@ data class ChannelsUiState(
     val categories: List<CategoryBO> = emptyList(),
     val channels: List<SimpleChannelBO> = emptyList(),
     val countrySelected: CountryBO? = null,
-    val categorySelected: CategoryBO? = null
+    val categorySelected: CategoryBO? = null,
+    val channelFocused: SimpleChannelBO? = null
 ): UiState
 
 sealed interface ChannelsSideEffects: SideEffect
