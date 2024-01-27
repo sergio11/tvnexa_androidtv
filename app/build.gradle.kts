@@ -72,6 +72,7 @@ dependencies {
     implementation(libs.bundles.compose.accompanist)
     implementation(libs.androidx.material.icons.extended)
     implementation(libs.hilt.android)
+    implementation(libs.androidx.media3.exoplayer.hls)
     kapt(libs.hilt.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.viewModelCompose)
@@ -81,6 +82,7 @@ dependencies {
     implementation(libs.logging.interceptor)
     implementation(libs.converter.moshi)
     implementation(libs.moshi.kotlin)
+    implementation(libs.coil.compose)
     implementation(libs.androidx.datastore.preferences)
 
     androidTestImplementation(platform(libs.compose.bom))
