@@ -15,7 +15,8 @@ fun SplashScreen(
     modifier: Modifier = Modifier,
     viewModel: SplashScreenViewModel = hiltViewModel(),
     onGoToOnboarding: () -> Unit,
-    onGoToHome: () -> Unit
+    onGoToHome: () -> Unit,
+    onGoToProfileSelector: () -> Unit
 ) {
     with(viewModel) {
         val lifecycle = LocalLifecycleOwner.current.lifecycle

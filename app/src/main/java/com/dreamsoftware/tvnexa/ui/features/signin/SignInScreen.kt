@@ -17,6 +17,7 @@ fun SignInScreen(
     modifier: Modifier = Modifier,
     viewModel: SignInViewModel = hiltViewModel(),
     onGoToHome: () -> Unit,
+    onGoToProfileSelector: () -> Unit,
     onGoToSignUp: () -> Unit
 ) {
     with(viewModel) {
@@ -55,7 +56,8 @@ fun SignInScreenPrev() {
         SignInScreen(
             modifier = Modifier.fillMaxSize(),
             onGoToHome = {},
-            onGoToSignUp = {}
+            onGoToSignUp = {},
+            onGoToProfileSelector = {}
         )
     }
 }
