@@ -12,10 +12,10 @@ import com.squareup.moshi.Json
  * @param T The type of the data payload in the API response.
  */
 data class ApiResponseDTO<T>(
-    @field:Json(name = "code")
+    @Json(name = "code")
     val code: Int,
-    @field:Json(name = "message")
-    private val message: String,
-    @field:Json(name = "data")
+    @Json(name = "message")
+    val message: String,
+    @Json(name = "data")
     val data: T
 )

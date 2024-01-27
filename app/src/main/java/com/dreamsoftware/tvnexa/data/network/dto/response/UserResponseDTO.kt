@@ -13,18 +13,18 @@ import com.squareup.moshi.Json
  */
 data class UserResponseDTO(
     // The unique identifier of the user.
-    @field:Json(name = "uuid")
+    @Json(name = "uuid")
     val uuid: String,
     // The username of the user.
-    @field:Json(name = "username")
+    @Json(name = "username")
     val username: String,
     // The email address of the user.
-    @field:Json(name = "email")
+    @Json(name = "email")
     val email: String,
     // The first name of the user.
-    @field:Json(name = "firstName")
+    @Json(name = "firstName")
     val firstName: String,
     // The last name of the user.
-    @field:Json(name = "lastName")
+    @Json(name = "lastName")
     val lastName: String
 )
