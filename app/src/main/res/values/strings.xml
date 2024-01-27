@@ -11,6 +11,7 @@
     <string name="dialog_generic_accept_button">Accept</string>
     <string name="dialog_generic_cancel_button">Accept</string>
     <string name="dialog_error_title">Ops....</string>
+    <string name="image_content_description">Image can not be loaded</string>
     <string name="generic_form_invalid_data_provided">Invalid data provided, please check it and try again.</string>
     <!-- Common -->
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
