@@ -4,12 +4,12 @@ import com.squareup.moshi.Json
 
 data class RegionResponseDTO(
     // The code or identifier of the region.
-    @field:Json(name = "code")
+    @Json(name = "code")
     val code: String,
     // The name or title of the region.
-    @field:Json(name = "name")
+    @Json(name = "name")
     val name: String,
     // The list of countries within the region.
-    @field:Json(name = "countries")
+    @Json(name = "countries")
     val countries: Iterable<CountryResponseDTO>
 )

@@ -9,8 +9,8 @@ import com.squareup.moshi.Json
  * @property password The password associated with the user's account.
  */
 data class SignInUserNetworkDTO(
-    @field:Json(name = "email")
+    @Json(name = "email")
     val email: String,
-    @field:Json(name = "password")
+    @Json(name = "password")
     val password: String
 )
