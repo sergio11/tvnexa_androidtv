@@ -17,7 +17,7 @@ android {
         versionName = "1.0"
 
         // Build Variables
-        buildConfigField("String", "BASE_URL", "\"https://localhost/\"")
+        buildConfigField("String", "BASE_URL", "\"http://192.168.1.39:9090/api/v1/\"")
     }
 
     buildTypes {
@@ -78,6 +78,7 @@ dependencies {
     implementation(libs.line.awesome.icons)
     implementation(libs.androidx.core.splashscreen)
     implementation(libs.retrofit)
+    implementation(libs.logging.interceptor)
     implementation(libs.converter.moshi)
     implementation(libs.moshi.kotlin)
     implementation(libs.androidx.datastore.preferences)

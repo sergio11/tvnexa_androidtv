@@ -19,6 +19,9 @@ fun ProfileSelectorScreen(
             lifecycle = lifecycle,
             viewModel = viewModel
         ) {
+            if(it is ProfileSelectorSideEffects.ProfileSelected) {
+                onProfileSelected()
+            }
         }
 
         val uiState by produceUiState(
@@ -33,7 +36,7 @@ fun ProfileSelectorScreen(
 
         ProfileSelectorContent(
             uiState = uiState,
-            onProfileSelected = {}
+            onProfileSelected = ::onProfileSelected
         )
     }
 }

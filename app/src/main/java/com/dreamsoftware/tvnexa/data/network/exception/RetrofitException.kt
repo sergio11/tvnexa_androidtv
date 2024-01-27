@@ -57,7 +57,7 @@ class RetrofitException(
             // We had non-200 http response
             if (throwable is HttpException) {
                 return throwable.response()?.let {
-                    httpError(it.raw().request().url().toString(), it)
+                    httpError(it.raw().request.url.toString(), it)
                 }?: unexpectedError(throwable)
             }
             // A network response happened

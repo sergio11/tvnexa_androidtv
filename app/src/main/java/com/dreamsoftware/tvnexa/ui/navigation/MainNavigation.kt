@@ -33,6 +33,9 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
                     },
                     onGoToOnboarding = {
                         navigateSingleTopTo(Screens.Onboarding.path)
+                    },
+                    onGoToProfileSelector = {
+                        navigateSingleTopTo(Screens.Profiles.path)
                     }
                 )
             }
@@ -42,7 +45,7 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
             with(navController) {
                 OnboardingScreen(
                     onGoToSignIn = {
-                        navigate(Screens.Profiles.path)
+                        navigate(Screens.SignIn.path)
                     },
                     onGoToSignUp = {
                         navigate(Screens.SignUp.path)
@@ -55,6 +58,9 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
             with(navController) {
                 SignInScreen(
                     onGoToHome = {
+                        navigateSingleTopTo(Screens.Home.DEFAULT.path)
+                    },
+                    onGoToProfileSelector = {
                         navigateSingleTopTo(Screens.Profiles.path)
                     },
                     onGoToSignUp = {
