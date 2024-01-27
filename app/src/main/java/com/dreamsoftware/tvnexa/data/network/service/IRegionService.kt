@@ -14,6 +14,6 @@ interface IRegionService {
      *
      * @return A [ApiResponseDTO] containing a list of [RegionResponseDTO].
      */
-    @GET("/regions/")
+    @GET("regions/")
     suspend fun all(): ApiResponseDTO<List<RegionResponseDTO>>
 }

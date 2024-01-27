@@ -69,7 +69,7 @@ class NetworkModule {
     @Named("networkInterceptors")
     fun provideNetworkInterceptors(): Set<Interceptor> =
         setOf(HttpLoggingInterceptor().apply {
-            setLevel(HttpLoggingInterceptor.Level.BASIC)
+            setLevel(HttpLoggingInterceptor.Level.HEADERS)
         })
 
     /**
