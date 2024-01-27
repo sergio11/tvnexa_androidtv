@@ -29,7 +29,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.tvnexa.domain.model.CountryBO
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
-import com.dreamsoftware.tvnexa.ui.components.ChannelLogo
+import com.dreamsoftware.tvnexa.ui.components.ChannelGridItem
 import com.dreamsoftware.tvnexa.ui.components.ChannelPreview
 import com.dreamsoftware.tvnexa.ui.components.CommonLazyVerticalGrid
 import com.dreamsoftware.tvnexa.ui.components.CommonListItem
@@ -89,63 +89,28 @@ private fun ChannelsGrid(
             requester.requestFocus()
         }
     }
-    with(MaterialTheme.colorScheme) {
-        Column(
-            modifier = modifier
-        ) {
-            channelFocused?.let {
-                ChannelPreview(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.4f)
-                        .padding(start = 10.dp),
-                    channel = it
-                )
-            }
-            CommonLazyVerticalGrid(
-                modifier = Modifier.fillMaxWidth(),
-                state = rememberTvLazyGridState(),
-                items = channels
-            ) { item ->
-                CommonListItem(
-                    modifier = Modifier
+    Column(
+        modifier = modifier
+    ) {
+        channelFocused?.let {
+            ChannelPreview(
+                modifier = Modifier
                     .fillMaxWidth()
-                    .height(150.dp)
-                    .padding(8.dp)
-                    .then(if(item == channelFocused) Modifier.focusRequester(requester) else Modifier),
-                    containerColor = primaryContainer.copy(0.7f),
-                    borderColor = primaryContainer,
-                    onFocused = { onChannelFocused(item) },
-                    onClicked = {  }
-                ) { isFocused ->
-                    Column(
-                        modifier = Modifier.fillMaxSize(),
-                        verticalArrangement = Arrangement.SpaceEvenly,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        ChannelLogo(
-                            size = 80.dp,
-                            logo = item.logo,
-                            borderColor = if(isFocused) {
-                                primary
-                            } else {
-                                onPrimaryContainer
-                            }
-                        )
-                        CommonText(
-                            type = CommonTextTypeEnum.BODY_MEDIUM,
-                            titleText = item.name,
-                            textAlign = TextAlign.Center,
-                            maxLines = 2,
-                            textColor = if(isFocused) {
-                                primary
-                            } else {
-                                onPrimaryContainer
-                            }
-                        )
-                    }
-                }
-            }
+                    .fillMaxHeight(0.4f)
+                    .padding(start = 10.dp),
+                channel = it
+            )
+        }
+        CommonLazyVerticalGrid(
+            modifier = Modifier.fillMaxWidth(),
+            state = rememberTvLazyGridState(),
+            items = channels
+        ) { item ->
+            ChannelGridItem(
+                modifier = if(item == channelFocused) Modifier.focusRequester(requester) else Modifier,
+                channel = item,
+                onChannelFocused = onChannelFocused
+            )
         }
     }
 }
