@@ -2,6 +2,12 @@
 
 Welcome to TvNexa, your ultimate online television platform that redefines the streaming experience. TvNexa is crafted with innovation, bringing you a diverse universe of television channels from around the world. Whether you're using Android TV or your mobile device, TvNexa is designed for seamless exploration and enjoyment of global content.
 
+<p align="center">
+  <img src="https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white" />
+  <img src="https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white" />
+  <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
+</p>
+
 ## Overview 🌐
 
 🌐 **TvNexa: Bringing the World to Your Screen! 📺** TvNexa is an innovative online television platform developed for Android TV using Jetpack Compose for TV and Jetpack Material 3. The project also includes a mobile version for a consistent viewing experience across devices.
