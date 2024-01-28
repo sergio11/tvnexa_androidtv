@@ -6,10 +6,31 @@ Welcome to TvNexa, your ultimate online television platform that redefines the s
 
 🌐 **TvNexa: Bringing the World to Your Screen! 📺** TvNexa is an innovative online television platform developed for Android TV using Jetpack Compose for TV and Jetpack Material 3. The project also includes a mobile version for a consistent viewing experience across devices.
 
-## Features 🚀
+## User-Focused Features 🚀
 
-- **Explore Global Channels**: Access a variety of IPTV channels from different countries.
-- **Discover Diverse Content**: Immerse yourself in unique programs showcasing various cultures.
-- **Clean Architecture**: Follows the principles of Clean Architecture for maintainability and scalability.
-- **Retrofit & OkHttp**: Utilizes Retrofit and OkHttp for efficient communication with backend services.
-- **ExoPlayer for IPTV**: Implements ExoPlayer for seamless playback of HLS IPTV content.
+- **User Profiles**: Create multiple profiles on your account for personalized experiences.
+- **Parental Controls**: Apply parental control measures, including channel blocking, NSFW content blocking, and time restrictions.
+- **Favorite Channels Management**: Easily manage and organize your favorite channels.
+- **Search Functionality**: Search for specific channels with ease.
+- **Intuitive Navigation**: Enjoy a simple and intuitive navigation experience.
+- **Channel Categorization**: Channels are classified by categories and countries for easy browsing.
+- **Electronic Program Guide (EPG)**: Access channel schedules and program information through the EPG.
+
+## Technical Details 🛠️
+
+### Clean Architecture
+
+TvNexa follows the principles of Clean Architecture, ensuring a clear separation of concerns and maintainability. The project is organized into layers – Presentation, Domain, and Data – to facilitate scalability and testability.
+
+### Networking
+
+Efficient communication with backend services is achieved through Retrofit and OkHttp.
+
+### Video Playback
+
+For a high-quality streaming experience, TvNexa leverages ExoPlayer. This powerful media player is integrated into the project to handle the playback of HLS IPTV content.
+
+### Jetpack Compose for TV
+
+The user interface is built using Jetpack Compose for TV, providing a modern and declarative UI toolkit for building native Android applications.
+
