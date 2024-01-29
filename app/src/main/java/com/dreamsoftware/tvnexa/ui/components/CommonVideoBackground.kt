@@ -18,10 +18,10 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import com.dreamsoftware.player.domain.TLPlayer
+import com.dreamsoftware.player.domain.SupportPlayer
 import com.dreamsoftware.player.domain.state.PlayerStateListener
 import com.dreamsoftware.tvnexa.ui.extensions.handleDPadKeyEvents
-import com.dreamsoftware.exoplayer.PlayerFactory
+import com.dreamsoftware.player.impl.PlayerFactory
 import java.security.cert.X509Certificate
 import javax.net.ssl.HttpsURLConnection
 import javax.net.ssl.SSLContext
@@ -39,7 +39,7 @@ fun CommonVideoBackground(
     onLeft: (() -> Unit)? = null,
     onRight: (() -> Unit)? = null,
     onEnter: (() -> Unit)? = null,
-    content: @Composable BoxScope.(player: TLPlayer) -> Unit = {}
+    content: @Composable BoxScope.(supportPlayer: SupportPlayer) -> Unit = {}
 ) {
     if (disableCertValidation) {
         disableCertificateValidation()
