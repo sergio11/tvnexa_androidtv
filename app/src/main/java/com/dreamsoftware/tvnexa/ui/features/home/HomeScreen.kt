@@ -7,14 +7,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.dreamsoftware.tvnexa.ui.features.home.leftmenu.data.MenuData
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun HomeScreen(
-    homeViewModel: HomeViewModel,
-    onItemFocus: (parent: Int, child: Int) -> Unit
+    homeViewModel: HomeViewModel = hiltViewModel(),
+    onNavigateToDetail: (String) -> Unit
 ) {
     val navController = rememberAnimatedNavController()
     var selectedId by remember { mutableStateOf(MenuData.menuItems.first().id) }
@@ -26,8 +27,8 @@ fun HomeScreen(
     with(homeViewModel) {
         HomeScreenContent(
             navController = navController,
-            selectedId = selectedId,
-            onItemFocus = onItemFocus
+            onNavigateToDetail = onNavigateToDetail,
+            selectedId = selectedId
         )
     }
 }

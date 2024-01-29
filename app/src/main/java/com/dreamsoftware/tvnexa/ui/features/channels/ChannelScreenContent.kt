@@ -41,7 +41,8 @@ import kotlinx.coroutines.delay
 fun ChannelScreenContent(
     uiState: ChannelsUiState,
     onNewCountrySelected: (CountryBO) -> Unit,
-    onChannelFocused: (SimpleChannelBO) -> Unit
+    onChannelFocused: (SimpleChannelBO) -> Unit,
+    onChannelPressed: (SimpleChannelBO) -> Unit,
 ) {
     with(uiState) {
         with(MaterialTheme.colorScheme) {
@@ -68,7 +69,8 @@ fun ChannelScreenContent(
                         .fillMaxHeight(),
                     channels = channels,
                     channelFocused = channelFocused,
-                    onChannelFocused = onChannelFocused
+                    onChannelFocused = onChannelFocused,
+                    onChannelPressed = onChannelPressed
                 )
             }
         }
@@ -80,7 +82,8 @@ private fun ChannelsGrid(
     modifier: Modifier,
     channelFocused: SimpleChannelBO? = null,
     channels: List<SimpleChannelBO>,
-    onChannelFocused: (SimpleChannelBO) -> Unit
+    onChannelFocused: (SimpleChannelBO) -> Unit,
+    onChannelPressed: (SimpleChannelBO) -> Unit,
 ) {
     val requester = remember { FocusRequester() }
     if(channels.isNotEmpty() && channelFocused != null) {
@@ -109,7 +112,8 @@ private fun ChannelsGrid(
             ChannelGridItem(
                 modifier = if(item == channelFocused) Modifier.focusRequester(requester) else Modifier,
                 channel = item,
-                onChannelFocused = onChannelFocused
+                onChannelFocused = onChannelFocused,
+                onChannelPressed = onChannelPressed
             )
         }
     }
