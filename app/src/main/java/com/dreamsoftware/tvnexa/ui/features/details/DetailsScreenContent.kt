@@ -2,14 +2,15 @@
 
 package com.dreamsoftware.tvnexa.ui.features.details
 
-import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -18,14 +19,12 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -36,60 +35,43 @@ import androidx.tv.material3.LocalContentColor
 import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.R
+import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
+import com.dreamsoftware.tvnexa.ui.components.ChannelLogo
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
-import com.dreamsoftware.tvnexa.ui.components.ThumbnailImageCard
-import com.dreamsoftware.utils.testing.PRODUCT_DETAIL_BANNER_TAG
-import kotlinx.coroutines.delay
-
-private const val ANIMATION_DELAY = 600L
+import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
 
 @Composable
 fun DetailsScreenContent(
     uiState: DetailUiState,
     onPlayChannelPressed: () -> Unit
 ) {
-    val isLoaded = remember { mutableStateOf(false) }
-    val animatedPortraitSize = animateDpAsState(targetValue = if (isLoaded.value) 150.dp else 1.dp, label = "")
-
-    LaunchedEffect(key1 = Unit) {
-        delay(ANIMATION_DELAY)
-        isLoaded.value = true
-    }
-
-    Box {
-        SearchIcon(
-            modifier = Modifier
-                .size(80.dp)
-                .align(Alignment.TopStart)
-                .padding(24.dp)
-                .zIndex(1f),
-        )
-
-        Column(
-            Modifier
-                .align(Alignment.BottomCenter)
-                .fillMaxSize(),
-        ) {
-            BannerImage(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .weight(.4f),
-            )
-            Column(modifier = Modifier.weight(.6f)) {
-                ButtonSection(onPlayChannelPressed)
-                DetailsSection()
+    with(uiState) {
+        with(MaterialTheme.colorScheme) {
+            Box {
+                SearchIcon(
+                    modifier = Modifier
+                        .size(80.dp)
+                        .align(Alignment.TopStart)
+                        .padding(24.dp)
+                        .zIndex(1f),
+                )
+                DetailChannelPreview()
+                Column(
+                    modifier = Modifier
+                        .align(Alignment.BottomCenter)
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.5f)
+                        .background(color = surface.copy(alpha = 0.95f)),
+                    horizontalAlignment = Alignment.CenterHorizontally) {
+                    DetailActionsSection(onPlayChannelPressed)
+                    channelDetail?.let {
+                        DetailsSection(it)
+                    }
+                }
+                DetailChannelLogo(channelDetail)
             }
-        }
-
-        ThumbnailImageCard(
-            Modifier
-                .align(Alignment.CenterStart)
-                .padding(start = 30.dp)
-                .width(animatedPortraitSize.value),
-        ) {
-            Text(text = "1x1")
         }
     }
 }
@@ -105,32 +87,46 @@ fun SearchIcon(modifier: Modifier) {
 }
 
 @Composable
-fun BannerImage(modifier: Modifier) {
-    Image(
-        modifier = modifier
-            .testTag(PRODUCT_DETAIL_BANNER_TAG)
+private fun DetailChannelPreview() {
+    Box(modifier = Modifier
+        .fillMaxSize()) {
+        CommonVideoBackground(
+            videHlsResource = "https://streaming101tv.es/hls/websevilla.m3u8"
+        )
+    }
+    Box(
+        modifier = Modifier
             .fillMaxSize()
-            .height(200.dp),
-        painter = painterResource(id = R.drawable.hero_item),
-        contentDescription = "Hero item background",
-        contentScale = ContentScale.Crop,
+            .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.5f))
     )
 }
 
 @Composable
-fun ButtonSection(onPlayChannelPressed: () -> Unit) {
+private fun BoxScope.DetailChannelLogo(channelDetail: ChannelDetailBO?) {
+    Box(
+        modifier = Modifier
+            .align(Alignment.CenterStart)
+            .padding(start = 30.dp)
+    ) {
+        ChannelLogo(
+            size = 120.dp,
+            logo = channelDetail?.logo
+        )
+    }
+}
+
+@Composable
+private fun DetailActionsSection(onPlayChannelPressed: () -> Unit) {
     val focusRequester = remember { FocusRequester() }
 
     LaunchedEffect(key1 = Unit) {
-        delay(ANIMATION_DELAY)
-        focusRequester.requestFocus()
+        //focusRequester.requestFocus()
     }
 
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(60.dp)
-            .background(color = MaterialTheme.colorScheme.surface.copy(alpha = 0.5f)),
+            .height(60.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start,
     ) {
@@ -147,13 +143,14 @@ fun ButtonSection(onPlayChannelPressed: () -> Unit) {
         CommonText(
             textAlign = TextAlign.Center,
             type = CommonTextTypeEnum.TITLE_MEDIUM,
+            textColor = MaterialTheme.colorScheme.onSurface,
             titleRes = R.string.watch_trailer,
         )
     }
 }
 
 @Composable
-fun DetailsSection() {
+fun DetailsSection(channelDetail: ChannelDetailBO) {
     Row(
         modifier = Modifier
             .fillMaxSize(),
@@ -171,7 +168,8 @@ fun DetailsSection() {
             Spacer(modifier = Modifier.height(16.dp))
             CommonText(
                 type = CommonTextTypeEnum.HEADLINE_LARGE,
-                titleRes = R.string.movie_name,
+                textColor = MaterialTheme.colorScheme.onSurface,
+                titleText = channelDetail.name,
             )
 
             Spacer(modifier = Modifier.size(10.dp))
@@ -181,6 +179,7 @@ fun DetailsSection() {
             Spacer(modifier = Modifier.size(10.dp))
             CommonText(
                 type = CommonTextTypeEnum.BODY_LARGE,
+                textColor = MaterialTheme.colorScheme.onSurface,
                 titleRes = R.string.movie_desciption,
             )
         }
