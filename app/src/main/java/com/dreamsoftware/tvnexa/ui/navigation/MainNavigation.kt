@@ -87,8 +87,8 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
         }
 
         composable(Screens.Home.DEFAULT.path) {
-            HomeScreen(onNavigateToDetail = {
-                navController.navigate(Screens.Detail.path)
+            HomeScreen(onNavigateToDetail = { channelId ->
+                navController.navigate(Screens.Detail.buildRoute(channelId))
             })
         }
 
@@ -105,15 +105,20 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
 
         composable(
             Screens.Detail.path,
-        ) {
-            DetailsScreen(
-                onBackPressed = {
-                    navController.navigateUp()
-                },
-                onPlayChannelPressed = {
-                    navController.navigate(Screens.Player.path)
-                },
-            )
+        ) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let { args ->
+                Screens.Detail.parseArgs(args)?.let {
+                    DetailsScreen(
+                        args = it,
+                        onBackPressed = {
+                            navController.navigateUp()
+                        },
+                        onPlayChannelPressed = {
+                            navController.navigate(Screens.Player.path)
+                        },
+                    )
+                }
+            }
         }
     }
 }
