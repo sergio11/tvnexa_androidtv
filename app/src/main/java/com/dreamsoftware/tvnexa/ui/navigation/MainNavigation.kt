@@ -87,9 +87,9 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
         }
 
         composable(Screens.Home.DEFAULT.path) {
-            HomeScreen(homeViewModel) { _, _ ->
-                navController.navigate(Screens.ProductDetail.path)
-            }
+            HomeScreen(onNavigateToDetail = {
+                navController.navigate(Screens.Detail.path)
+            })
         }
 
         composable(
@@ -104,13 +104,13 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
         }
 
         composable(
-            Screens.ProductDetail.path,
+            Screens.Detail.path,
         ) {
             DetailsScreen(
                 onBackPressed = {
                     navController.navigateUp()
                 },
-                onPlayClick = {
+                onPlayChannelPressed = {
                     navController.navigate(Screens.Player.path)
                 },
             )

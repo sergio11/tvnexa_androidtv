@@ -18,6 +18,6 @@ sealed class Screens(val path: String) {
         data object Settings : Home("settings")
     }
     data object Player : Screens("player_screen")
-    data object ProductDetail : Screens("product_detail")
+    data object Detail : Screens("channel_detail")
     data object Profiles : Screens("profiles")
 }

@@ -11,8 +11,7 @@ import com.dreamsoftware.tvnexa.ui.components.produceUiState
 @Composable
 fun ChannelsScreen(
     viewModel: ChannelsViewModel = hiltViewModel(),
-    onItemFocus: (parent: Int, child: Int) -> Unit,
-    onItemClick: (parent: Int, child: Int) -> Unit,
+    onGoToChannelDetail: (channelId: String) -> Unit,
 ) {
     with(viewModel) {
         val lifecycle = LocalLifecycleOwner.current.lifecycle
@@ -36,7 +35,10 @@ fun ChannelsScreen(
         ChannelScreenContent(
             uiState = uiState,
             onNewCountrySelected = ::onNewCountrySelected,
-            onChannelFocused = ::onNewChannelFocused
+            onChannelFocused = ::onNewChannelFocused,
+            onChannelPressed = {
+                onGoToChannelDetail(it.channelId)
+            }
         )
     }
 }

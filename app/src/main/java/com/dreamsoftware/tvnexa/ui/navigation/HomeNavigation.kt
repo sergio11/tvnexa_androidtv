@@ -15,14 +15,17 @@ import com.google.accompanist.navigation.animation.composable
 @Composable
 fun HomeNavigation(
     navController: NavHostController,
-    onItemClick: (parent: Int, child: Int) -> Unit
+    onNavigateToDetail: (String) -> Unit
 ) {
     AnimatedNavHost(navController = navController, startDestination = Screens.Home.Channels.path) {
         composable(
             Screens.Home.Channels.path,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
-            ChannelsScreen(onItemFocus = { _, _ -> }, onItemClick = onItemClick)
+
+            ChannelsScreen(
+                onGoToChannelDetail = onNavigateToDetail
+            )
         }
 
         composable(
@@ -36,7 +39,7 @@ fun HomeNavigation(
             Screens.Home.Movies.path,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
-            MoviesScreen(onItemClick)
+            MoviesScreen(onItemFocus = { _ , _ -> })
         }
 
         composable(
