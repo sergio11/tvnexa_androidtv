@@ -40,6 +40,7 @@ dependencies {
 
     implementation(libs.androidx.core.ktx)
     api(libs.bundles.media3)
+    implementation(libs.androidx.media3.exoplayer.hls)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.test.ext.junit)

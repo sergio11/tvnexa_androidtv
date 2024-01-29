@@ -2,73 +2,74 @@ package com.dreamsoftware.tvnexa.ui.components
 
 import android.annotation.SuppressLint
 import androidx.annotation.RawRes
+import androidx.compose.foundation.focusable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
-import androidx.media3.common.MediaItem
-import androidx.media3.common.Player.REPEAT_MODE_ALL
-import androidx.media3.datasource.DefaultHttpDataSource
-import androidx.media3.exoplayer.DefaultRenderersFactory
-import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.hls.HlsMediaSource
-import androidx.media3.exoplayer.util.EventLogger
-import androidx.media3.ui.AspectRatioFrameLayout
-import androidx.media3.ui.PlayerView
+import com.dreamsoftware.player.domain.TLPlayer
+import com.dreamsoftware.player.domain.state.PlayerStateListener
+import com.dreamsoftware.tvnexa.ui.extensions.handleDPadKeyEvents
+import com.dreamsoftware.exoplayer.PlayerFactory
 import java.security.cert.X509Certificate
 import javax.net.ssl.HttpsURLConnection
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
 import javax.net.ssl.X509TrustManager
 
-private const val RAW_RESOURCE_SCHEME = "rawresource"
-
 @SuppressLint("OpaqueUnitKey", "UnsafeOptInUsageError")
 @Composable
 fun CommonVideoBackground(
+    modifier: Modifier = Modifier,
     videHlsResource: String? = null,
     @RawRes videoResourceId: Int? = null,
     disableCertValidation: Boolean = true,
+    playerStateListener: PlayerStateListener? = null,
+    onLeft: (() -> Unit)? = null,
+    onRight: (() -> Unit)? = null,
+    onEnter: (() -> Unit)? = null,
+    content: @Composable BoxScope.(player: TLPlayer) -> Unit = {}
 ) {
     if (disableCertValidation) {
         disableCertificateValidation()
     }
 
     val context = LocalContext.current
-    val exoPlayer = remember {
-        ExoPlayer.Builder(context)
-            .setRenderersFactory(DefaultRenderersFactory(context).setEnableDecoderFallback(true))
-            .build()
-            .apply {
-                addAnalyticsListener(EventLogger())
-                repeatMode = REPEAT_MODE_ALL
-            }
-    }
-
     val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
+    val player = remember { PlayerFactory.create(context) }
+
+    playerStateListener?.let { stateListener ->
+        LaunchedEffect(Unit) {
+            player.setPlaybackEvent(callback = stateListener)
+        }
+    }
 
     DisposableEffect(Unit) {
         val observer = LifecycleEventObserver { _, event ->
             when (event) {
                 Lifecycle.Event.ON_PAUSE -> {
-                    exoPlayer.pause()
+                    player.pause()
                 }
                 Lifecycle.Event.ON_RESUME -> {
-                    with(exoPlayer) {
+                    with(player) {
                         videHlsResource?.let {
-                            setMediaSource(HlsMediaSource.Factory(DefaultHttpDataSource.Factory())
-                                .createMediaSource(MediaItem.fromUri(videHlsResource)))
+                            prepare(videHlsResource)
                         } ?: run {
-                            setMediaItem(MediaItem.fromUri("$RAW_RESOURCE_SCHEME:///$videoResourceId"))
+                            videoResourceId?.let {
+                                prepare(it)
+                            }
                         }
-                        prepare()
                         play()
                     }
                 }
@@ -78,21 +79,22 @@ fun CommonVideoBackground(
 
         val lifecycle = lifecycleOwner.value.lifecycle
         lifecycle.addObserver(observer)
-
         onDispose {
-            exoPlayer.release()
+            player.release()
             lifecycle.removeObserver(observer)
         }
     }
-
-    AndroidView(factory = {
-        PlayerView(context).apply {
-            player = exoPlayer
-            useController = false
-            resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
-            hideController()
-        }
-    }, modifier = Modifier.fillMaxSize())
+    Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        AndroidView(factory = { player.getView() }, modifier = Modifier
+            .fillMaxSize()
+            .handleDPadKeyEvents(
+                onEnter = onEnter,
+                onLeft = onLeft,
+                onRight = onRight
+            )
+            .focusable())
+        content(player)
+    }
 }
 
 

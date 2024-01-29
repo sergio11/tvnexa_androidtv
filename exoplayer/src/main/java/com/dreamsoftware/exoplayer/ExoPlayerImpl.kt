@@ -2,13 +2,13 @@ package com.dreamsoftware.exoplayer
 
 import android.content.Context
 import android.view.View
-import androidx.media3.common.C
 import androidx.media3.common.MediaItem
 import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
-import androidx.media3.datasource.DefaultDataSource.Factory
+import androidx.media3.datasource.DefaultHttpDataSource
 import androidx.media3.exoplayer.ExoPlayer
-import androidx.media3.exoplayer.source.ProgressiveMediaSource
+import androidx.media3.exoplayer.hls.HlsMediaSource
+import com.dreamsoftware.exoplayer.ExoPlayerStateListener
 import com.dreamsoftware.player.domain.TLPlayer
 import com.dreamsoftware.player.domain.state.PlayerStateListener
 import java.lang.ref.WeakReference
@@ -18,6 +18,10 @@ import java.lang.ref.WeakReference
     private val player: ExoPlayer,
     private val providePlayerView: () -> View
 ) : TLPlayer {
+
+    private companion object {
+        private const val RAW_RESOURCE_SCHEME = "rawresource"
+    }
 
     private var listener: Player.Listener? = null
 
@@ -45,13 +49,17 @@ import java.lang.ref.WeakReference
         player.seekBack()
     }
 
-    override fun prepare(uri: String, playWhenReady: Boolean) {
-        val context = context.get() ?: return
+    override fun prepare(videHlsResource: String) {
         player.apply {
-            this.playWhenReady = playWhenReady
-            videoScalingMode = C.VIDEO_SCALING_MODE_SCALE_TO_FIT_WITH_CROPPING
-            repeatMode = Player.REPEAT_MODE_OFF
-            setMediaSource(prepareMediaSource(context, uri))
+            setMediaSource(HlsMediaSource.Factory(DefaultHttpDataSource.Factory())
+                .createMediaSource(MediaItem.fromUri(videHlsResource)))
+            prepare()
+        }
+    }
+
+    override fun prepare(videoResourceId: Int) {
+        player.apply {
+            setMediaItem(MediaItem.fromUri("$RAW_RESOURCE_SCHEME:///$videoResourceId"))
             prepare()
         }
     }
@@ -84,8 +92,4 @@ import java.lang.ref.WeakReference
         listener = null
     }
 
-    private fun prepareMediaSource(context: Context, uri: String) =
-        ProgressiveMediaSource
-            .Factory(Factory(context, Factory(context)))
-            .createMediaSource(MediaItem.fromUri(uri))
 }

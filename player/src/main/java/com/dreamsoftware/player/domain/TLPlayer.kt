@@ -1,6 +1,7 @@
 package com.dreamsoftware.player.domain
 
 import android.view.View
+import androidx.annotation.RawRes
 import com.dreamsoftware.player.domain.state.PlayerStateListener
 
 interface TLPlayer {
@@ -12,7 +13,9 @@ interface TLPlayer {
     fun seekForward()
     fun seekBack()
 
-    fun prepare(uri: String, playWhenReady: Boolean)
+    fun prepare(videHlsResource: String)
+    fun prepare(@RawRes videoResourceId: Int)
+
     fun release()
     fun getView(): View
 

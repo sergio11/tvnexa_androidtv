@@ -96,7 +96,7 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
             Screens.Player.path,
         ) {
             PlayerScreen(
-                "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
+                "https://streaming101tv.es/hls/websevilla.m3u8",
                 onBackPressed = {
                     navController.navigateUp()
                 },
