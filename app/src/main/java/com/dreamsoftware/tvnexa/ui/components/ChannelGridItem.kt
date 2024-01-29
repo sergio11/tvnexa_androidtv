@@ -20,7 +20,8 @@ import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 fun ChannelGridItem(
     modifier: Modifier = Modifier,
     channel: SimpleChannelBO,
-    onChannelFocused: (SimpleChannelBO) -> Unit = {}
+    onChannelFocused: (SimpleChannelBO) -> Unit = {},
+    onChannelPressed: (SimpleChannelBO) -> Unit = {},
 ) {
     with(MaterialTheme.colorScheme) {
         CommonListItem(
@@ -31,7 +32,7 @@ fun ChannelGridItem(
             containerColor = primaryContainer.copy(0.7f),
             borderColor = primaryContainer,
             onFocused = { onChannelFocused(channel) },
-            onClicked = {  }
+            onClicked = { onChannelPressed(channel) }
         ) { isFocused ->
             Column(
                 modifier = Modifier.fillMaxSize(),
