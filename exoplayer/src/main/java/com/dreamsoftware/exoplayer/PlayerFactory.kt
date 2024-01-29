@@ -1,10 +1,11 @@
 package com.dreamsoftware.exoplayer
 
 import android.content.Context
-import android.view.ViewGroup.LayoutParams.MATCH_PARENT
-import android.widget.FrameLayout
+import androidx.media3.common.Player
 import androidx.media3.common.util.UnstableApi
+import androidx.media3.exoplayer.DefaultRenderersFactory
 import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.exoplayer.util.EventLogger
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
 import com.dreamsoftware.player.domain.TLPlayer
@@ -15,17 +16,22 @@ import java.lang.ref.WeakReference
     fun create(
         context: Context
     ): TLPlayer {
-        val exoPlayer = ExoPlayer.Builder(context).build()
+        val exoPlayer = ExoPlayer.Builder(context)
+            .setRenderersFactory(DefaultRenderersFactory(context).setEnableDecoderFallback(true))
+            .build()
+            .apply {
+                addAnalyticsListener(EventLogger())
+                repeatMode = Player.REPEAT_MODE_ALL
+            }
         return ExoPlayerImpl(
             WeakReference(context),
             exoPlayer
         ) {
             PlayerView(context).apply {
-                hideController()
                 player = exoPlayer
                 useController = false
-                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_FIT
-                layoutParams = FrameLayout.LayoutParams(MATCH_PARENT, MATCH_PARENT)
+                resizeMode = AspectRatioFrameLayout.RESIZE_MODE_ZOOM
+                hideController()
             }
         }
     }
