@@ -8,7 +8,6 @@ import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.exoplayer.util.EventLogger
 import androidx.media3.ui.AspectRatioFrameLayout
 import androidx.media3.ui.PlayerView
-import java.lang.ref.WeakReference
 
 @UnstableApi object PlayerFactory {
 
@@ -23,7 +22,6 @@ import java.lang.ref.WeakReference
                 repeatMode = Player.REPEAT_MODE_ALL
             }
         return ExoPlayerImpl(
-            WeakReference(context),
             exoPlayer
         ) {
             PlayerView(context).apply {
