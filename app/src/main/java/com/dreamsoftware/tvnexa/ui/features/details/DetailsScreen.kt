@@ -11,6 +11,7 @@ import com.dreamsoftware.tvnexa.ui.components.produceUiState
 @Composable
 fun DetailsScreen(
     viewModel: DetailViewModel = hiltViewModel(),
+    args: DetailScreenArgs,
     onBackPressed: () -> Unit,
     onPlayChannelPressed: () -> Unit
 ) {
@@ -25,7 +26,7 @@ fun DetailsScreen(
         )
 
         LaunchedEffect(key1 = lifecycle, key2 = viewModel) {
-
+            loadDetail(args.channelId)
         }
 
         DetailsScreenContent(
