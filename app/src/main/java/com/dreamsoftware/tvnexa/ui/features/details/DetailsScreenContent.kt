@@ -41,6 +41,7 @@ import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
+import kotlinx.coroutines.delay
 
 @Composable
 fun DetailsScreenContent(
@@ -63,7 +64,7 @@ fun DetailsScreenContent(
                         .align(Alignment.BottomCenter)
                         .fillMaxWidth()
                         .fillMaxHeight(0.5f)
-                        .background(color = surface.copy(alpha = 0.95f)),
+                        .background(color = surface.copy(alpha = 0.90f)),
                     horizontalAlignment = Alignment.CenterHorizontally) {
                     DetailActionsSection(onPlayChannelPressed)
                     channelDetail?.let {
@@ -120,7 +121,8 @@ private fun DetailActionsSection(onPlayChannelPressed: () -> Unit) {
     val focusRequester = remember { FocusRequester() }
 
     LaunchedEffect(key1 = Unit) {
-        //focusRequester.requestFocus()
+        delay(5000)
+        focusRequester.requestFocus()
     }
 
     Row(
