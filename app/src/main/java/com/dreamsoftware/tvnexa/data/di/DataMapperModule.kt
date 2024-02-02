@@ -7,13 +7,20 @@ import com.dreamsoftware.tvnexa.data.mapper.ChannelDetailMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.ChannelGuideMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.ChannelStreamMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.CountryMapperImpl
+import com.dreamsoftware.tvnexa.data.mapper.CreateProfileMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.LanguageMapperImpl
+import com.dreamsoftware.tvnexa.data.mapper.ProfileMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.RegionMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.SignupUserMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.SimpleChannelMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.SubdivisionMapperImpl
+import com.dreamsoftware.tvnexa.data.mapper.UpdateProfileMapperImpl
+import com.dreamsoftware.tvnexa.data.mapper.UpdateUserMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.UserDetailMapperImpl
+import com.dreamsoftware.tvnexa.data.network.dto.request.CreateProfileRequestDTO
 import com.dreamsoftware.tvnexa.data.network.dto.request.SignUpUserNetworkDTO
+import com.dreamsoftware.tvnexa.data.network.dto.request.UpdatedProfileRequestDTO
+import com.dreamsoftware.tvnexa.data.network.dto.request.UpdatedUserRequestDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.AuthResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.CategoryResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.ChannelDetailResponseDTO
@@ -21,6 +28,7 @@ import com.dreamsoftware.tvnexa.data.network.dto.response.ChannelGuideResponseDT
 import com.dreamsoftware.tvnexa.data.network.dto.response.ChannelStreamResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.CountryResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.LanguageResponseDTO
+import com.dreamsoftware.tvnexa.data.network.dto.response.ProfileResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.RegionResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.SimpleChannelResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.SubdivisionResponseDTO
@@ -32,11 +40,15 @@ import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
 import com.dreamsoftware.tvnexa.domain.model.ChannelGuideBO
 import com.dreamsoftware.tvnexa.domain.model.ChannelStreamBO
 import com.dreamsoftware.tvnexa.domain.model.CountryBO
+import com.dreamsoftware.tvnexa.domain.model.CreateProfileRequestBO
 import com.dreamsoftware.tvnexa.domain.model.LanguageBO
+import com.dreamsoftware.tvnexa.domain.model.ProfileBO
 import com.dreamsoftware.tvnexa.domain.model.RegionBO
 import com.dreamsoftware.tvnexa.domain.model.SaveUserBO
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 import com.dreamsoftware.tvnexa.domain.model.SubdivisionBO
+import com.dreamsoftware.tvnexa.domain.model.UpdatedProfileRequestBO
+import com.dreamsoftware.tvnexa.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.tvnexa.domain.model.UserDetailBO
 import com.dreamsoftware.tvnexa.utils.IMapper
 import com.dreamsoftware.tvnexa.utils.IOneSideMapper
@@ -91,6 +103,18 @@ interface DataMapperComponent {
 
         @Binds
         fun bindChannelDetailMapper(impl: ChannelDetailMapperImpl): IOneSideMapper<ChannelDetailResponseDTO, ChannelDetailBO>
+
+        @Binds
+        fun bindProfileMapperImpl(impl: ProfileMapperImpl): IOneSideMapper<ProfileResponseDTO, ProfileBO>
+
+        @Binds
+        fun bindUpdateUserMapperImpl(impl: UpdateUserMapperImpl): IOneSideMapper<UpdatedUserRequestBO, UpdatedUserRequestDTO>
+
+        @Binds
+        fun bindUpdateProfileMapperImpl(impl: UpdateProfileMapperImpl): IOneSideMapper<UpdatedProfileRequestBO, UpdatedProfileRequestDTO>
+
+        @Binds
+        fun bindCreateProfileMapperImpl(impl: CreateProfileMapperImpl): IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>
     }
 
     fun authResponseNetworkMapper(): IOneSideMapper<AuthResponseDTO, AuthSessionBO>
@@ -118,4 +142,12 @@ interface DataMapperComponent {
     fun channelStreamMapper(): IOneSideMapper<ChannelStreamResponseDTO, ChannelStreamBO>
 
     fun channelDetailMapper(): IOneSideMapper<ChannelDetailResponseDTO, ChannelDetailBO>
+
+    fun profileMapper(): IOneSideMapper<ProfileResponseDTO, ProfileBO>
+
+    fun updateUserMapper(): IOneSideMapper<UpdatedUserRequestBO, UpdatedUserRequestDTO>
+
+    fun updateProfileMapper(): IOneSideMapper<UpdatedProfileRequestBO, UpdatedProfileRequestDTO>
+
+    fun createProfileMapper(): IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>
 }
