@@ -9,6 +9,7 @@ import com.dreamsoftware.tvnexa.data.network.service.ICountryService
 import com.dreamsoftware.tvnexa.data.network.service.IEpgService
 import com.dreamsoftware.tvnexa.data.network.service.IRegionService
 import com.dreamsoftware.tvnexa.data.network.service.ISubdivisionService
+import com.dreamsoftware.tvnexa.data.network.service.IUserService
 import com.dreamsoftware.tvnexa.utils.ISessionAware
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
@@ -139,4 +140,9 @@ class NetworkModule {
     @Singleton
     fun provideSubdivisionService(retrofit: Retrofit): ISubdivisionService =
         retrofit.create(ISubdivisionService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideUserService(retrofit: Retrofit): IUserService =
+        retrofit.create(IUserService::class.java)
 }
