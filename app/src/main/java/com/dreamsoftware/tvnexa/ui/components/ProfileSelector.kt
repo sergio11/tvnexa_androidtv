@@ -58,7 +58,7 @@ fun ProfileSelector(
                     modifier = Modifier
                         .then(if (it == 1) Modifier.focusRequester(requester) else Modifier)
                         .onFocusChanged {
-                            selectedAvatar = profile.name
+                            selectedAvatar = profile.alias
                         },
                     onPressed = {
                         onProfileSelected(profile)

@@ -1,12 +1,5 @@
 package com.dreamsoftware.tvnexa.domain.repository
 
-import com.dreamsoftware.tvnexa.data.network.dto.request.CreateProfileRequestDTO
-import com.dreamsoftware.tvnexa.data.network.dto.request.PinVerificationRequestDTO
-import com.dreamsoftware.tvnexa.data.network.dto.request.UpdatedProfileRequestDTO
-import com.dreamsoftware.tvnexa.data.network.dto.request.UpdatedUserRequestDTO
-import com.dreamsoftware.tvnexa.data.network.dto.response.ProfileResponseDTO
-import com.dreamsoftware.tvnexa.data.network.dto.response.SimpleChannelResponseDTO
-import com.dreamsoftware.tvnexa.data.network.dto.response.UserResponseDTO
 import com.dreamsoftware.tvnexa.domain.exception.DomainException
 import com.dreamsoftware.tvnexa.domain.model.CreateProfileRequestBO
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
