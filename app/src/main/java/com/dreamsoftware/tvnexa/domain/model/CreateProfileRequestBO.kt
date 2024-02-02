@@ -1,8 +1,8 @@
 package com.dreamsoftware.tvnexa.domain.model
 
-data class ProfileBO(
-    val uuid: String,
+data class CreateProfileRequestBO(
     val alias: String,
+    val pin: Int,
     val isAdmin: Boolean,
     val type: ProfileTypeEnum
 )
