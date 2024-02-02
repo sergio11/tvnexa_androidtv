@@ -22,7 +22,7 @@ internal class AuthRemoteDataSourceImpl(
      * Companion object containing constants related to network responses.
      */
     private companion object {
-        const val USER_SUCCESSFULLY_REGISTERED_CODE  = 7002
+        const val USER_SUCCESSFULLY_REGISTERED_CODE  = 7001
     }
 
     /**

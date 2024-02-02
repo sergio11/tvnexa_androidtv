@@ -62,15 +62,8 @@ fun CommonVideoBackground(
                     player.pause()
                 }
                 Lifecycle.Event.ON_RESUME -> {
-                    with(player) {
-                        videHlsResource?.let {
-                            prepare(videHlsResource)
-                        } ?: run {
-                            videoResourceId?.let {
-                                prepare(it)
-                            }
-                        }
-                        play()
+                    if(!player.isPlaying) {
+                        player.play()
                     }
                 }
                 else -> {}
@@ -84,6 +77,18 @@ fun CommonVideoBackground(
             lifecycle.removeObserver(observer)
         }
     }
+
+    with(player) {
+        videHlsResource?.let {
+            prepare(videHlsResource)
+        } ?: run {
+            videoResourceId?.let {
+                prepare(it)
+            }
+        }
+        play()
+    }
+
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         AndroidView(factory = { player.getView() }, modifier = Modifier
             .fillMaxSize()
