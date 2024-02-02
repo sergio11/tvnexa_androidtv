@@ -17,12 +17,15 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -32,10 +35,12 @@ import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonStyleTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonTypeEnum
+import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
 import com.dreamsoftware.tvnexa.ui.components.ExitAppDialog
+import kotlinx.coroutines.delay
 
 @Composable
 fun OnboardingScreenContent(
@@ -156,32 +161,35 @@ private fun OnBoardingActions(
     onGoToSignIn: () -> Unit,
     onGoToSignUp: () -> Unit
 ) {
-    Row (
-        modifier = modifier,
-        horizontalArrangement = Arrangement.End,
-        verticalAlignment = Alignment.CenterVertically
-    ){
-        Box(
-            modifier = Modifier.weight(1f),
-            contentAlignment = Alignment.Center
-        ) {
-            CommonText(
-                titleRes = R.string.developer_credits_text,
-                type = CommonTextTypeEnum.LABEL_MEDIUM,
-                textAlign = TextAlign.Center
+    CommonFocusRequester { requester ->
+        Row (
+            modifier = modifier,
+            horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            Box(
+                modifier = Modifier.weight(1f),
+                contentAlignment = Alignment.Center
+            ) {
+                CommonText(
+                    titleRes = R.string.developer_credits_text,
+                    type = CommonTextTypeEnum.LABEL_MEDIUM,
+                    textAlign = TextAlign.Center
+                )
+            }
+            CommonButton(
+                modifier = Modifier.focusRequester(requester),
+                type = CommonButtonTypeEnum.LARGE,
+                textRes = R.string.onboarding_sign_in_button_text,
+                onClick = onGoToSignIn,
+            )
+            Spacer(modifier = Modifier.width(30.dp))
+            CommonButton(
+                type = CommonButtonTypeEnum.LARGE,
+                onClick = onGoToSignUp,
+                textRes = R.string.onboarding_sign_up_button_text,
+                style = CommonButtonStyleTypeEnum.INVERSE
             )
         }
-        CommonButton(
-            type = CommonButtonTypeEnum.LARGE,
-            textRes = R.string.onboarding_sign_in_button_text,
-            onClick = onGoToSignIn,
-        )
-        Spacer(modifier = Modifier.width(30.dp))
-        CommonButton(
-            type = CommonButtonTypeEnum.LARGE,
-            onClick = onGoToSignUp,
-            textRes = R.string.onboarding_sign_up_button_text,
-            style = CommonButtonStyleTypeEnum.INVERSE
-        )
     }
 }

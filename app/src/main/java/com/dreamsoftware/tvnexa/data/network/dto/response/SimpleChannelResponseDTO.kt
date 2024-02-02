@@ -19,5 +19,8 @@ data class SimpleChannelResponseDTO(
     val website: String? = null,
     // The URL to the channel's logo or image.
     @Json(name = "logo")
-    val logo: String? = null
+    val logo: String? = null,
+    // The stream data for the channel
+    @Json(name = "streams")
+    val streams: List<ChannelStreamResponseDTO>
 )
