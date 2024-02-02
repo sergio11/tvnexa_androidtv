@@ -50,8 +50,15 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 
 ### Onboarding Screens
 
-<img width="450px" align="left" src="doc/picture_2.png" />
-<img width="450px" src="doc/picture_3.png" />
+<p align="center">
+  <img width="600px" align="left" src="doc/picture_2.png" />
+</p>
 
-<img width="450px" src="doc/picture_1.png" />
+<p align="center">
+  <img width="600px" align="left" src="doc/picture_3.png" />
+</p>
+
+<p align="center">
+  <img width="600px" align="left" src="doc/picture_1.png" />
+</p>
 
