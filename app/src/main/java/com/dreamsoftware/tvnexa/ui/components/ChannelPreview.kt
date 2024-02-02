@@ -2,6 +2,7 @@
 
 package com.dreamsoftware.tvnexa.ui.components
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -32,8 +33,9 @@ fun ChannelPreview(
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         ) {
             Box {
+                Log.d("ATV_CHANNEL_PREVIEW", "ChannelPreview - ${channel.name} - ${channel.streamUrl}")
                 CommonVideoBackground(
-                    videHlsResource = "https://streaming101tv.es/hls/websevilla.m3u8"
+                    videHlsResource = channel.streamUrl
                 )
                 Row (modifier = Modifier
                     .fillMaxSize()

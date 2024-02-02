@@ -14,7 +14,8 @@ class SimpleChannelMapperImpl @Inject constructor(): IOneSideMapper<SimpleChanne
             city = city,
             isNsfw = isNsfw,
             website = website,
-            logo = logo
+            logo = logo,
+            streamUrl = streams.firstOrNull { it.url.isNotBlank() }?.url
         )
     }
 
