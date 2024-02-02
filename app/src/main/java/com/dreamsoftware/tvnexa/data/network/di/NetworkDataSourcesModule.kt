@@ -7,6 +7,7 @@ import com.dreamsoftware.tvnexa.data.network.datasource.ICountryDataSource
 import com.dreamsoftware.tvnexa.data.network.datasource.IEpgDataSource
 import com.dreamsoftware.tvnexa.data.network.datasource.IRegionDataSource
 import com.dreamsoftware.tvnexa.data.network.datasource.ISubdivisionDataSource
+import com.dreamsoftware.tvnexa.data.network.datasource.IUserDataSource
 import com.dreamsoftware.tvnexa.data.network.datasource.impl.AuthRemoteDataSourceImpl
 import com.dreamsoftware.tvnexa.data.network.datasource.impl.CategoryDataSourceImpl
 import com.dreamsoftware.tvnexa.data.network.datasource.impl.ChannelDataSourceImpl
@@ -14,6 +15,7 @@ import com.dreamsoftware.tvnexa.data.network.datasource.impl.CountryDataSourceIm
 import com.dreamsoftware.tvnexa.data.network.datasource.impl.EpgDataSourceImpl
 import com.dreamsoftware.tvnexa.data.network.datasource.impl.RegionDataSourceImpl
 import com.dreamsoftware.tvnexa.data.network.datasource.impl.SubdivisionDataSourceImpl
+import com.dreamsoftware.tvnexa.data.network.datasource.impl.UserDataSourceImpl
 import com.dreamsoftware.tvnexa.data.network.service.IAuthService
 import com.dreamsoftware.tvnexa.data.network.service.ICategoryService
 import com.dreamsoftware.tvnexa.data.network.service.IChannelsService
@@ -21,6 +23,7 @@ import com.dreamsoftware.tvnexa.data.network.service.ICountryService
 import com.dreamsoftware.tvnexa.data.network.service.IEpgService
 import com.dreamsoftware.tvnexa.data.network.service.IRegionService
 import com.dreamsoftware.tvnexa.data.network.service.ISubdivisionService
+import com.dreamsoftware.tvnexa.data.network.service.IUserService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -65,4 +68,9 @@ class NetworkDataSourcesModule {
     @Singleton
     fun provideEpgDataSource(epgService: IEpgService): IEpgDataSource =
         EpgDataSourceImpl(epgService)
+
+    @Provides
+    @Singleton
+    fun provideUserDataSource(userService: IUserService): IUserDataSource =
+        UserDataSourceImpl(userService)
 }
