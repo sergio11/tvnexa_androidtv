@@ -1,12 +1,12 @@
 package com.dreamsoftware.tvnexa.domain.usecase.impl
 
-import com.dreamsoftware.tvnexa.domain.model.ProfileBO
+import com.dreamsoftware.tvnexa.domain.model.UserDetailBO
 import com.dreamsoftware.tvnexa.domain.repository.IUserRepository
 import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCase
 
-class GetProfilesUseCase(
+class GetUserDetailUseCase(
     private val userRepository: IUserRepository
-): BaseUseCase<List<ProfileBO>>() {
-    override suspend fun onExecuted(): List<ProfileBO> =
-        userRepository.getProfiles()
+): BaseUseCase<UserDetailBO>() {
+    override suspend fun onExecuted(): UserDetailBO =
+        userRepository.getDetail()
 }
