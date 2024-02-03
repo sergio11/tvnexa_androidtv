@@ -94,13 +94,17 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
 
         composable(
             Screens.Player.path,
-        ) {
-            PlayerScreen(
-                "https://streaming101tv.es/hls/websevilla.m3u8",
-                onBackPressed = {
-                    navController.navigateUp()
-                },
-            )
+        ) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let { args ->
+                Screens.Player.parseArgs(args)?.let {
+                    PlayerScreen(
+                        args = it,
+                        onBackPressed = {
+                            navController.navigateUp()
+                        },
+                    )
+                }
+            }
         }
 
         composable(
@@ -113,8 +117,8 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
                         onBackPressed = {
                             navController.navigateUp()
                         },
-                        onPlayChannelPressed = {
-                            navController.navigate(Screens.Player.path)
+                        onPlayChannelPressed = { channelId ->
+                            navController.navigate(Screens.Player.buildRoute(channelId))
                         },
                     )
                 }

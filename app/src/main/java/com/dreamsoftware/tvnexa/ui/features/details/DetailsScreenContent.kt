@@ -16,13 +16,9 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -38,15 +34,15 @@ import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
 import com.dreamsoftware.tvnexa.ui.components.ChannelLogo
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
+import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
-import kotlinx.coroutines.delay
 
 @Composable
 fun DetailsScreenContent(
     uiState: DetailUiState,
-    onPlayChannelPressed: () -> Unit
+    onPlayChannelPressed: (channelId: String) -> Unit
 ) {
     with(uiState) {
         with(MaterialTheme.colorScheme) {
@@ -58,7 +54,7 @@ fun DetailsScreenContent(
                         .padding(24.dp)
                         .zIndex(1f),
                 )
-                DetailChannelPreview()
+                DetailChannelPreview(channelDetail)
                 Column(
                     modifier = Modifier
                         .align(Alignment.BottomCenter)
@@ -66,10 +62,10 @@ fun DetailsScreenContent(
                         .fillMaxHeight(0.5f)
                         .background(color = surface.copy(alpha = 0.90f)),
                     horizontalAlignment = Alignment.CenterHorizontally) {
-                    DetailActionsSection(onPlayChannelPressed)
-                    channelDetail?.let {
-                        DetailsSection(it)
+                    DetailActionsSection {
+                        channelDetail?.channelId?.let(onPlayChannelPressed)
                     }
+                    DetailsSection(channelDetail)
                 }
                 DetailChannelLogo(channelDetail)
             }
@@ -88,12 +84,14 @@ fun SearchIcon(modifier: Modifier) {
 }
 
 @Composable
-private fun DetailChannelPreview() {
+private fun DetailChannelPreview(channelDetail: ChannelDetailBO?) {
     Box(modifier = Modifier
         .fillMaxSize()) {
-        CommonVideoBackground(
-            videHlsResource = "https://streaming101tv.es/hls/websevilla.m3u8"
-        )
+        channelDetail?.streamUrl?.let {
+            CommonVideoBackground(
+                videHlsResource = it
+            )
+        }
     }
     Box(
         modifier = Modifier
@@ -118,41 +116,28 @@ private fun BoxScope.DetailChannelLogo(channelDetail: ChannelDetailBO?) {
 
 @Composable
 private fun DetailActionsSection(onPlayChannelPressed: () -> Unit) {
-    val focusRequester = remember { FocusRequester() }
-
-    LaunchedEffect(key1 = Unit) {
-        delay(5000)
-        focusRequester.requestFocus()
-    }
-
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(60.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.Start,
-    ) {
-        Spacer(modifier = Modifier.width(280.dp))
-
-        CommonButton(
+    CommonFocusRequester { requester ->
+        Row(
             modifier = Modifier
-                .padding(horizontal = 16.dp, vertical = 4.dp)
-                .focusRequester(focusRequester),
-            onClick = onPlayChannelPressed,
-            text = "Play"
-        )
-        Spacer(modifier = Modifier.size(16.dp))
-        CommonText(
-            textAlign = TextAlign.Center,
-            type = CommonTextTypeEnum.TITLE_MEDIUM,
-            textColor = MaterialTheme.colorScheme.onSurface,
-            titleRes = R.string.watch_trailer,
-        )
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp)
+                .height(60.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.End,
+        ) {
+            CommonButton(
+                modifier = Modifier
+                    .padding(horizontal = 16.dp, vertical = 4.dp)
+                    .focusRequester(requester),
+                onClick = onPlayChannelPressed,
+                textRes = R.string.detail_content_fullscreen_live_button_title
+            )
+        }
     }
 }
 
 @Composable
-fun DetailsSection(channelDetail: ChannelDetailBO) {
+fun DetailsSection(channelDetail: ChannelDetailBO?) {
     Row(
         modifier = Modifier
             .fillMaxSize(),
@@ -171,7 +156,7 @@ fun DetailsSection(channelDetail: ChannelDetailBO) {
             CommonText(
                 type = CommonTextTypeEnum.HEADLINE_LARGE,
                 textColor = MaterialTheme.colorScheme.onSurface,
-                titleText = channelDetail.name,
+                titleText = channelDetail?.name,
             )
 
             Spacer(modifier = Modifier.size(10.dp))

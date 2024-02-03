@@ -11,12 +11,15 @@ private const val DEFAULT_REQUEST_FOCUS_AT_IN_MILLIS = 1000L
 @Composable
 fun CommonFocusRequester(
     requestFocusAtInMillis: Long = DEFAULT_REQUEST_FOCUS_AT_IN_MILLIS,
+    shouldRequestFocus: () -> Boolean = { true },
     content: @Composable (FocusRequester) -> Unit
 ) {
     val requester = remember { FocusRequester() }
-    LaunchedEffect(Unit) {
-        delay(requestFocusAtInMillis)
-        requester.requestFocus()
+    if(shouldRequestFocus()) {
+        LaunchedEffect(Unit) {
+            delay(requestFocusAtInMillis)
+            requester.requestFocus()
+        }
     }
     content(requester)
 }
