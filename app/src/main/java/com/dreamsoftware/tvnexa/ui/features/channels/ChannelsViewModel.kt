@@ -40,6 +40,16 @@ class ChannelsViewModel @Inject constructor(
         onLoadChannels()
     }
 
+    fun onNewCategorySelected(newCategoryBO: CategoryBO) {
+        updateState {
+            it.copy(
+                isLoading = true,
+                categorySelected = newCategoryBO
+            )
+        }
+        onLoadChannels()
+    }
+
     fun onNewChannelFocused(newChannelFocused: SimpleChannelBO) {
         updateState { it.copy(channelFocused = newChannelFocused) }
     }
@@ -55,8 +65,7 @@ class ChannelsViewModel @Inject constructor(
                     isLoading = false,
                     countries = countries,
                     categories = categories,
-                    countrySelected = countries.firstOrNull(),
-                    categorySelected = null
+                    countrySelected = countries.firstOrNull()
                 )
             }
             onLoadChannels()
