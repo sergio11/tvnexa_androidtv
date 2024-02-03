@@ -2,14 +2,11 @@ package com.dreamsoftware.tvnexa.ui.features.signin
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dreamsoftware.tvnexa.ui.components.ConsumeSideEffects
-import com.dreamsoftware.tvnexa.ui.components.produceUiState
+import com.dreamsoftware.tvnexa.ui.components.CommonScreen
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
@@ -20,23 +17,15 @@ fun SignInScreen(
     onGoToProfileSelector: () -> Unit,
     onGoToSignUp: () -> Unit
 ) {
-    with(viewModel) {
-        val lifecycle = LocalLifecycleOwner.current.lifecycle
-        ConsumeSideEffects(
-            lifecycle = lifecycle,
-            viewModel = viewModel
-        ) {
+    CommonScreen(
+        viewModel = viewModel,
+        onInitialUiState = { SignInUiState() },
+        onSideEffect = {
             if(it is SignInSideEffects.AuthenticationSuccessfully) {
                 onGoToHome()
             }
         }
-
-        val uiState by produceUiState(
-            initialState = SignInUiState(),
-            lifecycle = lifecycle,
-            viewModel = viewModel
-        )
-
+    ) { uiState ->
         SignInScreenContent(
             modifier = modifier,
             uiState = uiState,

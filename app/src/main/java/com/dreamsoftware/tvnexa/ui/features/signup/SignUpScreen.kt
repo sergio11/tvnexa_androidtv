@@ -2,14 +2,11 @@ package com.dreamsoftware.tvnexa.ui.features.signup
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dreamsoftware.tvnexa.ui.components.ConsumeSideEffects
-import com.dreamsoftware.tvnexa.ui.components.produceUiState
+import com.dreamsoftware.tvnexa.ui.components.CommonScreen
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
@@ -18,23 +15,15 @@ fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel(),
     onBack: () -> Unit
 ) {
-    with(viewModel) {
-        val lifecycle = LocalLifecycleOwner.current.lifecycle
-        ConsumeSideEffects(
-            lifecycle = lifecycle,
-            viewModel = viewModel
-        ) {
+    CommonScreen(
+        viewModel = viewModel,
+        onInitialUiState = { SignUpUiState() },
+        onSideEffect = {
             if(it is SignUpSideEffects.RegisteredSuccessfully) {
                 onBack()
             }
         }
-
-        val uiState by produceUiState(
-            initialState = SignUpUiState(),
-            lifecycle = lifecycle,
-            viewModel = viewModel
-        )
-
+    ) { uiState ->
         SignUpScreenContent(
             modifier = modifier,
             uiState = uiState,
