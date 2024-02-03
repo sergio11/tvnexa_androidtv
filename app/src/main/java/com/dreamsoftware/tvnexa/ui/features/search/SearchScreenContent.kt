@@ -18,40 +18,59 @@ import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvGridItemSpan
 import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
 import com.dreamsoftware.tvnexa.R
+import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 import com.dreamsoftware.tvnexa.ui.components.ChannelGridItem
+import com.dreamsoftware.tvnexa.ui.components.CommonLoading
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
+import com.dreamsoftware.tvnexa.ui.components.ErrorStateNotificationComponent
 import com.dreamsoftware.tvnexa.ui.components.MiniKeyboard
 
 @Composable
 fun SearchScreenContent(
     uiState: SearchUiState,
-    onKeyPressed: (String) -> Unit = {},
-    onSearchPressed: () -> Unit = {},
-    onClearPressed: () -> Unit = {},
-    onBackSpacePressed: () -> Unit = {},
-    onSpaceBarPressed: () -> Unit = {}
+    onChannelPressed: (SimpleChannelBO) -> Unit,
+    onKeyPressed: (String) -> Unit,
+    onSearchPressed: () -> Unit,
+    onClearPressed: () -> Unit,
+    onBackSpacePressed: () -> Unit,
+    onSpaceBarPressed: () -> Unit
 ) {
-    Row(modifier = Modifier.fillMaxSize()) {
-        Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 24.dp)) {
-            SearchView()
-            MiniKeyboard(
-                modifier = Modifier.width(300.dp),
-                onKeyPressed = onKeyPressed,
-                onSearchPressed = onSearchPressed,
-                onClearPressed = onClearPressed,
-                onBackSpacePressed = onBackSpacePressed,
-                onSpaceBarPressed = onSpaceBarPressed
-            )
+    with(uiState) {
+        Row(modifier = Modifier.fillMaxSize()) {
+            Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 24.dp)) {
+                SearchView()
+                MiniKeyboard(
+                    modifier = Modifier.width(300.dp),
+                    onKeyPressed = onKeyPressed,
+                    onSearchPressed = onSearchPressed,
+                    onClearPressed = onClearPressed,
+                    onBackSpacePressed = onBackSpacePressed,
+                    onSpaceBarPressed = onSpaceBarPressed
+                )
+            }
+            when {
+                isLoading -> CommonLoading(
+                    modifier = Modifier.padding(horizontal = 16.dp),
+                    text = R.string.search_screen_search_results_loading
+                )
+                !error.isNullOrBlank() -> ErrorStateNotificationComponent(imageRes = R.drawable.default_placeholder, title = error)
+                else -> ContentGrid(
+                    term = term,
+                    channels = channels,
+                    onChannelPressed = onChannelPressed
+                )
+             }
         }
-        ContentGrid(uiState = uiState)
     }
 }
 
 @Composable
 fun ContentGrid(
     modifier: Modifier = Modifier,
-    uiState: SearchUiState,
+    channels: List<SimpleChannelBO>,
+    term: String,
+    onChannelPressed: (SimpleChannelBO) -> Unit,
 ) {
     TvLazyVerticalGrid(
         modifier = modifier,
@@ -61,25 +80,24 @@ fun ContentGrid(
         item(span = {
             TvGridItemSpan(3)
         }) {
-            GridHeader(uiState)
+            GridHeader(term)
         }
-        with(uiState) {
-            items(channels.size) { idx ->
-                ChannelGridItem(channel = channels[idx])
-            }
+        items(channels.size) { idx ->
+            ChannelGridItem(
+                channel = channels[idx],
+                onChannelPressed = onChannelPressed
+            )
         }
     }
 }
 
 @Composable
-fun GridHeader(uiState: SearchUiState) {
+fun GridHeader(term: String) {
     CommonText(
-        titleText = with(uiState) {
-            if(term.isNotBlank()) {
-                stringResource(id = R.string.search_screen_search_results_title_with_term, term)
-            } else {
-                stringResource(id = R.string.search_screen_search_results_title)
-            }
+        titleText = if(term.isNotBlank()) {
+            stringResource(id = R.string.search_screen_search_results_title_with_term, term)
+        } else {
+            stringResource(id = R.string.search_screen_search_results_title)
         },
         type = CommonTextTypeEnum.TITLE_LARGE,
         textColor = MaterialTheme.colorScheme.primary,

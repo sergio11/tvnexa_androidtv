@@ -78,5 +78,6 @@
     <string name="search_screen_main_title">Start typing to search</string>
     <string name="search_screen_search_results_title">Search Results</string>
     <string name="search_screen_search_results_title_with_term" formatted="false">Search Results for \" %s \"</string>
+    <string name="search_screen_search_results_loading">Searching the cosmos for your channels. Just a moment…</string>
 
 </resources>

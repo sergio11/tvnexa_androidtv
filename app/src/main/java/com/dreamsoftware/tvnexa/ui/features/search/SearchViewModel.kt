@@ -19,7 +19,7 @@ class SearchViewModel @Inject constructor(
     private val searchChannelsUseCase: SearchChannelsUseCase
 ): SupportViewModel<SearchUiState, SearchSideEffects>() {
     companion object {
-        private const val SEARCH_DELAY_MILLIS: Long = 5000
+        private const val SEARCH_DELAY_MILLIS: Long = 3000
     }
 
     private var searchJob: Job? = null
@@ -67,6 +67,7 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun onSearch() {
+        onLoading()
         with(uiState.value) {
             searchChannelsUseCase.invoke(
                 scope = viewModelScope,
@@ -82,6 +83,15 @@ class SearchViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 channels = channels
+            )
+        }
+    }
+
+    private fun onLoading() {
+        updateState {
+            it.copy(
+                isLoading = true,
+                error = null
             )
         }
     }
