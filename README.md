@@ -43,3 +43,22 @@ For a high-quality streaming experience, TvNexa leverages ExoPlayer. This powerf
 
 The user interface is built using Jetpack Compose for TV, providing a modern and declarative UI toolkit for building native Android applications.
 
+
+## App Screenshots
+
+Here are some screenshots from our app to give you a glimpse of its design and functionality.
+
+### Onboarding Screens
+
+<p align="center">
+  <img width="600px" align="left" src="doc/picture_2.png" />
+</p>
+
+<p align="center">
+  <img width="600px" align="left" src="doc/picture_3.png" />
+</p>
+
+<p align="center">
+  <img width="600px" align="left" src="doc/picture_1.png" />
+</p>
+
