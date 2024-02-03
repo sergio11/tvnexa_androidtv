@@ -6,6 +6,8 @@ import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -16,12 +18,16 @@ class SplashScreenViewModel @Inject constructor(
     override fun onGetDefaultState(): SplashUiState = SplashUiState()
 
     fun verifySession() {
-        onLoading()
-        verifyUserSessionUseCase.invoke(
-            scope = viewModelScope,
-            onSuccess = ::onSuccess,
-            onError = ::onErrorOccurred
-        )
+        viewModelScope.launch {
+            onLoading()
+            delay(4000)
+            verifyUserSessionUseCase.invoke(
+                scope = viewModelScope,
+                onSuccess = ::onSuccess,
+                onError = ::onErrorOccurred
+            )
+        }
+
     }
 
     private fun onSuccess(hasActiveSession: Boolean) {
