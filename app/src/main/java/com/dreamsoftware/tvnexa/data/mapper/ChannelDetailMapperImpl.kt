@@ -18,7 +18,6 @@ import com.dreamsoftware.tvnexa.utils.IOneSideMapper
 import javax.inject.Inject
 
 class ChannelDetailMapperImpl @Inject constructor(
-    private val channelStreamMapper: IOneSideMapper<ChannelStreamResponseDTO, ChannelStreamBO>,
     private val channelGuideMapper: IOneSideMapper<ChannelGuideResponseDTO, ChannelGuideBO>,
     private val languageMapper: IOneSideMapper<LanguageResponseDTO, LanguageBO>,
     private val categoryMapper: IOneSideMapper<CategoryResponseDTO, CategoryBO>,
@@ -40,7 +39,7 @@ class ChannelDetailMapperImpl @Inject constructor(
             launched = launched,
             closed = closed,
             replacedBy = replacedBy?.let(::mapInToOut),
-            streams = channelStreamMapper.mapInListToOutList(streams).toList(),
+            streamUrl  = streams.firstOrNull { it.url.isNotBlank() }?.url,
             guides = channelGuideMapper.mapInListToOutList(guides).toList(),
             languages = languageMapper.mapInListToOutList(languages).toList(),
             categories = categoryMapper.mapInListToOutList(categories).toList(),

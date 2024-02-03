@@ -15,11 +15,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -31,11 +28,11 @@ import com.dreamsoftware.tvnexa.domain.model.CountryBO
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 import com.dreamsoftware.tvnexa.ui.components.ChannelGridItem
 import com.dreamsoftware.tvnexa.ui.components.ChannelPreview
+import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonLazyVerticalGrid
 import com.dreamsoftware.tvnexa.ui.components.CommonListItem
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
-import kotlinx.coroutines.delay
 
 @Composable
 fun ChannelScreenContent(
@@ -85,36 +82,33 @@ private fun ChannelsGrid(
     onChannelFocused: (SimpleChannelBO) -> Unit,
     onChannelPressed: (SimpleChannelBO) -> Unit,
 ) {
-    val requester = remember { FocusRequester() }
-    if(channels.isNotEmpty() && channelFocused != null) {
-        LaunchedEffect(Unit) {
-            delay(1000)
-            requester.requestFocus()
-        }
-    }
-    Column(
-        modifier = modifier
-    ) {
-        channelFocused?.let {
-            ChannelPreview(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.4f)
-                    .padding(start = 10.dp),
-                channel = it
-            )
-        }
-        CommonLazyVerticalGrid(
-            modifier = Modifier.fillMaxWidth(),
-            state = rememberTvLazyGridState(),
-            items = channels
-        ) { item ->
-            ChannelGridItem(
-                modifier = if(item == channelFocused) Modifier.focusRequester(requester) else Modifier,
-                channel = item,
-                onChannelFocused = onChannelFocused,
-                onChannelPressed = onChannelPressed
-            )
+    CommonFocusRequester (shouldRequestFocus = {
+        channels.isNotEmpty() && channelFocused != null
+    }) { requester ->
+        Column(
+            modifier = modifier
+        ) {
+            channelFocused?.let {
+                ChannelPreview(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.4f)
+                        .padding(start = 10.dp),
+                    channel = it
+                )
+            }
+            CommonLazyVerticalGrid(
+                modifier = Modifier.fillMaxWidth(),
+                state = rememberTvLazyGridState(),
+                items = channels
+            ) { item ->
+                ChannelGridItem(
+                    modifier = if(item == channelFocused) Modifier.focusRequester(requester) else Modifier,
+                    channel = item,
+                    onChannelFocused = onChannelFocused,
+                    onChannelPressed = onChannelPressed
+                )
+            }
         }
     }
 }
@@ -126,53 +120,50 @@ private fun CountryListColumn(
     countrySelected: CountryBO? = null,
     onCountrySelected: (CountryBO) -> Unit
 ) {
-    val requester = remember { FocusRequester() }
-    if(countryList.isNotEmpty() && countrySelected != null) {
-        LaunchedEffect(Unit) {
-            delay(1000)
-            requester.requestFocus()
-        }
-    }
-    Box(
-        modifier = modifier,
-    ) {
-        TvLazyColumn(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            contentPadding = PaddingValues(8.dp)
+    CommonFocusRequester(shouldRequestFocus = {
+        countryList.isNotEmpty() && countrySelected != null
+    }) { requester ->
+        Box(
+            modifier = modifier,
         ) {
-            items(countryList.size) { idx ->
-                val currentCountry = countryList[idx]
-                CommonListItem(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(100.dp)
-                    .padding(8.dp)
-                    .then(if (currentCountry == countrySelected) Modifier.focusRequester(requester) else Modifier),
-                    onClicked = {
-                        onCountrySelected(currentCountry)
-                    }
-                ) { isFocused ->
-                    Column(
-                        verticalArrangement = Arrangement.SpaceEvenly,
-                        horizontalAlignment = Alignment.CenterHorizontally
-                    ) {
-                        CommonText(
-                            type = CommonTextTypeEnum.TITLE_LARGE,
-                            titleText = currentCountry.flag,
-                            textAlign = TextAlign.Center
-                        )
-                        CommonText(
-                            type = CommonTextTypeEnum.BODY_LARGE,
-                            titleText = currentCountry.name,
-                            textAlign = TextAlign.Center,
-                            maxLines = 2,
-                            textColor = with(MaterialTheme.colorScheme) {
-                                if(isFocused) {
-                                    primary
-                                } else {
-                                    onPrimaryContainer
+            TvLazyColumn(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                contentPadding = PaddingValues(8.dp)
+            ) {
+                items(countryList.size) { idx ->
+                    val currentCountry = countryList[idx]
+                    CommonListItem(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(100.dp)
+                        .padding(8.dp)
+                        .then(if (currentCountry == countrySelected) Modifier.focusRequester(requester) else Modifier),
+                        onClicked = {
+                            onCountrySelected(currentCountry)
+                        }
+                    ) { isFocused ->
+                        Column(
+                            verticalArrangement = Arrangement.SpaceEvenly,
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            CommonText(
+                                type = CommonTextTypeEnum.TITLE_LARGE,
+                                titleText = currentCountry.flag,
+                                textAlign = TextAlign.Center
+                            )
+                            CommonText(
+                                type = CommonTextTypeEnum.BODY_LARGE,
+                                titleText = currentCountry.name,
+                                textAlign = TextAlign.Center,
+                                maxLines = 2,
+                                textColor = with(MaterialTheme.colorScheme) {
+                                    if(isFocused) {
+                                        primary
+                                    } else {
+                                        onPrimaryContainer
+                                    }
                                 }
-                            }
-                        )
+                            )
+                        }
                     }
                 }
             }

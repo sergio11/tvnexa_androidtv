@@ -13,7 +13,7 @@ data class ChannelDetailBO(
     val launched: String?,
     val closed: String?,
     val replacedBy: ChannelDetailBO?,
-    val streams: List<ChannelStreamBO>,
+    val streamUrl: String?,
     val guides: List<ChannelGuideBO>,
     val languages: List<LanguageBO>,
     val categories: List<CategoryBO>,
