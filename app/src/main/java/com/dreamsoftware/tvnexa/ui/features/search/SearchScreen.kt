@@ -6,7 +6,8 @@ import com.dreamsoftware.tvnexa.ui.components.CommonScreen
 
 @Composable
 fun SearchScreen(
-    viewModel: SearchViewModel = hiltViewModel()
+    viewModel: SearchViewModel = hiltViewModel(),
+    onGoToChannelDetail: (String) -> Unit
 ) {
     CommonScreen(
         viewModel = viewModel,
@@ -18,7 +19,8 @@ fun SearchScreen(
             onSearchPressed = ::onSearchPressed,
             onClearPressed = ::onClearPressed,
             onBackSpacePressed = ::onBackSpacePressed,
-            onSpaceBarPressed = ::onSpaceBarPressed
+            onSpaceBarPressed = ::onSpaceBarPressed,
+            onChannelPressed = { onGoToChannelDetail(it.channelId) }
         )
     }
 }
