@@ -5,6 +5,7 @@ import androidx.navigation.NamedNavArgument
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.dreamsoftware.tvnexa.ui.features.details.DetailScreenArgs
+import com.dreamsoftware.tvnexa.ui.features.player.PlayerScreenArgs
 
 sealed class Screens(val path: String, arguments: List<NamedNavArgument> = emptyList()) {
 
@@ -23,7 +24,24 @@ sealed class Screens(val path: String, arguments: List<NamedNavArgument> = empty
         data object Favorites : Home("favourites")
         data object Settings : Home("settings")
     }
-    data object Player : Screens("player_screen")
+    data object Player : Screens("player_screen/{channel_id}", arguments = listOf(
+        navArgument("channel_id") {
+            type = NavType.StringType
+        }
+    )) {
+        fun buildRoute(channelId: String): String =
+            path.replace(
+                oldValue = "{channel_id}",
+                newValue = channelId
+            )
+
+        fun parseArgs(args: Bundle): PlayerScreenArgs? = with(args) {
+            getString("channel_id")?.let {
+                PlayerScreenArgs(channelId = it)
+            }
+        }
+    }
+
     data object Detail : Screens("detail/{channel_id}", arguments = listOf(
         navArgument("channel_id") {
             type = NavType.StringType

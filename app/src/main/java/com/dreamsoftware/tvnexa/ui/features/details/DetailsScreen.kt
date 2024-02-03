@@ -13,7 +13,7 @@ fun DetailsScreen(
     viewModel: DetailViewModel = hiltViewModel(),
     args: DetailScreenArgs,
     onBackPressed: () -> Unit,
-    onPlayChannelPressed: () -> Unit
+    onPlayChannelPressed: (channelId: String) -> Unit
 ) {
     with(viewModel) {
         BackHandler(onBack = onBackPressed)

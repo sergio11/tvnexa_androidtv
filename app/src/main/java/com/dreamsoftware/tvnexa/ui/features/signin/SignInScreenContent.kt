@@ -23,6 +23,7 @@ import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
@@ -34,6 +35,7 @@ import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonStyleTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonTypeEnum
+import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonFullScreenImage
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextField
@@ -214,38 +216,41 @@ private fun SignInFormContent(
     onSigInPressed: () -> Unit
 ) {
     with(uiState) {
-        Column(
-            modifier = modifier,
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            CommonText(
-                titleRes = R.string.sign_in_form_heading_text,
-                type = CommonTextTypeEnum.HEADLINE_MEDIUM,
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            CommonTextField(
-                icon = Icons.Filled.Person,
-                value = email,
-                type = CommonTextFieldTypeEnum.EMAIL,
-                labelRes = R.string.sign_in_form_email_label_text,
-                errorMessage = emailError,
-                onValueChange = onEmailChanged
-            )
-            Spacer(modifier = Modifier.height(20.dp))
-            CommonTextField(
-                icon = Icons.Filled.Password,
-                value = password,
-                type = CommonTextFieldTypeEnum.PASSWORD,
-                labelRes = R.string.sign_in_form_password_label_text,
-                errorMessage = passwordError,
-                onValueChange = onPasswordChanged
-            )
-            Spacer(modifier = Modifier.height(40.dp))
-            CommonButton(
-                onClick = onSigInPressed,
-                textRes = R.string.sign_in_main_button_text
-            )
+        CommonFocusRequester { requester ->
+            Column(
+                modifier = modifier,
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally,
+            ) {
+                CommonText(
+                    titleRes = R.string.sign_in_form_heading_text,
+                    type = CommonTextTypeEnum.HEADLINE_MEDIUM,
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                CommonTextField(
+                    icon = Icons.Filled.Person,
+                    value = email,
+                    type = CommonTextFieldTypeEnum.EMAIL,
+                    labelRes = R.string.sign_in_form_email_label_text,
+                    errorMessage = emailError,
+                    onValueChange = onEmailChanged
+                )
+                Spacer(modifier = Modifier.height(20.dp))
+                CommonTextField(
+                    icon = Icons.Filled.Password,
+                    value = password,
+                    type = CommonTextFieldTypeEnum.PASSWORD,
+                    labelRes = R.string.sign_in_form_password_label_text,
+                    errorMessage = passwordError,
+                    onValueChange = onPasswordChanged
+                )
+                Spacer(modifier = Modifier.height(40.dp))
+                CommonButton(
+                    modifier = Modifier.focusRequester(requester),
+                    onClick = onSigInPressed,
+                    textRes = R.string.sign_in_main_button_text
+                )
+            }
         }
     }
 }

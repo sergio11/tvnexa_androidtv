@@ -1,6 +1,6 @@
 package com.dreamsoftware.tvnexa.ui.components
 
-import android.annotation.SuppressLint
+import androidx.annotation.OptIn
 import androidx.annotation.RawRes
 import androidx.compose.foundation.focusable
 import androidx.compose.foundation.layout.Box
@@ -18,17 +18,30 @@ import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.LifecycleOwner
 import com.dreamsoftware.player.domain.SupportPlayer
 import com.dreamsoftware.player.domain.state.PlayerStateListener
 import com.dreamsoftware.tvnexa.ui.extensions.handleDPadKeyEvents
 import com.dreamsoftware.player.impl.PlayerFactory
-import java.security.cert.X509Certificate
-import javax.net.ssl.HttpsURLConnection
-import javax.net.ssl.SSLContext
-import javax.net.ssl.TrustManager
-import javax.net.ssl.X509TrustManager
+import androidx.compose.runtime.State
+import androidx.media3.common.util.UnstableApi
+import com.dreamsoftware.tvnexa.utils.disableCertificateValidation
 
-@SuppressLint("OpaqueUnitKey", "UnsafeOptInUsageError")
+
+/**
+ * Composable function for a common video background with player controls.
+ *
+ * @param modifier Modifier for the video background.
+ * @param videHlsResource HLS video resource URL.
+ * @param videoResourceId Raw resource ID for the video.
+ * @param disableCertValidation Flag to disable certificate validation.
+ * @param playerStateListener Listener for player state events.
+ * @param onLeft Callback for left D-pad key press.
+ * @param onRight Callback for right D-pad key press.
+ * @param onEnter Callback for enter key press.
+ * @param content Lambda to define additional content inside the BoxScope.
+ */
+@OptIn(UnstableApi::class)
 @Composable
 fun CommonVideoBackground(
     modifier: Modifier = Modifier,
@@ -49,6 +62,54 @@ fun CommonVideoBackground(
     val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
     val player = remember { PlayerFactory.create(context) }
 
+    InitializeAndPlayVideo(
+        lifecycleOwner = lifecycleOwner,
+        player = player,
+        videHlsResource = videHlsResource,
+        videoResourceId = videoResourceId,
+        playerStateListener = playerStateListener
+    )
+
+    PlayerViewContent(
+        modifier = modifier,
+        player = player,
+        onLeft = onLeft,
+        onRight = onRight,
+        onEnter = onEnter,
+        content = content
+    )
+}
+
+/**
+ * Helper function to initialize and play the video based on lifecycle events.
+ *
+ * @param lifecycleOwner State holding the current LifecycleOwner.
+ * @param player SupportPlayer instance for video playback.
+ * @param videHlsResource HLS video resource URL.
+ * @param videoResourceId Raw resource ID for the video.
+ * @param playerStateListener Listener for player state events.
+ */
+@Composable
+private fun InitializeAndPlayVideo(
+    lifecycleOwner: State<LifecycleOwner>,
+    player: SupportPlayer,
+    videHlsResource: String? = null,
+    @RawRes videoResourceId: Int? = null,
+    playerStateListener: PlayerStateListener? = null
+) {
+    val playContent = {
+        with(player) {
+            videHlsResource?.let {
+                prepare(videHlsResource)
+            } ?: run {
+                videoResourceId?.let {
+                    prepare(it)
+                }
+            }
+            play()
+        }
+    }
+
     playerStateListener?.let { stateListener ->
         LaunchedEffect(Unit) {
             player.setPlaybackEvent(callback = stateListener)
@@ -62,14 +123,11 @@ fun CommonVideoBackground(
                     player.pause()
                 }
                 Lifecycle.Event.ON_RESUME -> {
-                    if(!player.isPlaying) {
-                        player.play()
-                    }
+                    playContent()
                 }
                 else -> {}
             }
         }
-
         val lifecycle = lifecycleOwner.value.lifecycle
         lifecycle.addObserver(observer)
         onDispose {
@@ -78,17 +136,34 @@ fun CommonVideoBackground(
         }
     }
 
-    with(player) {
-        videHlsResource?.let {
-            prepare(videHlsResource)
-        } ?: run {
-            videoResourceId?.let {
-                prepare(it)
-            }
+    LaunchedEffect(videHlsResource ?: videoResourceId) {
+        val lifecycle = lifecycleOwner.value.lifecycle
+        if (lifecycle.currentState == Lifecycle.State.RESUMED) {
+            playContent()
         }
-        play()
     }
+}
 
+
+/**
+ * Composable function to display the player view content within a Box.
+ *
+ * @param modifier Modifier for the player view content.
+ * @param player SupportPlayer instance for video playback.
+ * @param onLeft Callback for left D-pad key press.
+ * @param onRight Callback for right D-pad key press.
+ * @param onEnter Callback for enter key press.
+ * @param content Lambda to define additional content inside the BoxScope.
+ */
+@Composable
+private fun PlayerViewContent(
+    modifier: Modifier = Modifier,
+    player: SupportPlayer,
+    onLeft: (() -> Unit)? = null,
+    onRight: (() -> Unit)? = null,
+    onEnter: (() -> Unit)? = null,
+    content: @Composable BoxScope.(supportPlayer: SupportPlayer) -> Unit = {}
+) {
     Box(modifier = modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
         AndroidView(factory = { player.getView() }, modifier = Modifier
             .fillMaxSize()
@@ -99,28 +174,5 @@ fun CommonVideoBackground(
             )
             .focusable())
         content(player)
-    }
-}
-
-
-private fun disableCertificateValidation() {
-    try {
-        val trustAllCerts = arrayOf<TrustManager>(@SuppressLint("CustomX509TrustManager")
-        object : X509TrustManager {
-            override fun getAcceptedIssuers(): Array<X509Certificate> = arrayOf()
-
-            @SuppressLint("TrustAllX509TrustManager")
-            override fun checkClientTrusted(chain: Array<X509Certificate>, authType: String) {}
-
-            @SuppressLint("TrustAllX509TrustManager")
-            override fun checkServerTrusted(chain: Array<X509Certificate>, authType: String) {}
-        })
-
-        val sslContext = SSLContext.getInstance("SSL")
-        sslContext.init(null, trustAllCerts, java.security.SecureRandom())
-        HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.socketFactory)
-        HttpsURLConnection.setDefaultHostnameVerifier { _, _ -> true }
-    } catch (e: Exception) {
-        e.printStackTrace()
     }
 }
