@@ -54,4 +54,15 @@ interface IChannelsService {
     suspend fun detail(
         @Path("channelId") channelId: String
     ): ApiResponseDTO<ChannelDetailResponseDTO>
+
+    /**
+     * Performs a search for channels based on the specified term.
+     *
+     * @param term The search term to look for in channel names.
+     * @return ApiResponseDTO containing a list of SimpleChannelResponseDTO matching the search term.
+     */
+    @GET("channels/search")
+    suspend fun search(
+        @Query("term") term: String
+    ): ApiResponseDTO<List<SimpleChannelResponseDTO>>
 }

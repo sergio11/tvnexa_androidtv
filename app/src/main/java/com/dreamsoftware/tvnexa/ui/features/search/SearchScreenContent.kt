@@ -12,11 +12,12 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.grid.TvGridCells
 import androidx.tv.foundation.lazy.grid.TvGridItemSpan
 import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
-import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
+import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.ChannelGridItem
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
@@ -24,23 +25,33 @@ import com.dreamsoftware.tvnexa.ui.components.MiniKeyboard
 
 @Composable
 fun SearchScreenContent(
-    uiState: SearchUiState
+    uiState: SearchUiState,
+    onKeyPressed: (String) -> Unit = {},
+    onSearchPressed: () -> Unit = {},
+    onClearPressed: () -> Unit = {},
+    onBackSpacePressed: () -> Unit = {},
+    onSpaceBarPressed: () -> Unit = {}
 ) {
-    with(uiState) {
-        Row(modifier = Modifier.fillMaxSize()) {
-            Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 24.dp)) {
-                SearchView()
-                MiniKeyboard(modifier = Modifier.width(300.dp))
-            }
-            ContentGrid(channels = channels)
+    Row(modifier = Modifier.fillMaxSize()) {
+        Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 24.dp)) {
+            SearchView()
+            MiniKeyboard(
+                modifier = Modifier.width(300.dp),
+                onKeyPressed = onKeyPressed,
+                onSearchPressed = onSearchPressed,
+                onClearPressed = onClearPressed,
+                onBackSpacePressed = onBackSpacePressed,
+                onSpaceBarPressed = onSpaceBarPressed
+            )
         }
+        ContentGrid(uiState = uiState)
     }
 }
 
 @Composable
 fun ContentGrid(
     modifier: Modifier = Modifier,
-    channels: List<SimpleChannelBO>
+    uiState: SearchUiState,
 ) {
     TvLazyVerticalGrid(
         modifier = modifier,
@@ -50,18 +61,26 @@ fun ContentGrid(
         item(span = {
             TvGridItemSpan(3)
         }) {
-            GridHeader()
+            GridHeader(uiState)
         }
-        items(channels.size) { idx ->
-            ChannelGridItem(channel = channels[idx])
+        with(uiState) {
+            items(channels.size) { idx ->
+                ChannelGridItem(channel = channels[idx])
+            }
         }
     }
 }
 
 @Composable
-fun GridHeader() {
+fun GridHeader(uiState: SearchUiState) {
     CommonText(
-        titleText = "Search Results",
+        titleText = with(uiState) {
+            if(term.isNotBlank()) {
+                stringResource(id = R.string.search_screen_search_results_title_with_term, term)
+            } else {
+                stringResource(id = R.string.search_screen_search_results_title)
+            }
+        },
         type = CommonTextTypeEnum.TITLE_LARGE,
         textColor = MaterialTheme.colorScheme.primary,
         modifier = Modifier.padding(bottom = 24.dp, start = 8.dp),
@@ -73,7 +92,7 @@ fun SearchView() {
     with(MaterialTheme.colorScheme) {
         Column {
             CommonText(
-                titleText = "Start typing to search",
+                titleRes = R.string.search_screen_main_title,
                 type = CommonTextTypeEnum.TITLE_LARGE,
                 textColor = primary,
                 modifier = Modifier.padding(all = 12.dp),
