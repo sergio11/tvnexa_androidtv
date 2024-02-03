@@ -17,8 +17,14 @@ fun SearchScreen(
             lifecycle = lifecycle,
             viewModel = viewModel
         )
-
-        SearchScreenContent(uiState = uiState)
+        SearchScreenContent(
+            uiState = uiState,
+            onKeyPressed = ::onKeyPressed,
+            onSearchPressed = ::onSearchPressed,
+            onClearPressed = ::onClearPressed,
+            onBackSpacePressed = ::onBackSpacePressed,
+            onSpaceBarPressed = ::onSpaceBarPressed
+        )
     }
 }
 
