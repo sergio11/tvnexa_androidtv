@@ -18,6 +18,7 @@ fun ChannelsScreen(
             uiState = uiState,
             onNewCountrySelected = ::onNewCountrySelected,
             onChannelFocused = ::onNewChannelFocused,
+            onNewCategorySelected = ::onNewCategorySelected,
             onChannelPressed = {
                 onGoToChannelDetail(it.channelId)
             }

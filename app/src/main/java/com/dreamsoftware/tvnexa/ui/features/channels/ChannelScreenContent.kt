@@ -22,12 +22,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.grid.rememberTvLazyGridState
 import androidx.tv.foundation.lazy.list.TvLazyColumn
+import androidx.tv.foundation.lazy.list.TvLazyRow
+import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
+import com.dreamsoftware.tvnexa.domain.model.CategoryBO
 import com.dreamsoftware.tvnexa.domain.model.CountryBO
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 import com.dreamsoftware.tvnexa.ui.components.ChannelGridItem
 import com.dreamsoftware.tvnexa.ui.components.ChannelPreview
+import com.dreamsoftware.tvnexa.ui.components.CommonChip
 import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonLazyVerticalGrid
 import com.dreamsoftware.tvnexa.ui.components.CommonListItem
@@ -40,6 +44,7 @@ fun ChannelScreenContent(
     onNewCountrySelected: (CountryBO) -> Unit,
     onChannelFocused: (SimpleChannelBO) -> Unit,
     onChannelPressed: (SimpleChannelBO) -> Unit,
+    onNewCategorySelected: (CategoryBO) -> Unit
 ) {
     with(uiState) {
         with(MaterialTheme.colorScheme) {
@@ -60,23 +65,67 @@ fun ChannelScreenContent(
                     countrySelected = countrySelected,
                     onCountrySelected = onNewCountrySelected
                 )
-                ChannelsGrid(
+
+                Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight(),
-                    channels = channels,
-                    channelFocused = channelFocused,
-                    onChannelFocused = onChannelFocused,
-                    onChannelPressed = onChannelPressed
-                )
+                        .fillMaxHeight()
+                ) {
+                    channelFocused?.let {
+                        ChannelPreview(
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.4f)
+                                .padding(start = 10.dp),
+                            channel = it
+                        )
+                    }
+                    CategoriesList(
+                        categories = categories,
+                        categorySelected = categorySelected,
+                        onCategorySelected = onNewCategorySelected
+                    )
+                    ChannelsGrid(
+                        channels = channels,
+                        channelFocused = channelFocused,
+                        onChannelFocused = onChannelFocused,
+                        onChannelPressed = onChannelPressed
+                    )
+                }
             }
         }
     }
 }
 
 @Composable
+private fun CategoriesList(
+    modifier: Modifier = Modifier,
+    categories: List<CategoryBO>,
+    categorySelected: CategoryBO?,
+    onCategorySelected: (CategoryBO) -> Unit
+) {
+    TvLazyRow(
+        modifier = modifier,
+        state = rememberTvLazyListState(),
+        contentPadding = PaddingValues(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(10.dp)
+    ) {
+        items(categories.size) { idx ->
+            val category = categories[idx]
+            CommonChip(
+                isSelected = category == categorySelected,
+                text = category.name,
+                onSelected = {
+                    onCategorySelected(category)
+                }
+            )
+        }
+    }
+}
+
+@Composable
 private fun ChannelsGrid(
-    modifier: Modifier,
+    modifier: Modifier = Modifier,
     channelFocused: SimpleChannelBO? = null,
     channels: List<SimpleChannelBO>,
     onChannelFocused: (SimpleChannelBO) -> Unit,
@@ -85,30 +134,17 @@ private fun ChannelsGrid(
     CommonFocusRequester (shouldRequestFocus = {
         channels.isNotEmpty() && channelFocused != null
     }) { requester ->
-        Column(
-            modifier = modifier
-        ) {
-            channelFocused?.let {
-                ChannelPreview(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .fillMaxHeight(0.4f)
-                        .padding(start = 10.dp),
-                    channel = it
-                )
-            }
-            CommonLazyVerticalGrid(
-                modifier = Modifier.fillMaxWidth(),
-                state = rememberTvLazyGridState(),
-                items = channels
-            ) { item ->
-                ChannelGridItem(
-                    modifier = if(item == channelFocused) Modifier.focusRequester(requester) else Modifier,
-                    channel = item,
-                    onChannelFocused = onChannelFocused,
-                    onChannelPressed = onChannelPressed
-                )
-            }
+        CommonLazyVerticalGrid(
+            modifier = modifier.fillMaxWidth(),
+            state = rememberTvLazyGridState(),
+            items = channels
+        ) { item ->
+            ChannelGridItem(
+                modifier = if(item == channelFocused) Modifier.focusRequester(requester) else Modifier,
+                channel = item,
+                onChannelFocused = onChannelFocused,
+                onChannelPressed = onChannelPressed
+            )
         }
     }
 }
@@ -136,7 +172,12 @@ private fun CountryListColumn(
                         .fillMaxWidth()
                         .height(100.dp)
                         .padding(8.dp)
-                        .then(if (currentCountry == countrySelected) Modifier.focusRequester(requester) else Modifier),
+                        .then(
+                            if (currentCountry == countrySelected)
+                                Modifier.focusRequester(requester)
+                            else
+                                Modifier
+                        ),
                         onClicked = {
                             onCountrySelected(currentCountry)
                         }
