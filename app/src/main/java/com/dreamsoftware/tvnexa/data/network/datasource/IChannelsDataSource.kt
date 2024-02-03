@@ -36,4 +36,14 @@ interface IChannelsDataSource {
      */
     @Throws(NetworkException::class)
     suspend fun findDetailById(channelId: String): ChannelDetailResponseDTO
+
+    /**
+     * Finds channels based on the specified search term.
+     *
+     * @param term The search term to filter channels.
+     * @return A list of SimpleChannelResponseDTO matching the search term.
+     * @throws NetworkException if there is a network-related issue during the operation.
+     */
+    @Throws(NetworkException::class)
+    suspend fun findByTerm(term: String): List<SimpleChannelResponseDTO>
 }

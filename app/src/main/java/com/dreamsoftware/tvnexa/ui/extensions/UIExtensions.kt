@@ -66,6 +66,9 @@ fun Modifier.handleDPadKeyEvents(
 val String.Companion.EMPTY: String
     get() = ""
 
+val Char.Companion.SPACE: Char
+    get() = ' '
+
 fun ProfileTypeEnum.toDrawableResource(): Int = when(this) {
     ProfileTypeEnum.BOY -> R.drawable.profile_avatar_boy
     ProfileTypeEnum.GIRL -> R.drawable.profile_avatar_girl

@@ -77,4 +77,26 @@ internal class ChannelRepositoryImpl(
             throw DomainException.ChannelNotFoundException("Channel $channelId not found", ex)
         }
     }
+
+    /**
+     * Finds channels based on the specified search term.
+     *
+     * @param term The search term to filter channels.
+     * @return A list of SimpleChannelBO representing channels matching the search term.
+     * @throws DomainException.NoChannelsFoundException if no channels are found by the given term.
+     * @throws DomainException.InternalErrorException if there is an internal error during the operation.
+     */
+    @Throws(
+        DomainException.NoChannelsFoundException::class,
+        DomainException.InternalErrorException::class
+    )
+    override suspend fun findByTerm(term: String): List<SimpleChannelBO> = safeExecute {
+        try {
+            channelsDataSource.findByTerm(term)
+                .let(simpleChannelMapper::mapInListToOutList)
+                .toList()
+        } catch (ex: NetworkException.NoResultException) {
+            throw DomainException.NoChannelsFoundException("No channels found by `$term`", ex)
+        }
+    }
 }

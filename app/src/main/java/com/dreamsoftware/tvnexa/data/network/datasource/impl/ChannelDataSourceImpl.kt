@@ -25,4 +25,9 @@ internal class ChannelDataSourceImpl(
     override suspend fun findDetailById(channelId: String): ChannelDetailResponseDTO = safeNetworkCall {
         channelService.detail(channelId).data
     }
+
+    @Throws(NetworkException::class)
+    override suspend fun findByTerm(term: String): List<SimpleChannelResponseDTO> = safeNetworkCall {
+        channelService.search(term).data
+    }
 }
