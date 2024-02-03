@@ -22,17 +22,14 @@ fun HomeNavigation(
             Screens.Home.Channels.path,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
-
-            ChannelsScreen(
-                onGoToChannelDetail = onNavigateToDetail
-            )
+            ChannelsScreen(onGoToChannelDetail = onNavigateToDetail)
         }
 
         composable(
             Screens.Home.Search.path,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
-            SearchScreen()
+            SearchScreen (onGoToChannelDetail = onNavigateToDetail)
         }
 
         composable(
