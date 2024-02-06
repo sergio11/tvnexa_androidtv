@@ -7,13 +7,13 @@ import compose.icons.lineawesomeicons.CogSolid
 import compose.icons.lineawesomeicons.HeartSolid
 import compose.icons.lineawesomeicons.HomeSolid
 import compose.icons.lineawesomeicons.SearchSolid
-import compose.icons.lineawesomeicons.VideoSolid
+import compose.icons.lineawesomeicons.TvSolid
 
 object MenuData {
     val menuItems = listOf(
         MenuItem(Screens.Home.DEFAULT.path, "Home", LineAwesomeIcons.HomeSolid),
         MenuItem(Screens.Home.Search.path, "Search", LineAwesomeIcons.SearchSolid),
-        MenuItem(Screens.Home.Movies.path, "Guide", LineAwesomeIcons.VideoSolid),
+        MenuItem(Screens.Home.Guide.path, "Guide", LineAwesomeIcons.TvSolid),
         MenuItem(Screens.Home.Favorites.path, "Favorites", LineAwesomeIcons.HeartSolid),
     )
 
