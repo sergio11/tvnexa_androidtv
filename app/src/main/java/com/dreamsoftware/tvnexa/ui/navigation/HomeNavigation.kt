@@ -5,7 +5,6 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.dreamsoftware.tvnexa.ui.features.favorites.FavoritesScreen
 import com.dreamsoftware.tvnexa.ui.features.channels.ChannelsScreen
-import com.dreamsoftware.tvnexa.ui.features.movies.MoviesScreen
 import com.dreamsoftware.tvnexa.ui.features.search.SearchScreen
 import com.dreamsoftware.tvnexa.ui.features.settings.SettingsScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -29,21 +28,14 @@ fun HomeNavigation(
             Screens.Home.Search.path,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
-            SearchScreen (onGoToChannelDetail = onNavigateToDetail)
-        }
-
-        composable(
-            Screens.Home.Movies.path,
-            enterTransition = { tabEnterTransition() },
-            exitTransition = { tabExitTransition() }) {
-            MoviesScreen(onItemFocus = { _ , _ -> })
+            SearchScreen(onGoToChannelDetail = onNavigateToDetail)
         }
 
         composable(
             Screens.Home.Favorites.path,
             enterTransition = { tabEnterTransition() },
             exitTransition = { tabExitTransition() }) {
-            FavoritesScreen()
+            FavoritesScreen(onGoToChannelDetail = onNavigateToDetail)
         }
 
         composable(

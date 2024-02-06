@@ -20,8 +20,8 @@ sealed class Screens(val path: String, arguments: List<NamedNavArgument> = empty
 
         data object Channels : Home("channels")
         data object Search : Home("search")
-        data object Movies : Home("movies")
-        data object Favorites : Home("favourites")
+        data object Guide : Home("guide")
+        data object Favorites : Home("favorites")
         data object Settings : Home("settings")
     }
     data object Player : Screens("player_screen/{channel_id}", arguments = listOf(
