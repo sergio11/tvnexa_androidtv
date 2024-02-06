@@ -80,4 +80,7 @@
     <string name="search_screen_search_results_title_with_term" formatted="false">Search Results for \" %s \"</string>
     <string name="search_screen_search_results_loading">Searching the cosmos for your channels. Just a moment…</string>
 
+    <!-- Favorites Screen -->
+    <string name="favorites_screen_main_title">Your favorite channels!</string>
+    <string name="favorites_screen_loading">Searching the cosmos for your channels. Just a moment…</string>
 </resources>
