@@ -21,8 +21,9 @@ fun SignInScreen(
         viewModel = viewModel,
         onInitialUiState = { SignInUiState() },
         onSideEffect = {
-            if(it is SignInSideEffects.AuthenticationSuccessfully) {
-                onGoToHome()
+            when(it) {
+                SignInSideEffects.AuthenticationSuccessfully -> onGoToHome()
+                SignInSideEffects.ProfileSelectionRequired -> onGoToProfileSelector()
             }
         }
     ) { uiState ->

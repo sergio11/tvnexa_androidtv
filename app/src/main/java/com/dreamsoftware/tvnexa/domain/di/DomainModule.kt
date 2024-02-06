@@ -14,7 +14,6 @@ import com.dreamsoftware.tvnexa.domain.usecase.impl.GetChannelsUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetCountriesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetFavoriteChannelsUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfilesUseCase
-import com.dreamsoftware.tvnexa.domain.usecase.impl.GetSessionUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetUserDetailUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SearchChannelsUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignInUseCase
@@ -43,11 +42,6 @@ class DomainModule {
     @ViewModelScoped
     fun provideSignUpUseCase(repository: IAuthRepository): SignUpUseCase =
         SignUpUseCase(repository)
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetSessionUseCase(repository: IAuthRepository): GetSessionUseCase =
-        GetSessionUseCase(repository)
 
     @Provides
     @ViewModelScoped

@@ -10,7 +10,7 @@ class VerifyUserSessionUseCase(
 ): BaseUseCase<Boolean>() {
 
     override suspend fun onExecuted(): Boolean = runCatching {
-        authRepository.getSession().also {
+        authRepository.getActiveSession().also {
             sessionAware.session = it
         }
         true
