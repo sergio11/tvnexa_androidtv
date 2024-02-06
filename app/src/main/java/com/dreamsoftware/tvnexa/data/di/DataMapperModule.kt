@@ -1,7 +1,7 @@
 package com.dreamsoftware.tvnexa.data.di
 
-import com.dreamsoftware.tvnexa.data.mapper.AuthResponseMapperImpl
-import com.dreamsoftware.tvnexa.data.mapper.AuthSessionPreferenceMapperImpl
+import com.dreamsoftware.tvnexa.data.mapper.AuthenticationResponseMapperImpl
+import com.dreamsoftware.tvnexa.data.mapper.ReadAuthSessionDataMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.CategoryMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.ChannelDetailMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.ChannelGuideMapperImpl
@@ -11,6 +11,7 @@ import com.dreamsoftware.tvnexa.data.mapper.CreateProfileMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.LanguageMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.ProfileMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.RegionMapperImpl
+import com.dreamsoftware.tvnexa.data.mapper.SaveAuthSessionDataMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.SignupUserMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.SimpleChannelMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.SubdivisionMapperImpl
@@ -35,6 +36,7 @@ import com.dreamsoftware.tvnexa.data.network.dto.response.SubdivisionResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.UserResponseDTO
 import com.dreamsoftware.tvnexa.data.preferences.dto.AuthSessionPreferenceDTO
 import com.dreamsoftware.tvnexa.domain.model.AuthSessionBO
+import com.dreamsoftware.tvnexa.domain.model.AuthenticationBO
 import com.dreamsoftware.tvnexa.domain.model.CategoryBO
 import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
 import com.dreamsoftware.tvnexa.domain.model.ChannelGuideBO
@@ -69,10 +71,13 @@ interface DataMapperComponent {
         fun bindSignupUserMapper(impl: SignupUserMapperImpl): IOneSideMapper<SaveUserBO, SignUpUserNetworkDTO>
 
         @Binds
-        fun bindAuthResponseMapper(impl: AuthResponseMapperImpl): IOneSideMapper<AuthResponseDTO, AuthSessionBO>
+        fun bindAuthResponseMapper(impl: AuthenticationResponseMapperImpl): IOneSideMapper<AuthResponseDTO, AuthenticationBO>
 
         @Binds
-        fun bindAuthSessionMapper(impl: AuthSessionPreferenceMapperImpl): IMapper<AuthSessionPreferenceDTO, AuthSessionBO>
+        fun bindReadAuthSessionDataMapper(impl: ReadAuthSessionDataMapperImpl): IOneSideMapper<AuthSessionPreferenceDTO, AuthSessionBO>
+
+        @Binds
+        fun bindSaveAuthSessionDataMapper(impl: SaveAuthSessionDataMapperImpl): IOneSideMapper<AuthenticationBO, AuthSessionPreferenceDTO>
 
         @Binds
         fun bindCategoryMapper(impl: CategoryMapperImpl): IOneSideMapper<CategoryResponseDTO, CategoryBO>
@@ -117,9 +122,11 @@ interface DataMapperComponent {
         fun bindCreateProfileMapperImpl(impl: CreateProfileMapperImpl): IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>
     }
 
-    fun authResponseNetworkMapper(): IOneSideMapper<AuthResponseDTO, AuthSessionBO>
+    fun authResponseNetworkMapper(): IOneSideMapper<AuthResponseDTO, AuthenticationBO>
 
-    fun authSessionPreferenceMapper(): IMapper<AuthSessionPreferenceDTO, AuthSessionBO>
+    fun readAuthSessionDataMapper(): IOneSideMapper<AuthSessionPreferenceDTO, AuthSessionBO>
+
+    fun saveAuthSessionDataMapper(): IOneSideMapper<AuthenticationBO, AuthSessionPreferenceDTO>
 
     fun signupUserMapper(): IOneSideMapper<SaveUserBO, SignUpUserNetworkDTO>
 
