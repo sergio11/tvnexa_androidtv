@@ -81,7 +81,8 @@ private fun CommonDialogUI(
         ) {
             Column(
                 modifier = modifier.background(surface),
-                horizontalAlignment = Alignment.CenterHorizontally
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceEvenly
             ) {
                 Image(
                     painter = painterResource(id = R.drawable.tvnexa_logo),
@@ -111,6 +112,7 @@ private fun CommonDialogUI(
                         textAlign = TextAlign.Center
                     )
                 }
+                Spacer(modifier = Modifier.height(30.dp))
                 customContent()
                 Spacer(modifier = Modifier.height(30.dp))
                 //.......................................................................

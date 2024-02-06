@@ -6,7 +6,9 @@ import androidx.datastore.preferences.core.PreferenceDataStoreFactory
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStoreFile
 import com.dreamsoftware.tvnexa.data.preferences.datasource.IAuthSessionDataSource
+import com.dreamsoftware.tvnexa.data.preferences.datasource.IProfileSessionDataSource
 import com.dreamsoftware.tvnexa.data.preferences.datasource.impl.AuthSessionDataSourceImpl
+import com.dreamsoftware.tvnexa.data.preferences.datasource.impl.ProfileSessionDataSourceImpl
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import dagger.Module
@@ -27,7 +29,7 @@ class DatastoreModule {
      * Companion object containing constants related to DataStore preferences.
      */
     private companion object {
-        const val AUTH_PREFERENCE = "AUTH_PREF"
+        const val PREFERENCE_FILE_NAME = "tvnexa_preferences"
     }
 
     /**
@@ -53,7 +55,7 @@ class DatastoreModule {
     fun providePreferenceDatastore(@ApplicationContext context: Context): DataStore<Preferences> =
         PreferenceDataStoreFactory.create(
             produceFile = {
-                context.preferencesDataStoreFile(AUTH_PREFERENCE)
+                context.preferencesDataStoreFile(PREFERENCE_FILE_NAME)
             }
         )
 
@@ -68,4 +70,15 @@ class DatastoreModule {
     @Singleton
     fun provideAuthSessionDataSource(dataStore: DataStore<Preferences>, moshi: Moshi): IAuthSessionDataSource =
         AuthSessionDataSourceImpl(dataStore, moshi)
+
+    /**
+     * Provides an implementation of [IProfileSessionDataSource] for managing profile session-related data.
+     * @param dataStore The DataStore instance used for storing preferences.
+     * @param moshi The Moshi instance used for JSON serialization/deserialization.
+     * @return An instance of [IProfileSessionDataSource] for profile session data management.
+     */
+    @Provides
+    @Singleton
+    fun provideProfileSessionDataSource(dataStore: DataStore<Preferences>, moshi: Moshi): IProfileSessionDataSource =
+        ProfileSessionDataSourceImpl(dataStore, moshi)
 }
