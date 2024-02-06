@@ -4,6 +4,7 @@ package com.dreamsoftware.tvnexa.ui.components
 
 
 import androidx.annotation.StringRes
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -13,10 +14,13 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -41,15 +45,19 @@ fun CommonTextField(
     type: CommonTextFieldTypeEnum = CommonTextFieldTypeEnum.TEXT,
     value: String,
     enabled: Boolean = true,
-    onValueChange: (value: String) -> Unit,
+    onValueChange: (value: String) -> Unit = {},
     @StringRes labelRes: Int,
     icon: ImageVector,
+    imeAction: ImeAction = ImeAction.Next,
+    interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     errorMessage: String? = null
 ) {
     with(MaterialTheme.colorScheme) {
+        val keyboard = LocalSoftwareKeyboardController.current
         val focusManager = LocalFocusManager.current
         val isError = !errorMessage.isNullOrBlank()
         OutlinedTextField(
+            interactionSource = interactionSource,
             modifier = modifier,
             value = value,
             enabled = enabled,
@@ -96,10 +104,14 @@ fun CommonTextField(
                     CommonTextFieldTypeEnum.PHONE -> KeyboardType.Phone
                     CommonTextFieldTypeEnum.PASSWORD -> KeyboardType.Password
                 },
-                imeAction = ImeAction.Next
+                imeAction = imeAction
             ),
             keyboardActions = KeyboardActions(
-                onNext = { focusManager.moveFocus(FocusDirection.Down) }
+                onNext = { focusManager.moveFocus(FocusDirection.Down) },
+                onDone = {
+                    keyboard?.hide()
+                    focusManager.clearFocus(true)
+                }
             )
         )
         if (isError) {

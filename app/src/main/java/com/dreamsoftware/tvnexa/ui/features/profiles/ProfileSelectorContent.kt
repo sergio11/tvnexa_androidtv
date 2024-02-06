@@ -26,41 +26,49 @@ import com.dreamsoftware.tvnexa.ui.components.CommonFullScreenImage
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.ProfileSelector
+import com.dreamsoftware.tvnexa.ui.features.profiles.components.ProfileLockedDialog
 
 @Composable
 fun ProfileSelectorContent(
     uiState: ProfileSelectorUiState,
     onProfileSelected: (ProfileBO) -> Unit
 ) {
-    Box(
-        modifier = Modifier.fillMaxSize()
-    ) {
-        ProfilesBackground()
-        ProfilesLogo(modifier =
+    with(uiState) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
+            ProfilesBackground()
+            ProfileLockedDialog(
+                isVisible = isProfileSelectedLocked,
+                onDismissPressed = {  },
+                onExitPressed = {}
+            )
+            ProfilesLogo(modifier =
             Modifier
                 .align(Alignment.TopStart)
                 .padding(20.dp)
                 .height(90.dp)
-        )
-        Column(
-            modifier = Modifier
-                .fillMaxHeight(0.9f)
-                .align(Alignment.Center),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.SpaceEvenly
-        ) {
-            CommonText(
-                titleRes = R.string.profile_selector_main_title,
-                type = CommonTextTypeEnum.HEADLINE_LARGE
             )
-            ProfileSelector(
-                profiles = uiState.profiles,
-                onProfileSelected = onProfileSelected
-            )
-            CommonText(
-                titleRes = R.string.profile_selector_secondary_title,
-                type = CommonTextTypeEnum.HEADLINE_MEDIUM
-            )
+            Column(
+                modifier = Modifier
+                    .fillMaxHeight(0.9f)
+                    .align(Alignment.Center),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.SpaceEvenly
+            ) {
+                CommonText(
+                    titleRes = R.string.profile_selector_main_title,
+                    type = CommonTextTypeEnum.HEADLINE_LARGE
+                )
+                ProfileSelector(
+                    profiles = profiles,
+                    onProfileSelected = onProfileSelected
+                )
+                CommonText(
+                    titleRes = R.string.profile_selector_secondary_title,
+                    type = CommonTextTypeEnum.HEADLINE_MEDIUM
+                )
+            }
         }
     }
 }

@@ -64,5 +64,6 @@ data class SplashUiState(
 
 sealed interface SplashSideEffects: SideEffect {
     data object UserAlreadyAuthenticated: SplashSideEffects
+    data object ProfileSelectionRequired: SplashSideEffects
     data object UserNotAuthenticated: SplashSideEffects
 }

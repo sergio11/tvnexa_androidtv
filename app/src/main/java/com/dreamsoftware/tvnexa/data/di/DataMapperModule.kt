@@ -10,6 +10,7 @@ import com.dreamsoftware.tvnexa.data.mapper.CountryMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.CreateProfileMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.LanguageMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.ProfileMapperImpl
+import com.dreamsoftware.tvnexa.data.mapper.ProfileSessionMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.RegionMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.SaveAuthSessionDataMapperImpl
 import com.dreamsoftware.tvnexa.data.mapper.SignupUserMapperImpl
@@ -35,6 +36,7 @@ import com.dreamsoftware.tvnexa.data.network.dto.response.SimpleChannelResponseD
 import com.dreamsoftware.tvnexa.data.network.dto.response.SubdivisionResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.UserResponseDTO
 import com.dreamsoftware.tvnexa.data.preferences.dto.AuthSessionPreferenceDTO
+import com.dreamsoftware.tvnexa.data.preferences.dto.ProfileSelectedPreferenceDTO
 import com.dreamsoftware.tvnexa.domain.model.AuthSessionBO
 import com.dreamsoftware.tvnexa.domain.model.AuthenticationBO
 import com.dreamsoftware.tvnexa.domain.model.CategoryBO
@@ -120,6 +122,9 @@ interface DataMapperComponent {
 
         @Binds
         fun bindCreateProfileMapperImpl(impl: CreateProfileMapperImpl): IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>
+
+        @Binds
+        fun bindProfileSessionMapperImpl(impl: ProfileSessionMapperImpl): IMapper<ProfileBO, ProfileSelectedPreferenceDTO>
     }
 
     fun authResponseNetworkMapper(): IOneSideMapper<AuthResponseDTO, AuthenticationBO>
@@ -157,4 +162,6 @@ interface DataMapperComponent {
     fun updateProfileMapper(): IOneSideMapper<UpdatedProfileRequestBO, UpdatedProfileRequestDTO>
 
     fun createProfileMapper(): IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>
+
+    fun profileSessionMapper(): IMapper<ProfileBO, ProfileSelectedPreferenceDTO>
 }

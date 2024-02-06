@@ -9,8 +9,8 @@ import com.squareup.moshi.Json
  * @property token The authentication token associated with the user's session.
  */
 data class AuthSessionPreferenceDTO(
-    @field:Json(name = "uuid")
+    @Json(name = "uuid")
     val uuid: String,
-    @field:Json(name = "token")
+    @Json(name = "token")
     val token: String
 )
