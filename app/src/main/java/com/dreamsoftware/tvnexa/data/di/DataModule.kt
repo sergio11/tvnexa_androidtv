@@ -23,7 +23,9 @@ import com.dreamsoftware.tvnexa.data.network.dto.response.SimpleChannelResponseD
 import com.dreamsoftware.tvnexa.data.network.dto.response.SubdivisionResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.UserResponseDTO
 import com.dreamsoftware.tvnexa.data.preferences.datasource.IAuthSessionDataSource
+import com.dreamsoftware.tvnexa.data.preferences.datasource.IProfileSessionDataSource
 import com.dreamsoftware.tvnexa.data.preferences.dto.AuthSessionPreferenceDTO
+import com.dreamsoftware.tvnexa.data.preferences.dto.ProfileSelectedPreferenceDTO
 import com.dreamsoftware.tvnexa.data.repository.AuthRepositoryImpl
 import com.dreamsoftware.tvnexa.data.repository.CategoryRepositoryImpl
 import com.dreamsoftware.tvnexa.data.repository.ChannelRepositoryImpl
@@ -158,7 +160,9 @@ class DataModule {
         profileMapper: IOneSideMapper<ProfileResponseDTO, ProfileBO>,
         updateProfileMapper: IOneSideMapper<UpdatedProfileRequestBO, UpdatedProfileRequestDTO>,
         createProfileMapper: IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>,
-        channelMapper: IOneSideMapper<SimpleChannelResponseDTO, SimpleChannelBO>
+        channelMapper: IOneSideMapper<SimpleChannelResponseDTO, SimpleChannelBO>,
+        profileSessionDataSource: IProfileSessionDataSource,
+        profileSessionMapper: IMapper<ProfileBO, ProfileSelectedPreferenceDTO>
     ): IUserRepository = UserRepositoryImpl(
         userDataSource = userDataSource,
         updateUserMapper = updateUserMapper,
@@ -166,6 +170,8 @@ class DataModule {
         profileMapper = profileMapper,
         updateProfileMapper = updateProfileMapper,
         createProfileMapper = createProfileMapper,
-        channelMapper = channelMapper
+        channelMapper = channelMapper,
+        profileSessionDataSource = profileSessionDataSource,
+        profileSessionMapper = profileSessionMapper
     )
 }

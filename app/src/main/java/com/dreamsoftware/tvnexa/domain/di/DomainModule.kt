@@ -16,6 +16,7 @@ import com.dreamsoftware.tvnexa.domain.usecase.impl.GetFavoriteChannelsUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfilesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetUserDetailUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SearchChannelsUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.SelectProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignInUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignUpUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.UpdateProfileUseCase
@@ -117,4 +118,9 @@ class DomainModule {
     @ViewModelScoped
     fun provideSearchChannelsUseCase(repository: IChannelRepository): SearchChannelsUseCase =
         SearchChannelsUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideSelectProfileUseCase(repository: IUserRepository): SelectProfileUseCase =
+        SelectProfileUseCase(repository)
 }

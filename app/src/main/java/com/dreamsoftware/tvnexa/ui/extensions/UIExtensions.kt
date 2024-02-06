@@ -3,6 +3,8 @@ package com.dreamsoftware.tvnexa.ui.extensions
 import android.view.KeyEvent
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
+import androidx.compose.ui.input.key.type
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.ProfileTypeEnum
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,6 +21,33 @@ private val DPadEventsKeyCodes = listOf(
     KeyEvent.KEYCODE_ENTER,
     KeyEvent.KEYCODE_NUMPAD_ENTER,
 )
+
+fun Modifier.handleNumericKeyEvents(
+    onNumericKeyPressed: (Int) -> Unit
+) = onPreviewKeyEvent { event ->
+    val numericKeyMap = mapOf(
+        KeyEvent.KEYCODE_0 to 0,
+        KeyEvent.KEYCODE_1 to 1,
+        KeyEvent.KEYCODE_2 to 2,
+        KeyEvent.KEYCODE_3 to 3,
+        KeyEvent.KEYCODE_4 to 4,
+        KeyEvent.KEYCODE_5 to 5,
+        KeyEvent.KEYCODE_6 to 6,
+        KeyEvent.KEYCODE_7 to 7,
+        KeyEvent.KEYCODE_8 to 8,
+        KeyEvent.KEYCODE_9 to 9
+    )
+
+    val keyCode = event.nativeKeyEvent.keyCode
+    val numericKeyCode = numericKeyMap[keyCode]
+
+    if (numericKeyCode != null && event.nativeKeyEvent.repeatCount == 0) {
+        onNumericKeyPressed(numericKeyCode)
+        true
+    } else {
+        false
+    }
+}
 
 fun Modifier.handleDPadKeyEvents(
     onLeft: (() -> Unit)? = null,

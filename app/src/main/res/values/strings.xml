@@ -67,7 +67,8 @@
     <!-- Profile Selector -->
     <string name="profile_selector_main_title">Who\'s Watching?</string>
     <string name="profile_selector_secondary_title">Select a profile to personalize your TvNexa experience.</string>
-
+    <string name="profile_selector_unlock_dialog_title">Oops! Profile Locked</string>
+    <string name="profile_selector_unlock_dialog_description">Looks like this profile is currently locked. Unlock it to dive in!</string>
     <!-- Profile -->
     <string name="about_developer">Hello, I\'m Sergio Sánchez Sánchez an accomplished developer with over 8 years of experience, specializing in crafting exceptional mobile experiences. As a seasoned Android developer, I\'ve delivered a diverse portfolio of projects, demonstrating my commitment to building robust and user-friendly applications. Over the years, I\'ve honed my skills to navigate the ever-evolving Android ecosystem, consistently pushing the boundaries of what\'s possible.</string>
 

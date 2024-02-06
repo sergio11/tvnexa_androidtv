@@ -43,6 +43,16 @@ interface IUserRepository {
     @Throws(
         DomainException.InternalErrorException::class
     )
+    suspend fun selectProfile(profile: ProfileBO)
+
+    @Throws(
+        DomainException.InternalErrorException::class
+    )
+    suspend fun getProfileSelected(): ProfileBO
+
+    @Throws(
+        DomainException.InternalErrorException::class
+    )
     suspend fun verifyPin(profileId: String, pin: Int): Boolean
 
     @Throws(

@@ -16,4 +16,14 @@ sealed class PreferencesException(message: String? = null, cause: Throwable? = n
         override val message: String? = null,
         override val cause: Throwable? = null
     ): PreferencesException(message, cause)
+
+    /**
+     * Exception indicating that a profile was not found in preferences.
+     * @param message A human-readable error message describing the exception.
+     * @param cause The cause of the exception, if available.
+     */
+    data class ProfileNotFoundException(
+        override val message: String? = null,
+        override val cause: Throwable? = null
+    ): PreferencesException(message, cause)
 }

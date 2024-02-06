@@ -20,6 +20,7 @@ fun SplashScreen(
             when(it) {
                 SplashSideEffects.UserAlreadyAuthenticated -> onGoToHome()
                 SplashSideEffects.UserNotAuthenticated -> onGoToOnboarding()
+                SplashSideEffects.ProfileSelectionRequired -> onGoToProfileSelector()
             }
         },
         onInit = {
