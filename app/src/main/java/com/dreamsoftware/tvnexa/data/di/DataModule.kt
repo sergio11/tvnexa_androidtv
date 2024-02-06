@@ -33,6 +33,7 @@ import com.dreamsoftware.tvnexa.data.repository.RegionRepositoryImpl
 import com.dreamsoftware.tvnexa.data.repository.SubdivisionRepositoryImpl
 import com.dreamsoftware.tvnexa.data.repository.UserRepositoryImpl
 import com.dreamsoftware.tvnexa.domain.model.AuthSessionBO
+import com.dreamsoftware.tvnexa.domain.model.AuthenticationBO
 import com.dreamsoftware.tvnexa.domain.model.CategoryBO
 import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
 import com.dreamsoftware.tvnexa.domain.model.CountryBO
@@ -72,14 +73,16 @@ class DataModule {
         authRemoteDataSource: IAuthRemoteDataSource,
         authSessionDataSource: IAuthSessionDataSource,
         signupUserBOMapper: IOneSideMapper<SaveUserBO, SignUpUserNetworkDTO>,
-        authResponseMapper: IOneSideMapper<AuthResponseDTO, AuthSessionBO>,
-        authSessionBOMapper: IMapper<AuthSessionPreferenceDTO, AuthSessionBO>
+        authResponseMapper: IOneSideMapper<AuthResponseDTO, AuthenticationBO>,
+        readAuthSessionDataBOMapper: IOneSideMapper<AuthSessionPreferenceDTO, AuthSessionBO>,
+        saveAuthSessionDataBOMapper: IOneSideMapper<AuthenticationBO, AuthSessionPreferenceDTO>
     ): IAuthRepository = AuthRepositoryImpl(
         authRemoteDataSource,
         authSessionDataSource,
         signupUserBOMapper,
         authResponseMapper,
-        authSessionBOMapper
+        readAuthSessionDataBOMapper,
+        saveAuthSessionDataBOMapper
     )
 
     @Provides

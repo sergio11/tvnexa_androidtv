@@ -10,29 +10,29 @@ import com.dreamsoftware.tvnexa.data.preferences.exception.PreferencesException
 import com.dreamsoftware.tvnexa.data.repository.core.SupportRepositoryImpl
 import com.dreamsoftware.tvnexa.domain.exception.DomainException
 import com.dreamsoftware.tvnexa.domain.model.AuthSessionBO
+import com.dreamsoftware.tvnexa.domain.model.AuthenticationBO
 import com.dreamsoftware.tvnexa.domain.model.SaveUserBO
 import com.dreamsoftware.tvnexa.domain.repository.IAuthRepository
-import com.dreamsoftware.tvnexa.utils.IMapper
 import com.dreamsoftware.tvnexa.utils.IOneSideMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import kotlin.jvm.Throws
 
 internal class AuthRepositoryImpl(
     private val authRemoteDataSource: IAuthRemoteDataSource,
     private val authSessionDataSource: IAuthSessionDataSource,
     private val signupUserBOMapper: IOneSideMapper<SaveUserBO, SignUpUserNetworkDTO>,
-    private val authResponseMapper: IOneSideMapper<AuthResponseDTO, AuthSessionBO>,
-    private val authSessionBOMapper: IMapper<AuthSessionPreferenceDTO, AuthSessionBO>
+    private val authResponseMapper: IOneSideMapper<AuthResponseDTO, AuthenticationBO>,
+    private val readAuthSessionDataBOMapper: IOneSideMapper<AuthSessionPreferenceDTO, AuthSessionBO>,
+    private val saveAuthSessionDataBOMapper: IOneSideMapper<AuthenticationBO, AuthSessionPreferenceDTO>
 ): SupportRepositoryImpl(), IAuthRepository {
 
     @Throws(
         DomainException.InvalidSessionException::class,
         DomainException.InternalErrorException::class
     )
-    override suspend fun getSession(): AuthSessionBO = safeExecute {
+    override suspend fun getActiveSession(): AuthSessionBO = safeExecute {
         try {
-            authSessionBOMapper.mapInToOut(authSessionDataSource.get())
+            readAuthSessionDataBOMapper.mapInToOut(authSessionDataSource.get())
         } catch (ex: PreferencesException.SessionNotFoundException) {
             throw DomainException.InvalidSessionException("No session found", ex)
         }
@@ -42,7 +42,7 @@ internal class AuthRepositoryImpl(
         DomainException.SigInFailedException::class,
         DomainException.InternalErrorException::class
     )
-    override suspend fun signIn(email: String, password: String): AuthSessionBO = safeExecute {
+    override suspend fun signIn(email: String, password: String): AuthenticationBO = safeExecute {
         authRemoteDataSource.signIn(SignInUserNetworkDTO(email, password))
             .let(authResponseMapper::mapInToOut)
             .also { saveSession(it) }
@@ -52,7 +52,7 @@ internal class AuthRepositoryImpl(
         authRemoteDataSource.signup(signupUserBOMapper.mapInToOut(user))
     }
 
-    private suspend fun saveSession(session: AuthSessionBO) = withContext(Dispatchers.IO) {
-        authSessionDataSource.save(authSessionBOMapper.mapOutToIn(session))
+    private suspend fun saveSession(session: AuthenticationBO) = withContext(Dispatchers.IO) {
+        authSessionDataSource.save(saveAuthSessionDataBOMapper.mapInToOut(session))
     }
 }

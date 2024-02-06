@@ -17,4 +17,6 @@ data class AuthResponseDTO(
     // User information associated with the authenticated user.
     @Json(name = "user")
     val user: UserResponseDTO,
+    @Json(name = "profiles_count")
+    val profilesCount: Int
 )
