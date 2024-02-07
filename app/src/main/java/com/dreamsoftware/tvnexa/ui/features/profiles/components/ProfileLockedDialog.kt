@@ -38,7 +38,7 @@ fun ProfileLockedDialog(
                 value = unlockPin,
                 type = CommonTextFieldTypeEnum.NUMBER,
                 imeAction = ImeAction.Done,
-                labelRes = R.string.sign_in_form_email_label_text,
+                labelRes = R.string.profile_selector_form_unlock_pin_label_text,
                 onValueChange = {
                     unlockPin = it
                     if(unlockPin.length >= 6) {
