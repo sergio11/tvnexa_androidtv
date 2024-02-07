@@ -65,7 +65,7 @@ class ChannelsViewModel @Inject constructor(
                     isLoading = false,
                     countries = countries,
                     categories = categories,
-                    countrySelected = countries.firstOrNull()
+                    countrySelected = it.countrySelected ?: countries.firstOrNull(),
                 )
             }
             onLoadChannels()

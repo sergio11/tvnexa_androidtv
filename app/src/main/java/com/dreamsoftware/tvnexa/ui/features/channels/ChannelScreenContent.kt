@@ -75,8 +75,8 @@ fun ChannelScreenContent(
                         ChannelPreview(
                             modifier = Modifier
                                 .fillMaxWidth()
-                                .fillMaxHeight(0.4f)
-                                .padding(start = 10.dp),
+                                .fillMaxHeight(0.45f)
+                                .padding(start = 8.dp),
                             channel = it
                         )
                     }
@@ -168,16 +168,18 @@ private fun CountryListColumn(
             ) {
                 items(countryList.size) { idx ->
                     val currentCountry = countryList[idx]
+                    val isSelected = currentCountry == countrySelected
                     CommonListItem(modifier = Modifier
                         .fillMaxWidth()
                         .height(100.dp)
                         .padding(8.dp)
                         .then(
-                            if (currentCountry == countrySelected)
+                            if (isSelected)
                                 Modifier.focusRequester(requester)
                             else
                                 Modifier
                         ),
+                        isSelected = isSelected,
                         onClicked = {
                             onCountrySelected(currentCountry)
                         }
@@ -197,7 +199,7 @@ private fun CountryListColumn(
                                 textAlign = TextAlign.Center,
                                 maxLines = 2,
                                 textColor = with(MaterialTheme.colorScheme) {
-                                    if(isFocused) {
+                                    if(isFocused || isSelected) {
                                         primary
                                     } else {
                                         onPrimaryContainer
