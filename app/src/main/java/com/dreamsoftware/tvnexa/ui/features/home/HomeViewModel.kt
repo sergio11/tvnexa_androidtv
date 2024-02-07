@@ -1,5 +1,7 @@
 package com.dreamsoftware.tvnexa.ui.features.home
 
+import androidx.lifecycle.viewModelScope
+import com.dreamsoftware.tvnexa.domain.model.ProfileBO
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileSelectedUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
@@ -20,8 +22,38 @@ class HomeViewModel @Inject constructor(
         secondaryMenuItems = MenuData.secondaryMenuItems
     )
 
+    fun load() {
+        onLoading()
+        loadProfileSelected()
+    }
+
     fun onMenuItemSelected(id: String) {
         updateState { it.copy(menuItemIdSelected = id) }
+    }
+
+    private fun loadProfileSelected() {
+        getProfileSelectedUseCase.invoke(
+            scope = viewModelScope,
+            onSuccess = ::onProfileLoadSuccessfully,
+            onError = ::onErrorOccurred
+        )
+    }
+
+    private fun onProfileLoadSuccessfully(profile: ProfileBO) {
+        updateState { it.copy(isLoading = false, profileSelected = profile) }
+    }
+
+    private fun onLoading() {
+        updateState {
+            it.copy(isLoading = true, error = null)
+        }
+    }
+
+    private fun onErrorOccurred(ex: Exception) {
+        ex.printStackTrace()
+        updateState {
+            it.copy(isLoading = false)
+        }
     }
 }
 
@@ -31,7 +63,8 @@ data class HomeUiState(
     val mainMenuItems: List<MenuItem> = emptyList(),
     val secondaryMenuItems: List<MenuItem> = emptyList(),
     val menuIsOpened: Boolean = false,
-    val menuItemIdSelected: String = String.EMPTY
+    val menuItemIdSelected: String = String.EMPTY,
+    val profileSelected: ProfileBO? = null
 ): UiState
 
 sealed interface HomeSideEffects: SideEffect

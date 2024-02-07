@@ -18,8 +18,9 @@ fun HomeScreen(
         onInitialUiState = { HomeUiState() },
         onInit = {
             navController.addOnDestinationChangedListener { _, destination, _ ->
-                homeViewModel.onMenuItemSelected(destination.route ?: return@addOnDestinationChangedListener)
+                onMenuItemSelected(destination.route ?: return@addOnDestinationChangedListener)
             }
+            load()
         }
     ) { uiState ->
         HomeScreenContent(
