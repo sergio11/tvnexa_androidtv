@@ -1,6 +1,7 @@
 package com.dreamsoftware.tvnexa.ui.features.signin
 
 import androidx.lifecycle.viewModelScope
+import com.dreamsoftware.tvnexa.domain.model.AuthenticationBO
 import com.dreamsoftware.tvnexa.domain.model.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignInUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
@@ -26,9 +27,7 @@ class SignInViewModel @Inject constructor(
             signInUseCase.invoke(
                 scope = viewModelScope,
                 params = SignInUseCase.Params(email, password),
-                onSuccess = {
-                    onSignInSuccessfully()
-                },
+                onSuccess = ::onSignInSuccessfully,
                 onError = ::onErrorOccurred
             )
         }
@@ -54,9 +53,13 @@ class SignInViewModel @Inject constructor(
         updateState { it.copy(isLoading = false) }
     }
 
-    private fun onSignInSuccessfully() {
+    private fun onSignInSuccessfully(authenticationBO: AuthenticationBO) {
         onIdle()
-        launchSideEffect(SignInSideEffects.AuthenticationSuccessfully)
+        launchSideEffect(if(authenticationBO.profilesCount > 0) {
+            SignInSideEffects.ProfileSelectionRequired
+        } else {
+            SignInSideEffects.AuthenticationSuccessfully
+        })
     }
 
     private fun onErrorOccurred(ex: Exception) {
@@ -75,12 +78,13 @@ class SignInViewModel @Inject constructor(
 data class SignInUiState(
     override val isLoading: Boolean = false,
     override val error: String? = null,
-    val email: String = String.EMPTY,
+    val email: String = "ssanchez5@tvnexa.com",
     val emailError: String = String.EMPTY,
-    val password: String = String.EMPTY,
+    val password: String = "12345678",
     val passwordError: String = String.EMPTY
 ): UiState
 
 sealed interface SignInSideEffects: SideEffect {
     data object AuthenticationSuccessfully: SignInSideEffects
+    data object ProfileSelectionRequired: SignInSideEffects
 }

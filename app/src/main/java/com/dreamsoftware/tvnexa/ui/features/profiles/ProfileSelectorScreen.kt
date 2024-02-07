@@ -21,7 +21,9 @@ fun ProfileSelectorScreen(
     ) { uiState ->
         ProfileSelectorContent(
             uiState = uiState,
-            onProfileSelected = ::onProfileSelected
+            onProfileSelected = ::onProfileSelected,
+            onVerifyPin = ::onVerifyPin,
+            onProfileSelectionCancelled = ::onCancelProfileSelection
         )
     }
 }

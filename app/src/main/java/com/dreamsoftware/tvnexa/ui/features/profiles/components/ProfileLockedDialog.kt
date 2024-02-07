@@ -1,5 +1,6 @@
 package com.dreamsoftware.tvnexa.ui.features.profiles.components
 
+import androidx.activity.compose.BackHandler
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.runtime.Composable
@@ -20,16 +21,15 @@ import com.dreamsoftware.tvnexa.ui.extensions.EMPTY
 @Composable
 fun ProfileLockedDialog(
     isVisible: Boolean,
-    onDismissPressed: () -> Unit = {},
-    onExitPressed: () -> Unit = {}
+    onDismissPressed: () -> Unit,
+    onUnlockPressed: (String) -> Unit
 ) {
+    BackHandler { onDismissPressed() }
     var unlockPin by remember { mutableStateOf(String.EMPTY) }
     CommonDialog(
         isVisible = isVisible,
         titleRes = R.string.profile_selector_unlock_dialog_title,
         descriptionRes = R.string.profile_selector_unlock_dialog_description,
-        onCancelClicked = onDismissPressed,
-        onAcceptClicked = onExitPressed
     ) {
         CommonFocusRequester { focusRequester ->
             CommonTextField(
@@ -39,7 +39,13 @@ fun ProfileLockedDialog(
                 type = CommonTextFieldTypeEnum.NUMBER,
                 imeAction = ImeAction.Done,
                 labelRes = R.string.sign_in_form_email_label_text,
-                onValueChange = { unlockPin = it }
+                onValueChange = {
+                    unlockPin = it
+                    if(unlockPin.length >= 6) {
+                        onUnlockPressed(unlockPin)
+                        unlockPin = String.EMPTY
+                    }
+                }
             )
         }
     }
