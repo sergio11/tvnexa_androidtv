@@ -13,6 +13,7 @@ import com.dreamsoftware.tvnexa.domain.usecase.impl.GetChannelDetailUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetChannelsUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetCountriesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetFavoriteChannelsUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileSelectedUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfilesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetUserDetailUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.HasMultiplesProfilesUseCase
@@ -129,4 +130,9 @@ class DomainModule {
     @ViewModelScoped
     fun provideHasMultiplesProfilesUseCase(repository: IUserRepository): HasMultiplesProfilesUseCase =
         HasMultiplesProfilesUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetProfileSelectedUseCase(repository: IUserRepository): GetProfileSelectedUseCase =
+        GetProfileSelectedUseCase(repository)
 }

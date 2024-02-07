@@ -10,16 +10,16 @@ import compose.icons.lineawesomeicons.SearchSolid
 import compose.icons.lineawesomeicons.TvSolid
 
 object MenuData {
-    val menuItems = listOf(
+
+    val mainMenuItems = listOf(
         MenuItem(Screens.Home.DEFAULT.path, "Home", LineAwesomeIcons.HomeSolid),
         MenuItem(Screens.Home.Search.path, "Search", LineAwesomeIcons.SearchSolid),
         MenuItem(Screens.Home.Guide.path, "Guide", LineAwesomeIcons.TvSolid),
         MenuItem(Screens.Home.Favorites.path, "Favorites", LineAwesomeIcons.HeartSolid),
     )
 
-    val settingsItem = MenuItem(
-        Screens.Home.Settings.path,
-        "Settings",
-        LineAwesomeIcons.CogSolid,
+    val secondaryMenuItems = listOf(
+        MenuItem(Screens.Home.Settings.path, "Settings", LineAwesomeIcons.CogSolid,)
     )
+
 }
