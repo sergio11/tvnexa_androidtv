@@ -23,7 +23,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerState
 import androidx.tv.material3.DrawerValue
@@ -34,20 +33,20 @@ import androidx.tv.material3.ModalNavigationDrawer
 import androidx.tv.material3.NavigationDrawerItem
 import androidx.tv.material3.NavigationDrawerItemDefaults
 import androidx.tv.material3.NavigationDrawerScope
-import androidx.tv.material3.Text
 import androidx.tv.material3.rememberDrawerState
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
-import com.dreamsoftware.tvnexa.ui.features.home.leftmenu.data.MenuData
 import com.dreamsoftware.tvnexa.ui.features.home.leftmenu.model.MenuItem
 import com.dreamsoftware.tvnexa.ui.theme.Dimens
 
 @Composable
 fun HomeSideMenu(
-    content: @Composable () -> Unit,
-    selectedId: String = MenuData.menuItems.first().id,
-    onMenuItemSelected: ((menuItem: MenuItem) -> Unit)?
+    mainMenuItems: List<MenuItem>,
+    secondaryMenuItems: List<MenuItem>,
+    menuItemIdSelected: String,
+    onMenuItemSelected: (String) -> Unit = {},
+    content: @Composable () -> Unit
 ) {
     with(MaterialTheme.colorScheme) {
         val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
@@ -67,21 +66,24 @@ fun HomeSideMenu(
                     ),
                 ) {
                     SideMenuLogo(drawerState = drawerState)
-                    MenuData.menuItems.forEachIndexed { index, item ->
+                    mainMenuItems.forEach { item ->
                         SideMenuItem(item = item,
-                            isSelected = selectedId == item.id,
+                            isSelected = menuItemIdSelected == item.id,
                             onMenuItemSelected = {
                                 drawerState.setValue(DrawerValue.Closed)
-                                onMenuItemSelected?.invoke(item)
+                                onMenuItemSelected.invoke(item.id)
                             })
                     }
                     Spacer(modifier = Modifier.weight(1f))
-                    SideMenuItem(item = MenuData.settingsItem,
-                        isSelected = selectedId == MenuData.settingsItem.id,
-                        onMenuItemSelected = {
-                            drawerState.setValue(DrawerValue.Closed)
-                            onMenuItemSelected?.invoke(MenuData.settingsItem)
-                        })
+                    secondaryMenuItems.forEach { item ->
+                        SideMenuItem(item = item,
+                            isSelected = menuItemIdSelected == item.id,
+                            onMenuItemSelected = {
+                                drawerState.setValue(DrawerValue.Closed)
+                                onMenuItemSelected.invoke(item.id)
+                            }
+                        )
+                    }
                 }
             }, scrimBrush = Brush.horizontalGradient(
                 listOf(surface, primary.copy(alpha = 0.3f))
@@ -170,12 +172,4 @@ private fun NavigationDrawerScope.SideMenuItem(
             )
         }
     }
-}
-
-@Preview
-@Composable
-fun HomeDrawerPrev() {
-    HomeSideMenu(content = {
-        Text(text = "Hello World")
-    }, onMenuItemSelected = null)
 }
