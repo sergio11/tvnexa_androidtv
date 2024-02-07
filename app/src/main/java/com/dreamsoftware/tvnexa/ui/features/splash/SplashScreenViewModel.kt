@@ -1,6 +1,7 @@
 package com.dreamsoftware.tvnexa.ui.features.splash
 
 import androidx.lifecycle.viewModelScope
+import com.dreamsoftware.tvnexa.domain.usecase.impl.HasMultiplesProfilesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.VerifyUserSessionUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
@@ -12,7 +13,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SplashScreenViewModel @Inject constructor(
-    private val verifyUserSessionUseCase: VerifyUserSessionUseCase
+    private val verifyUserSessionUseCase: VerifyUserSessionUseCase,
+    private val hasMultiplesProfilesUseCase: HasMultiplesProfilesUseCase
 ): SupportViewModel<SplashUiState, SplashSideEffects>() {
 
     override fun onGetDefaultState(): SplashUiState = SplashUiState()
@@ -23,20 +25,35 @@ class SplashScreenViewModel @Inject constructor(
             delay(4000)
             verifyUserSessionUseCase.invoke(
                 scope = viewModelScope,
-                onSuccess = ::onSuccess,
+                onSuccess = ::onVerifyUserSessionCompleted,
                 onError = ::onErrorOccurred
             )
         }
-
     }
 
-    private fun onSuccess(hasActiveSession: Boolean) {
+    private fun onVerifyUserSessionCompleted(hasActiveSession: Boolean) {
         onIdle()
+        if(hasActiveSession) {
+            checkProfiles()
+        } else {
+            launchSideEffect(SplashSideEffects.UserNotAuthenticated)
+        }
+    }
+
+    private fun checkProfiles() {
+        hasMultiplesProfilesUseCase.invoke(
+            scope = viewModelScope,
+            onSuccess = ::onCheckProfilesCompleted,
+            onError = ::onErrorOccurred
+        )
+    }
+
+    private fun onCheckProfilesCompleted(hasMultipleProfiles: Boolean) {
         launchSideEffect(
-            if(hasActiveSession) {
-                SplashSideEffects.UserAlreadyAuthenticated
+            if(hasMultipleProfiles) {
+                SplashSideEffects.ProfileSelectionRequired
             } else {
-                SplashSideEffects.UserNotAuthenticated
+                SplashSideEffects.UserAlreadyAuthenticated
             }
         )
     }

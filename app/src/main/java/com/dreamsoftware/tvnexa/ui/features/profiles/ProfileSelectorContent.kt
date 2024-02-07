@@ -23,6 +23,7 @@ import com.dreamsoftware.tvnexa.domain.model.ProfileBO
 import com.dreamsoftware.tvnexa.ui.components.CommonFullScreenImage
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
+import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
 import com.dreamsoftware.tvnexa.ui.components.ProfileSelector
 import com.dreamsoftware.tvnexa.ui.features.profiles.components.ProfileLockedDialog
 
@@ -38,6 +39,11 @@ fun ProfileSelectorContent(
             modifier = Modifier.fillMaxSize()
         ) {
             ProfilesBackground()
+            LoadingDialog(
+                isShowingDialog = isLoading,
+                titleRes = R.string.generic_progress_dialog_title,
+                descriptionRes = R.string.generic_progress_dialog_description
+            )
             profileSelected?.let { profile ->
                 ProfileLockedDialog(
                     isVisible = showUnlockProfileDialog,
