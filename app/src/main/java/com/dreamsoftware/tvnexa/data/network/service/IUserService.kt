@@ -87,7 +87,7 @@ interface IUserService {
     suspend fun verifyPin(
         @Path("profileId") profileId: String,
         @Body data: PinVerificationRequestDTO
-    ): ApiResponseDTO<String>
+    ): ApiResponseDTO<Boolean>
 
     /**
      * Retrieves a list of blocked channels for a specific user profile.

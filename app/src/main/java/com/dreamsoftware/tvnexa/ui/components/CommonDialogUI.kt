@@ -15,7 +15,6 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -123,30 +122,22 @@ private fun CommonDialogUI(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     onCancelClicked?.let {
-                        TextButton(
+                        CommonButton(
                             modifier = Modifier.fillMaxWidth(0.5f),
-                            onClick = it
-                        ) {
-                            CommonText(
-                                modifier = Modifier.padding(top = 5.dp, bottom = 5.dp),
-                                type = CommonTextTypeEnum.LABEL_SMALL,
-                                titleText = stringResource(id = cancelRes),
-                                textColor = secondary
-                            )
-                        }
+                            type = CommonButtonTypeEnum.MEDIUM,
+                            onClick = it,
+                            textRes = cancelRes,
+                            style = CommonButtonStyleTypeEnum.INVERSE
+                        )
                     }
                     onAcceptClicked?.let {
-                        TextButton(
+                        CommonButton(
                             modifier = Modifier.fillMaxWidth(0.5f),
-                            enabled = isAcceptEnabled, onClick = it
-                        ) {
-                            CommonText(
-                                modifier = Modifier.padding(top = 5.dp, bottom = 5.dp),
-                                type = CommonTextTypeEnum.LABEL_SMALL,
-                                titleText = stringResource(id = successRes),
-                                textColor = primary
-                            )
-                        }
+                            type = CommonButtonTypeEnum.MEDIUM,
+                            onClick = it,
+                            enabled = isAcceptEnabled,
+                            textRes = successRes
+                        )
                     }
                 }
             }

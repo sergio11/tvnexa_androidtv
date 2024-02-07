@@ -15,8 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Devices
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
@@ -31,18 +29,24 @@ import com.dreamsoftware.tvnexa.ui.features.profiles.components.ProfileLockedDia
 @Composable
 fun ProfileSelectorContent(
     uiState: ProfileSelectorUiState,
-    onProfileSelected: (ProfileBO) -> Unit
+    onProfileSelected: (ProfileBO) -> Unit,
+    onVerifyPin: (ProfileBO, String) -> Unit,
+    onProfileSelectionCancelled: () -> Unit
 ) {
     with(uiState) {
         Box(
             modifier = Modifier.fillMaxSize()
         ) {
             ProfilesBackground()
-            ProfileLockedDialog(
-                isVisible = isProfileSelectedLocked,
-                onDismissPressed = {  },
-                onExitPressed = {}
-            )
+            profileSelected?.let { profile ->
+                ProfileLockedDialog(
+                    isVisible = showUnlockProfileDialog,
+                    onDismissPressed = onProfileSelectionCancelled,
+                    onUnlockPressed = { unlockPin ->
+                        onVerifyPin(profile, unlockPin)
+                    }
+                )
+            }
             ProfilesLogo(modifier =
             Modifier
                 .align(Alignment.TopStart)
@@ -90,10 +94,4 @@ private fun ProfilesBackground() {
             .fillMaxSize()
             .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.5f))
     )
-}
-
-@Preview(device = Devices.TV_1080p, showBackground = true)
-@Composable
-private fun ProfilesPreview() {
-    ProfileSelectorContent(uiState = ProfileSelectorUiState()) {}
 }
