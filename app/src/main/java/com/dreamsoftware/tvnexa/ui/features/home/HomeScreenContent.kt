@@ -16,6 +16,7 @@ fun HomeScreenContent(
             menuItemIdSelected = menuItemIdSelected,
             mainMenuItems = mainMenuItems,
             secondaryMenuItems = secondaryMenuItems,
+            profileSelected = profileSelected,
             onMenuItemSelected = { navController.navigate(it) }
         ) {
             HomeNavigation(
