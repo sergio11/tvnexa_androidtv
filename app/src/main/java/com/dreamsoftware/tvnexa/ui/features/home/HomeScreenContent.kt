@@ -7,15 +7,21 @@ import com.dreamsoftware.tvnexa.ui.navigation.HomeNavigation
 
 @Composable
 fun HomeScreenContent(
+    uiState: HomeUiState,
     navController: NavHostController,
     onNavigateToDetail: (String) -> Unit,
-    selectedId: String
 ) {
-    HomeSideMenu(
-        content = { HomeNavigation(
-            navController = navController,
-            onNavigateToDetail = onNavigateToDetail
-        ) },
-        selectedId = selectedId
-    ) { navController.navigate(it.id) }
+    with(uiState) {
+        HomeSideMenu(
+            menuItemIdSelected = menuItemIdSelected,
+            mainMenuItems = mainMenuItems,
+            secondaryMenuItems = secondaryMenuItems,
+            onMenuItemSelected = { navController.navigate(it) }
+        ) {
+            HomeNavigation(
+                navController = navController,
+                onNavigateToDetail = onNavigateToDetail
+            )
+        }
+    }
 }

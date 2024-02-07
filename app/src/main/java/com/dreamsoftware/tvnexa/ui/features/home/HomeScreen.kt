@@ -2,13 +2,8 @@ package com.dreamsoftware.tvnexa.ui.features.home
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dreamsoftware.tvnexa.ui.features.home.leftmenu.data.MenuData
+import com.dreamsoftware.tvnexa.ui.components.CommonScreen
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 
 @OptIn(ExperimentalAnimationApi::class)
@@ -18,17 +13,19 @@ fun HomeScreen(
     onNavigateToDetail: (String) -> Unit
 ) {
     val navController = rememberAnimatedNavController()
-    var selectedId by remember { mutableStateOf(MenuData.menuItems.first().id) }
-    LaunchedEffect(key1 = Unit) {
-        navController.addOnDestinationChangedListener { _, destination, _ ->
-            selectedId = destination.route ?: return@addOnDestinationChangedListener
+    CommonScreen(
+        viewModel = homeViewModel,
+        onInitialUiState = { HomeUiState() },
+        onInit = {
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                homeViewModel.onMenuItemSelected(destination.route ?: return@addOnDestinationChangedListener)
+            }
         }
-    }
-    with(homeViewModel) {
+    ) { uiState ->
         HomeScreenContent(
+            uiState = uiState,
             navController = navController,
-            onNavigateToDetail = onNavigateToDetail,
-            selectedId = selectedId
+            onNavigateToDetail = onNavigateToDetail
         )
     }
 }
