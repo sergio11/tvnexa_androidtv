@@ -13,6 +13,8 @@
     <string name="dialog_error_title">Ops....</string>
     <string name="image_content_description">Image can not be loaded</string>
     <string name="generic_form_invalid_data_provided">Invalid data provided, please check it and try again.</string>
+    <string name="generic_progress_dialog_title">Loading…</string>
+    <string name="generic_progress_dialog_description">Please wait a moment…</string>
     <!-- Common -->
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
     <string name="developer_credits_text_single_line">Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024</string>
@@ -69,6 +71,7 @@
     <string name="profile_selector_secondary_title">Select a profile to personalize your TvNexa experience.</string>
     <string name="profile_selector_unlock_dialog_title">Oops! Profile Locked</string>
     <string name="profile_selector_unlock_dialog_description">Looks like this profile is currently locked. Unlock it to dive in!</string>
+    <string name="profile_selector_form_unlock_pin_label_text">Secure Pin</string>
     <!-- Profile -->
     <string name="about_developer">Hello, I\'m Sergio Sánchez Sánchez an accomplished developer with over 8 years of experience, specializing in crafting exceptional mobile experiences. As a seasoned Android developer, I\'ve delivered a diverse portfolio of projects, demonstrating my commitment to building robust and user-friendly applications. Over the years, I\'ve honed my skills to navigate the ever-evolving Android ecosystem, consistently pushing the boundaries of what\'s possible.</string>
 
