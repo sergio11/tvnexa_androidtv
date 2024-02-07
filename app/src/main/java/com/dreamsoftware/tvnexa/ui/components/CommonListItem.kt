@@ -29,6 +29,7 @@ fun CommonListItem(
     focusedContainerColor: Color? = null,
     borderColor: Color? = null,
     focusedBorderColor: Color? = null,
+    isSelected: Boolean = false,
     content: @Composable (isFocused: Boolean) -> Unit
 ) {
     with(colorScheme) {
@@ -40,14 +41,14 @@ fun CommonListItem(
         BorderedFocusableItem(
             onClick = onClicked,
             color = ClickableSurfaceDefaults.colors(
-                containerColor = containerColor ?: primaryContainer,
+                containerColor = containerColor ?: if(isSelected) onPrimaryContainer else primaryContainer,
                 focusedContainerColor = focusedContainerColor ?: onPrimaryContainer
             ),
             border = ClickableSurfaceDefaults.border(
                 border = Border(
                     BorderStroke(
                         width = 2.dp,
-                        color = if(isFocused) {
+                        color = if(isFocused || isSelected) {
                             focusedBorderColor ?: primaryContainer
                         } else {
                             borderColor ?: onPrimaryContainer
