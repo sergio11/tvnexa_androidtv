@@ -23,6 +23,7 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
+import com.dreamsoftware.tvnexa.ui.components.AppLogoInverse
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonStyleTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonFullScreenImage
@@ -38,7 +39,7 @@ fun ProfileSelectorContent(
     onProfileSelected: (ProfileBO) -> Unit,
     onVerifyPin: (ProfileBO, String) -> Unit,
     onProfileSelectionCancelled: () -> Unit,
-    onAddNewProfilePressed: () -> Unit,
+    onAddProfilePressed: () -> Unit,
     onProfileManagementPressed: () -> Unit
 ) {
     with(uiState) {
@@ -60,8 +61,7 @@ fun ProfileSelectorContent(
                     }
                 )
             }
-            ProfilesLogo(modifier =
-            Modifier
+            AppLogoInverse(modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(20.dp)
                 .height(90.dp)
@@ -86,21 +86,12 @@ fun ProfileSelectorContent(
                     type = CommonTextTypeEnum.HEADLINE_MEDIUM
                 )
                 ProfilesActions(
-                    onAddNewProfilePressed = onAddNewProfilePressed,
+                    onAddProfilePressed = onAddProfilePressed,
                     onProfileManagementPressed = onProfileManagementPressed
                 )
             }
         }
     }
-}
-
-@Composable
-private fun ProfilesLogo(modifier: Modifier) {
-    Image(
-        painter = painterResource(id = R.drawable.tvnexa_logo_inverse),
-        contentDescription = null,
-        modifier = modifier
-    )
 }
 
 @Composable
@@ -116,7 +107,7 @@ private fun ProfilesBackground() {
 @Composable
 private fun ProfilesActions(
     modifier: Modifier = Modifier,
-    onAddNewProfilePressed: () -> Unit,
+    onAddProfilePressed: () -> Unit,
     onProfileManagementPressed: () -> Unit
 ) {
     Row (
@@ -126,7 +117,7 @@ private fun ProfilesActions(
     ){
         CommonButton(
             textRes = R.string.profile_selector_add_profile_button_text,
-            onClick = onAddNewProfilePressed,
+            onClick = onAddProfilePressed,
         )
         Spacer(modifier = Modifier.width(30.dp))
         CommonButton(

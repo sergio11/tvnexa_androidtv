@@ -7,7 +7,9 @@ import com.dreamsoftware.tvnexa.ui.components.CommonScreen
 @Composable
 fun ProfileSelectorScreen(
     viewModel: ProfileSelectorViewModel = hiltViewModel(),
-    onProfileSelected: () -> Unit
+    onProfileSelected: () -> Unit,
+    onGoToAddProfile: () -> Unit,
+    onGoToProfileManagement: () -> Unit
 ) {
     CommonScreen(
         viewModel = viewModel,
@@ -24,8 +26,8 @@ fun ProfileSelectorScreen(
             onProfileSelected = ::onProfileSelected,
             onVerifyPin = ::onVerifyPin,
             onProfileSelectionCancelled = ::onCancelProfileSelection,
-            onAddNewProfilePressed = {},
-            onProfileManagementPressed = {}
+            onAddProfilePressed = onGoToAddProfile,
+            onProfileManagementPressed = onGoToProfileManagement
         )
     }
 }

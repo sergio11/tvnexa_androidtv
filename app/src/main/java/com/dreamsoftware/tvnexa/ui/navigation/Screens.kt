@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.dreamsoftware.tvnexa.ui.features.details.DetailScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.player.PlayerScreenArgs
+import com.dreamsoftware.tvnexa.ui.features.profiles.save.SaveProfileScreenArgs
 
 sealed class Screens(val path: String, arguments: List<NamedNavArgument> = emptyList()) {
 
@@ -18,6 +19,26 @@ sealed class Screens(val path: String, arguments: List<NamedNavArgument> = empty
             val DEFAULT = Selector
         }
         data object Selector : Profiles("profile_selector")
+
+        data object AddProfile : Profiles("add_profile")
+
+        data object EditProfile : Screens("edit_profile/{profile_id}", arguments = listOf(
+            navArgument("profile_id") {
+                type = NavType.StringType
+            }
+        )) {
+            fun buildRoute(profileId: String): String =
+                path.replace(
+                    oldValue = "{profile_id}",
+                    newValue = profileId
+                )
+
+            fun parseArgs(args: Bundle): SaveProfileScreenArgs? = with(args) {
+                getString("profile_id")?.let {
+                    SaveProfileScreenArgs(profileId = it)
+                }
+            }
+        }
     }
     sealed class Home private constructor(path: String) : Screens(path) {
         companion object {
