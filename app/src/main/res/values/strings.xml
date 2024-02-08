@@ -99,6 +99,6 @@
     <string name="save_profile_form_alias_label_text">Your Name</string>
     <string name="save_profile_form_pin_label_text">Secret PIN</string>
     <string name="save_profile_confirm_button_text">Save it, Champ!</string>
-    <string name="save_profile_cancel_button_text">Nah, Maybe Later</string>
+    <string name="save_profile_cancel_button_text">Maybe Later</string>
 
 </resources>
