@@ -22,7 +22,7 @@ import androidx.tv.material3.Surface
 
 private val DEFAULT_HORIZONTAL_PADDING = 32.dp
 private val DEFAULT_AVATAR_SIZE = 100.dp
-private const val DEFAULT_FOCUSED_SCALE = 1.5f
+private const val DEFAULT_FOCUSED_SCALE = 1.4f
 private val DEFAULT_AVATAR_BORDER_COLOR = Color.White
 
 @OptIn(ExperimentalTvMaterial3Api::class)
