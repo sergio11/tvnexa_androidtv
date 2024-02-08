@@ -89,4 +89,16 @@
     <!-- Favorites Screen -->
     <string name="favorites_screen_main_title">Your favorite channels!</string>
     <string name="favorites_screen_loading">Searching the cosmos for your channels. Just a moment…</string>
+
+    <!-- Save Profile -->
+    <string name="create_profile_main_title">Let\'s Create Your Profile!</string>
+    <string name="create_profile_secondary_title">Let\'s Personalize Your Profile and Make It Uniquely Yours</string>
+    <string name="edit_profile_main_title">Time to Edit Your Profile</string>
+    <string name="edit_profile_secondary_title">Update Your Information</string>
+    <string name="save_profile_form_avatar_label_text">Personalize your profile with a unique touch by selecting your avatar.</string>
+    <string name="save_profile_form_alias_label_text">Your Name</string>
+    <string name="save_profile_form_pin_label_text">Secret PIN</string>
+    <string name="save_profile_confirm_button_text">Save it, Champ!</string>
+    <string name="save_profile_cancel_button_text">Nah, Maybe Later</string>
+
 </resources>
