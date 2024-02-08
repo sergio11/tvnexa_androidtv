@@ -6,12 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
-import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import com.dreamsoftware.tvnexa.ui.navigation.MainNavigation
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
-import com.dreamsoftware.tvnexa.ui.features.home.HomeViewModel
+import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -27,9 +25,9 @@ class MainActivity : ComponentActivity() {
     }
 
     @Composable
-    fun TvApp(navController: NavHostController, homeViewModel: HomeViewModel  = hiltViewModel()) {
+    fun TvApp(navController: NavHostController) {
         TvNexaTheme {
-            MainNavigation(navController, homeViewModel)
+            MainNavigation(navController)
         }
     }
 }
