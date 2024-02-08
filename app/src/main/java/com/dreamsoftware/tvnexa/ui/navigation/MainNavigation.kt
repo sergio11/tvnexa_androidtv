@@ -1,28 +1,23 @@
 package com.dreamsoftware.tvnexa.ui.navigation
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.tween
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.dreamsoftware.tvnexa.ui.features.details.DetailsScreen
 import com.dreamsoftware.tvnexa.ui.features.home.HomeScreen
-import com.dreamsoftware.tvnexa.ui.features.home.HomeViewModel
 import com.dreamsoftware.tvnexa.ui.features.onboarding.OnboardingScreen
-import com.dreamsoftware.tvnexa.ui.features.signin.SignInScreen
 import com.dreamsoftware.tvnexa.ui.features.player.PlayerScreen
+import com.dreamsoftware.tvnexa.ui.features.profiles.ProfilesScreen
+import com.dreamsoftware.tvnexa.ui.features.signin.SignInScreen
 import com.dreamsoftware.tvnexa.ui.features.signup.SignUpScreen
 import com.dreamsoftware.tvnexa.ui.features.splash.SplashScreen
-import com.dreamsoftware.tvnexa.ui.features.profiles.ProfileSelectorScreen
 import com.dreamsoftware.tvnexa.ui.navigation.extensions.navigateSingleTopTo
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewModel) {
+fun MainNavigation(navController: NavHostController) {
     AnimatedNavHost(navController = navController, startDestination = Screens.Splash.path) {
 
         composable(Screens.Splash.path) {
@@ -35,7 +30,7 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
                         navigateSingleTopTo(Screens.Onboarding.path)
                     },
                     onGoToProfileSelector = {
-                        navigateSingleTopTo(Screens.Profiles.path)
+                        navigateSingleTopTo(Screens.Profiles.DEFAULT.path)
                     }
                 )
             }
@@ -61,7 +56,7 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
                         navigateSingleTopTo(Screens.Home.DEFAULT.path)
                     },
                     onGoToProfileSelector = {
-                        navigateSingleTopTo(Screens.Profiles.path)
+                        navigateSingleTopTo(Screens.Profiles.DEFAULT.path)
                     },
                     onGoToSignUp = {
                         navigate(Screens.SignUp.path)
@@ -80,8 +75,8 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
             }
         }
 
-        composable(Screens.Profiles.path) {
-            ProfileSelectorScreen {
+        composable(Screens.Profiles.DEFAULT.path) {
+            ProfilesScreen {
                 navController.navigateSingleTopTo(Screens.Home.DEFAULT.path)
             }
         }
@@ -127,11 +122,4 @@ fun MainNavigation(navController: NavHostController, homeViewModel: HomeViewMode
     }
 }
 
-fun tabExitTransition(
-    duration: Int = 500,
-) = fadeOut(tween(duration / 2, easing = LinearEasing))
 
-fun tabEnterTransition(
-    duration: Int = 500,
-    delay: Int = duration - 350,
-) = fadeIn(tween(duration, duration - delay))
