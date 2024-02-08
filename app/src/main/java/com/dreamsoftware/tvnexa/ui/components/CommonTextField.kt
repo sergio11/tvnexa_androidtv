@@ -33,6 +33,7 @@ import androidx.tv.material3.MaterialTheme
 
 enum class CommonTextFieldTypeEnum {
     NUMBER,
+    NUMBER_SECRET,
     TEXT,
     PHONE,
     EMAIL,
@@ -103,6 +104,7 @@ fun CommonTextField(
                     CommonTextFieldTypeEnum.NUMBER -> KeyboardType.Number
                     CommonTextFieldTypeEnum.PHONE -> KeyboardType.Phone
                     CommonTextFieldTypeEnum.PASSWORD -> KeyboardType.Password
+                    CommonTextFieldTypeEnum.NUMBER_SECRET -> KeyboardType.NumberPassword
                 },
                 imeAction = imeAction
             ),

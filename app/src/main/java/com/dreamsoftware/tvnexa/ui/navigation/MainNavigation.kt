@@ -87,9 +87,7 @@ fun MainNavigation(navController: NavHostController) {
             })
         }
 
-        composable(
-            Screens.Player.path,
-        ) { navBackStackEntry ->
+        composable(Screens.Player.path) { navBackStackEntry ->
             navBackStackEntry.arguments?.let { args ->
                 Screens.Player.parseArgs(args)?.let {
                     PlayerScreen(
@@ -102,9 +100,7 @@ fun MainNavigation(navController: NavHostController) {
             }
         }
 
-        composable(
-            Screens.Detail.path,
-        ) { navBackStackEntry ->
+        composable(Screens.Detail.path) { navBackStackEntry ->
             navBackStackEntry.arguments?.let { args ->
                 Screens.Detail.parseArgs(args)?.let {
                     DetailsScreen(
