@@ -90,7 +90,7 @@ class ChannelsViewModel @Inject constructor(
 
     private fun onLoading() {
         updateState {
-            it.copy(
+            it.copyState(
                 isLoading = true,
                 error = null
             )
@@ -111,7 +111,7 @@ class ChannelsViewModel @Inject constructor(
     private fun onErrorOccurred(ex: Throwable) {
         ex.printStackTrace()
         updateState {
-            it.copy(isLoading = false)
+            it.copyState(isLoading = false)
         }
     }
 
@@ -133,6 +133,9 @@ data class ChannelsUiState(
     val countrySelected: CountryBO? = null,
     val categorySelected: CategoryBO? = null,
     val channelFocused: SimpleChannelBO? = null
-): UiState
+): UiState<ChannelsUiState>(isLoading, error) {
+    override fun copyState(isLoading: Boolean, error: String?): ChannelsUiState =
+        copy(isLoading = isLoading, error = error)
+}
 
 sealed interface ChannelsSideEffects: SideEffect

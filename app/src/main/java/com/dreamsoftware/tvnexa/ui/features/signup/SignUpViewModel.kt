@@ -66,15 +66,15 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun onErrorAccepted() {
-        updateState { it.copy(error = null) }
+        updateState { it.copyState(error = null) }
     }
 
     private fun onLoading() {
-        updateState { it.copy(isLoading = true) }
+        updateState { it.copyState(isLoading = true) }
     }
 
     private fun onIdle() {
-        updateState { it.copy(isLoading = false) }
+        updateState { it.copyState(isLoading = false) }
     }
 
     private fun onSigUpSuccessfully() {
@@ -116,7 +116,10 @@ data class SignUpUiState(
     val firstNameError: String = String.EMPTY,
     val lastName: String = String.EMPTY,
     val lastNameError: String = String.EMPTY,
-): UiState
+): UiState<SignUpUiState>(isLoading, error) {
+    override fun copyState(isLoading: Boolean, error: String?): SignUpUiState =
+        copy(isLoading = isLoading, error = error)
+}
 
 sealed interface SignUpSideEffects: SideEffect {
     data object RegisteredSuccessfully: SignUpSideEffects

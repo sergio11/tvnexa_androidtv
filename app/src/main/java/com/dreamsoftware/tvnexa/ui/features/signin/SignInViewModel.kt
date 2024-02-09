@@ -1,14 +1,13 @@
 package com.dreamsoftware.tvnexa.ui.features.signin
 
-import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.tvnexa.domain.model.AuthenticationBO
 import com.dreamsoftware.tvnexa.domain.model.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignInUseCase
+import com.dreamsoftware.tvnexa.ui.core.IFormErrorMapper
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
 import com.dreamsoftware.tvnexa.ui.extensions.EMPTY
-import com.dreamsoftware.tvnexa.ui.core.IFormErrorMapper
 import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInScreenSimpleErrorMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -19,16 +18,16 @@ class SignInViewModel @Inject constructor(
     private val signInScreenErrorMapper: SignInScreenSimpleErrorMapper,
     private val formErrorMapper: IFormErrorMapper
 ): SupportViewModel<SignInUiState, SignInSideEffects>() {
+
     override fun onGetDefaultState(): SignInUiState = SignInUiState()
 
     fun onSignIn() {
-        onLoading()
         with(uiState.value) {
-            signInUseCase.invoke(
-                scope = viewModelScope,
+            executeUseCaseWithParams(
+                useCase = signInUseCase,
                 params = SignInUseCase.Params(email, password),
                 onSuccess = ::onSignInSuccessfully,
-                onError = ::onErrorOccurred
+                onMapExceptionToState = ::onMapExceptionToState
             )
         }
     }
@@ -42,19 +41,10 @@ class SignInViewModel @Inject constructor(
     }
 
     fun onErrorAccepted() {
-        updateState { it.copy(error = null) }
-    }
-
-    private fun onLoading() {
-        updateState { it.copy(isLoading = true) }
-    }
-
-    private fun onIdle() {
-        updateState { it.copy(isLoading = false) }
+        updateState { it.copyState(error = null) }
     }
 
     private fun onSignInSuccessfully(authenticationBO: AuthenticationBO) {
-        onIdle()
         launchSideEffect(if(authenticationBO.profilesCount > 0) {
             SignInSideEffects.ProfileSelectionRequired
         } else {
@@ -62,17 +52,12 @@ class SignInViewModel @Inject constructor(
         })
     }
 
-    private fun onErrorOccurred(ex: Exception) {
-        ex.printStackTrace()
-        updateState {
-            it.copy(
-                isLoading = false,
-                error = signInScreenErrorMapper.mapToMessage(ex),
-                emailError = formErrorMapper.mapToMessage(key = FormFieldKey.EMAIL, ex),
-                passwordError = formErrorMapper.mapToMessage(key = FormFieldKey.PASSWORD,  ex)
-            )
-        }
-    }
+    private fun onMapExceptionToState(ex: Exception, uiState: SignInUiState) =
+        uiState.copy(
+            error = signInScreenErrorMapper.mapToMessage(ex),
+            emailError = formErrorMapper.mapToMessage(key = FormFieldKey.EMAIL, ex),
+            passwordError = formErrorMapper.mapToMessage(key = FormFieldKey.PASSWORD,  ex)
+        )
 }
 
 data class SignInUiState(
@@ -82,7 +67,10 @@ data class SignInUiState(
     val emailError: String = String.EMPTY,
     val password: String = "12345678",
     val passwordError: String = String.EMPTY
-): UiState
+): UiState<SignInUiState>(isLoading, error) {
+    override fun copyState(isLoading: Boolean, error: String?): SignInUiState =
+        copy(isLoading = isLoading, error = error)
+}
 
 sealed interface SignInSideEffects: SideEffect {
     data object AuthenticationSuccessfully: SignInSideEffects
