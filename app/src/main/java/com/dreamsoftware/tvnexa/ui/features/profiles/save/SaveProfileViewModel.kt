@@ -16,6 +16,9 @@ class SaveProfileViewModel @Inject constructor(): SupportViewModel<SaveProfileUi
 data class SaveProfileUiState(
     override val isLoading: Boolean = false,
     override val error: String? = null,
-): UiState
+): UiState<SaveProfileUiState>(isLoading, error) {
+    override fun copyState(isLoading: Boolean, error: String?): SaveProfileUiState =
+        copy(isLoading = isLoading, error = error)
+}
 
 sealed interface SaveProfileSideEffects: SideEffect

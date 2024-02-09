@@ -1,5 +1,6 @@
 package com.dreamsoftware.tvnexa.ui.features.signin
 
+import android.util.Log
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -15,10 +16,12 @@ fun SignInScreen(
     viewModel: SignInViewModel = hiltViewModel(),
     onGoToHome: () -> Unit,
     onGoToProfileSelector: () -> Unit,
-    onGoToSignUp: () -> Unit
+    onGoToSignUp: () -> Unit,
+    onBackPressed: () -> Unit,
 ) {
     CommonScreen(
         viewModel = viewModel,
+        onBackPressed = onBackPressed,
         onInitialUiState = { SignInUiState() },
         onSideEffect = {
             when(it) {
@@ -47,7 +50,8 @@ fun SignInScreenPrev() {
             modifier = Modifier.fillMaxSize(),
             onGoToHome = {},
             onGoToSignUp = {},
-            onGoToProfileSelector = {}
+            onGoToProfileSelector = {},
+            onBackPressed = {}
         )
     }
 }

@@ -58,7 +58,7 @@ class SecurePinViewModel @Inject constructor(
 
     private fun onLoading() {
         updateState {
-            it.copy(isLoading = true)
+            it.copyState(isLoading = true)
         }
     }
 
@@ -71,7 +71,10 @@ data class SecurePinUiState(
     override val isLoading: Boolean = false,
     override val error: String? = null,
     val unlockPin: String = String.EMPTY
-): UiState
+): UiState<SecurePinUiState>(isLoading, error) {
+    override fun copyState(isLoading: Boolean, error: String?): SecurePinUiState =
+        copy(isLoading = isLoading, error = error)
+}
 
 sealed interface SecurePinSideEffects: SideEffect {
     data object ProfileUnlockedSuccessfully: SecurePinSideEffects

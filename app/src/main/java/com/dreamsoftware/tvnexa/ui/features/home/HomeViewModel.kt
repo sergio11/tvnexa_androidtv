@@ -45,14 +45,14 @@ class HomeViewModel @Inject constructor(
 
     private fun onLoading() {
         updateState {
-            it.copy(isLoading = true, error = null)
+            it.copyState(isLoading = true, error = null)
         }
     }
 
     private fun onErrorOccurred(ex: Exception) {
         ex.printStackTrace()
         updateState {
-            it.copy(isLoading = false)
+            it.copyState(isLoading = false)
         }
     }
 }
@@ -65,6 +65,9 @@ data class HomeUiState(
     val menuIsOpened: Boolean = false,
     val menuItemIdSelected: String = String.EMPTY,
     val profileSelected: ProfileBO? = null
-): UiState
+): UiState<HomeUiState>(isLoading, error) {
+    override fun copyState(isLoading: Boolean, error: String?): HomeUiState =
+        copy(isLoading = isLoading, error = error)
+}
 
 sealed interface HomeSideEffects: SideEffect
