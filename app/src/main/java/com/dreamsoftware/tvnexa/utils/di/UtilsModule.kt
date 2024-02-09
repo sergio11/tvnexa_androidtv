@@ -1,6 +1,7 @@
 package com.dreamsoftware.tvnexa.utils.di
 
 import android.content.Context
+import com.dreamsoftware.tvnexa.utils.AppEventBus
 import com.dreamsoftware.tvnexa.utils.IApplicationAware
 import com.dreamsoftware.tvnexa.utils.ISessionAware
 import dagger.Module
@@ -27,5 +28,9 @@ class UtilsModule {
     @Provides
     fun provideSessionAware(@ApplicationContext context: Context): ISessionAware =
         context as ISessionAware
+
+    @Singleton
+    @Provides
+    fun provideAppEventBus() = AppEventBus()
 
 }
