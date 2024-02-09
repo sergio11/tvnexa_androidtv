@@ -2,6 +2,7 @@ package com.dreamsoftware.tvnexa.ui.core
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCaseWithParams
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,6 +40,10 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
      */
     abstract fun onGetDefaultState(): STATE
 
+    fun onErrorAccepted() {
+        updateState { it.copyState(error = null) }
+    }
+
     /**
      * Updates the UI state using the provided reducer function.
      *
@@ -59,11 +64,32 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
         }
     }
 
+    protected fun <RESULT, UC: BaseUseCase<RESULT>> executeUseCase(
+        useCase: UC,
+        onSuccess: (RESULT) -> Unit,
+        onFailed: () -> Unit = {},
+        onMapExceptionToState: (Exception, STATE) -> STATE = { _ , state -> state }
+    ) {
+        onLoading()
+        useCase.invoke(
+            scope = viewModelScope,
+            onSuccess = {
+                onIdle()
+                onSuccess(it)
+            },
+            onError = {
+                onErrorOccurred(it, onMapExceptionToState)
+                onFailed()
+            }
+        )
+    }
+
     protected fun <PARAMS, RESULT, UC: BaseUseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(
         useCase: UC,
         params: PARAMS,
         onSuccess: (RESULT) -> Unit,
-        onMapExceptionToState: (Exception, STATE) -> STATE
+        onFailed: () -> Unit = {},
+        onMapExceptionToState: (Exception, STATE) -> STATE = { _ , state -> state }
     ) {
         onLoading()
         useCase.invoke(
@@ -73,7 +99,10 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
                 onIdle()
                 onSuccess(it)
             },
-            onError = { onErrorOccurred(it, onMapExceptionToState) }
+            onError = {
+                onErrorOccurred(it, onMapExceptionToState)
+                onFailed()
+            }
         )
     }
 
