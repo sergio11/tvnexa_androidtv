@@ -1,6 +1,5 @@
 package com.dreamsoftware.tvnexa.ui.features.signup
 
-import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.tvnexa.domain.model.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignUpUseCase
 import com.dreamsoftware.tvnexa.ui.core.IFormErrorMapper
@@ -21,10 +20,9 @@ class SignUpViewModel @Inject constructor(
     override fun onGetDefaultState(): SignUpUiState = SignUpUiState()
 
     fun onSignUp() {
-        onLoading()
         with(uiState.value) {
-            signUpUseCase.invoke(
-                scope = viewModelScope,
+            executeUseCaseWithParams(
+                useCase = signUpUseCase,
                 params = SignUpUseCase.Params(
                     username = username,
                     repeatPassword = repeatPassword,
@@ -36,7 +34,7 @@ class SignUpViewModel @Inject constructor(
                 onSuccess = {
                     onSigUpSuccessfully()
                 },
-                onError = ::onErrorOccurred
+                onMapExceptionToState = ::onMapExceptionToState
             )
         }
     }
@@ -58,47 +56,30 @@ class SignUpViewModel @Inject constructor(
     }
 
     fun onPasswordChanged(newPassword: String) {
-        updateState { it.copy(password = newPassword,) }
+        updateState { it.copy(password = newPassword) }
     }
 
     fun onRepeatPasswordChanged(newRepeatPassword: String) {
         updateState { it.copy(repeatPassword = newRepeatPassword,) }
     }
 
-    fun onErrorAccepted() {
-        updateState { it.copyState(error = null) }
-    }
-
-    private fun onLoading() {
-        updateState { it.copyState(isLoading = true) }
-    }
-
-    private fun onIdle() {
-        updateState { it.copyState(isLoading = false) }
-    }
-
     private fun onSigUpSuccessfully() {
-        onIdle()
         launchSideEffect(SignUpSideEffects.RegisteredSuccessfully)
     }
 
-    private fun onErrorOccurred(ex: Exception) {
+    private fun onMapExceptionToState(ex: Exception, uiState: SignUpUiState) =
         with(formErrorMapper) {
-            ex.printStackTrace()
-            updateState {
-                it.copy(
-                    isLoading = false,
-                    error = signUpScreenSimpleErrorMapper.mapToMessage(ex),
-                    emailError = mapToMessage(key = FormFieldKey.EMAIL, ex),
-                    usernameError = mapToMessage(key = FormFieldKey.USERNAME, ex),
-                    passwordError = mapToMessage(key = FormFieldKey.PASSWORD, ex),
-                    repeatPasswordError = mapToMessage(key = FormFieldKey.EMAIL, ex),
-                    firstNameError = mapToMessage(key = FormFieldKey.FIRST_NAME, ex),
-                    lastNameError = mapToMessage(key = FormFieldKey.LAST_NAME, ex)
-                )
-            }
+            uiState.copy(
+                isLoading = false,
+                error = signUpScreenSimpleErrorMapper.mapToMessage(ex),
+                emailError = mapToMessage(key = FormFieldKey.EMAIL, ex),
+                usernameError = mapToMessage(key = FormFieldKey.USERNAME, ex),
+                passwordError = mapToMessage(key = FormFieldKey.PASSWORD, ex),
+                repeatPasswordError = mapToMessage(key = FormFieldKey.EMAIL, ex),
+                firstNameError = mapToMessage(key = FormFieldKey.FIRST_NAME, ex),
+                lastNameError = mapToMessage(key = FormFieldKey.LAST_NAME, ex)
+            )
         }
-    }
 }
 
 data class SignUpUiState(
