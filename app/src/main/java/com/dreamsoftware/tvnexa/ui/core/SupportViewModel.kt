@@ -2,6 +2,7 @@ package com.dreamsoftware.tvnexa.ui.core
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCaseWithParams
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -15,7 +16,7 @@ import kotlinx.coroutines.launch
  * @param STATE The type representing the UI state.
  * @param EFFECT The type representing side effects.
  */
-abstract class SupportViewModel<STATE : UiState, EFFECT : SideEffect> : ViewModel() {
+abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : ViewModel() {
 
     // MutableStateFlow for managing UI state
     private val _uiState: MutableStateFlow<STATE> by lazy {
@@ -57,14 +58,56 @@ abstract class SupportViewModel<STATE : UiState, EFFECT : SideEffect> : ViewMode
             _sideEffect.emit(effect)
         }
     }
+
+    protected fun <PARAMS, RESULT, UC: BaseUseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(
+        useCase: UC,
+        params: PARAMS,
+        onSuccess: (RESULT) -> Unit,
+        onMapExceptionToState: (Exception, STATE) -> STATE
+    ) {
+        onLoading()
+        useCase.invoke(
+            scope = viewModelScope,
+            params = params,
+            onSuccess = {
+                onIdle()
+                onSuccess(it)
+            },
+            onError = { onErrorOccurred(it, onMapExceptionToState) }
+        )
+    }
+
+    private fun onLoading() {
+        updateState {
+            it.copyState(isLoading = true, error = null)
+        }
+    }
+
+    private fun onIdle() {
+        updateState {
+            it.copyState(isLoading = false)
+        }
+    }
+
+    private fun onErrorOccurred(ex: Exception, onMapExceptionToState: (Exception, STATE) -> STATE) {
+        ex.printStackTrace()
+        updateState {
+            onMapExceptionToState(ex, it.copyState(isLoading = false))
+        }
+    }
 }
 
 /**
  * Interface representing the UI state.
  */
-interface UiState {
-    val isLoading: Boolean
-    val error: String?
+abstract class UiState<out T: UiState<T>>(
+    open val isLoading: Boolean,
+    open val error: String?
+) {
+    abstract fun copyState(
+        isLoading: Boolean = this.isLoading,
+        error: String? = this.error
+    ): T
 }
 
 /**

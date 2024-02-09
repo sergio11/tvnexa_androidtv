@@ -28,7 +28,7 @@ import com.dreamsoftware.tvnexa.ui.core.UiState
 
 @Composable
 fun CommonProfileScreenContent(
-    uiState: UiState,
+    uiState: UiState<*>,
     @StringRes mainTitleRes: Int,
     @StringRes secondaryTitleRes: Int,
     @StringRes acceptRes: Int,

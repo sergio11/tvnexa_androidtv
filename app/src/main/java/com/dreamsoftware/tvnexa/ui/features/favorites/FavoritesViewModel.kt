@@ -38,7 +38,7 @@ class FavoritesViewModel @Inject constructor(
 
     private fun onLoading() {
         updateState {
-            it.copy(
+            it.copyState(
                 isLoading = true,
                 error = null
             )
@@ -48,7 +48,7 @@ class FavoritesViewModel @Inject constructor(
     private fun onErrorOccurred(ex: Throwable) {
         ex.printStackTrace()
         updateState {
-            it.copy(isLoading = false)
+            it.copyState(isLoading = false)
         }
     }
 }
@@ -57,6 +57,9 @@ data class FavoritesUiState(
     override val isLoading: Boolean = false,
     override val error: String? = null,
     val channels: List<SimpleChannelBO> = emptyList()
-): UiState
+): UiState<FavoritesUiState>(isLoading, error) {
+    override fun copyState(isLoading: Boolean, error: String?): FavoritesUiState =
+        copy(isLoading = isLoading, error = error)
+}
 
 sealed interface FavoritesSideEffects: SideEffect

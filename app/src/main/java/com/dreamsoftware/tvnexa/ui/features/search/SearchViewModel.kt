@@ -89,7 +89,7 @@ class SearchViewModel @Inject constructor(
 
     private fun onLoading() {
         updateState {
-            it.copy(
+            it.copyState(
                 isLoading = true,
                 error = null
             )
@@ -99,7 +99,7 @@ class SearchViewModel @Inject constructor(
     private fun onErrorOccurred(ex: Throwable) {
         ex.printStackTrace()
         updateState {
-            it.copy(isLoading = false)
+            it.copyState(isLoading = false)
         }
     }
 }
@@ -109,6 +109,9 @@ data class SearchUiState(
     override val error: String? = null,
     val channels: List<SimpleChannelBO> = emptyList(),
     val term: String = String.EMPTY
-): UiState
+): UiState<SearchUiState>(isLoading, error) {
+    override fun copyState(isLoading: Boolean, error: String?): SearchUiState =
+        copy(isLoading = isLoading, error = error)
+}
 
 sealed interface SearchSideEffects: SideEffect

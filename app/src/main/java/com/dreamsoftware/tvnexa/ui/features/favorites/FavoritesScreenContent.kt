@@ -34,7 +34,7 @@ fun FavoritesScreenContent(
                     modifier = Modifier.padding(horizontal = 16.dp),
                     text = R.string.favorites_screen_loading
                 )
-                !error.isNullOrBlank() -> ErrorStateNotificationComponent(imageRes = R.drawable.default_placeholder, title = error)
+                !error.isNullOrBlank() -> ErrorStateNotificationComponent(imageRes = R.drawable.default_placeholder, title = error as String)
                 else -> ContentGrid(
                     channels = channels,
                     onChannelPressed = onChannelPressed

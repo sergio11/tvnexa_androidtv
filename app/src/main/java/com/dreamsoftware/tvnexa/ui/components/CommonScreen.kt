@@ -10,7 +10,7 @@ import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
 
 @Composable
-fun <UI: UiState, SE: SideEffect, VM: SupportViewModel<UI, SE>> CommonScreen(
+fun <UI: UiState<UI>, SE: SideEffect, VM: SupportViewModel<UI, SE>> CommonScreen(
     viewModel: VM,
     onInitialUiState: () -> UI,
     onInit: VM.() -> Unit = {},

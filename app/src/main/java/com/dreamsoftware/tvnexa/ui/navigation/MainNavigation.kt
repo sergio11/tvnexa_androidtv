@@ -60,6 +60,9 @@ fun MainNavigation(navController: NavHostController) {
                     },
                     onGoToSignUp = {
                         navigate(Screens.SignUp.path)
+                    },
+                    onBackPressed = {
+                        popBackStack()
                     }
                 )
             }

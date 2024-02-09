@@ -36,7 +36,7 @@ class PlayerViewModel @Inject constructor(
 
     private fun onLoading() {
         updateState {
-            it.copy(
+            it.copyState(
                 isLoading = true,
                 error = null
             )
@@ -46,7 +46,7 @@ class PlayerViewModel @Inject constructor(
     private fun onErrorOccurred(ex: Throwable) {
         ex.printStackTrace()
         updateState {
-            it.copy(isLoading = false)
+            it.copyState(isLoading = false)
         }
     }
 }
@@ -55,6 +55,9 @@ data class PlayerUiState(
     override val isLoading: Boolean = false,
     override val error: String? = null,
     val channelDetail: ChannelDetailBO? = null
-): UiState
+): UiState<PlayerUiState>(isLoading, error) {
+    override fun copyState(isLoading: Boolean, error: String?): PlayerUiState =
+        copy(isLoading = isLoading, error = error)
+}
 
 sealed interface PlayerSideEffects: SideEffect

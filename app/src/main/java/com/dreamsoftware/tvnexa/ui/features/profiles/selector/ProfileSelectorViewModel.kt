@@ -40,12 +40,12 @@ class ProfileSelectorViewModel @Inject constructor(
 
     private fun onLoading() {
         updateState {
-            it.copy(isLoading = true)
+            it.copyState(isLoading = true)
         }
     }
 
     private fun onIdle() {
-        updateState { it.copy(isLoading = false) }
+        updateState { it.copyState(isLoading = false) }
     }
 
     private fun onLoadProfileSuccessfully(profiles: List<ProfileBO>) {
@@ -83,11 +83,14 @@ class ProfileSelectorViewModel @Inject constructor(
 }
 
 data class ProfileSelectorUiState(
-    override val isLoading: Boolean = false,
-    override val error: String? = null,
+    override var isLoading: Boolean = false,
+    override var error: String? = null,
     val profiles: List<ProfileBO> = emptyList(),
     val profileSelected: ProfileBO? = null
-): UiState
+): UiState<ProfileSelectorUiState>(isLoading, error) {
+    override fun copyState(isLoading: Boolean, error: String?): ProfileSelectorUiState =
+        copy(isLoading = isLoading, error = error)
+}
 
 sealed interface ProfileSelectorSideEffects: SideEffect {
     data object ProfileSelected: ProfileSelectorSideEffects

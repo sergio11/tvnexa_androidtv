@@ -65,19 +65,22 @@ class SplashScreenViewModel @Inject constructor(
     }
 
     private fun onLoading() {
-        updateState { it.copy(isLoading = true) }
+        updateState { it.copyState(isLoading = true) }
     }
 
     private fun onIdle() {
-        updateState { it.copy(isLoading = false) }
+        updateState { it.copyState(isLoading = false) }
     }
 }
 
 data class SplashUiState(
-    override val isLoading: Boolean = false,
-    override val error: String? = null,
+    override var isLoading: Boolean = false,
+    override var error: String? = null,
     val isAuth: Boolean = false
-): UiState
+): UiState<SplashUiState>(isLoading, error) {
+    override fun copyState(isLoading: Boolean, error: String?): SplashUiState =
+        copy(isLoading = isLoading, error = error)
+}
 
 sealed interface SplashSideEffects: SideEffect {
     data object UserAlreadyAuthenticated: SplashSideEffects
