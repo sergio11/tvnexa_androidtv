@@ -69,9 +69,6 @@
     <!-- Profile Selector -->
     <string name="profile_selector_main_title">Who\'s Watching?</string>
     <string name="profile_selector_secondary_title">Select a profile to personalize your TvNexa experience.</string>
-    <string name="profile_selector_unlock_dialog_title">Oops! Profile Locked</string>
-    <string name="profile_selector_unlock_dialog_description">Looks like this profile is currently locked. Unlock it to dive in!</string>
-    <string name="profile_selector_form_unlock_pin_label_text">Secure Pin</string>
     <string name="profile_selector_add_profile_button_text">+ Add profile</string>
     <string name="profile_selector_profile_management_button_text">Profile Control</string>
     <!-- Profile -->
@@ -101,4 +98,10 @@
     <string name="save_profile_confirm_button_text">Save it, Champ!</string>
     <string name="save_profile_cancel_button_text">Maybe Later</string>
 
+    <!-- Secure Pin -->
+    <string name="secure_pin_main_title">Oops! Profile Locked</string>
+    <string name="secure_pin_main_description">Looks like this profile is currently locked. Unlock it to dive in!</string>
+    <string name="secure_pin_form_label_text">Secure Pin</string>
+    <string name="secure_pin_form_accept_button_text">Let\'s Go!</string>
+    <string name="secure_pin_form_cancel_button_text">Not Today</string>
 </resources>
