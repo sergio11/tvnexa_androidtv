@@ -21,30 +21,20 @@ class SplashScreenViewModel @Inject constructor(
 
     fun verifySession() {
         viewModelScope.launch {
-            onLoading()
             delay(4000)
-            verifyUserSessionUseCase.invoke(
-                scope = viewModelScope,
+            executeUseCase(
+                useCase = verifyUserSessionUseCase,
                 onSuccess = ::onVerifyUserSessionCompleted,
-                onError = ::onErrorOccurred
+                onFailed = ::onVerifyUserSessionFailed
             )
         }
     }
 
-    private fun onVerifyUserSessionCompleted(hasActiveSession: Boolean) {
-        onIdle()
-        if(hasActiveSession) {
-            checkProfiles()
-        } else {
-            launchSideEffect(SplashSideEffects.UserNotAuthenticated)
-        }
-    }
-
     private fun checkProfiles() {
-        hasMultiplesProfilesUseCase.invoke(
-            scope = viewModelScope,
+        executeUseCase(
+            useCase = hasMultiplesProfilesUseCase,
             onSuccess = ::onCheckProfilesCompleted,
-            onError = ::onErrorOccurred
+            onFailed = ::onCheckProfilesFailed
         )
     }
 
@@ -58,18 +48,20 @@ class SplashScreenViewModel @Inject constructor(
         )
     }
 
-    private fun onErrorOccurred(ex: Exception) {
-        onIdle()
-        ex.printStackTrace()
+    private fun onCheckProfilesFailed() {
         launchSideEffect(SplashSideEffects.UserNotAuthenticated)
     }
 
-    private fun onLoading() {
-        updateState { it.copyState(isLoading = true) }
+    private fun onVerifyUserSessionCompleted(hasActiveSession: Boolean) {
+        if(hasActiveSession) {
+            checkProfiles()
+        } else {
+            launchSideEffect(SplashSideEffects.UserNotAuthenticated)
+        }
     }
 
-    private fun onIdle() {
-        updateState { it.copyState(isLoading = false) }
+    private fun onVerifyUserSessionFailed() {
+        launchSideEffect(SplashSideEffects.UserNotAuthenticated)
     }
 }
 

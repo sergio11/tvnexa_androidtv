@@ -40,10 +40,6 @@ class SignInViewModel @Inject constructor(
         updateState { it.copy(password = newPassword,) }
     }
 
-    fun onErrorAccepted() {
-        updateState { it.copyState(error = null) }
-    }
-
     private fun onSignInSuccessfully(authenticationBO: AuthenticationBO) {
         launchSideEffect(if(authenticationBO.profilesCount > 0) {
             SignInSideEffects.ProfileSelectionRequired
