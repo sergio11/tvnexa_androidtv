@@ -4,6 +4,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.dreamsoftware.tvnexa.ui.features.profiles.save.SaveProfileScreen
+import com.dreamsoftware.tvnexa.ui.features.profiles.secure.SecurePinScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.selector.ProfileSelectorScreen
 import com.dreamsoftware.tvnexa.ui.navigation.extensions.transitionComposable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
@@ -20,6 +21,9 @@ fun ProfilesNavigation(
             with(navController) {
                 ProfileSelectorScreen(
                     onProfileSelected = onGoToHome,
+                    onProfileLocked = {
+                        navigate(Screens.Profiles.UnlockProfile.buildRoute(it))
+                    },
                     onGoToAddProfile = {
                         navigate(Screens.Profiles.AddProfile.path)
                     },
@@ -40,6 +44,20 @@ fun ProfilesNavigation(
             navBackStackEntry.arguments?.let { args ->
                 Screens.Profiles.EditProfile.parseArgs(args)?.let {
                     SaveProfileScreen(
+                        args = it,
+                        onBackPressed = {
+                            navController.navigateUp()
+                        },
+                    )
+                }
+            }
+        }
+
+
+        transitionComposable(Screens.Profiles.UnlockProfile.path) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let { args ->
+                Screens.Profiles.UnlockProfile.parseArgs(args)?.let {
+                    SecurePinScreen(
                         args = it,
                         onBackPressed = {
                             navController.navigateUp()

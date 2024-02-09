@@ -4,7 +4,6 @@ import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfilesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SelectProfileUseCase
-import com.dreamsoftware.tvnexa.domain.usecase.impl.VerifyPinUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
@@ -15,7 +14,6 @@ import javax.inject.Inject
 class ProfileSelectorViewModel @Inject constructor(
     private val getProfilesUseCase: GetProfilesUseCase,
     private val selectProfileUseCase: SelectProfileUseCase,
-    private val verifyPinUseCase: VerifyPinUseCase
 ): SupportViewModel<ProfileSelectorUiState, ProfileSelectorSideEffects>() {
     override fun onGetDefaultState(): ProfileSelectorUiState = ProfileSelectorUiState()
 
@@ -28,40 +26,22 @@ class ProfileSelectorViewModel @Inject constructor(
         )
     }
 
-    fun onVerifyPin(profileBO: ProfileBO, pin: String) {
-        onLoading()
-        verifyPinUseCase.invoke(
-            scope = viewModelScope,
-            params = VerifyPinUseCase.Params(profileId = profileBO.uuid, pin = pin.toInt()),
-            onSuccess = { selectProfile(profileBO) },
-            onError = ::onErrorOccurred
-        )
-    }
-
-    fun onCancelProfileSelection() {
-        updateState {
-            it.copy(showUnlockProfileDialog = false)
-        }
-    }
-
     fun onProfileSelected(profileBO: ProfileBO) {
         val isProfileLocked = profileBO.isAdmin
         updateState {
-            it.copy(
-                profileSelected = profileBO,
-                showUnlockProfileDialog = isProfileLocked
-            )
+            it.copy(profileSelected = profileBO)
         }
-        if(!isProfileLocked) {
+        if(isProfileLocked) {
+            onProfileLocked(profileBO.uuid)
+        } else {
             selectProfile(profileBO)
         }
     }
 
     private fun onLoading() {
-        updateState { it.copy(
-            isLoading = true,
-            showUnlockProfileDialog = false
-        ) }
+        updateState {
+            it.copy(isLoading = true)
+        }
     }
 
     private fun onIdle() {
@@ -75,6 +55,10 @@ class ProfileSelectorViewModel @Inject constructor(
                 profiles = profiles
             )
         }
+    }
+
+    private fun onProfileLocked(profileId: String) {
+        launchSideEffect(ProfileSelectorSideEffects.ProfileLocked(profileId))
     }
 
     private fun onProfileSelected() {
@@ -102,11 +86,10 @@ data class ProfileSelectorUiState(
     override val isLoading: Boolean = false,
     override val error: String? = null,
     val profiles: List<ProfileBO> = emptyList(),
-    val profileSelected: ProfileBO? = null,
-    val showUnlockProfileDialog: Boolean = false
+    val profileSelected: ProfileBO? = null
 ): UiState
 
 sealed interface ProfileSelectorSideEffects: SideEffect {
-
     data object ProfileSelected: ProfileSelectorSideEffects
+    data class ProfileLocked(val profileId: String): ProfileSelectorSideEffects
 }

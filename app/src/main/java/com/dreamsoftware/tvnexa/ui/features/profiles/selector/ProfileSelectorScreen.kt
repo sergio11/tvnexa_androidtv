@@ -8,6 +8,7 @@ import com.dreamsoftware.tvnexa.ui.components.CommonScreen
 fun ProfileSelectorScreen(
     viewModel: ProfileSelectorViewModel = hiltViewModel(),
     onProfileSelected: () -> Unit,
+    onProfileLocked: (String) -> Unit,
     onGoToAddProfile: () -> Unit,
     onGoToProfileManagement: () -> Unit
 ) {
@@ -16,16 +17,15 @@ fun ProfileSelectorScreen(
         onInit = {  loadProfiles() },
         onInitialUiState = { ProfileSelectorUiState() },
         onSideEffect = {
-            if(it is ProfileSelectorSideEffects.ProfileSelected) {
-                onProfileSelected()
+            when(it) {
+                is ProfileSelectorSideEffects.ProfileLocked -> onProfileLocked(it.profileId)
+                ProfileSelectorSideEffects.ProfileSelected -> onProfileSelected()
             }
         }
     ) { uiState ->
         ProfileSelectorContent(
             uiState = uiState,
             onProfileSelected = ::onProfileSelected,
-            onVerifyPin = ::onVerifyPin,
-            onProfileSelectionCancelled = ::onCancelProfileSelection,
             onAddProfilePressed = onGoToAddProfile,
             onProfileManagementPressed = onGoToProfileManagement
         )
