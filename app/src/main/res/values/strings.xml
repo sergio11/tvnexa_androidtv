@@ -97,6 +97,7 @@
     <string name="save_profile_form_pin_label_text">Secret PIN</string>
     <string name="save_profile_confirm_button_text">Save it, Champ!</string>
     <string name="save_profile_cancel_button_text">Maybe Later</string>
+    <string name="save_profile_delete_button_text">Delete Profile?</string>
 
     <!-- Secure Pin -->
     <string name="secure_pin_main_title">Oops! Profile Locked</string>

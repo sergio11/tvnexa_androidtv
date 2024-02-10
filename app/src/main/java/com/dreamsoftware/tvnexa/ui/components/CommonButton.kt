@@ -78,10 +78,14 @@ fun CommonButton(
                         } else {
                             0.dp
                         },
-                        color = when(style) {
-                            CommonButtonStyleTypeEnum.NORMAL -> onPrimaryContainer
-                            CommonButtonStyleTypeEnum.INVERSE -> onSecondaryContainer
-                            CommonButtonStyleTypeEnum.TRANSPARENT -> surface
+                        color = if(enableBorder){
+                            when(style) {
+                                CommonButtonStyleTypeEnum.NORMAL -> onPrimaryContainer
+                                CommonButtonStyleTypeEnum.INVERSE -> onSecondaryContainer
+                                CommonButtonStyleTypeEnum.TRANSPARENT -> surface
+                            }
+                        } else {
+                            Color.Transparent
                         },
                         shape = buttonShape
                     )

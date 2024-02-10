@@ -64,7 +64,11 @@ fun CommonTextField(
             enabled = enabled,
             colors = TextFieldDefaults.colors(
                 focusedLabelColor = onPrimary,
-                unfocusedLabelColor = primary,
+                unfocusedLabelColor = if(value.isNotBlank()) {
+                    onPrimary
+                } else {
+                    primary
+                }
             ),
             visualTransformation = if (type != CommonTextFieldTypeEnum.PASSWORD)
                 VisualTransformation.None

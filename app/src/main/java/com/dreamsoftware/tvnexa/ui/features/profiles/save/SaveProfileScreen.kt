@@ -12,15 +12,16 @@ fun SaveProfileScreen(
 ) {
     CommonScreen(
         viewModel = viewModel,
-        onInit = {  },
+        onInit = { args?.profileId?.let(::load) },
         onBackPressed = onBackPressed,
         onInitialUiState = { SaveProfileUiState() },
     ) { uiState ->
         SaveProfileScreenContent(
             uiState = uiState,
-            onAliasChanged = {},
-            onPinChanged = {},
+            onAliasChanged = ::onAliasChanged,
+            onPinChanged = ::onSecurePinChanged,
             onSaveProfilePressed = {},
+            onProfileTypeChanged = ::onProfileTypeChanged,
             onCancelPressed = onBackPressed
         )
     }

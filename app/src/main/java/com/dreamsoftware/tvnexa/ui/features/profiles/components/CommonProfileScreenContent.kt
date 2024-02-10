@@ -20,6 +20,7 @@ import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.AppLogoInverse
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonStyleTypeEnum
+import com.dreamsoftware.tvnexa.ui.components.CommonButtonTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonGradientBox
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
@@ -32,6 +33,7 @@ fun CommonProfileScreenContent(
     @StringRes secondaryTitleRes: Int,
     @StringRes primaryOptionTextRes: Int,
     @StringRes secondaryOptionTextRes: Int? = null,
+    @StringRes tertiaryOptionTextRes: Int? = null,
     onPrimaryOptionPressed: () -> Unit = {},
     onSecondaryOptionPressed: () -> Unit = {},
     content: @Composable () -> Unit
@@ -69,6 +71,7 @@ fun CommonProfileScreenContent(
                     .weight(0.3f),
                 primaryOptionTextRes = primaryOptionTextRes,
                 secondaryOptionTextRes = secondaryOptionTextRes,
+                tertiaryOptionTextRes = tertiaryOptionTextRes,
                 onPrimaryOptionPressed = onPrimaryOptionPressed,
                 onSecondaryOptionPressed = onSecondaryOptionPressed
             )
@@ -112,24 +115,39 @@ private fun CommonProfileActions(
     modifier: Modifier = Modifier,
     @StringRes primaryOptionTextRes: Int,
     @StringRes secondaryOptionTextRes: Int? = null,
+    @StringRes tertiaryOptionTextRes: Int? = null,
     onPrimaryOptionPressed: () -> Unit = {},
     onSecondaryOptionPressed: () -> Unit = {},
+    onTertiaryOptionPressed: () -> Unit = {}
 ) {
-    Row (
+    Column(
         modifier = modifier,
-        horizontalArrangement = Arrangement.Center,
-        verticalAlignment = Alignment.CenterVertically
-    ){
-        CommonButton(
-            textRes = primaryOptionTextRes,
-            onClick = onPrimaryOptionPressed,
-        )
-        secondaryOptionTextRes?.let {
-            Spacer(modifier = Modifier.width(30.dp))
+        verticalArrangement = Arrangement.SpaceEvenly,
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Row (
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ){
+            CommonButton(
+                textRes = primaryOptionTextRes,
+                onClick = onPrimaryOptionPressed,
+            )
+            secondaryOptionTextRes?.let {
+                Spacer(modifier = Modifier.width(30.dp))
+                CommonButton(
+                    textRes = it,
+                    onClick = onSecondaryOptionPressed,
+                    style = CommonButtonStyleTypeEnum.INVERSE
+                )
+            }
+        }
+        tertiaryOptionTextRes?.let {
             CommonButton(
                 textRes = it,
-                onClick = onSecondaryOptionPressed,
-                style = CommonButtonStyleTypeEnum.INVERSE
+                enableBorder = false,
+                onClick = onTertiaryOptionPressed,
+                style = CommonButtonStyleTypeEnum.TRANSPARENT
             )
         }
     }
