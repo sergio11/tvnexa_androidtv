@@ -37,7 +37,7 @@ fun SecurePinScreenContent(
                     modifier = Modifier.focusRequester(focusRequester),
                     icon = Icons.Filled.Security,
                     value = unlockPin,
-                    type = CommonTextFieldTypeEnum.NUMBER,
+                    type = CommonTextFieldTypeEnum.NUMBER_SECRET,
                     imeAction = ImeAction.Done,
                     onImeActionCompleted = {
                         mainFocusRequester.requestFocus()
