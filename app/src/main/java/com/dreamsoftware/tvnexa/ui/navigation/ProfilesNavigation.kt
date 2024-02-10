@@ -68,6 +68,7 @@ fun ProfilesNavigation(
                 Screens.Profiles.UnlockProfile.parseArgs(args)?.let {
                     SecurePinScreen(
                         args = it,
+                        onGoToHome = onGoToHome,
                         onBackPressed = {
                             navController.navigateUp()
                         },
