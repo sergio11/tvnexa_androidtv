@@ -85,9 +85,16 @@ fun MainNavigation(navController: NavHostController) {
         }
 
         composable(Screens.Home.DEFAULT.path) {
-            HomeScreen(onNavigateToDetail = { channelId ->
-                navController.navigate(Screens.Detail.buildRoute(channelId))
-            })
+            with(navController) {
+                HomeScreen(
+                    onGoToProfileSelector = {
+                        navigate(Screens.Profiles.DEFAULT.path)
+                    },
+                    onNavigateToDetail = { channelId ->
+                        navigate(Screens.Detail.buildRoute(channelId))
+                    }
+                )
+            }
         }
 
         composable(Screens.Player.path) { navBackStackEntry ->

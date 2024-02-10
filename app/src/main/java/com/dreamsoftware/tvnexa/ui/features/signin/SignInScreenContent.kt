@@ -37,17 +37,16 @@ import com.dreamsoftware.tvnexa.ui.components.CommonButtonStyleTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonFullScreenImage
+import com.dreamsoftware.tvnexa.ui.components.CommonScreenContent
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextField
 import com.dreamsoftware.tvnexa.ui.components.CommonTextFieldTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
-import com.dreamsoftware.tvnexa.ui.components.ErrorDialogDialog
 import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
 fun SignInScreenContent(
-    modifier: Modifier = Modifier,
     uiState: SignInUiState,
     onEmailChanged: (String) -> Unit,
     onPasswordChanged: (String) -> Unit,
@@ -55,14 +54,10 @@ fun SignInScreenContent(
     onErrorAcceptPressed: () -> Unit,
     onGoToSignUp: () -> Unit
 ) {
-    SignInDialog(
-        uiState = uiState,
-        onErrorAcceptPressed = onErrorAcceptPressed
-    )
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
+    CommonScreenContent(
+        error = uiState.error
     ) {
+        SignInDialog(uiState = uiState)
         SignInVideoBackground()
         SignInLogo()
         Column(
@@ -84,19 +79,13 @@ fun SignInScreenContent(
 
 @Composable
 private fun SignInDialog(
-    uiState: SignInUiState,
-    onErrorAcceptPressed: () -> Unit
+    uiState: SignInUiState
 ) {
     with(uiState) {
         LoadingDialog(
             isShowingDialog = isLoading,
             titleRes = R.string.sign_in_progress_dialog_title,
             descriptionRes = R.string.sign_in_progress_dialog_description
-        )
-        ErrorDialogDialog(
-            isVisible = !error.isNullOrBlank(),
-            description = error,
-            onAcceptClicked = onErrorAcceptPressed
         )
     }
 }

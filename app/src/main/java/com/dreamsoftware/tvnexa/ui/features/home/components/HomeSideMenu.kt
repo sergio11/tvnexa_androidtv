@@ -4,6 +4,7 @@ package com.dreamsoftware.tvnexa.ui.features.home.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -14,7 +15,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.selection.selectableGroup
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
@@ -49,8 +49,7 @@ import com.dreamsoftware.tvnexa.ui.features.home.leftmenu.model.MenuItem
 import com.dreamsoftware.tvnexa.ui.theme.Dimens
 import com.dreamsoftware.tvnexa.ui.theme.Dimens.HOME_SIDE_MENU_AVATAR_FOCUSED_SCALE
 import com.dreamsoftware.tvnexa.ui.theme.Dimens.HOME_SIDE_MENU_AVATAR_PADDING
-import com.dreamsoftware.tvnexa.ui.theme.Dimens.HOME_SIDE_MENU_CLOSE_AVATAR_SIZE
-import com.dreamsoftware.tvnexa.ui.theme.Dimens.HOME_SIDE_MENU_OPEN_AVATAR_SIZE
+import com.dreamsoftware.tvnexa.ui.theme.Dimens.HOME_SIDE_MENU_AVATAR_SIZE
 import compose.icons.LineAwesomeIcons
 import compose.icons.lineawesomeicons.InfoSolid
 
@@ -60,7 +59,8 @@ fun HomeSideMenu(
     secondaryMenuItems: List<MenuItem>,
     menuItemIdSelected: String,
     profileSelected: ProfileBO? = null,
-    onMenuItemSelected: (String) -> Unit = {},
+    onMenuItemSelected: (String) -> Unit,
+    onProfilePressed: () -> Unit,
     content: @Composable () -> Unit
 ) {
     with(MaterialTheme.colorScheme) {
@@ -82,7 +82,11 @@ fun HomeSideMenu(
                 ) {
                     SideMenuLogo(drawerState = drawerState)
                     profileSelected?.let {
-                        ProfileSelectedItem(drawerState = drawerState, profileSelected = it)
+                        ProfileSelectedItem(
+                            drawerState = drawerState,
+                            profileSelected = it,
+                            onPressed = onProfilePressed
+                        )
                     }
                     mainMenuItems.forEach { item ->
                         SideMenuItem(item = item,
@@ -119,7 +123,11 @@ fun HomeSideMenu(
 }
 
 @Composable
-private fun ColumnScope.ProfileSelectedItem(drawerState: DrawerState, profileSelected: ProfileBO) {
+private fun ColumnScope.ProfileSelectedItem(
+    drawerState: DrawerState,
+    profileSelected: ProfileBO,
+    onPressed: () -> Unit
+) {
     with(MaterialTheme.colorScheme) {
         with(drawerState) {
             with(profileSelected) {
@@ -128,9 +136,15 @@ private fun ColumnScope.ProfileSelectedItem(drawerState: DrawerState, profileSel
                     modifier = Modifier
                         .align(Alignment.Start)
                         .onFocusChanged { hasFocus = it.hasFocus }
-                        .clip(RoundedCornerShape(10.dp))
-                        .background(if(hasFocus) primary.copy(0.5f) else onPrimary)
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(
+                            color = if(hasFocus) primary.copy(0.5f) else onPrimary,
+                            shape = RoundedCornerShape(20.dp))
                         .padding(20.dp)
+                        .clickable(
+                            enabled = true,
+                            onClick = onPressed
+                        )
                 ) {
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -139,11 +153,7 @@ private fun ColumnScope.ProfileSelectedItem(drawerState: DrawerState, profileSel
                         ScalableAvatar(
                             avatarRes = type.toDrawableResource(),
                             focusedScale = HOME_SIDE_MENU_AVATAR_FOCUSED_SCALE,
-                            size = if(currentValue == DrawerValue.Open) {
-                                HOME_SIDE_MENU_OPEN_AVATAR_SIZE
-                            } else {
-                                HOME_SIDE_MENU_CLOSE_AVATAR_SIZE
-                            },
+                            size = HOME_SIDE_MENU_AVATAR_SIZE,
                             padding = HOME_SIDE_MENU_AVATAR_PADDING,
                             borderColor = primary
                         )
@@ -164,7 +174,6 @@ private fun ColumnScope.ProfileSelectedItem(drawerState: DrawerState, profileSel
                     }
                 }
             }
-            Spacer(modifier = Modifier.height(10.dp))
         }
     }
 }
@@ -172,13 +181,6 @@ private fun ColumnScope.ProfileSelectedItem(drawerState: DrawerState, profileSel
 @Composable
 private fun ColumnScope.SideMenuLogo(drawerState: DrawerState) {
     with(drawerState) {
-        Spacer(modifier = Modifier.height(
-            if(currentValue == DrawerValue.Closed) {
-                0.dp
-            } else {
-                10.dp
-            }
-        ))
         Image(
             painter = painterResource(id = if(currentValue == DrawerValue.Open) {
                 R.drawable.tvnexa_logo
@@ -202,7 +204,7 @@ private fun ColumnScope.SideMenuLogo(drawerState: DrawerState) {
                     }
                 )
         )
-        Spacer(modifier = Modifier.height(20.dp))
+        Spacer(modifier = Modifier.height(10.dp))
     }
 }
 

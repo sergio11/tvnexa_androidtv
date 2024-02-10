@@ -10,6 +10,7 @@ import com.google.accompanist.navigation.animation.rememberAnimatedNavController
 @Composable
 fun HomeScreen(
     homeViewModel: HomeViewModel = hiltViewModel(),
+    onGoToProfileSelector: () -> Unit,
     onNavigateToDetail: (String) -> Unit
 ) {
     val navController = rememberAnimatedNavController()
@@ -26,6 +27,7 @@ fun HomeScreen(
         HomeScreenContent(
             uiState = uiState,
             navController = navController,
+            onGoToProfileSelector = onGoToProfileSelector,
             onNavigateToDetail = onNavigateToDetail
         )
     }
