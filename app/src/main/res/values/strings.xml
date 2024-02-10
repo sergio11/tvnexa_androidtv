@@ -102,6 +102,7 @@
     <string name="secure_pin_main_title">Oops! Profile Locked</string>
     <string name="secure_pin_main_description">Looks like this profile is currently locked. Unlock it to dive in!</string>
     <string name="secure_pin_form_label_text">Secure Pin</string>
+    <string name="secure_pin_info_profile_locked" formatted="false">You must enter the 6-digit PIN to unlock the %s profile.</string>
     <string name="secure_pin_form_accept_button_text">Let\'s Go!</string>
     <string name="secure_pin_form_cancel_button_text">Not Today</string>
 
