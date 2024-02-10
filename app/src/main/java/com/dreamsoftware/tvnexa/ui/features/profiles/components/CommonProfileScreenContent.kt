@@ -101,7 +101,7 @@ private fun ColumnScope.CommonProfileContent(
     Column(modifier = Modifier
         .fillMaxSize()
         .weight(0.8f),
-        verticalArrangement = Arrangement.Center,
+        verticalArrangement = Arrangement.SpaceEvenly,
         horizontalAlignment = Alignment.CenterHorizontally) {
         content()
     }

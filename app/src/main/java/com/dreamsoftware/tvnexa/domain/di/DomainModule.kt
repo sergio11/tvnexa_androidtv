@@ -5,6 +5,7 @@ import com.dreamsoftware.tvnexa.domain.repository.ICategoryRepository
 import com.dreamsoftware.tvnexa.domain.repository.IChannelRepository
 import com.dreamsoftware.tvnexa.domain.repository.ICountryRepository
 import com.dreamsoftware.tvnexa.domain.repository.IUserRepository
+import com.dreamsoftware.tvnexa.domain.usecase.GetProfileByIdUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.CreateProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.DeleteProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetBlockedChannelsUseCase
@@ -135,4 +136,9 @@ class DomainModule {
     @ViewModelScoped
     fun provideGetProfileSelectedUseCase(repository: IUserRepository): GetProfileSelectedUseCase =
         GetProfileSelectedUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideGetProfileByIdUseCase(repository: IUserRepository): GetProfileByIdUseCase =
+        GetProfileByIdUseCase(repository)
 }

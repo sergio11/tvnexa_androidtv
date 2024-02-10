@@ -1,28 +1,47 @@
 package com.dreamsoftware.tvnexa.ui.features.profiles.secure
 
-import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
+import com.dreamsoftware.tvnexa.domain.usecase.GetProfileByIdUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SelectProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.VerifyPinUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
 import com.dreamsoftware.tvnexa.ui.extensions.EMPTY
+import com.dreamsoftware.tvnexa.utils.combinedLet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
 class SecurePinViewModel @Inject constructor(
     private val verifyPinUseCase: VerifyPinUseCase,
-    private val selectProfileUseCase: SelectProfileUseCase
+    private val selectProfileUseCase: SelectProfileUseCase,
+    private val getProfileByIdUseCase: GetProfileByIdUseCase
 ): SupportViewModel<SecurePinUiState, SecurePinSideEffects>() {
 
-    private lateinit var profileId: String
 
     override fun onGetDefaultState(): SecurePinUiState = SecurePinUiState()
 
     fun load(profileId: String) {
-        this.profileId = profileId
+        executeUseCaseWithParams(
+            useCase = getProfileByIdUseCase,
+            params = GetProfileByIdUseCase.Params(profileId),
+            onSuccess = ::onLoadProfileCompleted
+        )
+    }
+
+    fun onVerifyPin() {
+        with(uiState.value) {
+            combinedLet(profileLocked, unlockPin.toIntOrNull()) { profile, pin ->
+                executeUseCaseWithParams(
+                    useCase = verifyPinUseCase,
+                    params = VerifyPinUseCase.Params(profileId = profile.uuid, pin = pin),
+                    onSuccess = {
+                        onVerifyPinSuccessfully(profile)
+                    }
+                )
+            }
+        }
     }
 
     fun onUnlockPinChanged(unlockPin: String) {
@@ -31,46 +50,32 @@ class SecurePinViewModel @Inject constructor(
         }
     }
 
-    fun onVerifyPin() {
-        onLoading()
-        verifyPinUseCase.invoke(
-            scope = viewModelScope,
-            params = VerifyPinUseCase.Params(profileId = profileId, pin = uiState.value.unlockPin.toInt()),
-            onSuccess = {  },
-            onError = ::onErrorOccurred
+    private fun onLoadProfileCompleted(profileBO: ProfileBO) {
+        updateState {
+            it.copy(profileLocked = profileBO)
+        }
+    }
+
+    private fun onVerifyPinSuccessfully(profile: ProfileBO) {
+        executeUseCaseWithParams(
+            useCase = selectProfileUseCase,
+            params = SelectProfileUseCase.Params(profile),
+            onSuccess = {
+                onProfileSelected()
+            }
         )
     }
 
     private fun onProfileSelected() {
         launchSideEffect(SecurePinSideEffects.ProfileUnlockedSuccessfully)
     }
-
-    private fun selectProfile(profileBO: ProfileBO) {
-        selectProfileUseCase.invoke(
-            scope = viewModelScope,
-            params = SelectProfileUseCase.Params(profileBO),
-            onSuccess = {
-                onProfileSelected()
-            },
-            onError = ::onErrorOccurred
-        )
-    }
-
-    private fun onLoading() {
-        updateState {
-            it.copyState(isLoading = true)
-        }
-    }
-
-    private fun onErrorOccurred(ex: Exception) {
-        ex.printStackTrace()
-    }
 }
 
 data class SecurePinUiState(
     override val isLoading: Boolean = false,
     override val error: String? = null,
-    val unlockPin: String = String.EMPTY
+    val unlockPin: String = String.EMPTY,
+    val profileLocked: ProfileBO? = null
 ): UiState<SecurePinUiState>(isLoading, error) {
     override fun copyState(isLoading: Boolean, error: String?): SecurePinUiState =
         copy(isLoading = isLoading, error = error)

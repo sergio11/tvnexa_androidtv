@@ -28,3 +28,10 @@ fun disableCertificateValidation() {
         e.printStackTrace()
     }
 }
+
+
+inline fun <T1 : Any, T2 : Any, R> combinedLet(value1: T1?, value2: T2?, block: (T1, T2) -> R) {
+    if (value1 != null && value2 != null) {
+        block(value1, value2)
+    }
+}
