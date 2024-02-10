@@ -71,8 +71,15 @@ fun ProfilesNavigation(
         }
 
         transitionComposable(Screens.Profiles.Management.path) {
-            ProfilesManagementScreen {
-                navController.popBackStack()
+            with(navController) {
+                ProfilesManagementScreen(
+                    onGoToEditProfile = {
+                        navigate(Screens.Profiles.EditProfile.buildRoute(it))
+                    },
+                    onBackPressed = {
+                        popBackStack()
+                    }
+                )
             }
         }
     }

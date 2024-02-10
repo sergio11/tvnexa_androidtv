@@ -4,10 +4,13 @@ import androidx.annotation.DrawableRes
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -18,7 +21,11 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.material3.Border
 import androidx.tv.material3.ClickableSurfaceDefaults
 import androidx.tv.material3.ExperimentalTvMaterial3Api
+import androidx.tv.material3.Icon
+import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Surface
+import compose.icons.LineAwesomeIcons
+import compose.icons.lineawesomeicons.Edit
 
 private val DEFAULT_HORIZONTAL_PADDING = 32.dp
 private val DEFAULT_AVATAR_SIZE = 100.dp
@@ -33,6 +40,7 @@ fun ScalableAvatar(
     padding: Dp = DEFAULT_HORIZONTAL_PADDING,
     focusedScale: Float = DEFAULT_FOCUSED_SCALE,
     borderColor: Color = DEFAULT_AVATAR_BORDER_COLOR,
+    editMode: Boolean = false,
     @DrawableRes avatarRes: Int,
     onPressed: () -> Unit = {}
 ) {
@@ -52,14 +60,34 @@ fun ScalableAvatar(
         shape = ClickableSurfaceDefaults.shape(shape = CircleShape),
         scale = ClickableSurfaceDefaults.scale(focusedScale = focusedScale),
     ) {
-        Image(
-            painter = painterResource(id = avatarRes),
-            contentDescription = null,
-            contentScale = ContentScale.Crop,
-            modifier =  Modifier
+        Box(
+            modifier = Modifier
                 .size(size)
                 .clip(CircleShape)
-                .background(Color.Transparent),
-        )
+                .background(Color.Transparent)
+        ) {
+            Image(
+                painter = painterResource(id = avatarRes),
+                contentDescription = null,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier.fillMaxSize()
+            )
+            if (editMode) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(MaterialTheme.colorScheme.primary.copy(0.6f))
+                ) {
+                    Icon(
+                        imageVector = LineAwesomeIcons.Edit,
+                        contentDescription = "Edit",
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .padding(4.dp),
+                        tint = Color.White
+                    )
+                }
+            }
+        }
     }
 }

@@ -1,6 +1,5 @@
 package com.dreamsoftware.tvnexa.ui.features.profiles.selector
 
-import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfilesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SelectProfileUseCase
@@ -18,11 +17,9 @@ class ProfileSelectorViewModel @Inject constructor(
     override fun onGetDefaultState(): ProfileSelectorUiState = ProfileSelectorUiState()
 
     fun loadProfiles() {
-        onLoading()
-        getProfilesUseCase.invoke(
-            scope = viewModelScope,
-            onSuccess = ::onLoadProfileSuccessfully,
-            onError = ::onErrorOccurred
+        executeUseCase(
+            useCase = getProfilesUseCase,
+            onSuccess = ::onLoadProfileSuccessfully
         )
     }
 
@@ -38,22 +35,9 @@ class ProfileSelectorViewModel @Inject constructor(
         }
     }
 
-    private fun onLoading() {
-        updateState {
-            it.copyState(isLoading = true)
-        }
-    }
-
-    private fun onIdle() {
-        updateState { it.copyState(isLoading = false) }
-    }
-
     private fun onLoadProfileSuccessfully(profiles: List<ProfileBO>) {
         updateState {
-            it.copy(
-                isLoading = false,
-                profiles = profiles
-            )
+            it.copy(profiles = profiles)
         }
     }
 
@@ -65,19 +49,13 @@ class ProfileSelectorViewModel @Inject constructor(
         launchSideEffect(ProfileSelectorSideEffects.ProfileSelected)
     }
 
-    private fun onErrorOccurred(ex: Exception) {
-        ex.printStackTrace()
-        onIdle()
-    }
-
     private fun selectProfile(profileBO: ProfileBO) {
-        selectProfileUseCase.invoke(
-            scope = viewModelScope,
+        executeUseCaseWithParams(
+            useCase = selectProfileUseCase,
             params = SelectProfileUseCase.Params(profileBO),
             onSuccess = {
                 onProfileSelected()
-            },
-            onError = ::onErrorOccurred
+            }
         )
     }
 }

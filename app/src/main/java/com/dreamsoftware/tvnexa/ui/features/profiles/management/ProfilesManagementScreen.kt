@@ -7,17 +7,19 @@ import com.dreamsoftware.tvnexa.ui.components.CommonScreen
 @Composable
 fun ProfilesManagementScreen(
     viewModel: ProfilesManagementViewModel = hiltViewModel(),
-    onBackPressed: () -> Unit
+    onBackPressed: () -> Unit,
+    onGoToEditProfile: (String) -> Unit
 ) {
     CommonScreen(
         viewModel = viewModel,
-        onInit = {  },
+        onInit = { loadProfiles() },
         onBackPressed = onBackPressed,
         onInitialUiState = { ProfilesManagementUiState() },
     ) { uiState ->
         ProfilesManagementScreenContent(
             uiState = uiState,
-            onCompletePressed = onBackPressed
+            onCompletePressed = onBackPressed,
+            onProfileSelected = { onGoToEditProfile(it.uuid) }
         )
     }
 }
