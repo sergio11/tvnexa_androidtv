@@ -104,4 +104,9 @@
     <string name="secure_pin_form_label_text">Secure Pin</string>
     <string name="secure_pin_form_accept_button_text">Let\'s Go!</string>
     <string name="secure_pin_form_cancel_button_text">Not Today</string>
+
+    <!-- Profile Management -->
+    <string name="profiles_management_main_title">Let\'s Manage Profiles!</string>
+    <string name="profiles_management_main_description">The perfect hub for your diverse profiles!</string>
+    <string name="profiles_management_form_confirm_button_text">All Set</string>
 </resources>
