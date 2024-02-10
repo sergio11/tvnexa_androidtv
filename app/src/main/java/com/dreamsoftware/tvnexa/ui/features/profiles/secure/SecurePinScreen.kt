@@ -8,6 +8,7 @@ import com.dreamsoftware.tvnexa.ui.components.CommonScreen
 fun SecurePinScreen(
     args: SecurePinScreenArgs,
     viewModel: SecurePinViewModel = hiltViewModel(),
+    onGoToHome: () -> Unit,
     onBackPressed: () -> Unit
 ) {
     CommonScreen(
@@ -15,6 +16,11 @@ fun SecurePinScreen(
         onInit = { load(args.profileId) },
         onBackPressed = onBackPressed,
         onInitialUiState = { SecurePinUiState() },
+        onSideEffect = {
+            if(it is SecurePinSideEffects.ProfileUnlockedSuccessfully) {
+                onGoToHome()
+            }
+        }
     ) { uiState ->
         SecurePinScreenContent(
             uiState = uiState,

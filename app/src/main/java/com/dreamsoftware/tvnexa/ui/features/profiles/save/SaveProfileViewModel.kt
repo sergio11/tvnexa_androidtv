@@ -9,6 +9,7 @@ import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
 import com.dreamsoftware.tvnexa.ui.extensions.EMPTY
+import com.dreamsoftware.tvnexa.utils.combinedLet
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -21,12 +22,25 @@ class SaveProfileViewModel @Inject constructor(
 
     override fun onGetDefaultState(): SaveProfileUiState = SaveProfileUiState()
 
+    private lateinit var profileId: String
+
     fun load(profileId: String) {
+        this.profileId = profileId
         executeUseCaseWithParams(
             useCase = getProfileByIdUseCase,
             params = GetProfileByIdUseCase.Params(profileId),
             onSuccess = ::onLoadProfileCompleted
         )
+    }
+
+    fun onSaveProfile() {
+        with(uiState.value) {
+            if(isEditMode) {
+                onUpdateProfile()
+            } else {
+                onCreateProfile()
+            }
+        }
     }
 
     fun onProfileTypeChanged(newProfileType: ProfileTypeEnum) {
@@ -47,6 +61,43 @@ class SaveProfileViewModel @Inject constructor(
         }
     }
 
+    private fun onUpdateProfile() {
+        with(uiState.value) {
+            executeUseCaseWithParams(
+                useCase = updateProfileUseCase,
+                params = UpdateProfileUseCase.Params(
+                    profileId = profileId,
+                    alias = alias,
+                    pin = null,
+                    isAdmin = null,
+                    type = profileType?.name
+                ),
+                onSuccess = {
+                    onSaveProfileSuccessfully()
+                }
+            )
+        }
+    }
+
+    private fun onCreateProfile() {
+        with(uiState.value) {
+            combinedLet(profileType, securePin.toIntOrNull()) { type, pin ->
+                executeUseCaseWithParams(
+                    useCase = createProfileUseCase,
+                    params = CreateProfileUseCase.Params(
+                        alias = alias,
+                        pin = pin,
+                        isAdmin = false,
+                        type = type
+                    ),
+                    onSuccess = {
+                        onSaveProfileSuccessfully()
+                    }
+                )
+            }
+        }
+    }
+
     private fun onLoadProfileCompleted(profileBO: ProfileBO) {
         updateState {
             it.copy(
@@ -55,6 +106,10 @@ class SaveProfileViewModel @Inject constructor(
                 profileType = profileBO.type
             )
         }
+    }
+
+    private fun onSaveProfileSuccessfully() {
+        launchSideEffect(SaveProfileSideEffects.SaveProfileSuccessfully)
     }
 }
 
@@ -70,4 +125,6 @@ data class SaveProfileUiState(
         copy(isLoading = isLoading, error = error)
 }
 
-sealed interface SaveProfileSideEffects: SideEffect
+sealed interface SaveProfileSideEffects: SideEffect {
+    data object SaveProfileSuccessfully: SaveProfileSideEffects
+}
