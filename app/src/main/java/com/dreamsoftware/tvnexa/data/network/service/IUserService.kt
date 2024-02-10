@@ -65,7 +65,7 @@ interface IUserService {
      * @return An [ApiResponseDTO] wrapping a message indicating the deletion status.
      */
     @DELETE("user/profiles/{profileId}")
-    suspend fun deleteProfile(@Path("profileId") profileId: String): ApiResponseDTO<String>
+    suspend fun deleteProfile(@Path("profileId") profileId: String): ApiResponseDTO<Any>
 
     /**
      * Creates a new user profile.
@@ -74,7 +74,7 @@ interface IUserService {
      * @return An [ApiResponseDTO] wrapping a message indicating the creation status.
      */
     @POST("user/profiles/")
-    suspend fun createProfile(@Body data: CreateProfileRequestDTO): ApiResponseDTO<String>
+    suspend fun createProfile(@Body data: CreateProfileRequestDTO): ApiResponseDTO<Any>
 
     /**
      * Verifies a PIN associated with a user profile.

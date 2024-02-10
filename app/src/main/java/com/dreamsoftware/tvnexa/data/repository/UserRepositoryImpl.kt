@@ -23,6 +23,19 @@ import com.dreamsoftware.tvnexa.utils.IMapper
 import com.dreamsoftware.tvnexa.utils.IOneSideMapper
 import kotlin.jvm.Throws
 
+/**
+ * Implementation of [IUserRepository] that handles user-related data operations.
+ * This repository interacts with the data sources and mappers to provide user-related functionalities.
+ * @param userDataSource The data source responsible for fetching user-related data from the network.
+ * @param userMapper Mapper to convert [UserResponseDTO] to [UserDetailBO].
+ * @param updateUserMapper Mapper to convert [UpdatedUserRequestBO] to [UpdatedUserRequestDTO].
+ * @param profileMapper Mapper to convert [ProfileResponseDTO] to [ProfileBO].
+ * @param updateProfileMapper Mapper to convert [UpdatedProfileRequestBO] to [UpdatedProfileRequestDTO].
+ * @param createProfileMapper Mapper to convert [CreateProfileRequestBO] to [CreateProfileRequestDTO].
+ * @param channelMapper Mapper to convert [SimpleChannelResponseDTO] to [SimpleChannelBO].
+ * @param profileSessionDataSource Data source responsible for managing profile session data in preferences.
+ * @param profileSessionMapper Mapper to convert [ProfileBO] to [ProfileSelectedPreferenceDTO].
+ */
 internal class UserRepositoryImpl(
     private val userDataSource: IUserDataSource,
     private val userMapper: IOneSideMapper<UserResponseDTO, UserDetailBO>,
@@ -35,6 +48,11 @@ internal class UserRepositoryImpl(
     private val profileSessionMapper: IMapper<ProfileBO, ProfileSelectedPreferenceDTO>
 ): SupportRepositoryImpl(), IUserRepository {
 
+    /**
+     * Fetches the user details.
+     * @return [UserDetailBO] containing user details.
+     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     */
     @Throws(
         DomainException.InternalErrorException::class
     )
@@ -42,6 +60,12 @@ internal class UserRepositoryImpl(
         userDataSource.getDetail().let(userMapper::mapInToOut)
     }
 
+    /**
+     * Updates the user details.
+     * @param data The data containing the updated user details.
+     * @return [UserDetailBO] containing the updated user details.
+     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     */
     @Throws(
         DomainException.InternalErrorException::class
     )
@@ -50,6 +74,11 @@ internal class UserRepositoryImpl(
             .let(userMapper::mapInToOut)
     }
 
+    /**
+     * Fetches the profiles associated with the user.
+     * @return [List] of [ProfileBO] containing user profiles.
+     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     */
     @Throws(
         DomainException.InternalErrorException::class
     )
@@ -59,6 +88,13 @@ internal class UserRepositoryImpl(
             .toList()
     }
 
+    /**
+     * Updates the profile details.
+     * @param profileId The ID of the profile to be updated.
+     * @param data The data containing the updated profile details.
+     * @return [ProfileBO] containing the updated profile details.
+     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     */
     @Throws(
         DomainException.InternalErrorException::class
     )
@@ -70,50 +106,79 @@ internal class UserRepositoryImpl(
             .let(profileMapper::mapInToOut)
     }
 
-    @Throws(
-        DomainException.InternalErrorException::class
-    )
+    /**
+     * Deletes the profile associated with the given profile ID.
+     * @param profileId The ID of the profile to be deleted.
+     * @return `true` if the profile is successfully deleted, `false` otherwise.
+     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     */
+    @Throws(DomainException.InternalErrorException::class)
     override suspend fun deleteProfile(profileId: String): Boolean = safeExecute {
         userDataSource.deleteProfile(profileId)
     }
 
-    @Throws(
-        DomainException.InternalErrorException::class
-    )
+    /**
+     * Creates a new profile with the provided data.
+     * @param data The data containing the details of the profile to be created.
+     * @return `true` if the profile is successfully created, `false` otherwise.
+     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     */
+    @Throws(DomainException.InternalErrorException::class)
     override suspend fun createProfile(data: CreateProfileRequestBO): Boolean = safeExecute {
         userDataSource.createProfile(createProfileMapper.mapInToOut(data))
     }
 
-    @Throws(
-        DomainException.InternalErrorException::class
-    )
+    /**
+     * Saves the selected profile to the session data.
+     * @param profile The profile to be saved.
+     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     */
+    @Throws(DomainException.InternalErrorException::class)
     override suspend fun selectProfile(profile: ProfileBO): Unit = safeExecute {
         profileSessionDataSource.save(profileSessionMapper.mapInToOut(profile))
     }
 
-    @Throws(
-        DomainException.InternalErrorException::class
-    )
+    /**
+     * Retrieves the selected profile from the session data.
+     * @return The selected profile.
+     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     */
+    @Throws(DomainException.InternalErrorException::class)
     override suspend fun getProfileSelected(): ProfileBO = safeExecute {
         profileSessionMapper.mapOutToIn(profileSessionDataSource.get())
     }
 
-    @Throws(
-        DomainException.InternalErrorException::class
-    )
+    /**
+     * Verifies the PIN associated with the given profile ID.
+     * @param profileId The ID of the profile for PIN verification.
+     * @param pin The PIN to be verified.
+     * @return `true` if the PIN is verified successfully, `false` otherwise.
+     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     */
+    @Throws(DomainException.InternalErrorException::class)
     override suspend fun verifyPin(profileId: String, pin: Int): Boolean = safeExecute {
         userDataSource.verifyPin(profileId, PinVerificationRequestDTO(pin))
     }
 
-    @Throws(
-        DomainException.InternalErrorException::class
-    )
+    /**
+     * Retrieves the list of blocked channels associated with the given profile ID.
+     * @param profileId The ID of the profile.
+     * @return The list of blocked channels.
+     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     */
+    @Throws(DomainException.InternalErrorException::class)
     override suspend fun getBlockedChannels(profileId: String): List<SimpleChannelBO> = safeExecute {
         userDataSource.getBlockedChannels(profileId)
             .let(channelMapper::mapInListToOutList)
             .toList()
     }
 
+    /**
+     * Retrieves the list of favorite channels associated with the given profile ID.
+     * @param profileId The ID of the profile.
+     * @return The list of favorite channels.
+     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     */
     @Throws(
         DomainException.InternalErrorException::class
     )

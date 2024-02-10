@@ -16,12 +16,17 @@ fun SaveProfileScreen(
         onInit = { args?.profileId?.let(::load) },
         onBackPressed = onBackPressed,
         onInitialUiState = { SaveProfileUiState() },
+        onSideEffect = {
+            if(it is SaveProfileSideEffects.SaveProfileSuccessfully) {
+                onBackPressed()
+            }
+        }
     ) { uiState ->
         SaveProfileScreenContent(
             uiState = uiState,
             onAliasChanged = ::onAliasChanged,
             onPinChanged = ::onSecurePinChanged,
-            onSaveProfilePressed = {},
+            onSaveProfilePressed = ::onSaveProfile,
             onProfileTypeChanged = ::onProfileTypeChanged,
             onDeleteProfilePressed = {
                 args?.profileId?.let(onGoToDeleteProfile)

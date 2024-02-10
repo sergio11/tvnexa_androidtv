@@ -50,6 +50,7 @@ fun CommonTextField(
     @StringRes labelRes: Int,
     icon: ImageVector,
     imeAction: ImeAction = ImeAction.Next,
+    onImeActionCompleted: () -> Unit = {},
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     errorMessage: String? = null
 ) {
@@ -70,7 +71,7 @@ fun CommonTextField(
                     primary
                 }
             ),
-            visualTransformation = if (type != CommonTextFieldTypeEnum.PASSWORD)
+            visualTransformation = if (type != CommonTextFieldTypeEnum.PASSWORD && type != CommonTextFieldTypeEnum.NUMBER_SECRET)
                 VisualTransformation.None
             else
                 PasswordVisualTransformation(),
@@ -113,10 +114,14 @@ fun CommonTextField(
                 imeAction = imeAction
             ),
             keyboardActions = KeyboardActions(
-                onNext = { focusManager.moveFocus(FocusDirection.Down) },
+                onNext = {
+                    focusManager.moveFocus(FocusDirection.Down)
+                    onImeActionCompleted()
+                },
                 onDone = {
                     keyboard?.hide()
                     focusManager.clearFocus(true)
+                    onImeActionCompleted()
                 }
             )
         )

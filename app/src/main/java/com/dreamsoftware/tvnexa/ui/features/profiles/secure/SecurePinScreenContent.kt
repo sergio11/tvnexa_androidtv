@@ -31,7 +31,7 @@ fun SecurePinScreenContent(
             secondaryOptionTextRes = R.string.secure_pin_form_cancel_button_text,
             onPrimaryOptionPressed = onVerifyPressed,
             onSecondaryOptionPressed = onCancelPressed
-        ) {
+        ) { mainFocusRequester ->
             CommonFocusRequester { focusRequester ->
                 CommonTextField(
                     modifier = Modifier.focusRequester(focusRequester),
@@ -39,6 +39,9 @@ fun SecurePinScreenContent(
                     value = unlockPin,
                     type = CommonTextFieldTypeEnum.NUMBER,
                     imeAction = ImeAction.Done,
+                    onImeActionCompleted = {
+                        mainFocusRequester.requestFocus()
+                    },
                     labelRes = R.string.secure_pin_form_label_text,
                     onValueChange = onUnlockPinChanged
                 )
