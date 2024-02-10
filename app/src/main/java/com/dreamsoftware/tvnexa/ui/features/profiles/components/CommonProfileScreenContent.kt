@@ -36,6 +36,7 @@ fun CommonProfileScreenContent(
     @StringRes tertiaryOptionTextRes: Int? = null,
     onPrimaryOptionPressed: () -> Unit = {},
     onSecondaryOptionPressed: () -> Unit = {},
+    onTertiaryOptionPressed: () -> Unit = {},
     content: @Composable () -> Unit
 ) {
     CommonGradientBox {
@@ -73,7 +74,8 @@ fun CommonProfileScreenContent(
                 secondaryOptionTextRes = secondaryOptionTextRes,
                 tertiaryOptionTextRes = tertiaryOptionTextRes,
                 onPrimaryOptionPressed = onPrimaryOptionPressed,
-                onSecondaryOptionPressed = onSecondaryOptionPressed
+                onSecondaryOptionPressed = onSecondaryOptionPressed,
+                onTertiaryOptionPressed = onTertiaryOptionPressed
             )
         }
     }

@@ -3,6 +3,7 @@ package com.dreamsoftware.tvnexa.ui.navigation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import com.dreamsoftware.tvnexa.ui.features.profiles.delete.DeleteProfileScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.management.ProfilesManagementScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.save.SaveProfileScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.secure.SecurePinScreen
@@ -46,12 +47,17 @@ fun ProfilesNavigation(
         transitionComposable(Screens.Profiles.EditProfile.path) { navBackStackEntry ->
             navBackStackEntry.arguments?.let { args ->
                 Screens.Profiles.EditProfile.parseArgs(args)?.let {
-                    SaveProfileScreen(
-                        args = it,
-                        onBackPressed = {
-                            navController.navigateUp()
-                        },
-                    )
+                    with(navController) {
+                        SaveProfileScreen(
+                            args = it,
+                            onGoToDeleteProfile = {
+                                navigate(Screens.Profiles.DeleteProfile.buildRoute(it))
+                            },
+                            onBackPressed = {
+                                navigateUp()
+                            },
+                        )
+                    }
                 }
             }
         }
@@ -80,6 +86,19 @@ fun ProfilesNavigation(
                         popBackStack()
                     }
                 )
+            }
+        }
+
+        transitionComposable(Screens.Profiles.DeleteProfile.path) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let { args ->
+                Screens.Profiles.DeleteProfile.parseArgs(args)?.let {
+                    DeleteProfileScreen(
+                        args = it,
+                        onBackPressed = {
+                            navController.navigateUp()
+                        },
+                    )
+                }
             }
         }
     }
