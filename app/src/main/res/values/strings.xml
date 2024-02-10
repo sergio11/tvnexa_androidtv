@@ -111,4 +111,11 @@
     <string name="profiles_management_main_title">Let\'s Manage Profiles!</string>
     <string name="profiles_management_main_description">The perfect hub for your diverse profiles!</string>
     <string name="profiles_management_form_confirm_button_text">All Set</string>
+
+    <!-- Delete Profile -->
+    <string name="delete_profile_main_title">Farewell, Profile!</string>
+    <string name="delete_profile_main_description">Are you absolutely certain you want to bid farewell to this profile? 🌟</string>
+    <string name="delete_profile_form_accept_button_text">Delete Profile</string>
+    <string name="delete_profile_form_cancel_button_text">Keep Profile</string>
+    <string name="delete_profile_explanation_text">Warning! Deleting this profile will result in the loss of all your saved favorite channels and other customized settings. Are you sure you want to proceed?</string>
 </resources>
