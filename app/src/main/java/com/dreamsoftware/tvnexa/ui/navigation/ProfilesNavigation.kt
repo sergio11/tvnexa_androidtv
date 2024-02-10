@@ -3,6 +3,7 @@ package com.dreamsoftware.tvnexa.ui.navigation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import com.dreamsoftware.tvnexa.ui.features.profiles.management.ProfilesManagementScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.save.SaveProfileScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.secure.SecurePinScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.selector.ProfileSelectorScreen
@@ -27,7 +28,9 @@ fun ProfilesNavigation(
                     onGoToAddProfile = {
                         navigate(Screens.Profiles.AddProfile.path)
                     },
-                    onGoToProfileManagement = {}
+                    onGoToProfileManagement = {
+                        navigate(Screens.Profiles.Management.path)
+                    }
                 )
             }
         }
@@ -64,6 +67,12 @@ fun ProfilesNavigation(
                         },
                     )
                 }
+            }
+        }
+
+        transitionComposable(Screens.Profiles.Management.path) {
+            ProfilesManagementScreen {
+                navController.popBackStack()
             }
         }
     }

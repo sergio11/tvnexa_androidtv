@@ -4,8 +4,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
@@ -38,25 +36,21 @@ fun SaveProfileScreenContent(
     onCancelPressed: () -> Unit
 ) {
     CommonProfileScreenContent(
-        uiState = uiState,
+        isLoading = uiState.isLoading,
         mainTitleRes = R.string.create_profile_main_title,
         secondaryTitleRes = R.string.create_profile_secondary_title,
-        acceptRes = R.string.save_profile_confirm_button_text,
-        cancelRes = R.string.save_profile_cancel_button_text,
-        onAcceptPressed = onSaveProfilePressed,
-        onCancelPressed = onCancelPressed
+        primaryOptionTextRes = R.string.save_profile_confirm_button_text,
+        secondaryOptionTextRes = R.string.save_profile_cancel_button_text,
+        onPrimaryOptionPressed = onSaveProfilePressed,
+        onSecondaryOptionPressed = onCancelPressed
     ) {
         Row(
-            modifier = Modifier
-                .fillMaxSize()
-                .weight(0.7f),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Center
         ) {
             Column(
                 modifier = Modifier
-                    .width(200.dp)
-                    .fillMaxHeight(),
+                    .width(200.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.Center
             ) {
@@ -73,21 +67,17 @@ fun SaveProfileScreenContent(
             }
             Spacer(modifier = Modifier.width(30.dp))
             Column(
-                modifier = Modifier
-                    .fillMaxHeight(),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.SpaceEvenly
             ) {
                 SaveProfileFormContent(
                     modifier = Modifier
-                        .fillMaxHeight()
                         .weight(0.7f),
                     uiState = uiState,
                     onAliasChanged = onAliasChanged,
                     onPinChanged = onPinChanged
                 )
                 ProfileSelector(modifier = Modifier
-                    .fillMaxHeight()
                     .weight(0.3f))
             }
         }
