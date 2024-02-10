@@ -9,6 +9,7 @@ import com.dreamsoftware.tvnexa.ui.navigation.HomeNavigation
 fun HomeScreenContent(
     uiState: HomeUiState,
     navController: NavHostController,
+    onGoToProfileSelector: () -> Unit,
     onNavigateToDetail: (String) -> Unit,
 ) {
     with(uiState) {
@@ -17,6 +18,7 @@ fun HomeScreenContent(
             mainMenuItems = mainMenuItems,
             secondaryMenuItems = secondaryMenuItems,
             profileSelected = profileSelected,
+            onProfilePressed = onGoToProfileSelector,
             onMenuItemSelected = { navController.navigate(it) }
         ) {
             HomeNavigation(
