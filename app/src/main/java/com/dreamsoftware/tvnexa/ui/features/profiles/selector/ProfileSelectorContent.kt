@@ -3,7 +3,7 @@ package com.dreamsoftware.tvnexa.ui.features.profiles.selector
 import androidx.compose.runtime.Composable
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
-import com.dreamsoftware.tvnexa.ui.components.ProfileSelector
+import com.dreamsoftware.tvnexa.ui.features.profiles.components.CommonProfileSelector
 import com.dreamsoftware.tvnexa.ui.features.profiles.components.CommonProfileScreenContent
 
 @Composable
@@ -22,7 +22,7 @@ fun ProfileSelectorContent(
         onPrimaryOptionPressed = onAddProfilePressed,
         onSecondaryOptionPressed = onProfileManagementPressed
     ) {
-        ProfileSelector(
+        CommonProfileSelector(
             profiles = uiState.profiles,
             onProfileSelected = onProfileSelected
         )
