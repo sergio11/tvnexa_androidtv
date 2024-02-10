@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.dreamsoftware.tvnexa.ui.features.details.DetailScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.player.PlayerScreenArgs
+import com.dreamsoftware.tvnexa.ui.features.profiles.delete.DeleteProfileScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.profiles.save.SaveProfileScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.profiles.secure.SecurePinScreenArgs
 
@@ -39,6 +40,24 @@ sealed class Screens(val path: String, arguments: List<NamedNavArgument> = empty
             fun parseArgs(args: Bundle): SecurePinScreenArgs? = with(args) {
                 getString("profile_id")?.let {
                     SecurePinScreenArgs(profileId = it)
+                }
+            }
+        }
+
+        data object DeleteProfile : Screens("delete_profile/{profile_id}", arguments = listOf(
+            navArgument("profile_id") {
+                type = NavType.StringType
+            }
+        )) {
+            fun buildRoute(profileId: String): String =
+                path.replace(
+                    oldValue = "{profile_id}",
+                    newValue = profileId
+                )
+
+            fun parseArgs(args: Bundle): DeleteProfileScreenArgs? = with(args) {
+                getString("profile_id")?.let {
+                    DeleteProfileScreenArgs(profileId = it)
                 }
             }
         }

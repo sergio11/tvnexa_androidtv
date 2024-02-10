@@ -34,6 +34,7 @@ fun SaveProfileScreenContent(
     onPinChanged: (String) -> Unit,
     onProfileTypeChanged: (ProfileTypeEnum) -> Unit,
     onSaveProfilePressed: () -> Unit,
+    onDeleteProfilePressed: () -> Unit,
     onCancelPressed: () -> Unit
 ) {
     with(uiState) {
@@ -54,10 +55,11 @@ fun SaveProfileScreenContent(
             tertiaryOptionTextRes = if(isEditMode) {
                 R.string.save_profile_delete_button_text
             } else {
-                null 
+                null
             },
             onPrimaryOptionPressed = onSaveProfilePressed,
-            onSecondaryOptionPressed = onCancelPressed
+            onSecondaryOptionPressed = onCancelPressed,
+            onTertiaryOptionPressed = onDeleteProfilePressed
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
@@ -101,7 +103,7 @@ private fun ProfileAvatarSelected(
     ) {
         ScalableAvatar(
             avatarRes = profileType?.toDrawableResource(),
-            padding = Dimens.SAVE_PROFILE_AVATAR_SELECTED_PADDING,
+            padding = Dimens.PROFILE_AVATAR_NO_PADDING,
             focusedScale = Dimens.SAVE_PROFILE_AVATAR_SELECTED_FOCUSED_SCALE
         )
         Spacer(modifier = Modifier.height(10.dp))
@@ -164,7 +166,7 @@ private fun ProfileSelector(
                 avatarRes = it.toDrawableResource(),
                 focusedScale = Dimens.SAVE_PROFILE_AVATAR_FOCUSED_SCALE,
                 size = Dimens.SAVE_PROFILE_AVATAR_SIZE,
-                padding = Dimens.SAVE_PROFILE_AVATAR_SELECTED_PADDING,
+                padding = Dimens.PROFILE_AVATAR_NO_PADDING,
                 onPressed = {
                     onProfileTypeChanged(it)
                 }
