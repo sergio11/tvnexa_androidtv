@@ -23,6 +23,8 @@ sealed class Screens(val path: String, arguments: List<NamedNavArgument> = empty
 
         data object AddProfile : Profiles("add_profile")
 
+        data object Management : Profiles("profiles_management")
+
         data object UnlockProfile : Screens("unlock_profile/{profile_id}", arguments = listOf(
             navArgument("profile_id") {
                 type = NavType.StringType

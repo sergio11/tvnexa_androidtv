@@ -1,14 +1,11 @@
 package com.dreamsoftware.tvnexa.ui.features.profiles.secure
 
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Security
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.input.ImeAction
-import androidx.compose.ui.unit.dp
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonTextField
@@ -23,15 +20,14 @@ fun SecurePinScreenContent(
     onCancelPressed: () -> Unit
 ) {
     CommonProfileScreenContent(
-        uiState = uiState,
+        isLoading = uiState.isLoading,
         mainTitleRes = R.string.secure_pin_main_title,
         secondaryTitleRes = R.string.secure_pin_main_description,
-        acceptRes = R.string.secure_pin_form_accept_button_text,
-        cancelRes = R.string.secure_pin_form_cancel_button_text,
-        onAcceptPressed = onVerifyPressed,
-        onCancelPressed = onCancelPressed
+        primaryOptionTextRes = R.string.secure_pin_form_accept_button_text,
+        secondaryOptionTextRes = R.string.secure_pin_form_cancel_button_text,
+        onPrimaryOptionPressed = onVerifyPressed,
+        onSecondaryOptionPressed = onCancelPressed
     ) {
-        Spacer(modifier = Modifier.height(80.dp))
         CommonFocusRequester { focusRequester ->
             CommonTextField(
                 modifier = Modifier.focusRequester(focusRequester),
@@ -43,6 +39,5 @@ fun SecurePinScreenContent(
                 onValueChange = onUnlockPinChanged
             )
         }
-        Spacer(modifier = Modifier.height(80.dp))
     }
 }

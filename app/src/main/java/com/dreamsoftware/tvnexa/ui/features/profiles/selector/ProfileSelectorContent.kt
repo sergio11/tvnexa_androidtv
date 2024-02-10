@@ -14,13 +14,13 @@ fun ProfileSelectorContent(
     onProfileManagementPressed: () -> Unit
 ) {
     CommonProfileScreenContent(
-        uiState = uiState,
+        isLoading = uiState.isLoading,
         mainTitleRes = R.string.profile_selector_main_title,
         secondaryTitleRes = R.string.profile_selector_secondary_title,
-        acceptRes = R.string.profile_selector_add_profile_button_text,
-        cancelRes = R.string.profile_selector_profile_management_button_text,
-        onAcceptPressed = onAddProfilePressed,
-        onCancelPressed = onProfileManagementPressed
+        primaryOptionTextRes = R.string.profile_selector_add_profile_button_text,
+        secondaryOptionTextRes = R.string.profile_selector_profile_management_button_text,
+        onPrimaryOptionPressed = onAddProfilePressed,
+        onSecondaryOptionPressed = onProfileManagementPressed
     ) {
         ProfileSelector(
             profiles = uiState.profiles,

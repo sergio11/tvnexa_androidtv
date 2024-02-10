@@ -24,22 +24,21 @@ import com.dreamsoftware.tvnexa.ui.components.CommonGradientBox
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
-import com.dreamsoftware.tvnexa.ui.core.UiState
 
 @Composable
 fun CommonProfileScreenContent(
-    uiState: UiState<*>,
+    isLoading: Boolean,
     @StringRes mainTitleRes: Int,
     @StringRes secondaryTitleRes: Int,
-    @StringRes acceptRes: Int,
-    @StringRes cancelRes: Int,
-    onAcceptPressed: () -> Unit = {},
-    onCancelPressed: () -> Unit = {},
-    content: @Composable ColumnScope.() -> Unit
+    @StringRes primaryOptionTextRes: Int,
+    @StringRes secondaryOptionTextRes: Int? = null,
+    onPrimaryOptionPressed: () -> Unit = {},
+    onSecondaryOptionPressed: () -> Unit = {},
+    content: @Composable () -> Unit
 ) {
     CommonGradientBox {
         LoadingDialog(
-            isShowingDialog = uiState.isLoading,
+            isShowingDialog = isLoading,
             titleRes = R.string.generic_progress_dialog_title,
             descriptionRes = R.string.generic_progress_dialog_description
         )
@@ -52,42 +51,69 @@ fun CommonProfileScreenContent(
         Column(
             modifier = Modifier
                 .align(Alignment.Center)
-                .fillMaxHeight(0.9f)
+                .fillMaxHeight(0.95f)
                 .fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.weight(0.2f))
-            CommonText(
-                titleRes = mainTitleRes,
-                type = CommonTextTypeEnum.TITLE_LARGE
+            CommonProfileHeader(
+                mainTitleRes = mainTitleRes,
+                secondaryTitleRes = secondaryTitleRes
             )
-            Spacer(modifier = Modifier.height(10.dp))
-            CommonText(
-                titleRes = secondaryTitleRes,
-                type = CommonTextTypeEnum.TITLE_MEDIUM
+            CommonProfileContent(
+                content = content
             )
-            content()
             CommonProfileActions(
                 modifier = Modifier
                     .fillMaxSize()
                     .weight(0.3f),
-                acceptRes = acceptRes,
-                cancelRes = cancelRes,
-                onAcceptPressed = onAcceptPressed,
-                onCancelPressed = onCancelPressed
+                primaryOptionTextRes = primaryOptionTextRes,
+                secondaryOptionTextRes = secondaryOptionTextRes,
+                onPrimaryOptionPressed = onPrimaryOptionPressed,
+                onSecondaryOptionPressed = onSecondaryOptionPressed
             )
         }
     }
 }
 
 @Composable
+private fun ColumnScope.CommonProfileHeader(
+    @StringRes mainTitleRes: Int,
+    @StringRes secondaryTitleRes: Int,
+) {
+    Spacer(modifier = Modifier.weight(0.2f))
+    CommonText(
+        titleRes = mainTitleRes,
+        type = CommonTextTypeEnum.TITLE_LARGE
+    )
+    Spacer(modifier = Modifier.height(10.dp))
+    CommonText(
+        titleRes = secondaryTitleRes,
+        type = CommonTextTypeEnum.TITLE_MEDIUM
+    )
+    Spacer(modifier = Modifier.weight(0.1f))
+}
+
+@Composable
+private fun ColumnScope.CommonProfileContent(
+    content: @Composable () -> Unit
+) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .weight(0.8f),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally) {
+        content()
+    }
+}
+
+@Composable
 private fun CommonProfileActions(
     modifier: Modifier = Modifier,
-    @StringRes acceptRes: Int,
-    @StringRes cancelRes: Int,
-    onAcceptPressed: () -> Unit,
-    onCancelPressed: () -> Unit
+    @StringRes primaryOptionTextRes: Int,
+    @StringRes secondaryOptionTextRes: Int? = null,
+    onPrimaryOptionPressed: () -> Unit = {},
+    onSecondaryOptionPressed: () -> Unit = {},
 ) {
     Row (
         modifier = modifier,
@@ -95,14 +121,16 @@ private fun CommonProfileActions(
         verticalAlignment = Alignment.CenterVertically
     ){
         CommonButton(
-            textRes = acceptRes,
-            onClick = onAcceptPressed,
+            textRes = primaryOptionTextRes,
+            onClick = onPrimaryOptionPressed,
         )
-        Spacer(modifier = Modifier.width(30.dp))
-        CommonButton(
-            textRes = cancelRes,
-            onClick = onCancelPressed,
-            style = CommonButtonStyleTypeEnum.INVERSE
-        )
+        secondaryOptionTextRes?.let {
+            Spacer(modifier = Modifier.width(30.dp))
+            CommonButton(
+                textRes = it,
+                onClick = onSecondaryOptionPressed,
+                style = CommonButtonStyleTypeEnum.INVERSE
+            )
+        }
     }
 }
