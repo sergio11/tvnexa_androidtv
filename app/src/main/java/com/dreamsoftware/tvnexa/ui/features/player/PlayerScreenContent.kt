@@ -26,7 +26,7 @@ import com.dreamsoftware.player.domain.state.PlayerState
 import com.dreamsoftware.player.domain.state.PlayerStateListener
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
-import com.dreamsoftware.tvnexa.ui.components.ChannelHeaderInfo
+import com.dreamsoftware.tvnexa.ui.components.CommonChannelHeaderInfo
 import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
 import com.dreamsoftware.tvnexa.ui.features.player.components.PlayerControlsState
@@ -146,7 +146,7 @@ private fun PlayerContentHeaders(
     channelBO: ChannelDetailBO
 ) {
     with(channelBO) {
-        ChannelHeaderInfo(
+        CommonChannelHeaderInfo(
             name = name,
             logo = logo,
             city = city,
