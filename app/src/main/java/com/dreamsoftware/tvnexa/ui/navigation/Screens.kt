@@ -16,6 +16,7 @@ sealed class Screens(val path: String, arguments: List<NamedNavArgument> = empty
     data object Onboarding: Screens("onboarding")
     data object SignIn : Screens("sign_in")
     data object SignUp : Screens("sign_up")
+
     sealed class Profiles private constructor(path: String) : Screens(path) {
         companion object {
             val DEFAULT = Selector
@@ -89,7 +90,13 @@ sealed class Screens(val path: String, arguments: List<NamedNavArgument> = empty
         data object Search : Home("search")
         data object Guide : Home("guide")
         data object Favorites : Home("favorites")
-        data object Settings : Home("settings")
+        sealed class Settings private constructor(path: String): Home(path) {
+            companion object {
+                val DEFAULT = Profile
+            }
+            data object Profile : Settings("settings/profile")
+            data object AboutMe : Settings("settings/about_me")
+        }
     }
     data object Player : Screens("player_screen/{channel_id}", arguments = listOf(
         navArgument("channel_id") {

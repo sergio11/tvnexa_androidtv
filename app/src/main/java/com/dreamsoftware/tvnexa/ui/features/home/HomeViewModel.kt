@@ -1,6 +1,5 @@
 package com.dreamsoftware.tvnexa.ui.features.home
 
-import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileSelectedUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
@@ -23,37 +22,18 @@ class HomeViewModel @Inject constructor(
     )
 
     fun load() {
-        onLoading()
-        loadProfileSelected()
+        executeUseCase(
+            useCase = getProfileSelectedUseCase,
+            onSuccess = ::onProfileLoadSuccessfully
+        )
     }
 
     fun onMenuItemSelected(id: String) {
         updateState { it.copy(menuItemIdSelected = id) }
     }
 
-    private fun loadProfileSelected() {
-        getProfileSelectedUseCase.invoke(
-            scope = viewModelScope,
-            onSuccess = ::onProfileLoadSuccessfully,
-            onError = ::onErrorOccurred
-        )
-    }
-
     private fun onProfileLoadSuccessfully(profile: ProfileBO) {
-        updateState { it.copy(isLoading = false, profileSelected = profile) }
-    }
-
-    private fun onLoading() {
-        updateState {
-            it.copyState(isLoading = true, error = null)
-        }
-    }
-
-    private fun onErrorOccurred(ex: Exception) {
-        ex.printStackTrace()
-        updateState {
-            it.copyState(isLoading = false)
-        }
+        updateState { it.copy(profileSelected = profile) }
     }
 }
 

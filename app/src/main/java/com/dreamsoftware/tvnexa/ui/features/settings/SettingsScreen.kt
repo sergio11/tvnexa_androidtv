@@ -1,52 +1,23 @@
-@file:OptIn(ExperimentalTvMaterial3Api::class)
-
 package com.dreamsoftware.tvnexa.ui.features.settings
 
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
-import androidx.navigation.NavHostController
-import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.MaterialTheme
-import com.dreamsoftware.tvnexa.ui.features.settings.navigation.NestedSettingsScreenNavigation
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.dreamsoftware.tvnexa.ui.components.CommonScreen
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
-import kotlinx.coroutines.flow.MutableStateFlow
 
-@OptIn(ExperimentalAnimationApi::class, ExperimentalTvMaterial3Api::class)
+@OptIn(ExperimentalAnimationApi::class)
 @Composable
-fun SettingsScreen() {
+fun SettingsScreen(
+    viewModel: SettingsViewModel = hiltViewModel()
+) {
     val navController = rememberAnimatedNavController()
-
-    Row(
-        Modifier
-            .fillMaxSize(),
+    CommonScreen(
+        viewModel = viewModel,
+        onInitialUiState = { SettingsUiState() }
     ) {
-        SettingsMenu(
-            modifier = Modifier
-                .fillMaxHeight()
-                .background(MaterialTheme.colorScheme.surface.copy(alpha = 0.2f))
-                .padding(vertical = 32.dp, horizontal = 16.dp),
-        ) {
-            navController.navigate(it.navigation)
-        }
-        SettingsNavigation(navController)
+        SettingsScreenContent(
+            navController = navController
+        )
     }
-}
-
-@Composable
-fun SettingsNavigation(navController: NavHostController) {
-    NestedSettingsScreenNavigation(navController = navController)
-}
-
-@Preview
-@Composable
-fun SettingsScreenPrev() {
-    SettingsScreen()
 }

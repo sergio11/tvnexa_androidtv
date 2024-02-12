@@ -30,7 +30,7 @@ fun HomeNavigation(
             FavoritesScreen(onGoToChannelDetail = onNavigateToDetail)
         }
 
-        transitionComposable(Screens.Home.Settings.path) {
+        transitionComposable(Screens.Home.Settings.DEFAULT.path) {
             SettingsScreen()
         }
     }
