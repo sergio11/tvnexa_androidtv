@@ -18,7 +18,7 @@ fun CommonFocusRequester(
     if(shouldRequestFocus()) {
         LaunchedEffect(Unit) {
             delay(requestFocusAtInMillis)
-            requester.requestFocus()
+            runCatching { requester.requestFocus() }
         }
     }
     content(requester)
