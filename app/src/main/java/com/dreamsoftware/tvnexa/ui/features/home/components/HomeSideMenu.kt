@@ -28,6 +28,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.onFocusChanged
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.DrawerState
@@ -138,8 +139,9 @@ private fun ColumnScope.ProfileSelectedItem(
                         .onFocusChanged { hasFocus = it.hasFocus }
                         .clip(RoundedCornerShape(20.dp))
                         .background(
-                            color = if(hasFocus) primary.copy(0.5f) else onPrimary,
-                            shape = RoundedCornerShape(20.dp))
+                            color = if (hasFocus) primary.copy(0.5f) else onPrimary,
+                            shape = RoundedCornerShape(20.dp)
+                        )
                         .padding(20.dp)
                         .clickable(
                             enabled = true,
@@ -223,7 +225,7 @@ private fun NavigationDrawerScope.SideMenuItem(
             leadingContent = { isFocused ->
                 Icon(
                     imageVector = item.icon ?: LineAwesomeIcons.InfoSolid,
-                    contentDescription = item.text,
+                    contentDescription = stringResource(id = item.title),
                     tint = if(isFocused || isSelected) {
                         onPrimary
                     } else {
@@ -233,7 +235,7 @@ private fun NavigationDrawerScope.SideMenuItem(
             }
         ) { isFocused ->
             CommonText(
-                titleText = item.text,
+                titleRes = item.title,
                 type = CommonTextTypeEnum.TITLE_MEDIUM,
                 textColor = if(isFocused || isSelected) {
                     onPrimary
