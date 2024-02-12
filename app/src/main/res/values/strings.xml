@@ -15,6 +15,8 @@
     <string name="generic_form_invalid_data_provided">Invalid data provided, please check it and try again.</string>
     <string name="generic_progress_dialog_title">Loading…</string>
     <string name="generic_progress_dialog_description">Please wait a moment…</string>
+    <string name="generic_channel_can_not_reproduce">Oops! Looks like we can\'t play this channel right now. Why not give it another shot later?</string>
+
     <!-- Common -->
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
     <string name="developer_credits_text_single_line">Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024</string>

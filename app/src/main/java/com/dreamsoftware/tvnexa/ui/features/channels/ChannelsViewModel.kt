@@ -34,6 +34,7 @@ class ChannelsViewModel @Inject constructor(
         updateState {
             it.copy(
                 isLoading = true,
+                channelFocused = null,
                 countrySelected = newCountryBO
             )
         }
@@ -103,7 +104,7 @@ class ChannelsViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 channels = channels,
-                channelFocused = channels.firstOrNull()
+                channelFocused = it.channelFocused ?: channels.firstOrNull()
             )
         }
     }

@@ -24,7 +24,9 @@ import com.dreamsoftware.player.domain.state.PlayerStateListener
 import com.dreamsoftware.tvnexa.ui.extensions.handleDPadKeyEvents
 import com.dreamsoftware.player.impl.PlayerFactory
 import androidx.compose.runtime.State
+import androidx.compose.ui.res.stringResource
 import androidx.media3.common.util.UnstableApi
+import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.utils.disableCertificateValidation
 
 
@@ -58,26 +60,34 @@ fun CommonVideoBackground(
         disableCertificateValidation()
     }
 
-    val context = LocalContext.current
-    val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
-    val player = remember { PlayerFactory.create(context) }
+    if(!videHlsResource.isNullOrBlank() || videoResourceId != null) {
+        val context = LocalContext.current
+        val lifecycleOwner = rememberUpdatedState(LocalLifecycleOwner.current)
+        val player = remember { PlayerFactory.create(context) }
 
-    InitializeAndPlayVideo(
-        lifecycleOwner = lifecycleOwner,
-        player = player,
-        videHlsResource = videHlsResource,
-        videoResourceId = videoResourceId,
-        playerStateListener = playerStateListener
-    )
+        InitializeAndPlayVideo(
+            lifecycleOwner = lifecycleOwner,
+            player = player,
+            videHlsResource = videHlsResource,
+            videoResourceId = videoResourceId,
+            playerStateListener = playerStateListener
+        )
 
-    PlayerViewContent(
-        modifier = modifier,
-        player = player,
-        onLeft = onLeft,
-        onRight = onRight,
-        onEnter = onEnter,
-        content = content
-    )
+        PlayerViewContent(
+            modifier = modifier,
+            player = player,
+            onLeft = onLeft,
+            onRight = onRight,
+            onEnter = onEnter,
+            content = content
+        )
+    } else {
+        ErrorStateNotificationComponent(
+            modifier = Modifier.fillMaxSize(),
+            imageRes = R.drawable.tv_sad_icon,
+            title = stringResource(id = R.string.generic_channel_can_not_reproduce)
+        )
+    }
 }
 
 /**
