@@ -120,4 +120,15 @@
     <string name="delete_profile_form_accept_button_text">Delete Profile</string>
     <string name="delete_profile_form_cancel_button_text">Keep Profile</string>
     <string name="delete_profile_explanation_text">Warning! Deleting this profile will result in the loss of all your saved favorite channels and other customized settings. Are you sure you want to proceed?</string>
+
+    <!-- Home menu items -->
+    <string name="home_menu_main_item_text">Home</string>
+    <string name="home_menu_search_item_text">Search</string>
+    <string name="home_menu_guide_item_text">Guide</string>
+    <string name="home_menu_favorites_item_text">Favorites</string>
+    <string name="home_menu_settings_item_text">Settings</string>
+
+    <!-- Settings menu items -->
+    <string name="setting_menu_profile_item_text">Profile</string>
+    <string name="setting_menu_about_me_item_text">About Me</string>
 </resources>
