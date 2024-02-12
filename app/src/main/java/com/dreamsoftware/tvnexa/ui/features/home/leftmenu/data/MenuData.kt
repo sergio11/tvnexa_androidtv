@@ -19,7 +19,7 @@ object MenuData {
     )
 
     val secondaryMenuItems = listOf(
-        MenuItem(Screens.Home.Settings.path, "Settings", LineAwesomeIcons.CogSolid,)
+        MenuItem(Screens.Home.Settings.DEFAULT.path, "Settings", LineAwesomeIcons.CogSolid)
     )
 
 }
