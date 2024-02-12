@@ -23,12 +23,11 @@ import androidx.tv.material3.MaterialTheme
 import androidx.tv.material3.Text
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
-import com.dreamsoftware.tvnexa.ui.features.settings.data.SettingsMenuModel
-import com.dreamsoftware.tvnexa.ui.features.settings.screens.PreferencesContainer
+import com.dreamsoftware.tvnexa.ui.features.settings.components.CommonSettingsContainer
 
 @Composable
 fun ProfileScreen() {
-    PreferencesContainer(preference = SettingsMenuModel("Profile", "profile")) {
+    CommonSettingsContainer(title = "Profile") {
         ProfilesContent()
     }
 }
@@ -80,10 +79,4 @@ fun UserDetails() {
             color = LocalContentColor.current.copy(alpha = 0.4f),
         )
     }
-}
-
-@androidx.compose.ui.tooling.preview.Preview
-@Composable
-fun ProfileScreenPrev() {
-    ProfileScreen()
 }

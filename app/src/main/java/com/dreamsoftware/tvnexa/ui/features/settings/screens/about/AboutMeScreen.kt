@@ -9,12 +9,11 @@ import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
-import com.dreamsoftware.tvnexa.ui.features.settings.data.SettingsMenuModel
-import com.dreamsoftware.tvnexa.ui.features.settings.screens.PreferencesContainer
+import com.dreamsoftware.tvnexa.ui.features.settings.components.CommonSettingsContainer
 
 @Composable
 fun AboutScreen() {
-    PreferencesContainer(preference = SettingsMenuModel("About", "about_me")) {
+    CommonSettingsContainer(title = "About") {
         CommonText(
             titleRes = R.string.about_developer,
             type = CommonTextTypeEnum.BODY_MEDIUM,
