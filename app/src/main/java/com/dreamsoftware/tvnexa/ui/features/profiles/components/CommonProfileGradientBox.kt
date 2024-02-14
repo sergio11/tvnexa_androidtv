@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalTvMaterial3Api::class)
 
-package com.dreamsoftware.tvnexa.ui.components
+package com.dreamsoftware.tvnexa.ui.features.profiles.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -14,20 +14,20 @@ import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 
 @Composable
-fun CommonGradientBox(content: @Composable BoxScope.() -> Unit) {
+fun CommonProfileGradientBox(content: @Composable BoxScope.() -> Unit) {
     with(MaterialTheme.colorScheme) {
-        val gradient = Brush.linearGradient(
-            colors = listOf(
-                onPrimary,
-                primary.copy(alpha = 0.5f)
-            ),
-            tileMode = TileMode.Clamp
+        val gradient = Brush.radialGradient(
+            0.0f to primary,
+            0.33f to secondary,
+            0.66f to primary,
+            1.0f to onPrimary,
+            radius = 1500.0f,
+            tileMode = TileMode.Repeated
         )
-
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(brush = gradient),
+                .background(gradient),
             content = content
         )
     }

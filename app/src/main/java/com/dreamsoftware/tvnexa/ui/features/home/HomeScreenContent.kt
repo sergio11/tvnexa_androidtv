@@ -2,6 +2,7 @@ package com.dreamsoftware.tvnexa.ui.features.home
 
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import com.dreamsoftware.tvnexa.ui.components.CommonGradientBox
 import com.dreamsoftware.tvnexa.ui.features.home.components.HomeSideMenu
 import com.dreamsoftware.tvnexa.ui.navigation.HomeNavigation
 
@@ -21,10 +22,12 @@ fun HomeScreenContent(
             onProfilePressed = onGoToProfileSelector,
             onMenuItemSelected = { navController.navigate(it) }
         ) {
-            HomeNavigation(
-                navController = navController,
-                onNavigateToDetail = onNavigateToDetail
-            )
+            CommonGradientBox {
+                HomeNavigation(
+                    navController = navController,
+                    onNavigateToDetail = onNavigateToDetail
+                )
+            }
         }
     }
 }

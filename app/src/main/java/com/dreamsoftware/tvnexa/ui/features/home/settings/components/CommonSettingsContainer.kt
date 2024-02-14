@@ -16,7 +16,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
-import androidx.tv.material3.LocalContentColor
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
@@ -40,7 +39,7 @@ fun CommonSettingsContainer(
                 modifier = Modifier
                     .height(1.dp)
                     .fillMaxWidth()
-                    .background(color = LocalContentColor.current.copy(alpha = 0.1f)),
+                    .background(color = MaterialTheme.colorScheme.primary),
             )
             Spacer(modifier = Modifier.padding(8.dp))
             content()
@@ -55,6 +54,6 @@ fun ContentHeading(title: String) {
             .wrapContentWidth(),
         type = CommonTextTypeEnum.HEADLINE_LARGE,
         titleText = title,
-        textColor = MaterialTheme.colorScheme.onSurface
+        textColor = MaterialTheme.colorScheme.primary
     )
 }
