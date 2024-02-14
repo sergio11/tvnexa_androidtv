@@ -151,4 +151,15 @@
     <string name="terms_and_conditions_about_policy_secondary_title">Review your Ad Choices and view the Privacy Policy: tvnexa.ax/privacy</string>
     <string name="terms_and_conditions_about_cookies_main_title">Your Cookie Preferences and Consent</string>
     <string name="terms_and_conditions_about_cookies_secondary_title">To view and manage your personal preferences, log in on your computer or mobile device.</string>
+
+    <!-- Settings Info -->
+    <string name="info_title">Info</string>
+    <string name="info_content_main_title">About the App</string>
+    <string name="info_content_platform_label_text">Platform</string>
+    <string name="info_content_platform_value_tv_text">TV</string>
+    <string name="info_content_platform_value_mobile_text">Mobile</string>
+    <string name="info_content_so_version_label_text">SO Version</string>
+    <string name="info_content_version_label_text">Version</string>
+    <string name="info_content_compilation_label_text">Compilation</string>
+    <string name="info_content_current_time_label_text">Current time</string>
 </resources>
