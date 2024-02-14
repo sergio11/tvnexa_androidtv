@@ -13,9 +13,9 @@ import com.dreamsoftware.tvnexa.ui.features.home.settings.components.CommonSetti
 
 @Composable
 fun AboutScreen() {
-    CommonSettingsContainer(title = "About") {
+    CommonSettingsContainer(titleRes = R.string.about_title) {
         CommonText(
-            titleRes = R.string.about_developer,
+            titleRes = R.string.about_content_text,
             type = CommonTextTypeEnum.BODY_MEDIUM,
             textColor = MaterialTheme.colorScheme.onSurface
         )
