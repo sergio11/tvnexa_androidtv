@@ -14,13 +14,17 @@ import com.dreamsoftware.tvnexa.ui.components.CommonFocusableItem
 import com.dreamsoftware.tvnexa.ui.features.home.settings.model.SettingsItemMenu
 
 @Composable
-fun CommonSettingsMenuItem(item: SettingsItemMenu, onMenuSelected: (SettingsItemMenu) -> Unit) {
+fun CommonSettingsMenuItem(
+    modifier: Modifier = Modifier,
+    item: SettingsItemMenu,
+    onMenuSelected: (SettingsItemMenu) -> Unit
+) {
     CommonFocusableItem(
-        modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+        modifier = modifier.padding(horizontal = 16.dp, vertical = 8.dp),
         onClick = { onMenuSelected(item) }
     ) { isFocused ->
         CommonText(
-            modifier = Modifier.padding(horizontal = 12.dp, vertical = 8.dp),
+            modifier = Modifier.padding(horizontal = 16.dp, vertical = 10.dp),
             type = CommonTextTypeEnum.BODY_MEDIUM,
             titleRes = item.title,
             textColor = with(MaterialTheme.colorScheme) {

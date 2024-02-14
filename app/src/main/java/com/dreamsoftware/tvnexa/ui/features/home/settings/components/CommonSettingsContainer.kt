@@ -2,6 +2,7 @@
 
 package com.dreamsoftware.tvnexa.ui.features.home.settings.components
 
+import androidx.annotation.StringRes
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,7 +24,7 @@ import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 @Composable
 fun CommonSettingsContainer(
     modifier: Modifier = Modifier,
-    title: String,
+    @StringRes titleRes: Int,
     content: @Composable () -> Unit,
 ) {
     Box(
@@ -33,7 +34,7 @@ fun CommonSettingsContainer(
         contentAlignment = Alignment.CenterStart,
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
-            ContentHeading(title = title)
+            ContentHeading(titleRes)
             Spacer(modifier = Modifier.padding(8.dp))
             Spacer(
                 modifier = Modifier
@@ -48,12 +49,14 @@ fun CommonSettingsContainer(
 }
 
 @Composable
-fun ContentHeading(title: String) {
+fun ContentHeading(
+    @StringRes titleRes: Int
+) {
     CommonText(
         modifier = Modifier
             .wrapContentWidth(),
         type = CommonTextTypeEnum.HEADLINE_LARGE,
-        titleText = title,
+        titleRes = titleRes,
         textColor = MaterialTheme.colorScheme.primary
     )
 }

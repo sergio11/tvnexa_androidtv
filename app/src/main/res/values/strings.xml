@@ -73,8 +73,6 @@
     <string name="profile_selector_secondary_title">Select a profile to personalize your TvNexa experience.</string>
     <string name="profile_selector_add_profile_button_text">+ Add profile</string>
     <string name="profile_selector_profile_management_button_text">Profile Control</string>
-    <!-- Profile -->
-    <string name="about_developer">Hello, I\'m Sergio Sánchez Sánchez an accomplished developer with over 8 years of experience, specializing in crafting exceptional mobile experiences. As a seasoned Android developer, I\'ve delivered a diverse portfolio of projects, demonstrating my commitment to building robust and user-friendly applications. Over the years, I\'ve honed my skills to navigate the ever-evolving Android ecosystem, consistently pushing the boundaries of what\'s possible.</string>
 
     <!-- Detail Content -->
     <string name="detail_content_fullscreen_live_button_title">Fullscreen Live</string>
@@ -129,6 +127,28 @@
     <string name="home_menu_settings_item_text">Settings</string>
 
     <!-- Settings menu items -->
-    <string name="setting_menu_profile_item_text">Profile</string>
+    <string name="setting_menu_account_item_text">Account</string>
     <string name="setting_menu_about_me_item_text">About Me</string>
+    <string name="setting_menu_help_item_text">Help</string>
+    <string name="setting_menu_terms_and_conditions_item_text">Terms and Conditions</string>
+    <string name="setting_menu_info_item_text">Info</string>
+
+    <!-- Account -->
+    <string name="account_title">Account</string>
+
+    <!-- About Me -->
+    <string name="about_title">About me</string>
+    <string name="about_content_text">Hello, I\'m Sergio Sánchez Sánchez an accomplished developer with over 8 years of experience, specializing in crafting exceptional mobile experiences. As a seasoned Android developer, I\'ve delivered a diverse portfolio of projects, demonstrating my commitment to building robust and user-friendly applications. Over the years, I\'ve honed my skills to navigate the ever-evolving Android ecosystem, consistently pushing the boundaries of what\'s possible.</string>
+
+    <!-- Settings Help -->
+    <string name="help_title">Help</string>
+    <string name="help_content_main_title">Need Help?</string>
+    <string name="help_content_secondary_title">Go to help.tvnexa.com</string>
+
+    <!-- Settings Terms and Conditions -->
+    <string name="terms_and_conditions_title">Terms and Conditions</string>
+    <string name="terms_and_conditions_about_policy_main_title">Privacy Policy and Terms of Use</string>
+    <string name="terms_and_conditions_about_policy_secondary_title">Review your Ad Choices and view the Privacy Policy: tvnexa.ax/privacy</string>
+    <string name="terms_and_conditions_about_cookies_main_title">Your Cookie Preferences and Consent</string>
+    <string name="terms_and_conditions_about_cookies_secondary_title">To view and manage your personal preferences, log in on your computer or mobile device.</string>
 </resources>
