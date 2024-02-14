@@ -34,6 +34,7 @@ import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
 import com.dreamsoftware.tvnexa.ui.components.ChannelLogo
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
+import com.dreamsoftware.tvnexa.ui.components.CommonFavoriteButton
 import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
@@ -125,6 +126,7 @@ private fun DetailActionsSection(onPlayChannelPressed: () -> Unit) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End,
         ) {
+            CommonFavoriteButton()
             CommonButton(
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 4.dp)
