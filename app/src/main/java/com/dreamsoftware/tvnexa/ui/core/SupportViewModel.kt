@@ -66,7 +66,7 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
 
     protected fun <RESULT, UC: BaseUseCase<RESULT>> executeUseCase(
         useCase: UC,
-        onSuccess: (RESULT) -> Unit,
+        onSuccess: (RESULT) -> Unit = {},
         onFailed: () -> Unit = {},
         onMapExceptionToState: (Exception, STATE) -> STATE = { _ , state -> state }
     ) {
@@ -87,7 +87,7 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
     protected fun <PARAMS, RESULT, UC: BaseUseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(
         useCase: UC,
         params: PARAMS,
-        onSuccess: (RESULT) -> Unit,
+        onSuccess: (RESULT) -> Unit = {},
         onFailed: () -> Unit = {},
         onMapExceptionToState: (Exception, STATE) -> STATE = { _ , state -> state }
     ) {
