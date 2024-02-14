@@ -21,11 +21,13 @@ import com.dreamsoftware.tvnexa.domain.usecase.impl.HasMultiplesProfilesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SearchChannelsUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SelectProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignInUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.SignOffUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignUpUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.UpdateProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.UpdateUserDetailUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.VerifyPinUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.VerifyUserSessionUseCase
+import com.dreamsoftware.tvnexa.utils.AppEventBus
 import com.dreamsoftware.tvnexa.utils.ISessionAware
 import dagger.Module
 import dagger.Provides
@@ -141,4 +143,12 @@ class DomainModule {
     @ViewModelScoped
     fun provideGetProfileByIdUseCase(repository: IUserRepository): GetProfileByIdUseCase =
         GetProfileByIdUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideSignOffUseCase(
+        repository: IAuthRepository,
+        sessionAware: ISessionAware,
+        appEventBus: AppEventBus
+    ): SignOffUseCase = SignOffUseCase(repository, sessionAware, appEventBus)
 }

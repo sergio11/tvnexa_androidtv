@@ -135,6 +135,10 @@
 
     <!-- Account -->
     <string name="account_title">Account</string>
+    <string name="account_sign_off_button_text">Sign off</string>
+    <string name="account_sign_off_dialog_title_text">Ready to go?</string>
+    <string name="account_sign_off_dialog_description_text">Are you sure you want to sign off? Don\'t worry, you can always come back later. See you soon! 👋</string>
+
 
     <!-- About Me -->
     <string name="about_title">About me</string>

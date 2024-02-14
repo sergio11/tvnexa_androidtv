@@ -22,4 +22,5 @@ interface IAuthRepository {
 
     suspend fun signUp(user: SaveUserBO): Boolean
 
+    suspend fun signOff()
 }
