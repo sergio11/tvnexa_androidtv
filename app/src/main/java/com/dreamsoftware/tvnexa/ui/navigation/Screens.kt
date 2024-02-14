@@ -92,10 +92,13 @@ sealed class Screens(val path: String, arguments: List<NamedNavArgument> = empty
         data object Favorites : Home("favorites")
         sealed class Settings private constructor(path: String): Home(path) {
             companion object {
-                val DEFAULT = Profile
+                val DEFAULT = Account
             }
-            data object Profile : Settings("settings/profile")
+            data object Account : Settings("settings/account")
             data object AboutMe : Settings("settings/about_me")
+            data object Help : Settings("settings/help")
+            data object TermsAndConditions: Settings("settings/terms_and_conditions")
+            data object Info: Settings("settings/info")
         }
     }
     data object Player : Screens("player_screen/{channel_id}", arguments = listOf(
