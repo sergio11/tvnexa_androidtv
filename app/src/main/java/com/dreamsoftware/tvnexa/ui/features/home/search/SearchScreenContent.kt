@@ -54,7 +54,7 @@ fun SearchScreenContent(
                     modifier = Modifier.padding(horizontal = 16.dp),
                     text = R.string.search_screen_search_results_loading
                 )
-                !error.isNullOrBlank() -> ErrorStateNotificationComponent(imageRes = R.drawable.default_placeholder, title = error as String)
+                !error.isNullOrBlank() -> ErrorStateNotificationComponent(imageRes = R.drawable.default_placeholder, title = error)
                 else -> ContentGrid(
                     term = term,
                     channels = channels,

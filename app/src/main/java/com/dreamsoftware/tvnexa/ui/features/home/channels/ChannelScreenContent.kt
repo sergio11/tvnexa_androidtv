@@ -50,8 +50,7 @@ fun ChannelScreenContent(
         with(MaterialTheme.colorScheme) {
             Row(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .background(surface),
+                    .fillMaxSize(),
                 horizontalArrangement = Arrangement.Center,
                 verticalAlignment = Alignment.CenterVertically
             ) {

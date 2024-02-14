@@ -23,7 +23,6 @@ import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.AppLogoInverse
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonStyleTypeEnum
-import com.dreamsoftware.tvnexa.ui.components.CommonGradientBox
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
@@ -42,7 +41,7 @@ fun CommonProfileScreenContent(
     content: @Composable (mainActionFocusRequester: FocusRequester) -> Unit
 ) {
     val mainActionFocusRequester = remember { FocusRequester() }
-    CommonGradientBox {
+    CommonProfileGradientBox {
         LoadingDialog(
             isShowingDialog = isLoading,
             titleRes = R.string.generic_progress_dialog_title,
