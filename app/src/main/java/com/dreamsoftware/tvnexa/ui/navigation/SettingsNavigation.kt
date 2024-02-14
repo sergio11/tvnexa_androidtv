@@ -5,6 +5,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.dreamsoftware.tvnexa.ui.features.home.settings.screens.about.AboutScreen
 import com.dreamsoftware.tvnexa.ui.features.home.settings.screens.help.HelpScreen
+import com.dreamsoftware.tvnexa.ui.features.home.settings.screens.info.InfoScreen
 import com.dreamsoftware.tvnexa.ui.features.home.settings.screens.profile.AccountScreen
 import com.dreamsoftware.tvnexa.ui.features.home.settings.screens.termsandconditions.TermsAndConditionsScreen
 import com.dreamsoftware.tvnexa.ui.navigation.extensions.transitionComposable
@@ -28,6 +29,9 @@ fun SettingsNavigation(navController: NavHostController) {
         }
         transitionComposable(Screens.Home.Settings.TermsAndConditions.path) {
             TermsAndConditionsScreen()
+        }
+        transitionComposable(Screens.Home.Settings.Info.path) {
+            InfoScreen()
         }
     }
 }
