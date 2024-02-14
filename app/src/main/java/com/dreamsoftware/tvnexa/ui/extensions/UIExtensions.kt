@@ -1,5 +1,7 @@
 package com.dreamsoftware.tvnexa.ui.extensions
 
+import android.content.Context
+import android.content.pm.PackageManager
 import android.view.KeyEvent
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
@@ -104,4 +106,7 @@ fun ProfileTypeEnum.toDrawableResource(): Int = when(this) {
     ProfileTypeEnum.WOMAN -> R.drawable.profile_avatar_woman
     ProfileTypeEnum.MAN -> R.drawable.profile_avatar_man
 }
+
+fun Context.isAndroidTV(): Boolean =
+    packageManager.hasSystemFeature(PackageManager.FEATURE_LEANBACK)
 

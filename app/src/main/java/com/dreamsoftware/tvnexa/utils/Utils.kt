@@ -1,7 +1,11 @@
 package com.dreamsoftware.tvnexa.utils
 
 import android.annotation.SuppressLint
+import android.os.Build
 import java.security.cert.X509Certificate
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
 import javax.net.ssl.HttpsURLConnection
 import javax.net.ssl.SSLContext
 import javax.net.ssl.TrustManager
@@ -35,3 +39,10 @@ inline fun <T1 : Any, T2 : Any, R> combinedLet(value1: T1?, value2: T2?, block: 
         block(value1, value2)
     }
 }
+
+fun getAndroidVersion(): String =
+    "Android " + Build.VERSION.RELEASE
+
+fun getCurrentDateTimeFormatted(): String =
+    SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault())
+        .format(Date())
