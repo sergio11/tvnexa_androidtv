@@ -58,4 +58,14 @@ internal class AuthSessionDataSourceImpl(
             .map { pref -> pref[dataStoreKey]?.let(authSessionPreferenceAdapter::fromJson) }
             .firstOrNull() ?: throw PreferencesException.SessionNotFoundException("Session not found")
     }
+
+    /**
+     * Clears the stored authentication session data from preferences.
+     */
+    override suspend fun clear() {
+        val dataStoreKey = stringPreferencesKey(AUTH_KEY)
+        dataStore.edit { pref ->
+            pref.remove(dataStoreKey)
+        }
+    }
 }

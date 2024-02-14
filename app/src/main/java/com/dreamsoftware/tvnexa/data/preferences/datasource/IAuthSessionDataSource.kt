@@ -23,4 +23,9 @@ interface IAuthSessionDataSource {
      */
     @Throws(PreferencesException.SessionNotFoundException::class)
     suspend fun get(): AuthSessionPreferenceDTO
+
+    /**
+     * Clears the stored authentication session data.
+     */
+    suspend fun clear()
 }

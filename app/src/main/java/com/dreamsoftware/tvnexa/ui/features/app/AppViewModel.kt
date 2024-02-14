@@ -1,10 +1,6 @@
 package com.dreamsoftware.tvnexa.ui.features.app
 
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.dreamsoftware.tvnexa.domain.model.CategoryBO
-import com.dreamsoftware.tvnexa.domain.model.CountryBO
-import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
@@ -30,6 +26,8 @@ class AppViewModel @Inject constructor(
             appEventBus.events.collect { event ->
                 if(event is AppEvent.ComeFromStandby) {
                     launchSideEffect(AppSideEffects.ComeFromStandby)
+                } else if (event is AppEvent.SignOff) {
+                    launchSideEffect(AppSideEffects.NoSessionActive)
                 }
             }
         }
@@ -46,4 +44,5 @@ data class AppUiState(
 
 sealed interface AppSideEffects: SideEffect {
     data object ComeFromStandby: AppSideEffects
+    data object NoSessionActive: AppSideEffects
 }

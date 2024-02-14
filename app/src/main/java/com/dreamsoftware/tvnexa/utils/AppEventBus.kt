@@ -22,4 +22,5 @@ class AppEventBus {
 sealed interface AppEvent {
     data object GoToStandby : AppEvent
     data object ComeFromStandby : AppEvent
+    data object SignOff: AppEvent
 }

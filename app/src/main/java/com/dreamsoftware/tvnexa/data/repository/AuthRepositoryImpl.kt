@@ -52,6 +52,10 @@ internal class AuthRepositoryImpl(
         authRemoteDataSource.signup(signupUserBOMapper.mapInToOut(user))
     }
 
+    override suspend fun signOff() = withContext(Dispatchers.IO) {
+        authSessionDataSource.clear()
+    }
+
     private suspend fun saveSession(session: AuthenticationBO) = withContext(Dispatchers.IO) {
         authSessionDataSource.save(saveAuthSessionDataBOMapper.mapInToOut(session))
     }

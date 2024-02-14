@@ -6,7 +6,7 @@ import androidx.navigation.NavHostController
 import com.dreamsoftware.tvnexa.ui.features.home.settings.screens.about.AboutScreen
 import com.dreamsoftware.tvnexa.ui.features.home.settings.screens.help.HelpScreen
 import com.dreamsoftware.tvnexa.ui.features.home.settings.screens.info.InfoScreen
-import com.dreamsoftware.tvnexa.ui.features.home.settings.screens.profile.AccountScreen
+import com.dreamsoftware.tvnexa.ui.features.home.settings.screens.account.AccountScreen
 import com.dreamsoftware.tvnexa.ui.features.home.settings.screens.termsandconditions.TermsAndConditionsScreen
 import com.dreamsoftware.tvnexa.ui.navigation.extensions.transitionComposable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
