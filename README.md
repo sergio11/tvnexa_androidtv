@@ -44,6 +44,43 @@ For a high-quality streaming experience, TvNexa leverages ExoPlayer. This powerf
 The user interface is built using Jetpack Compose for TV, providing a modern and declarative UI toolkit for building native Android applications.
 
 
+### MVI Architecture with Clean Architecture using Jetpack Compose
+
+TvNexa follows a robust architectural approach combining MVI (Model-View-Intent) with Clean Architecture, empowered by Jetpack Compose. This architecture ensures a clear separation of concerns, maintainability, and scalability, making TvNexa a reliable and flexible platform for streaming content.
+
+#### MVI Architecture:
+MVI architecture revolves around three main components:
+
+1. **Model**: Represents the data state of the application. Each screen has a unified state model observed with a StateFlow, ensuring consistency and predictability across the UI. Additionally, Side Effects events are utilized to manage asynchronous tasks and other events that may not have a direct representation in the UI, ensuring smooth operation of the application.
+
+   
+2. **View**: Renders the user interface and receives user input.
+   
+3. **Intent**: Represents user actions or events that trigger state changes.
+
+By adopting the MVI pattern, TvNexa achieves a unidirectional data flow, enhancing predictability and testability while minimizing side effects.
+
+#### Clean Architecture:
+TvNexa adheres to Clean Architecture principles, which include:
+
+1. **Presentation Layer**: Responsible for rendering the UI and handling user interactions. Jetpack Compose facilitates the implementation of the presentation layer, enabling the creation of a modern and declarative UI.
+   
+2. **Domain Layer**: Contains the business logic and use cases of the application. This layer remains independent of any frameworks or platforms, promoting reusability and testability.
+   
+3. **Data Layer**: Manages data retrieval and manipulation, including interactions with external services such as backend APIs. Retrofit and OkHttp facilitate efficient communication with backend services.
+
+#### Integration with Jetpack Compose:
+Jetpack Compose is utilized throughout TvNexa to build the user interface, providing a seamless and intuitive experience for users. Compose's declarative approach simplifies UI development and enables rapid iteration, allowing TvNexa to adapt to evolving user needs efficiently.
+
+#### Benefits:
+- **Scalability**: The combination of MVI and Clean Architecture allows TvNexa to scale smoothly as the application grows in complexity and functionality.
+  
+- **Maintainability**: Clear separation of concerns facilitates easier maintenance and updates, ensuring TvNexa remains robust and reliable over time.
+  
+- **Flexibility**: Jetpack Compose's flexibility and adaptability empower TvNexa to deliver a tailored and immersive streaming experience to users across different devices and platforms.
+
+By embracing MVI architecture with Clean Architecture and leveraging Jetpack Compose, TvNexa sets a high standard for online television platforms, prioritizing performance, maintainability, and user satisfaction.
+
 ## App Screenshots
 
 Here are some screenshots from our app to give you a glimpse of its design and functionality.
