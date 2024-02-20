@@ -1,11 +1,6 @@
 <resources>
     <string name="app_name">TvNexa</string>
     <string name="app_icon_name">TvNexa Icon</string>
-    <string name="watch_trailer">Watch Trailer</string>
-    <string name="movie_desciption">\"Batman ventures into Gotham City\'s underworld when a sadistic killer leaves behind a trail of cryptic clues. \"</string>
-    <string name="movie_name">Batman</string>
-    <string name="release_year">2022</string>
-    <string name="movie_duration_text">2h 56mm</string>
     <string name="no_text_value">--</string>
     <string name="generic_error_exception">An error occurred, please try again.</string>
     <string name="dialog_generic_accept_button">Accept</string>
@@ -76,6 +71,18 @@
 
     <!-- Detail Content -->
     <string name="detail_content_fullscreen_live_button_title">Fullscreen Live</string>
+    <string name="detail_content_city_label_text">City:</string>
+    <string name="detail_content_subdivision_label_text">Subdivision:</string>
+    <string name="detail_content_launched_label_text">Launched:</string>
+    <string name="detail_content_website_label_text">Website:</string>
+    <string name="detail_content_alt_names_label_text">Alt Names:</string>
+    <string name="detail_content_owners_label_text">Owners:</string>
+    <string name="detail_content_closed_label_text">Closed:</string>
+    <string name="detail_content_broadcast_areas_label_text">Broadcast areas:</string>
+    <string name="detail_content_categories_label_text">Categories:</string>
+    <string name="detail_content_languages_label_text">Languages:</string>
+    <string name="detail_content_network_label_text">Network:</string>
+    <string name="detail_content_guides_label_text">Guides:</string>
 
     <!-- Search Screen -->
     <string name="search_screen_main_title">Start typing to search</string>
