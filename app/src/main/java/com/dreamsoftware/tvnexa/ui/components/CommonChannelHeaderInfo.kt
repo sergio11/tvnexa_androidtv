@@ -8,10 +8,12 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
@@ -23,6 +25,8 @@ fun CommonChannelHeaderInfo(
     name: String?,
     logo: String?,
     city: String?,
+    countryFlag: String?,
+    countryCode: String?,
     isNsfw: Boolean?
 ) {
     with(MaterialTheme.colorScheme) {
@@ -45,6 +49,20 @@ fun CommonChannelHeaderInfo(
                         textColor = onPrimaryContainer
                     )
                 }
+            }
+            Column(
+                modifier = Modifier.padding(horizontal = 15.dp)
+            ) {
+                CommonText(
+                    type = CommonTextTypeEnum.TITLE_LARGE,
+                    titleText = countryFlag
+                )
+                CommonText(
+                    type = CommonTextTypeEnum.BODY_LARGE,
+                    titleText = countryCode,
+                    textBold = true,
+                    textColor = onPrimaryContainer
+                )
             }
             if(isNsfw == true) {
                 CommonImageRes(

@@ -17,12 +17,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
+import com.dreamsoftware.tvnexa.domain.model.CountryBO
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 
 @Composable
 fun ChannelPreview(
     modifier: Modifier = Modifier,
-    channel: SimpleChannelBO
+    channel: SimpleChannelBO,
+    country: CountryBO
 ) {
     with(MaterialTheme.colorScheme) {
         Card(
@@ -51,7 +53,9 @@ fun ChannelPreview(
                         name = channel.name,
                         logo = channel.logo,
                         city = channel.city,
-                        isNsfw = channel.isNsfw
+                        isNsfw = channel.isNsfw,
+                        countryCode = country.code,
+                        countryFlag = country.flag
                     )
                 }
             }
