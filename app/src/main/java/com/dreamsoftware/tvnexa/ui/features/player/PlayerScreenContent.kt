@@ -150,7 +150,9 @@ private fun PlayerContentHeaders(
             name = name,
             logo = logo,
             city = city,
-            isNsfw = isNsfw
+            isNsfw = isNsfw,
+            countryFlag = country.flag,
+            countryCode = country.code
         )
     }
 }
