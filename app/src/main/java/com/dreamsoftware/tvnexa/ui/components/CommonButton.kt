@@ -112,9 +112,9 @@ fun CommonButton(
                     CommonButtonStyleTypeEnum.TRANSPARENT -> surface
                 },
                 focusedContainerColor = when(style) {
-                    CommonButtonStyleTypeEnum.NORMAL -> onPrimary.copy(alpha = 0.6f)
-                    CommonButtonStyleTypeEnum.INVERSE ->  onSecondary.copy(alpha = 0.6f)
-                    CommonButtonStyleTypeEnum.TRANSPARENT -> surface.copy(alpha = 0.6f)
+                    CommonButtonStyleTypeEnum.NORMAL -> primary.copy(alpha = 0.6f)
+                    CommonButtonStyleTypeEnum.INVERSE ->  secondary.copy(alpha = 0.6f)
+                    CommonButtonStyleTypeEnum.TRANSPARENT -> primary.copy(alpha = 0.6f)
                 }
             )
         ) {

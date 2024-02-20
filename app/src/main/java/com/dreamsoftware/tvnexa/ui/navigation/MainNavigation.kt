@@ -12,6 +12,7 @@ import com.dreamsoftware.tvnexa.ui.features.signin.SignInScreen
 import com.dreamsoftware.tvnexa.ui.features.signup.SignUpScreen
 import com.dreamsoftware.tvnexa.ui.features.splash.SplashScreen
 import com.dreamsoftware.tvnexa.ui.navigation.extensions.navigateSingleTopTo
+import com.dreamsoftware.tvnexa.ui.navigation.extensions.transitionComposable
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 
@@ -97,7 +98,7 @@ fun MainNavigation(navController: NavHostController) {
             }
         }
 
-        composable(Screens.Player.path) { navBackStackEntry ->
+        transitionComposable(Screens.Player.path) { navBackStackEntry ->
             navBackStackEntry.arguments?.let { args ->
                 Screens.Player.parseArgs(args)?.let {
                     PlayerScreen(
@@ -110,7 +111,7 @@ fun MainNavigation(navController: NavHostController) {
             }
         }
 
-        composable(Screens.Detail.path) { navBackStackEntry ->
+        transitionComposable(Screens.Detail.path) { navBackStackEntry ->
             navBackStackEntry.arguments?.let { args ->
                 Screens.Detail.parseArgs(args)?.let {
                     DetailsScreen(
