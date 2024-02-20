@@ -17,4 +17,8 @@ object Dimens {
     const val SAVE_PROFILE_AVATAR_FOCUSED_SCALE = 1.2f
     val PROFILE_AVATAR_NO_PADDING = 0.dp
     const val SAVE_PROFILE_AVATAR_SELECTED_FOCUSED_SCALE = 1f
+
+    // Detail Screen
+    val DETAIL_HORIZONTAL_SPACING = 30.dp
+    val DETAIL_VERTICAL_SPACING = 30.dp
 }

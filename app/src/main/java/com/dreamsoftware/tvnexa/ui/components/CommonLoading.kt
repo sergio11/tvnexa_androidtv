@@ -27,8 +27,7 @@ fun CommonLoading(
     with(MaterialTheme.colorScheme) {
         Column(
             modifier = modifier
-                .fillMaxSize()
-                .background(surface),
+                .fillMaxSize(),
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {

@@ -1,6 +1,5 @@
 package com.dreamsoftware.tvnexa.ui.features.player
 
-import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetChannelDetailUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
@@ -16,37 +15,16 @@ class PlayerViewModel @Inject constructor(
     override fun onGetDefaultState(): PlayerUiState = PlayerUiState()
 
     fun loadDetail(channelId: String) {
-        onLoading()
-        getChannelDetailUseCase.invoke(
-            scope = viewModelScope,
+        executeUseCaseWithParams(
+            useCase = getChannelDetailUseCase,
             params = GetChannelDetailUseCase.Params(channelId = channelId),
-            onSuccess = ::onChannelDetailLoadSuccessfully,
-            onError = ::onErrorOccurred
+            onSuccess = ::onChannelDetailLoadSuccessfully
         )
     }
 
     private fun onChannelDetailLoadSuccessfully(channelDetail: ChannelDetailBO) {
         updateState {
-            it.copy(
-                isLoading = false,
-                channelDetail = channelDetail
-            )
-        }
-    }
-
-    private fun onLoading() {
-        updateState {
-            it.copyState(
-                isLoading = true,
-                error = null
-            )
-        }
-    }
-
-    private fun onErrorOccurred(ex: Throwable) {
-        ex.printStackTrace()
-        updateState {
-            it.copyState(isLoading = false)
+            it.copy(channelDetail = channelDetail)
         }
     }
 }
