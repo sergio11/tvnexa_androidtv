@@ -52,22 +52,21 @@ fun PlayerScreenContent(
             }
         }
     }
-
-    uiState.channelDetail?.let { channel ->
-        CommonVideoBackground(
-            videHlsResource = channel.streamUrl,
-            playerStateListener = stateListener,
-            onEnter = {
-                if (!videoPlayerState.isDisplayed) {
-                    coroutineScope.launch {
-                        videoPlayerState.showControls()
-                    }
+    CommonVideoBackground(
+        videHlsResource = uiState.channelDetail?.streamUrl,
+        playerStateListener = stateListener,
+        onEnter = {
+            if (!videoPlayerState.isDisplayed) {
+                coroutineScope.launch {
+                    videoPlayerState.showControls()
                 }
             }
-        ) {
+        }
+    ) {
+        uiState.channelDetail?.let {
             PlayerControls(
                 modifier = Modifier.align(Alignment.BottomCenter),
-                channelBO = channel,
+                channelBO = it,
                 isPlaying = playerState is PlayerState.Playing,
                 state = videoPlayerState
             )

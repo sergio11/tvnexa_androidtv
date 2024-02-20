@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCaseWithParams
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
@@ -64,6 +65,22 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
         }
     }
 
+    protected suspend fun <RESULT, UC: BaseUseCase<RESULT>> executeUseCase(
+        useCase: UC,
+        onMapExceptionToState: (Exception, STATE) -> STATE = { _ , state -> state },
+        onGetDefaultValue: () -> RESULT
+    ): RESULT {
+        onLoading()
+        return try {
+            useCase.invoke(scope = viewModelScope)
+        } catch (ex: Exception) {
+            onErrorOccurred(ex, onMapExceptionToState)
+            onGetDefaultValue()
+        } finally {
+            onIdle()
+        }
+    }
+
     protected fun <RESULT, UC: BaseUseCase<RESULT>> executeUseCase(
         useCase: UC,
         onSuccess: (RESULT) -> Unit = {},
@@ -82,6 +99,26 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
                 onFailed()
             }
         )
+    }
+
+    protected suspend fun <PARAMS, RESULT, UC: BaseUseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(
+        useCase: UC,
+        params: PARAMS,
+        onMapExceptionToState: (Exception, STATE) -> STATE = { _ , state -> state },
+        onGetDefaultValue: () -> RESULT
+    ): RESULT {
+        onLoading()
+        return try {
+            useCase.invoke(
+                scope = viewModelScope,
+                params = params
+            )
+        } catch (ex: Exception) {
+            onErrorOccurred(ex, onMapExceptionToState)
+            onGetDefaultValue()
+        } finally {
+            onIdle()
+        }
     }
 
     protected fun <PARAMS, RESULT, UC: BaseUseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(

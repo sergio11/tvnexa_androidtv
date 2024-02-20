@@ -12,6 +12,7 @@ import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,14 +27,12 @@ class ChannelsViewModel @Inject constructor(
     override fun onGetDefaultState(): ChannelsUiState = ChannelsUiState()
 
     fun loadData() {
-        onLoading()
         onLoadData()
     }
 
     fun onNewCountrySelected(newCountryBO: CountryBO) {
         updateState {
             it.copy(
-                isLoading = true,
                 channelFocused = null,
                 countrySelected = newCountryBO
             )
@@ -44,7 +43,6 @@ class ChannelsViewModel @Inject constructor(
     fun onNewCategorySelected(newCategoryBO: CategoryBO) {
         updateState {
             it.copy(
-                isLoading = true,
                 categorySelected = newCategoryBO
             )
         }
@@ -56,27 +54,24 @@ class ChannelsViewModel @Inject constructor(
     }
 
     private fun onLoadData() = viewModelScope.launch {
-        runCatching {
-            val getCountriesDeferred = async { getCountries() }
-            val getCategoriesDeferred = async { getCategories() }
-            val countries = getCountriesDeferred.await()
-            val categories = getCategoriesDeferred.await()
-            updateState {
-                it.copy(
-                    isLoading = false,
-                    countries = countries,
-                    categories = categories,
-                    countrySelected = it.countrySelected ?: countries.firstOrNull(),
-                )
-            }
-            onLoadChannels()
-        }.onFailure(::onErrorOccurred)
+        val getCountriesDeferred = async(Dispatchers.IO) { getCountries() }
+        val getCategoriesDeferred = async(Dispatchers.IO) { getCategories() }
+        val countries = getCountriesDeferred.await()
+        val categories = getCategoriesDeferred.await()
+        updateState {
+            it.copy(
+                countries = countries,
+                categories = categories,
+                countrySelected = it.countrySelected ?: countries.firstOrNull(),
+            )
+        }
+        onLoadChannels()
     }
 
     private fun onLoadChannels() {
         with(uiState.value) {
-            getChannelsUseCase.invoke(
-                scope = viewModelScope,
+            executeUseCaseWithParams(
+                useCase = getChannelsUseCase,
                 params = GetChannelsUseCase.Params(
                     category = categorySelected?.id,
                     country = countrySelected?.code,
@@ -84,16 +79,6 @@ class ChannelsViewModel @Inject constructor(
                     limit = 100
                 ),
                 onSuccess = ::onLoadChannelsSuccessfully,
-                onError = ::onErrorOccurred
-            )
-        }
-    }
-
-    private fun onLoading() {
-        updateState {
-            it.copyState(
-                isLoading = true,
-                error = null
             )
         }
     }
@@ -102,27 +87,22 @@ class ChannelsViewModel @Inject constructor(
         Log.d("CHANNELS_LIST", "onLoadChannelsSuccessfully channels: ${channels.size} CALLED!")
         updateState {
             it.copy(
-                isLoading = false,
                 channels = channels,
                 channelFocused = it.channelFocused ?: channels.firstOrNull()
             )
         }
     }
 
-    private fun onErrorOccurred(ex: Throwable) {
-        ex.printStackTrace()
-        updateState {
-            it.copyState(isLoading = false)
-        }
-    }
+    private suspend fun getCountries(): List<CountryBO> =
+        executeUseCase(
+            useCase = getCountriesUseCase,
+            onGetDefaultValue = { emptyList() }
+        )
 
-    private suspend fun getCountries() = runCatching {
-        getCountriesUseCase.invoke(scope = viewModelScope)
-    }.getOrDefault(emptyList())
-
-    private suspend fun getCategories() = runCatching {
-        getCategoriesUseCase.invoke(scope = viewModelScope)
-    }.getOrDefault(emptyList())
+    private suspend fun getCategories() = executeUseCase(
+        useCase = getCategoriesUseCase,
+        onGetDefaultValue = { emptyList() }
+    )
 }
 
 data class ChannelsUiState(

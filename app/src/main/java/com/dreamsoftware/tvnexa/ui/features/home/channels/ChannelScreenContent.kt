@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -26,6 +27,7 @@ import androidx.tv.foundation.lazy.list.TvLazyRow
 import androidx.tv.foundation.lazy.list.rememberTvLazyListState
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
+import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.CategoryBO
 import com.dreamsoftware.tvnexa.domain.model.CountryBO
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
@@ -35,6 +37,7 @@ import com.dreamsoftware.tvnexa.ui.components.CommonChip
 import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonLazyVerticalGrid
 import com.dreamsoftware.tvnexa.ui.components.CommonListItem
+import com.dreamsoftware.tvnexa.ui.components.CommonLoading
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.utils.combinedLet
@@ -69,29 +72,38 @@ fun ChannelScreenContent(
                 Column(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .fillMaxHeight()
+                        .fillMaxHeight(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    combinedLet(countrySelected, channelFocused) { country, channel ->
-                        ChannelPreview(
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .fillMaxHeight(0.45f)
-                                .padding(start = 8.dp),
-                            channel = channel,
-                            country = country
+                    if(isLoading) {
+                        CommonLoading(
+                            modifier = Modifier.width(350.dp),
+                            text = R.string.search_screen_search_results_loading
+                        )
+                    } else {
+                        combinedLet(countrySelected, channelFocused) { country, channel ->
+                            ChannelPreview(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(0.45f)
+                                    .padding(start = 8.dp),
+                                channel = channel,
+                                country = country
+                            )
+                        }
+                        CategoriesList(
+                            categories = categories,
+                            categorySelected = categorySelected,
+                            onCategorySelected = onNewCategorySelected
+                        )
+                        ChannelsGrid(
+                            channels = channels,
+                            channelFocused = channelFocused,
+                            onChannelFocused = onChannelFocused,
+                            onChannelPressed = onChannelPressed
                         )
                     }
-                    CategoriesList(
-                        categories = categories,
-                        categorySelected = categorySelected,
-                        onCategorySelected = onNewCategorySelected
-                    )
-                    ChannelsGrid(
-                        channels = channels,
-                        channelFocused = channelFocused,
-                        onChannelFocused = onChannelFocused,
-                        onChannelPressed = onChannelPressed
-                    )
                 }
             }
         }
