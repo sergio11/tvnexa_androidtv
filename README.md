@@ -83,6 +83,8 @@ By embracing MVI architecture with Clean Architecture and leveraging Jetpack Com
 
 ## App Screenshots
 
+### Onboarding
+
 Here are some screenshots from our app to give you a glimpse of its design and functionality.
 
 <p align="center">
@@ -95,6 +97,24 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 
 <p align="center">
   <img width="700px" src="doc/picture_1.png" />
+</p>
+
+### Sign In
+
+<p align="center">
+  <img width="700px" src="doc/picture_10.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_11.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_12.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_13.png" />
 </p>
 
 ### Settings
