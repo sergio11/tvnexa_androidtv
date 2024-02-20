@@ -73,11 +73,11 @@ TvNexa adheres to Clean Architecture principles, which include:
 Jetpack Compose is utilized throughout TvNexa to build the user interface, providing a seamless and intuitive experience for users. Compose's declarative approach simplifies UI development and enables rapid iteration, allowing TvNexa to adapt to evolving user needs efficiently.
 
 #### Benefits:
-- **Scalability**: The combination of MVI and Clean Architecture allows TvNexa to scale smoothly as the application grows in complexity and functionality.
+- **Scalability** 📈: The combination of MVI and Clean Architecture allows TvNexa to scale smoothly as the application grows in complexity and functionality.
   
-- **Maintainability**: Clear separation of concerns facilitates easier maintenance and updates, ensuring TvNexa remains robust and reliable over time.
+- **Maintainability** 🛠️: Clear separation of concerns facilitates easier maintenance and updates, ensuring TvNexa remains robust and reliable over time.
   
-- **Flexibility**: Jetpack Compose's flexibility and adaptability empower TvNexa to deliver a tailored and immersive streaming experience to users across different devices and platforms.
+- **Flexibility** 🎨: Jetpack Compose's flexibility and adaptability empower TvNexa to deliver a tailored and immersive streaming experience to users across different devices and platforms.
 
 By embracing MVI architecture with Clean Architecture and leveraging Jetpack Compose, TvNexa sets a high standard for online television platforms, prioritizing performance, maintainability, and user satisfaction.
 
@@ -87,15 +87,25 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 
 ### Onboarding Screens
 
-<p align="center">
-  <img width="600px" align="left" src="doc/picture_2.png" />
-</p>
+<div align="center">
+  <img width="450px" src="doc/picture_2.png" />
+  <img width="450px" src="doc/picture_3.png" />
+</div>
+<div align="center">
+  <img width="450px" src="doc/picture_1.png" />
+</div>
 
-<p align="center">
-  <img width="600px" align="left" src="doc/picture_3.png" />
-</p>
+### Settings
 
-<p align="center">
-  <img width="600px" align="left" src="doc/picture_1.png" />
-</p>
+<div align="center">
+  <img width="450px" src="doc/picture_4.png" />
+  <img width="450px" src="doc/picture_5.png" />
+</div>
+<div align="center">
+  <img width="450px" src="doc/picture_6.png" />
+  <img width="450px" src="doc/picture_7.png" />
+</div>
+<div align="center">
+  <img width="450px" src="doc/picture_8.png" />
+</div>
 
