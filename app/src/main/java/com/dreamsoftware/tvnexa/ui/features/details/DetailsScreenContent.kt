@@ -34,6 +34,7 @@ import com.dreamsoftware.tvnexa.ui.components.CommonInfoRow
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
+import com.dreamsoftware.tvnexa.ui.theme.Dimens
 
 @Composable
 fun DetailsScreenContent(
@@ -85,7 +86,7 @@ private fun BoxScope.ChannelDetailInfo(
         Row{
             Spacer(modifier = Modifier.width(150.dp))
             Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = 30.dp),
+                modifier = Modifier.fillMaxWidth().padding(horizontal = Dimens.DETAIL_HORIZONTAL_SPACING),
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
@@ -96,7 +97,7 @@ private fun BoxScope.ChannelDetailInfo(
             }
         }
         channelDetail?.let {
-            Spacer(modifier = Modifier.height(30.dp))
+            Spacer(modifier = Modifier.height(Dimens.DETAIL_VERTICAL_SPACING))
             ChannelDetailsInfo(it)
         }
     }
@@ -107,7 +108,7 @@ private fun BoxScope.DetailChannelLogo(channelDetail: ChannelDetailBO?) {
     Box(
         modifier = Modifier
             .align(Alignment.CenterStart)
-            .padding(start = 30.dp)
+            .padding(start = Dimens.DETAIL_HORIZONTAL_SPACING)
     ) {
         ChannelLogo(
             size = 120.dp,
@@ -165,7 +166,7 @@ private fun ChannelDetailsInfo(channelDetail: ChannelDetailBO) {
                 value = channelDetail.broadcastAreas.takeIf { it.isNotEmpty() }?.joinToString(", ") ?: stringResource(id = R.string.no_text_value),
             )
         }
-        Spacer(modifier = Modifier.width(30.dp))
+        Spacer(modifier = Modifier.width(Dimens.DETAIL_HORIZONTAL_SPACING))
         Column {
             CommonInfoRow(
                 labelRes = R.string.detail_content_website_label_text,
@@ -184,7 +185,7 @@ private fun ChannelDetailsInfo(channelDetail: ChannelDetailBO) {
                 value = channelDetail.closed ?: stringResource(id = R.string.no_text_value),
             )
         }
-        Spacer(modifier = Modifier.width(30.dp))
+        Spacer(modifier = Modifier.width(Dimens.DETAIL_HORIZONTAL_SPACING))
         Column {
             CommonInfoRow(
                 labelRes = R.string.detail_content_website_label_text,
