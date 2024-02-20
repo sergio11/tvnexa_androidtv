@@ -37,6 +37,7 @@ import com.dreamsoftware.tvnexa.ui.components.CommonLazyVerticalGrid
 import com.dreamsoftware.tvnexa.ui.components.CommonListItem
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
+import com.dreamsoftware.tvnexa.utils.combinedLet
 
 @Composable
 fun ChannelScreenContent(
@@ -70,13 +71,14 @@ fun ChannelScreenContent(
                         .fillMaxWidth()
                         .fillMaxHeight()
                 ) {
-                    channelFocused?.let {
+                    combinedLet(countrySelected, channelFocused) { country, channel ->
                         ChannelPreview(
                             modifier = Modifier
                                 .fillMaxWidth()
                                 .fillMaxHeight(0.45f)
                                 .padding(start = 8.dp),
-                            channel = it
+                            channel = channel,
+                            country = country
                         )
                     }
                     CategoriesList(
