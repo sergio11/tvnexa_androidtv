@@ -85,27 +85,37 @@ By embracing MVI architecture with Clean Architecture and leveraging Jetpack Com
 
 Here are some screenshots from our app to give you a glimpse of its design and functionality.
 
-### Onboarding Screens
+<p align="center">
+  <img width="700px" src="doc/picture_2.png" />
+</p>
 
-<div align="center">
-  <img width="450px" src="doc/picture_2.png" />
-  <img width="450px" src="doc/picture_3.png" />
-</div>
-<div align="center">
-  <img width="450px" src="doc/picture_1.png" />
-</div>
+<p align="center">
+  <img width="700px" src="doc/picture_3.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_1.png" />
+</p>
 
 ### Settings
 
-<div align="center">
-  <img width="450px" src="doc/picture_4.png" />
-  <img width="450px" src="doc/picture_5.png" />
-</div>
-<div align="center">
-  <img width="450px" src="doc/picture_6.png" />
-  <img width="450px" src="doc/picture_7.png" />
-</div>
-<div align="center">
-  <img width="450px" src="doc/picture_8.png" />
-</div>
+<p align="center">
+  <img width="700px" src="doc/picture_4.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_5.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_6.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_7.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_8.png" />
+</p>
 
