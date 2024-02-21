@@ -28,6 +28,7 @@ fun SaveProfileScreen(
             onPinChanged = ::onSecurePinChanged,
             onSaveProfilePressed = ::onSaveProfile,
             onProfileTypeChanged = ::onProfileTypeChanged,
+            onNsfwChanged = ::onIsNsfwChanged,
             onDeleteProfilePressed = {
                 args?.profileId?.let(onGoToDeleteProfile)
             },
