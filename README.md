@@ -117,6 +117,18 @@ Here are some screenshots from our app to give you a glimpse of its design and f
   <img width="700px" src="doc/picture_13.png" />
 </p>
 
+### Sign Up
+
+<p align="center">
+  <img width="700px" src="doc/picture_14.png" />
+</p>
+
+### Profiles
+
+<p align="center">
+  <img width="700px" src="doc/picture_15.png" />
+</p>
+
 ### Settings
 
 <p align="center">
