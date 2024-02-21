@@ -61,6 +61,12 @@ class SaveProfileViewModel @Inject constructor(
         }
     }
 
+    fun onIsNsfwChanged(isNsfw: Boolean) {
+        updateState {
+            it.copy(isNsfw = isNsfw)
+        }
+    }
+
     private fun onUpdateProfile() {
         with(uiState.value) {
             executeUseCaseWithParams(
@@ -119,6 +125,7 @@ data class SaveProfileUiState(
     val isEditMode: Boolean = false,
     val alias: String = String.EMPTY,
     val securePin: String = String.EMPTY,
+    val isNsfw: Boolean = false,
     val profileType: ProfileTypeEnum? = null
 ): UiState<SaveProfileUiState>(isLoading, error) {
     override fun copyState(isLoading: Boolean, error: String?): SaveProfileUiState =
