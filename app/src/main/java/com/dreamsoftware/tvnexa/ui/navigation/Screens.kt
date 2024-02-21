@@ -6,6 +6,7 @@ import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.dreamsoftware.tvnexa.ui.features.details.DetailScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.player.PlayerScreenArgs
+import com.dreamsoftware.tvnexa.ui.features.profiles.advance.ProfileAdvanceScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.profiles.delete.DeleteProfileScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.profiles.save.SaveProfileScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.profiles.secure.SecurePinScreenArgs
@@ -77,6 +78,24 @@ sealed class Screens(val path: String, arguments: List<NamedNavArgument> = empty
             fun parseArgs(args: Bundle): SaveProfileScreenArgs? = with(args) {
                 getString("profile_id")?.let {
                     SaveProfileScreenArgs(profileId = it)
+                }
+            }
+        }
+
+        data object ProfileAdvance : Screens("advance/{profile_id}", arguments = listOf(
+            navArgument("profile_id") {
+                type = NavType.StringType
+            }
+        )) {
+            fun buildRoute(profileId: String): String =
+                path.replace(
+                    oldValue = "{profile_id}",
+                    newValue = profileId
+                )
+
+            fun parseArgs(args: Bundle): ProfileAdvanceScreenArgs? = with(args) {
+                getString("profile_id")?.let {
+                    ProfileAdvanceScreenArgs(profileId = it)
                 }
             }
         }

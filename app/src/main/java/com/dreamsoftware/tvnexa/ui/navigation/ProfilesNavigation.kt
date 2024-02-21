@@ -3,6 +3,7 @@ package com.dreamsoftware.tvnexa.ui.navigation
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
+import com.dreamsoftware.tvnexa.ui.features.profiles.advance.ProfileAdvanceScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.delete.DeleteProfileScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.management.ProfilesManagementScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.save.SaveProfileScreen
@@ -50,8 +51,8 @@ fun ProfilesNavigation(
                     with(navController) {
                         SaveProfileScreen(
                             args = it,
-                            onGoToDeleteProfile = {
-                                navigate(Screens.Profiles.DeleteProfile.buildRoute(it))
+                            onGoToAdvanceConfiguration = {
+                                navigate(Screens.Profiles.ProfileAdvance.buildRoute(it))
                             },
                             onBackPressed = {
                                 navigateUp()
@@ -99,6 +100,24 @@ fun ProfilesNavigation(
                             navController.navigateUp()
                         },
                     )
+                }
+            }
+        }
+
+        transitionComposable(Screens.Profiles.ProfileAdvance.path) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let { args ->
+                Screens.Profiles.ProfileAdvance.parseArgs(args)?.let {
+                    with(navController) {
+                        ProfileAdvanceScreen(
+                            args = it,
+                            onGoToDeleteProfile = {
+                                navigate(Screens.Profiles.DeleteProfile.buildRoute(it))
+                            },
+                            onBackPressed = {
+                                navigateUp()
+                            },
+                        )
+                    }
                 }
             }
         }

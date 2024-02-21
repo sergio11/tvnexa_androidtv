@@ -105,7 +105,7 @@
     <string name="save_profile_form_is_nsfw_help_text">Enable this option to allow this profile to view NSFW (Not Safe For Work) content.</string>
     <string name="save_profile_confirm_button_text">Save it, Champ!</string>
     <string name="save_profile_cancel_button_text">Maybe Later</string>
-    <string name="save_profile_delete_button_text">Delete Profile?</string>
+    <string name="save_profile_advance_configuration_button_text">Advance config</string>
 
     <!-- Secure Pin -->
     <string name="secure_pin_main_title">Oops! Profile Locked</string>
@@ -119,6 +119,14 @@
     <string name="profiles_management_main_title">Let\'s Manage Profiles!</string>
     <string name="profiles_management_main_description">The perfect hub for your diverse profiles!</string>
     <string name="profiles_management_form_confirm_button_text">All Set</string>
+
+    <!-- Profile Advance -->
+    <string name="profiles_advance_main_title">Advanced Profile Settings</string>
+    <string name="profiles_advance_main_description">Configure additional settings for this profile.</string>
+    <string name="profiles_advance_form_confirm_button_text">Confirm</string>
+    <string name="profiles_advance_form_delete_button_text">Delete Profile?</string>
+    <string name="profiles_advance_channel_blocking_tab_label_text">Channel Blocking</string>
+    <string name="profiles_advance_time_restrictions_tab_label_text">Time Restrictions</string>
 
     <!-- Delete Profile -->
     <string name="delete_profile_main_title">Farewell, Profile!</string>
