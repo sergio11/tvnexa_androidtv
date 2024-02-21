@@ -102,6 +102,7 @@
     <string name="save_profile_form_avatar_label_text">Personalize your profile with a unique touch by selecting your avatar.</string>
     <string name="save_profile_form_alias_label_text">Your Name</string>
     <string name="save_profile_form_pin_label_text">Secret PIN</string>
+    <string name="save_profile_form_is_nsfw_help_text">Enable this option to allow this profile to view NSFW (Not Safe For Work) content.</string>
     <string name="save_profile_confirm_button_text">Save it, Champ!</string>
     <string name="save_profile_cancel_button_text">Maybe Later</string>
     <string name="save_profile_delete_button_text">Delete Profile?</string>

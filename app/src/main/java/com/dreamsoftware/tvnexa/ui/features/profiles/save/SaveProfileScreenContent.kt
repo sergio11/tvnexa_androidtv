@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.ProfileTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
+import com.dreamsoftware.tvnexa.ui.components.CommonSwitch
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextField
 import com.dreamsoftware.tvnexa.ui.components.CommonTextFieldTypeEnum
@@ -32,6 +33,7 @@ fun SaveProfileScreenContent(
     uiState: SaveProfileUiState,
     onAliasChanged: (String) -> Unit,
     onPinChanged: (String) -> Unit,
+    onNsfwChanged: (Boolean) -> Unit,
     onProfileTypeChanged: (ProfileTypeEnum) -> Unit,
     onSaveProfilePressed: () -> Unit,
     onDeleteProfilePressed: () -> Unit,
@@ -65,29 +67,86 @@ fun SaveProfileScreenContent(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.Center
             ) {
-                ProfileAvatarSelected(
-                    profileType = profileType
-                )
-                Spacer(modifier = Modifier.width(30.dp))
-                Column(
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.SpaceEvenly
-                ) {
-                    SaveProfileFormContent(
-                        modifier = Modifier
-                            .weight(0.7f),
+                if(isEditMode) {
+                    EditProfile(
                         uiState = uiState,
                         onAliasChanged = onAliasChanged,
-                        onPinChanged = onPinChanged
+                        onPinChanged = onPinChanged,
+                        onNsfwChanged = onNsfwChanged,
+                        onProfileTypeChanged = onProfileTypeChanged,
                     )
-                    ProfileSelector(
-                        modifier = Modifier
-                        .weight(0.3f),
-                        onProfileTypeChanged = onProfileTypeChanged
+                } else {
+                    CreateNewProfile(
+                        uiState = uiState,
+                        onAliasChanged = onAliasChanged,
+                        onPinChanged = onPinChanged,
+                        onNsfwChanged = onNsfwChanged,
+                        onProfileTypeChanged = onProfileTypeChanged,
                     )
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun CreateNewProfile(
+    uiState: SaveProfileUiState,
+    onAliasChanged: (String) -> Unit,
+    onPinChanged: (String) -> Unit,
+    onNsfwChanged: (Boolean) -> Unit,
+    onProfileTypeChanged: (ProfileTypeEnum) -> Unit,
+) {
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        ProfileAvatarSelected(
+            profileType = uiState.profileType
+        )
+        ProfileSelector(
+            modifier = Modifier
+                .weight(0.25f),
+            onProfileTypeChanged = onProfileTypeChanged
+        )
+    }
+    Spacer(modifier = Modifier.width(30.dp))
+    SaveProfileFormContent(
+        uiState = uiState,
+        onAliasChanged = onAliasChanged,
+        onPinChanged = onPinChanged,
+        onNsfwChanged = onNsfwChanged
+    )
+}
+
+@Composable
+private fun EditProfile(
+    uiState: SaveProfileUiState,
+    onAliasChanged: (String) -> Unit,
+    onPinChanged: (String) -> Unit,
+    onNsfwChanged: (Boolean) -> Unit,
+    onProfileTypeChanged: (ProfileTypeEnum) -> Unit,
+) {
+    ProfileAvatarSelected(
+        profileType = uiState.profileType
+    )
+    Spacer(modifier = Modifier.width(30.dp))
+    Column(
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.SpaceEvenly
+    ) {
+        SaveProfileFormContent(
+            modifier = Modifier.weight(0.7f),
+            uiState = uiState,
+            onAliasChanged = onAliasChanged,
+            onPinChanged = onPinChanged,
+            onNsfwChanged = onNsfwChanged
+        )
+        ProfileSelector(
+            modifier = Modifier
+                .weight(0.3f),
+            onProfileTypeChanged = onProfileTypeChanged
+        )
     }
 }
 
@@ -121,6 +180,7 @@ private fun SaveProfileFormContent(
     uiState: SaveProfileUiState,
     onAliasChanged: (String) -> Unit,
     onPinChanged: (String) -> Unit,
+    onNsfwChanged: (Boolean) -> Unit,
 ) {
     with(uiState) {
         CommonFocusRequester { requester ->
@@ -147,6 +207,13 @@ private fun SaveProfileFormContent(
                         onValueChange = onPinChanged
                     )
                 }
+                Spacer(modifier = Modifier.height(20.dp))
+                CommonSwitch(
+                    modifier = Modifier.width(300.dp),
+                    helpTextRes = R.string.save_profile_form_is_nsfw_help_text,
+                    checked = isNsfw,
+                    onValueChanged = onNsfwChanged
+                )
             }
         }
     }
@@ -159,6 +226,7 @@ private fun ProfileSelector(
 ) {
     Row(
         modifier = modifier,
+        verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         ProfileTypeEnum.entries.forEach {
