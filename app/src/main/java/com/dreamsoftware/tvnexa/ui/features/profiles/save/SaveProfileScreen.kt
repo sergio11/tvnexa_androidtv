@@ -8,7 +8,7 @@ import com.dreamsoftware.tvnexa.ui.components.CommonScreen
 fun SaveProfileScreen(
     args: SaveProfileScreenArgs? = null,
     viewModel: SaveProfileViewModel = hiltViewModel(),
-    onGoToDeleteProfile: (String) -> Unit = {},
+    onGoToAdvanceConfiguration: (String) -> Unit = {},
     onBackPressed: () -> Unit
 ) {
     CommonScreen(
@@ -29,8 +29,8 @@ fun SaveProfileScreen(
             onSaveProfilePressed = ::onSaveProfile,
             onProfileTypeChanged = ::onProfileTypeChanged,
             onNsfwChanged = ::onIsNsfwChanged,
-            onDeleteProfilePressed = {
-                args?.profileId?.let(onGoToDeleteProfile)
+            onAdvanceConfigurationPressed = {
+                args?.profileId?.let(onGoToAdvanceConfiguration)
             },
             onCancelPressed = onBackPressed
         )
