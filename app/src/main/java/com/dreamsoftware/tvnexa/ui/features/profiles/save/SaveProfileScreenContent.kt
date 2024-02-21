@@ -36,7 +36,7 @@ fun SaveProfileScreenContent(
     onNsfwChanged: (Boolean) -> Unit,
     onProfileTypeChanged: (ProfileTypeEnum) -> Unit,
     onSaveProfilePressed: () -> Unit,
-    onDeleteProfilePressed: () -> Unit,
+    onAdvanceConfigurationPressed: () -> Unit,
     onCancelPressed: () -> Unit
 ) {
     with(uiState) {
@@ -55,13 +55,13 @@ fun SaveProfileScreenContent(
             primaryOptionTextRes = R.string.save_profile_confirm_button_text,
             secondaryOptionTextRes = R.string.save_profile_cancel_button_text,
             tertiaryOptionTextRes = if(isEditMode) {
-                R.string.save_profile_delete_button_text
+                R.string.save_profile_advance_configuration_button_text
             } else {
                 null
             },
             onPrimaryOptionPressed = onSaveProfilePressed,
             onSecondaryOptionPressed = onCancelPressed,
-            onTertiaryOptionPressed = onDeleteProfilePressed
+            onTertiaryOptionPressed = onAdvanceConfigurationPressed
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
