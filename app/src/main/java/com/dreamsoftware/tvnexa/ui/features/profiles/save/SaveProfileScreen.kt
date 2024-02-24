@@ -27,7 +27,7 @@ fun SaveProfileScreen(
             onAliasChanged = ::onAliasChanged,
             onPinChanged = ::onSecurePinChanged,
             onSaveProfilePressed = ::onSaveProfile,
-            onProfileTypeChanged = ::onProfileTypeChanged,
+            onAvatarTypeChanged = ::onAvatarTypeChanged,
             onNsfwChanged = ::onIsNsfwChanged,
             onAdvanceConfigurationPressed = {
                 args?.profileId?.let(onGoToAdvanceConfiguration)

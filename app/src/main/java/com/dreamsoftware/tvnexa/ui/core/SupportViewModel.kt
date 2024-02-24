@@ -67,8 +67,8 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
 
     protected suspend fun <RESULT, UC: BaseUseCase<RESULT>> executeUseCase(
         useCase: UC,
-        onMapExceptionToState: (Exception, STATE) -> STATE = { _ , state -> state },
-        onGetDefaultValue: () -> RESULT
+        onGetDefaultValue: () -> RESULT,
+        onMapExceptionToState: ((Exception, STATE) -> STATE)? = null,
     ): RESULT {
         onLoading()
         return try {
@@ -85,7 +85,7 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
         useCase: UC,
         onSuccess: (RESULT) -> Unit = {},
         onFailed: () -> Unit = {},
-        onMapExceptionToState: (Exception, STATE) -> STATE = { _ , state -> state }
+        onMapExceptionToState: ((Exception, STATE) -> STATE)? = null
     ) {
         onLoading()
         useCase.invoke(
@@ -104,7 +104,7 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
     protected suspend fun <PARAMS, RESULT, UC: BaseUseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(
         useCase: UC,
         params: PARAMS,
-        onMapExceptionToState: (Exception, STATE) -> STATE = { _ , state -> state },
+        onMapExceptionToState: ((Exception, STATE) -> STATE)? = null,
         onGetDefaultValue: () -> RESULT
     ): RESULT {
         onLoading()
@@ -126,7 +126,7 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
         params: PARAMS,
         onSuccess: (RESULT) -> Unit = {},
         onFailed: () -> Unit = {},
-        onMapExceptionToState: (Exception, STATE) -> STATE = { _ , state -> state }
+        onMapExceptionToState: ((Exception, STATE) -> STATE)? = null
     ) {
         onLoading()
         useCase.invoke(
@@ -155,10 +155,15 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
         }
     }
 
-    private fun onErrorOccurred(ex: Exception, onMapExceptionToState: (Exception, STATE) -> STATE) {
+    private fun onErrorOccurred(ex: Exception, onMapExceptionToState: ((Exception, STATE) -> STATE)?) {
         ex.printStackTrace()
         updateState {
-            onMapExceptionToState(ex, it.copyState(isLoading = false))
+            onMapExceptionToState?.invoke(ex, it.copyState(isLoading = false)) ?: run {
+                it.copyState(
+                    isLoading = false,
+                    error = ex.message
+                )
+            }
         }
     }
 }

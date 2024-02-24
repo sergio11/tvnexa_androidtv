@@ -23,6 +23,7 @@ import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.AppLogoInverse
 import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonStyleTypeEnum
+import com.dreamsoftware.tvnexa.ui.components.CommonScreenContent
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
@@ -30,6 +31,7 @@ import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
 @Composable
 fun CommonProfileScreenContent(
     isLoading: Boolean,
+    error: String?,
     @StringRes mainTitleRes: Int,
     @StringRes secondaryTitleRes: Int,
     @StringRes primaryOptionTextRes: Int,
@@ -41,47 +43,52 @@ fun CommonProfileScreenContent(
     content: @Composable (mainActionFocusRequester: FocusRequester) -> Unit
 ) {
     val mainActionFocusRequester = remember { FocusRequester() }
-    CommonProfileGradientBox {
-        LoadingDialog(
-            isShowingDialog = isLoading,
-            titleRes = R.string.generic_progress_dialog_title,
-            descriptionRes = R.string.generic_progress_dialog_description
-        )
-        AppLogoInverse(
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(20.dp)
-                .height(90.dp)
-        )
-        Column(
-            modifier = Modifier
-                .align(Alignment.Center)
-                .fillMaxHeight(0.95f)
-                .fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CommonProfileHeader(
-                mainTitleRes = mainTitleRes,
-                secondaryTitleRes = secondaryTitleRes
+    CommonScreenContent(
+        error = error
+    ) {
+        CommonProfileGradientBox {
+            LoadingDialog(
+                isShowingDialog = isLoading,
+                titleRes = R.string.generic_progress_dialog_title,
+                descriptionRes = R.string.generic_progress_dialog_description
             )
-            CommonProfileContent(
-                content = { content(mainActionFocusRequester) }
-            )
-            CommonProfileActions(
+            AppLogoInverse(
                 modifier = Modifier
-                    .fillMaxSize()
-                    .weight(0.3f),
-                focusRequester = mainActionFocusRequester,
-                primaryOptionTextRes = primaryOptionTextRes,
-                secondaryOptionTextRes = secondaryOptionTextRes,
-                tertiaryOptionTextRes = tertiaryOptionTextRes,
-                onPrimaryOptionPressed = onPrimaryOptionPressed,
-                onSecondaryOptionPressed = onSecondaryOptionPressed,
-                onTertiaryOptionPressed = onTertiaryOptionPressed
+                    .align(Alignment.TopStart)
+                    .padding(20.dp)
+                    .height(90.dp)
             )
+            Column(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .fillMaxHeight(0.95f)
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                CommonProfileHeader(
+                    mainTitleRes = mainTitleRes,
+                    secondaryTitleRes = secondaryTitleRes
+                )
+                CommonProfileContent(
+                    content = { content(mainActionFocusRequester) }
+                )
+                CommonProfileActions(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .weight(0.3f),
+                    focusRequester = mainActionFocusRequester,
+                    primaryOptionTextRes = primaryOptionTextRes,
+                    secondaryOptionTextRes = secondaryOptionTextRes,
+                    tertiaryOptionTextRes = tertiaryOptionTextRes,
+                    onPrimaryOptionPressed = onPrimaryOptionPressed,
+                    onSecondaryOptionPressed = onSecondaryOptionPressed,
+                    onTertiaryOptionPressed = onTertiaryOptionPressed
+                )
+            }
         }
     }
+
 }
 
 @Composable

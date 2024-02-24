@@ -40,6 +40,7 @@ fun ProfileAdvanceScreenContent(
     with(uiState) {
         CommonProfileScreenContent(
             isLoading = isLoading,
+            error = error,
             mainTitleRes = R.string.profiles_advance_main_title,
             secondaryTitleRes = R.string.profiles_advance_main_description,
             primaryOptionTextRes = R.string.profiles_advance_form_confirm_button_text,

@@ -10,14 +10,17 @@ class UpdateProfileUseCase(
 ): BaseUseCaseWithParams<UpdateProfileUseCase.Params, ProfileBO>() {
 
     override suspend fun onExecuted(params: Params): ProfileBO = with(params) {
-        userRepository.updateProfile(profileId, UpdatedProfileRequestBO(alias, pin, isAdmin, type))
+        userRepository.updateProfile(profileId, UpdatedProfileRequestBO(
+            alias = alias,
+            enableNSFW = enableNSFW,
+            avatarType = avatarType
+        ))
     }
 
     data class Params(
         val profileId: String,
         val alias: String?,
-        val pin: Int?,
-        val isAdmin: Boolean?,
-        val type: String?
+        val enableNSFW: Boolean?,
+        val avatarType: String?
     )
 }
