@@ -32,8 +32,10 @@ import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
 fun CommonProfileScreenContent(
     isLoading: Boolean,
     error: String?,
-    @StringRes mainTitleRes: Int,
-    @StringRes secondaryTitleRes: Int,
+    @StringRes mainTitleRes: Int? = null,
+    mainTitleText: String? = null,
+    @StringRes secondaryTitleRes: Int? = null,
+    secondaryTitleText: String? = null,
     @StringRes primaryOptionTextRes: Int,
     @StringRes secondaryOptionTextRes: Int? = null,
     @StringRes tertiaryOptionTextRes: Int? = null,
@@ -68,7 +70,9 @@ fun CommonProfileScreenContent(
             ) {
                 CommonProfileHeader(
                     mainTitleRes = mainTitleRes,
-                    secondaryTitleRes = secondaryTitleRes
+                    mainTitleText = mainTitleText,
+                    secondaryTitleRes = secondaryTitleRes,
+                    secondaryTitleText = secondaryTitleText
                 )
                 CommonProfileContent(
                     content = { content(mainActionFocusRequester) }
@@ -93,17 +97,21 @@ fun CommonProfileScreenContent(
 
 @Composable
 private fun ColumnScope.CommonProfileHeader(
-    @StringRes mainTitleRes: Int,
-    @StringRes secondaryTitleRes: Int,
+    @StringRes mainTitleRes: Int? = null,
+    mainTitleText: String? = null,
+    @StringRes secondaryTitleRes: Int? = null,
+    secondaryTitleText: String? = null,
 ) {
     Spacer(modifier = Modifier.weight(0.2f))
     CommonText(
         titleRes = mainTitleRes,
+        titleText = mainTitleText,
         type = CommonTextTypeEnum.TITLE_LARGE
     )
     Spacer(modifier = Modifier.height(10.dp))
     CommonText(
         titleRes = secondaryTitleRes,
+        titleText = secondaryTitleText,
         type = CommonTextTypeEnum.TITLE_MEDIUM
     )
     Spacer(modifier = Modifier.weight(0.1f))

@@ -2,11 +2,7 @@
 
 package com.dreamsoftware.tvnexa.ui.features.profiles.advance
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.key
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -22,7 +18,6 @@ import androidx.tv.material3.TabRowDefaults
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
-import com.dreamsoftware.tvnexa.ui.components.MiniKeyboard
 import com.dreamsoftware.tvnexa.ui.features.profiles.components.CommonProfileScreenContent
 
 @Composable
@@ -30,12 +25,8 @@ fun ProfileAdvanceScreenContent(
     uiState: ProfileAdvanceUiState,
     onConfirmPressed: () -> Unit,
     onDeleteProfilePressed: () -> Unit,
-    onNewTabSelected: (ProfileAdvancedTab) -> Unit,
-    onKeyPressed: (String) -> Unit,
-    onSearchPressed: () -> Unit,
-    onClearPressed: () -> Unit,
-    onBackSpacePressed: () -> Unit,
-    onSpaceBarPressed: () -> Unit
+    onBlockingChannelsPressed: () -> Unit,
+    onNewTabSelected: (ProfileAdvancedTab) -> Unit
 ) {
     with(uiState) {
         CommonProfileScreenContent(
@@ -44,9 +35,11 @@ fun ProfileAdvanceScreenContent(
             mainTitleRes = R.string.profiles_advance_main_title,
             secondaryTitleRes = R.string.profiles_advance_main_description,
             primaryOptionTextRes = R.string.profiles_advance_form_confirm_button_text,
-            secondaryOptionTextRes = R.string.profiles_advance_form_delete_button_text,
+            secondaryOptionTextRes = R.string.profiles_advance_form_blocking_channels_button_text,
+            tertiaryOptionTextRes = R.string.profiles_advance_form_delete_button_text,
             onPrimaryOptionPressed = onConfirmPressed,
-            onSecondaryOptionPressed = onDeleteProfilePressed
+            onSecondaryOptionPressed = onBlockingChannelsPressed,
+            onTertiaryOptionPressed = onDeleteProfilePressed,
         ) {
             ProfileAdvanceTabs(
                 tabs = tabs,
@@ -54,13 +47,7 @@ fun ProfileAdvanceScreenContent(
                 onTabSelected = onNewTabSelected
             )
             when(tabSelected) {
-                ProfileAdvancedTab.ChannelBlockingTab -> ProfileAdvanceChannelBlocking(
-                    onKeyPressed = onKeyPressed,
-                    onSearchPressed = onSearchPressed,
-                    onClearPressed = onClearPressed,
-                    onBackSpacePressed = onBackSpacePressed,
-                    onSpaceBarPressed = onSpaceBarPressed
-                )
+                ProfileAdvancedTab.ChangeSecurePinTab -> ProfileAdvanceChangeSecurePin()
                 ProfileAdvancedTab.TimeRestrictionsTab -> ProfileAdvanceTimeRestrictions()
             }
         }
@@ -107,28 +94,8 @@ private fun ProfileAdvanceTabs(
 }
 
 @Composable
-private fun ProfileAdvanceChannelBlocking(
-    onKeyPressed: (String) -> Unit,
-    onSearchPressed: () -> Unit,
-    onClearPressed: () -> Unit,
-    onBackSpacePressed: () -> Unit,
-    onSpaceBarPressed: () -> Unit
-) {
-    Row(modifier = Modifier
-        .fillMaxSize()
-        .padding(horizontal = 30.dp)
-    ) {
-        Column {
-            MiniKeyboard(
-                modifier = Modifier.width(300.dp),
-                onKeyPressed = onKeyPressed,
-                onSearchPressed = onSearchPressed,
-                onClearPressed = onClearPressed,
-                onBackSpacePressed = onBackSpacePressed,
-                onSpaceBarPressed = onSpaceBarPressed
-            )
-        }
-    }
+private fun ProfileAdvanceChangeSecurePin() {
+
 }
 
 @Composable
