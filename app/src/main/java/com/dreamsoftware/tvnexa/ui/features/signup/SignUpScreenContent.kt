@@ -36,17 +36,16 @@ import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonStyleTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonButtonTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonFullScreenImage
+import com.dreamsoftware.tvnexa.ui.components.CommonScreenContent
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextField
 import com.dreamsoftware.tvnexa.ui.components.CommonTextFieldTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
-import com.dreamsoftware.tvnexa.ui.components.ErrorDialogDialog
 import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
 import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
 fun SignUpScreenContent(
-    modifier: Modifier = Modifier,
     uiState: SignUpUiState,
     onFirstNameChanged: (String) -> Unit,
     onLastNameChanged: (String) -> Unit,
@@ -55,50 +54,47 @@ fun SignUpScreenContent(
     onPasswordChanged: (String) -> Unit,
     onRepeatPasswordChanged: (String) -> Unit,
     onSigUpPressed: () -> Unit,
-    onCancelPressed: () -> Unit,
-    onErrorAcceptPressed: () -> Unit
+    onCancelPressed: () -> Unit
 ) {
-    Box(
-        modifier = modifier.fillMaxSize(),
-        contentAlignment = Alignment.Center
-    ) {
-        SignUpDialog(
-            uiState = uiState,
-            onErrorAcceptPressed = onErrorAcceptPressed
-        )
-        SignUpBackground()
-        Column(
-            modifier = Modifier
-                .fillMaxHeight()
-                .fillMaxWidth(0.8f),
-            verticalArrangement = Arrangement.SpaceEvenly,
+    with(uiState) {
+        CommonScreenContent(
+            error = error
         ) {
-            SignUpFormContent(
+            SignUpDialog(uiState = uiState)
+            SignUpBackground()
+            Column(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.8f),
-                uiState = uiState,
-                onFirstNameChanged = onFirstNameChanged,
-                onLastNameChanged = onLastNameChanged,
-                onEmailChanged = onEmailChanged,
-                onUsernameChanged = onUsernameChanged,
-                onPasswordChanged = onPasswordChanged,
-                onRepeatPasswordChanged = onRepeatPasswordChanged,
-                onCancelPressed = onCancelPressed,
-                onSigUpPressed = onSigUpPressed
-            )
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .fillMaxHeight(0.2f),
-                horizontalArrangement = Arrangement.SpaceEvenly,
-                verticalAlignment = Alignment.CenterVertically
+                    .fillMaxHeight()
+                    .fillMaxWidth(0.8f),
+                verticalArrangement = Arrangement.SpaceEvenly,
             ) {
-                CommonText(
-                    titleRes = R.string.developer_credits_text_single_line,
-                    type = CommonTextTypeEnum.LABEL_SMALL,
-                    textAlign = TextAlign.Start
+                SignUpFormContent(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.8f),
+                    uiState = uiState,
+                    onFirstNameChanged = onFirstNameChanged,
+                    onLastNameChanged = onLastNameChanged,
+                    onEmailChanged = onEmailChanged,
+                    onUsernameChanged = onUsernameChanged,
+                    onPasswordChanged = onPasswordChanged,
+                    onRepeatPasswordChanged = onRepeatPasswordChanged,
+                    onCancelPressed = onCancelPressed,
+                    onSigUpPressed = onSigUpPressed
                 )
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.2f),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    CommonText(
+                        titleRes = R.string.developer_credits_text_single_line,
+                        type = CommonTextTypeEnum.LABEL_SMALL,
+                        textAlign = TextAlign.Start
+                    )
+                }
             }
         }
     }
@@ -106,19 +102,13 @@ fun SignUpScreenContent(
 
 @Composable
 private fun SignUpDialog(
-    uiState: SignUpUiState,
-    onErrorAcceptPressed: () -> Unit
+    uiState: SignUpUiState
 ) {
     with(uiState) {
         LoadingDialog(
             isShowingDialog = isLoading,
             titleRes = R.string.sign_up_progress_dialog_title,
             descriptionRes = R.string.sign_up_progress_dialog_description
-        )
-        ErrorDialogDialog(
-            isVisible = !error.isNullOrBlank(),
-            description = error,
-            onAcceptClicked = onErrorAcceptPressed
         )
     }
 }
@@ -308,8 +298,7 @@ fun SignUpPrev() {
             onPasswordChanged = {},
             onRepeatPasswordChanged = {},
             onSigUpPressed = {},
-            onCancelPressed = {},
-            onErrorAcceptPressed = {}
+            onCancelPressed = {}
         )
     }
 }
