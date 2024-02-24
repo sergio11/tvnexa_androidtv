@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.focusRequester
@@ -73,7 +74,7 @@ fun ChannelScreenContent(
                     modifier = Modifier
                         .fillMaxWidth()
                         .fillMaxHeight(),
-                    verticalArrangement = Arrangement.Center,
+                    verticalArrangement = Arrangement.Top,
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     if(isLoading) {
@@ -117,9 +118,17 @@ private fun CategoriesList(
     categorySelected: CategoryBO?,
     onCategorySelected: (CategoryBO) -> Unit
 ) {
+    val listState = rememberTvLazyListState()
+    LaunchedEffect(categorySelected) {
+        if (categorySelected != null) {
+            categories.indexOf(categorySelected).takeIf { it >= 0 }?.let {
+                listState.scrollToItem(it)
+            }
+        }
+    }
     TvLazyRow(
         modifier = modifier,
-        state = rememberTvLazyListState(),
+        state = listState,
         contentPadding = PaddingValues(8.dp),
         horizontalArrangement = Arrangement.spacedBy(10.dp)
     ) {
@@ -144,6 +153,14 @@ private fun ChannelsGrid(
     onChannelFocused: (SimpleChannelBO) -> Unit,
     onChannelPressed: (SimpleChannelBO) -> Unit,
 ) {
+    val listState = rememberTvLazyListState()
+    LaunchedEffect(channelFocused) {
+        if (channelFocused != null) {
+            channels.indexOf(channelFocused).takeIf { it >= 0 }?.let {
+                listState.scrollToItem(it)
+            }
+        }
+    }
     CommonFocusRequester (shouldRequestFocus = {
         channels.isNotEmpty() && channelFocused != null
     }) { requester ->

@@ -30,7 +30,7 @@ fun ChannelGridItem(
                 .height(150.dp)
                 .padding(8.dp),
             containerColor = primaryContainer.copy(0.7f),
-            borderColor = primaryContainer,
+            borderColor = onPrimary,
             onFocused = { onChannelFocused(channel) },
             onClicked = { onChannelPressed(channel) }
         ) { isFocused ->
