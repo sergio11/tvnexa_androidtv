@@ -5,6 +5,7 @@ package com.dreamsoftware.tvnexa.ui.components
 
 import androidx.annotation.StringRes
 import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -20,7 +21,6 @@ import androidx.compose.ui.focus.FocusDirection
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
-import androidx.compose.ui.platform.SoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -58,80 +58,82 @@ fun CommonTextField(
         val keyboard = LocalSoftwareKeyboardController.current
         val focusManager = LocalFocusManager.current
         val isError = !errorMessage.isNullOrBlank()
-        OutlinedTextField(
-            interactionSource = interactionSource,
-            modifier = modifier,
-            value = value,
-            enabled = enabled,
-            colors = TextFieldDefaults.colors(
-                focusedLabelColor = onPrimary,
-                unfocusedLabelColor = if(value.isNotBlank()) {
-                    onPrimary
-                } else {
-                    primary
-                }
-            ),
-            visualTransformation = if (type != CommonTextFieldTypeEnum.PASSWORD && type != CommonTextFieldTypeEnum.NUMBER_SECRET)
-                VisualTransformation.None
-            else
-                PasswordVisualTransformation(),
-            onValueChange = { text ->
-                onValueChange(text)
-            },
-            label = {
-                Text(text = stringResource(id = labelRes))
-            },
-            trailingIcon = {
-                if (isError) {
-                    Icon(
-                        imageVector = Icons.Filled.Error,
-                        contentDescription = "error",
-                        tint = error
-                    )
-                }
-            },
-            isError = isError,
-            leadingIcon = {
-                Icon(
-                    imageVector = icon,
-                    tint = if(isError) {
-                        error
+        Column {
+            OutlinedTextField(
+                interactionSource = interactionSource,
+                modifier = modifier,
+                value = value,
+                enabled = enabled,
+                colors = TextFieldDefaults.colors(
+                    focusedLabelColor = onPrimary,
+                    unfocusedLabelColor = if(value.isNotBlank()) {
+                        onPrimary
                     } else {
                         primary
+                    }
+                ),
+                visualTransformation = if (type != CommonTextFieldTypeEnum.PASSWORD && type != CommonTextFieldTypeEnum.NUMBER_SECRET)
+                    VisualTransformation.None
+                else
+                    PasswordVisualTransformation(),
+                onValueChange = { text ->
+                    onValueChange(text)
+                },
+                label = {
+                    Text(text = stringResource(id = labelRes))
+                },
+                trailingIcon = {
+                    if (isError) {
+                        Icon(
+                            imageVector = Icons.Filled.Error,
+                            contentDescription = "error",
+                            tint = error
+                        )
+                    }
+                },
+                isError = isError,
+                leadingIcon = {
+                    Icon(
+                        imageVector = icon,
+                        tint = if(isError) {
+                            error
+                        } else {
+                            primary
+                        },
+                        contentDescription = ""
+                    )
+                },
+                keyboardOptions = KeyboardOptions(
+                    keyboardType = when (type) {
+                        CommonTextFieldTypeEnum.TEXT -> KeyboardType.Text
+                        CommonTextFieldTypeEnum.EMAIL -> KeyboardType.Email
+                        CommonTextFieldTypeEnum.NUMBER -> KeyboardType.Number
+                        CommonTextFieldTypeEnum.PHONE -> KeyboardType.Phone
+                        CommonTextFieldTypeEnum.PASSWORD -> KeyboardType.Password
+                        CommonTextFieldTypeEnum.NUMBER_SECRET -> KeyboardType.NumberPassword
                     },
-                    contentDescription = ""
+                    imeAction = imeAction
+                ),
+                keyboardActions = KeyboardActions(
+                    onNext = {
+                        focusManager.moveFocus(FocusDirection.Down)
+                        onImeActionCompleted()
+                    },
+                    onDone = {
+                        keyboard?.hide()
+                        focusManager.clearFocus(true)
+                        onImeActionCompleted()
+                    }
                 )
-            },
-            keyboardOptions = KeyboardOptions(
-                keyboardType = when (type) {
-                    CommonTextFieldTypeEnum.TEXT -> KeyboardType.Text
-                    CommonTextFieldTypeEnum.EMAIL -> KeyboardType.Email
-                    CommonTextFieldTypeEnum.NUMBER -> KeyboardType.Number
-                    CommonTextFieldTypeEnum.PHONE -> KeyboardType.Phone
-                    CommonTextFieldTypeEnum.PASSWORD -> KeyboardType.Password
-                    CommonTextFieldTypeEnum.NUMBER_SECRET -> KeyboardType.NumberPassword
-                },
-                imeAction = imeAction
-            ),
-            keyboardActions = KeyboardActions(
-                onNext = {
-                    focusManager.moveFocus(FocusDirection.Down)
-                    onImeActionCompleted()
-                },
-                onDone = {
-                    keyboard?.hide()
-                    focusManager.clearFocus(true)
-                    onImeActionCompleted()
-                }
             )
-        )
-        if (isError) {
-            CommonText(
-                modifier = Modifier.padding(top = 5.dp),
-                type = CommonTextTypeEnum.LABEL_MEDIUM,
-                titleText = errorMessage.orEmpty(),
-                textColor = error
-            )
+            if (isError) {
+                CommonText(
+                    modifier = Modifier.padding(top = 5.dp),
+                    type = CommonTextTypeEnum.LABEL_MEDIUM,
+                    titleText = errorMessage.orEmpty(),
+                    textColor = error
+                )
+            }
         }
     }
 }
