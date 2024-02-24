@@ -11,7 +11,10 @@
     <string name="generic_progress_dialog_title">Loading…</string>
     <string name="generic_progress_dialog_description">Please wait a moment…</string>
     <string name="generic_channel_can_not_reproduce">Oops! Looks like we can\'t play this channel right now. Why not give it another shot later?</string>
-
+    <string name="generic_lost_network_connectivity_dialog_title">Oh no! We\'ve Lost Connection to the Galaxy</string>
+    <string name="generic_lost_network_connectivity_dialog_description">It seems our spaceship has hit a cosmic glitch. Let\'s navigate back to the network settings and get back on track!</string>
+    <string name="generic_lost_network_connectivity_dialog_open_settings_button_text">Open Settings</string>
+    <string name="generic_lost_network_connectivity_dialog_restart_app_button_text">Restart App</string>
     <!-- Common -->
     <string name="developer_credits_text">Build with passion by dreamsoftware. \n Sergio Sánchez Sánchez © 2024</string>
     <string name="developer_credits_text_single_line">Build with passion by dreamsoftware. Sergio Sánchez Sánchez © 2024</string>

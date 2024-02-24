@@ -8,7 +8,7 @@ import timber.log.Timber
 
 class NetworkConnectivityCallback(private val appEventBus: AppEventBus) : ConnectivityManager.NetworkCallback() {
 
-    private var lastState: Boolean? = null
+    private var lastState: Boolean = true
 
     override fun onAvailable(network: Network) {
         super.onAvailable(network)
@@ -24,13 +24,14 @@ class NetworkConnectivityCallback(private val appEventBus: AppEventBus) : Connec
 
     private fun updateConnectivityState(newState: Boolean) {
         if (newState != lastState) {
-            lastState = newState
             appEventBus.send(
                 AppEvent.NetworkConnectivityStateChanged(
-                    lastState = false,
-                    newState = true
+                    lastState = lastState,
+                    newState = newState
                 )
-            )
+            ).also {
+                lastState = newState
+            }
         }
     }
 
