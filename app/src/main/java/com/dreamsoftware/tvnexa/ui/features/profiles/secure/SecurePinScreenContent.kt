@@ -25,6 +25,7 @@ fun SecurePinScreenContent(
     with(uiState) {
         CommonProfileScreenContent(
             isLoading = isLoading,
+            error = error,
             mainTitleRes = R.string.secure_pin_main_title,
             secondaryTitleRes = R.string.secure_pin_main_description,
             primaryOptionTextRes = R.string.secure_pin_form_accept_button_text,

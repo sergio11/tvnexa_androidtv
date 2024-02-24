@@ -43,9 +43,9 @@ class SaveProfileViewModel @Inject constructor(
         }
     }
 
-    fun onProfileTypeChanged(newProfileType: AvatarTypeEnum) {
+    fun onAvatarTypeChanged(newAvatarType: AvatarTypeEnum) {
         updateState {
-            it.copy(profileType = newProfileType)
+            it.copy(avatarType = newAvatarType)
         }
     }
 
@@ -63,7 +63,7 @@ class SaveProfileViewModel @Inject constructor(
 
     fun onIsNsfwChanged(isNsfw: Boolean) {
         updateState {
-            it.copy(isNsfw = isNsfw)
+            it.copy(enableNSFW = isNsfw)
         }
     }
 
@@ -74,9 +74,8 @@ class SaveProfileViewModel @Inject constructor(
                 params = UpdateProfileUseCase.Params(
                     profileId = profileId,
                     alias = alias,
-                    pin = null,
-                    isAdmin = null,
-                    type = profileType?.name
+                    enableNSFW = enableNSFW,
+                    avatarType  = avatarType?.name
                 ),
                 onSuccess = {
                     onSaveProfileSuccessfully()
@@ -87,14 +86,14 @@ class SaveProfileViewModel @Inject constructor(
 
     private fun onCreateProfile() {
         with(uiState.value) {
-            combinedLet(profileType, securePin.toIntOrNull()) { type, pin ->
+            combinedLet(avatarType, securePin.toIntOrNull()) { type, pin ->
                 executeUseCaseWithParams(
                     useCase = createProfileUseCase,
                     params = CreateProfileUseCase.Params(
                         alias = alias,
                         pin = pin,
-                        isAdmin = false,
-                        type = type
+                        enableNSFW = enableNSFW,
+                        avatarType = type
                     ),
                     onSuccess = {
                         onSaveProfileSuccessfully()
@@ -109,7 +108,8 @@ class SaveProfileViewModel @Inject constructor(
             it.copy(
                 isEditMode = true,
                 alias = profileBO.alias,
-                profileType = profileBO.avatarType
+                avatarType = profileBO.avatarType,
+                enableNSFW = profileBO.enableNSFW
             )
         }
     }
@@ -125,8 +125,8 @@ data class SaveProfileUiState(
     val isEditMode: Boolean = false,
     val alias: String = String.EMPTY,
     val securePin: String = String.EMPTY,
-    val isNsfw: Boolean = false,
-    val profileType: AvatarTypeEnum? = null
+    val enableNSFW: Boolean = false,
+    val avatarType: AvatarTypeEnum? = null
 ): UiState<SaveProfileUiState>(isLoading, error) {
     override fun copyState(isLoading: Boolean, error: String?): SaveProfileUiState =
         copy(isLoading = isLoading, error = error)

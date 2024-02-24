@@ -24,6 +24,7 @@ fun DeleteProfileScreenContent(
     with(uiState) {
         CommonProfileScreenContent(
             isLoading = isLoading,
+            error = error,
             mainTitleRes = R.string.delete_profile_main_title,
             secondaryTitleRes = R.string.delete_profile_main_description,
             primaryOptionTextRes = R.string.delete_profile_form_accept_button_text,
