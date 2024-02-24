@@ -19,6 +19,13 @@ fun DetailsScreen(
     ) { uiState ->
         DetailsScreenContent(
             uiState = uiState,
+            onFavoriteStateChanged = { isFavorite ->
+                 if(isFavorite) {
+                     saveAsFavorite()
+                 } else {
+                     removeFromFavorites()
+                 }
+            },
             onPlayChannelPressed = onPlayChannelPressed
         )
     }

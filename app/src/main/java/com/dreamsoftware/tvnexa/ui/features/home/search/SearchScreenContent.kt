@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.lazy.grid.TvGridCells
@@ -20,6 +21,7 @@ import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 import com.dreamsoftware.tvnexa.ui.components.ChannelGridItem
+import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonLoading
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
@@ -37,7 +39,9 @@ fun SearchScreenContent(
     onSpaceBarPressed: () -> Unit
 ) {
     with(uiState) {
-        Row(modifier = Modifier.fillMaxSize()) {
+        Row(
+            modifier = Modifier.fillMaxSize()
+        ) {
             Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 24.dp)) {
                 SearchView()
                 MiniKeyboard(
@@ -49,12 +53,22 @@ fun SearchScreenContent(
                     onSpaceBarPressed = onSpaceBarPressed
                 )
             }
+            Column {
+
+            }
             when {
                 isLoading -> CommonLoading(
                     modifier = Modifier.padding(horizontal = 16.dp),
                     text = R.string.search_screen_search_results_loading
                 )
-                !error.isNullOrBlank() -> ErrorStateNotificationComponent(imageRes = R.drawable.default_placeholder, title = error)
+                channels.isEmpty() || !error.isNullOrBlank() -> ErrorStateNotificationComponent(
+                    imageRes = R.drawable.default_placeholder,
+                    title = if(channels.isEmpty()) {
+                        stringResource(id = R.string.search_screen_search_no_results_found)
+                    } else {
+                        error.orEmpty()
+                    }
+                )
                 else -> ContentGrid(
                     term = term,
                     channels = channels,
@@ -72,21 +86,28 @@ fun ContentGrid(
     term: String,
     onChannelPressed: (SimpleChannelBO) -> Unit,
 ) {
-    TvLazyVerticalGrid(
-        modifier = modifier,
-        columns = TvGridCells.Fixed(3),
-        contentPadding = PaddingValues(start = 12.dp, top = 24.dp, end = 12.dp, bottom = 48.dp),
-    ) {
-        item(span = {
-            TvGridItemSpan(3)
-        }) {
-            GridHeader(term)
-        }
-        items(channels.size) { idx ->
-            ChannelGridItem(
-                channel = channels[idx],
-                onChannelPressed = onChannelPressed
-            )
+    CommonFocusRequester { focusRequester ->
+        TvLazyVerticalGrid(
+            modifier = modifier,
+            columns = TvGridCells.Fixed(3),
+            contentPadding = PaddingValues(start = 12.dp, top = 24.dp, end = 12.dp, bottom = 48.dp),
+        ) {
+            item(span = {
+                TvGridItemSpan(3)
+            }) {
+                GridHeader(term)
+            }
+            items(channels.size) { idx ->
+                ChannelGridItem(
+                    modifier = if(idx == 0) {
+                        Modifier.focusRequester(focusRequester)
+                    } else {
+                        Modifier
+                    },
+                    channel = channels[idx],
+                    onChannelPressed = onChannelPressed
+                )
+            }
         }
     }
 }

@@ -67,39 +67,18 @@ class SearchViewModel @Inject constructor(
     }
 
     private fun onSearch() {
-        onLoading()
         with(uiState.value) {
-            searchChannelsUseCase.invoke(
-                scope = viewModelScope,
+            executeUseCaseWithParams(
+                useCase = searchChannelsUseCase,
                 params = SearchChannelsUseCase.Params(term = term),
                 onSuccess = ::onSearchCompletedSuccessfully,
-                onError = ::onErrorOccurred
             )
         }
     }
 
     private fun onSearchCompletedSuccessfully(channels: List<SimpleChannelBO>) {
         updateState {
-            it.copy(
-                isLoading = false,
-                channels = channels
-            )
-        }
-    }
-
-    private fun onLoading() {
-        updateState {
-            it.copyState(
-                isLoading = true,
-                error = null
-            )
-        }
-    }
-
-    private fun onErrorOccurred(ex: Throwable) {
-        ex.printStackTrace()
-        updateState {
-            it.copyState(isLoading = false)
+            it.copy(channels = channels)
         }
     }
 }

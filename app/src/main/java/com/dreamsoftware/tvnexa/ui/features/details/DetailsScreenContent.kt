@@ -31,6 +31,7 @@ import com.dreamsoftware.tvnexa.ui.components.CommonButton
 import com.dreamsoftware.tvnexa.ui.components.CommonFavoriteButton
 import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonInfoRow
+import com.dreamsoftware.tvnexa.ui.components.CommonScreenContent
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
@@ -39,16 +40,22 @@ import com.dreamsoftware.tvnexa.ui.theme.Dimens
 @Composable
 fun DetailsScreenContent(
     uiState: DetailUiState,
+    onFavoriteStateChanged: (Boolean) -> Unit,
     onPlayChannelPressed: (channelId: String) -> Unit
 ) {
     with(uiState) {
-        Box {
-            ChannelDetailPreview(channelDetail = channelDetail)
-            ChannelDetailInfo(
-                channelDetail = channelDetail,
-                onPlayChannelPressed = onPlayChannelPressed
-            )
-            DetailChannelLogo(channelDetail = channelDetail)
+        CommonScreenContent(
+            error = error
+        ) {
+            Box {
+                ChannelDetailPreview(channelDetail = channelDetail)
+                ChannelDetailInfo(
+                    uiState = uiState,
+                    onFavoriteStateChanged = onFavoriteStateChanged,
+                    onPlayChannelPressed = onPlayChannelPressed
+                )
+                DetailChannelLogo(channelDetail = channelDetail)
+            }
         }
     }
 }
@@ -72,33 +79,41 @@ private fun ChannelDetailPreview(channelDetail: ChannelDetailBO?) {
 
 @Composable
 private fun BoxScope.ChannelDetailInfo(
-    channelDetail: ChannelDetailBO?,
+    uiState: DetailUiState,
+    onFavoriteStateChanged: (Boolean) -> Unit,
     onPlayChannelPressed: (channelId: String) -> Unit
 ) {
-    Column(
-        modifier = Modifier
-            .align(Alignment.BottomCenter)
-            .fillMaxWidth()
-            .fillMaxHeight(0.5f)
-            .background(color = MaterialTheme.colorScheme.surface.copy(alpha = 0.90f)),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        Row{
-            Spacer(modifier = Modifier.width(150.dp))
-            Row(
-                modifier = Modifier.fillMaxWidth().padding(horizontal = Dimens.DETAIL_HORIZONTAL_SPACING),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                ChannelDetailHeader(channel = channelDetail)
-                DetailActionsSection {
-                    channelDetail?.channelId?.let(onPlayChannelPressed)
+    with(uiState) {
+        Column(
+            modifier = Modifier
+                .align(Alignment.BottomCenter)
+                .fillMaxWidth()
+                .fillMaxHeight(0.5f)
+                .background(color = MaterialTheme.colorScheme.surface.copy(alpha = 0.90f)),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Row{
+                Spacer(modifier = Modifier.width(150.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = Dimens.DETAIL_HORIZONTAL_SPACING),
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    ChannelDetailHeader(channel = channelDetail)
+                    DetailActionsSection(
+                        isFavorite = isSavedInFavorites,
+                        onFavoriteStateChanged = onFavoriteStateChanged,
+                    ) {
+                        channelDetail?.channelId?.let(onPlayChannelPressed)
+                    }
                 }
             }
-        }
-        channelDetail?.let {
-            Spacer(modifier = Modifier.height(Dimens.DETAIL_VERTICAL_SPACING))
-            ChannelDetailsInfo(it)
+            channelDetail?.let {
+                Spacer(modifier = Modifier.height(Dimens.DETAIL_VERTICAL_SPACING))
+                ChannelDetailsInfo(it)
+            }
         }
     }
 }
@@ -120,6 +135,8 @@ private fun BoxScope.DetailChannelLogo(channelDetail: ChannelDetailBO?) {
 @Composable
 private fun DetailActionsSection(
     modifier: Modifier = Modifier,
+    isFavorite: Boolean,
+    onFavoriteStateChanged: (Boolean) -> Unit,
     onPlayChannelPressed: () -> Unit
 ) {
     CommonFocusRequester { requester ->
@@ -129,7 +146,10 @@ private fun DetailActionsSection(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.End,
         ) {
-            CommonFavoriteButton()
+            CommonFavoriteButton(
+                isFavorite = isFavorite,
+                onStateChanged = onFavoriteStateChanged
+            )
             CommonButton(
                 modifier = Modifier
                     .padding(horizontal = 16.dp, vertical = 4.dp)

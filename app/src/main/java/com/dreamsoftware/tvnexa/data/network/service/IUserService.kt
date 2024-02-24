@@ -116,4 +116,32 @@ interface IUserService {
      */
     @GET("user/profiles/{profileId}/favorite-channels")
     suspend fun getFavoriteChannels(@Path("profileId") profileId: String): ApiResponseDTO<List<SimpleChannelResponseDTO>>
+
+    /**
+     * Saves a channel as a favorite for the specified profile.
+     *
+     * @param profileId The ID of the profile.
+     * @param channelId The ID of the channel to be saved as a favorite.
+     * @return ApiResponseDTO<String> An API response indicating the success of the operation.
+     * @throws Exception if an error occurs while saving the favorite channel.
+     */
+    @PUT("user/profiles/{profileId}/favorite-channels/{channelId}")
+    suspend fun saveFavoriteChannels(
+        @Path("profileId") profileId: String,
+        @Path("channelId") channelId: String
+    ): ApiResponseDTO<String>
+
+    /**
+     * Deletes a channel from the list of favorites for the specified profile.
+     *
+     * @param profileId The ID of the profile.
+     * @param channelId The ID of the channel to be deleted from favorites.
+     * @return ApiResponseDTO<String> An API response indicating the success of the operation.
+     * @throws Exception if an error occurs while deleting the favorite channel.
+     */
+    @DELETE("user/profiles/{profileId}/favorite-channels/{channelId}")
+    suspend fun deleteFavoriteChannels(
+        @Path("profileId") profileId: String,
+        @Path("channelId") channelId: String
+    ): ApiResponseDTO<String>
 }

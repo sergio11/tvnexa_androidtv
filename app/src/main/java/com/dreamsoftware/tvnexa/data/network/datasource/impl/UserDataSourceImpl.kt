@@ -31,6 +31,8 @@ internal class UserDataSourceImpl(
         const val USER_PROFILE_CREATED_SUCCESSFULLY_CODE = 8006
         const val USER_PROFILE_DELETED_SUCCESSFULLY = 8005
         const val USER_PROFILE_VERIFICATION_SUCCESSFULLY = 8008
+        const val SAVE_FAVORITE_CHANNEL_SUCCESSFULLY = 8014
+        const val DELETE_FAVORITE_CHANNEL_SUCCESSFULLY = 8015
     }
 
     /**
@@ -154,5 +156,31 @@ internal class UserDataSourceImpl(
     @Throws(NetworkException::class)
     override suspend fun getFavoriteChannels(profileId: String): List<SimpleChannelResponseDTO> = safeNetworkCall {
         userService.getFavoriteChannels(profileId).data
+    }
+
+    /**
+     * Saves a channel as a favorite for the specified profile.
+     *
+     * @param profileId The ID of the profile.
+     * @param channelId The ID of the channel to be saved as a favorite.
+     * @return Boolean true if the operation is successful, false otherwise.
+     * @throws NetworkException if there is a network-related issue during the operation.
+     */
+    @Throws(NetworkException::class)
+    override suspend fun saveFavoriteChannels(profileId: String, channelId: String): Boolean = safeNetworkCall {
+        userService.saveFavoriteChannels(profileId, channelId).code == SAVE_FAVORITE_CHANNEL_SUCCESSFULLY
+    }
+
+    /**
+     * Deletes a channel from the list of favorites for the specified profile.
+     *
+     * @param profileId The ID of the profile.
+     * @param channelId The ID of the channel to be deleted from favorites.
+     * @return Boolean true if the operation is successful, false otherwise.
+     * @throws NetworkException if there is a network-related issue during the operation.
+     */
+    @Throws(NetworkException::class)
+    override suspend fun deleteFavoriteChannels(profileId: String, channelId: String): Boolean = safeNetworkCall {
+        userService.deleteFavoriteChannels(profileId, channelId).code == DELETE_FAVORITE_CHANNEL_SUCCESSFULLY
     }
 }
