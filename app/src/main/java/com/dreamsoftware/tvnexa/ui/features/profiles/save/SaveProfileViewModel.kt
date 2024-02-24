@@ -1,8 +1,8 @@
 package com.dreamsoftware.tvnexa.ui.features.profiles.save
 
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
-import com.dreamsoftware.tvnexa.domain.model.ProfileTypeEnum
-import com.dreamsoftware.tvnexa.domain.usecase.GetProfileByIdUseCase
+import com.dreamsoftware.tvnexa.domain.model.AvatarTypeEnum
+import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileByIdUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.CreateProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.UpdateProfileUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
@@ -43,7 +43,7 @@ class SaveProfileViewModel @Inject constructor(
         }
     }
 
-    fun onProfileTypeChanged(newProfileType: ProfileTypeEnum) {
+    fun onProfileTypeChanged(newProfileType: AvatarTypeEnum) {
         updateState {
             it.copy(profileType = newProfileType)
         }
@@ -109,7 +109,7 @@ class SaveProfileViewModel @Inject constructor(
             it.copy(
                 isEditMode = true,
                 alias = profileBO.alias,
-                profileType = profileBO.type
+                profileType = profileBO.avatarType
             )
         }
     }
@@ -126,7 +126,7 @@ data class SaveProfileUiState(
     val alias: String = String.EMPTY,
     val securePin: String = String.EMPTY,
     val isNsfw: Boolean = false,
-    val profileType: ProfileTypeEnum? = null
+    val profileType: AvatarTypeEnum? = null
 ): UiState<SaveProfileUiState>(isLoading, error) {
     override fun copyState(isLoading: Boolean, error: String?): SaveProfileUiState =
         copy(isLoading = isLoading, error = error)

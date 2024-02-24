@@ -34,7 +34,7 @@ fun DeleteProfileScreenContent(
             CommonFocusRequester {
                 ScalableAvatar(
                     modifier = Modifier.focusRequester(it),
-                    avatarRes = profile?.type?.toDrawableResource(),
+                    avatarRes = profile?.avatarType?.toDrawableResource(),
                     padding = Dimens.PROFILE_AVATAR_NO_PADDING
                 )
             }

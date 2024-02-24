@@ -5,7 +5,7 @@ import com.dreamsoftware.tvnexa.domain.repository.ICategoryRepository
 import com.dreamsoftware.tvnexa.domain.repository.IChannelRepository
 import com.dreamsoftware.tvnexa.domain.repository.ICountryRepository
 import com.dreamsoftware.tvnexa.domain.repository.IUserRepository
-import com.dreamsoftware.tvnexa.domain.usecase.GetProfileByIdUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileByIdUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.CreateProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.DeleteProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetBlockedChannelsUseCase

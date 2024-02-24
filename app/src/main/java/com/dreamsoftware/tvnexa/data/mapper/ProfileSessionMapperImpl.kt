@@ -2,7 +2,7 @@ package com.dreamsoftware.tvnexa.data.mapper
 
 import com.dreamsoftware.tvnexa.data.preferences.dto.ProfileSelectedPreferenceDTO
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
-import com.dreamsoftware.tvnexa.domain.model.ProfileTypeEnum
+import com.dreamsoftware.tvnexa.domain.model.AvatarTypeEnum
 import com.dreamsoftware.tvnexa.utils.IMapper
 import javax.inject.Inject
 
@@ -12,8 +12,8 @@ class ProfileSessionMapperImpl @Inject constructor(): IMapper<ProfileBO, Profile
         ProfileSelectedPreferenceDTO(
             uuid = uuid,
             alias = alias,
-            isAdmin = isAdmin,
-            type = type.name
+            isAdmin = enableNSFW,
+            type = avatarType.name
         )
     }
 
@@ -24,8 +24,8 @@ class ProfileSessionMapperImpl @Inject constructor(): IMapper<ProfileBO, Profile
         ProfileBO(
             uuid = uuid,
             alias = alias,
-            isAdmin = isAdmin,
-            type = runCatching { ProfileTypeEnum.valueOf(type) }.getOrDefault(ProfileTypeEnum.BOY)
+            enableNSFW = isAdmin,
+            avatarType = runCatching { AvatarTypeEnum.valueOf(type) }.getOrDefault(AvatarTypeEnum.BOY)
         )
     }
 

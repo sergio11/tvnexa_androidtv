@@ -58,7 +58,7 @@ fun CommonProfileSelector(
             items(profiles.size) {
                 val profile = profiles[it]
                 ScalableAvatar(
-                    avatarRes = profile.type.toDrawableResource(),
+                    avatarRes = profile.avatarType.toDrawableResource(),
                     editMode = editMode,
                     modifier = Modifier
                         .then(if (it == 1) Modifier.focusRequester(requester) else Modifier)

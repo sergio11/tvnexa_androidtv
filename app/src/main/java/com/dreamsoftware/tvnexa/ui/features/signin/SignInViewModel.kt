@@ -59,9 +59,9 @@ class SignInViewModel @Inject constructor(
 data class SignInUiState(
     override val isLoading: Boolean = false,
     override val error: String? = null,
-    val email: String = "ssanchez5@tvnexa.com",
+    val email: String = DEMO_USER_EMAIL,
     val emailError: String = String.EMPTY,
-    val password: String = "12345678",
+    val password: String = DEMO_USER_PASSWORD,
     val passwordError: String = String.EMPTY
 ): UiState<SignInUiState>(isLoading, error) {
     override fun copyState(isLoading: Boolean, error: String?): SignInUiState =
@@ -72,3 +72,6 @@ sealed interface SignInSideEffects: SideEffect {
     data object AuthenticationSuccessfully: SignInSideEffects
     data object ProfileSelectionRequired: SignInSideEffects
 }
+
+private const val DEMO_USER_EMAIL = "ssanchez@tvnexa.com"
+private const val DEMO_USER_PASSWORD = "12345678"

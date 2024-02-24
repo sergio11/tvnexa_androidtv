@@ -48,6 +48,11 @@ interface IUserRepository {
     @Throws(
         DomainException.InternalErrorException::class
     )
+    suspend fun getProfileById(profileId: String): ProfileBO
+
+    @Throws(
+        DomainException.InternalErrorException::class
+    )
     suspend fun getProfileSelected(): ProfileBO
 
     @Throws(
