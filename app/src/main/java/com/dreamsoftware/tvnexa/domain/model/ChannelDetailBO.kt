@@ -19,5 +19,6 @@ data class ChannelDetailBO(
     val categories: List<CategoryBO>,
     val altNames: List<String>,
     val owners: List<String>,
-    val broadcastAreas: List<String>
+    val broadcastAreas: List<String>,
+    val isBlocked: Boolean = false
 )

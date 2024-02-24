@@ -7,5 +7,6 @@ data class SimpleChannelBO(
     val isNsfw: Boolean? = null,
     val website: String? = null,
     val logo: String? = null,
-    val streamUrl: String? = null
+    val streamUrl: String? = null,
+    val isBlocked: Boolean = false
 )

@@ -95,11 +95,11 @@ interface IUserDataSource {
      * Retrieves a list of blocked channels for a specific user profile.
      *
      * @param profileId The identifier of the profile for which blocked channels are requested.
-     * @return A list of [SimpleChannelResponseDTO] representing blocked channels.
+     * @return A list of [String] representing blocked channel ids.
      * @throws NetworkException if there is a network-related error.
      */
     @Throws(NetworkException::class)
-    suspend fun getBlockedChannels(profileId: String): List<SimpleChannelResponseDTO>
+    suspend fun getBlockedChannels(profileId: String): List<String>
 
     /**
      * Saves the blocking status of a channel for a specific user profile.
