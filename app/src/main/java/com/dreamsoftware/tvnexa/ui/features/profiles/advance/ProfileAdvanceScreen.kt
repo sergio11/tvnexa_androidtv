@@ -9,6 +9,7 @@ fun ProfileAdvanceScreen(
     args: ProfileAdvanceScreenArgs,
     viewModel: ProfileAdvanceViewModel = hiltViewModel(),
     onGoToDeleteProfile: (String) -> Unit,
+    onGoToBlockingChannels: (String) -> Unit,
     onBackPressed: () -> Unit
 ) {
     CommonScreen(
@@ -23,12 +24,10 @@ fun ProfileAdvanceScreen(
             onDeleteProfilePressed = {
                 onGoToDeleteProfile(args.profileId)
             },
-            onNewTabSelected = ::onNewTabSelected,
-            onKeyPressed = {},
-            onSearchPressed = {},
-            onClearPressed = {},
-            onBackSpacePressed = {},
-            onSpaceBarPressed = {}
+            onBlockingChannelsPressed = {
+                onGoToBlockingChannels(args.profileId)
+            },
+            onNewTabSelected = ::onNewTabSelected
         )
     }
 }

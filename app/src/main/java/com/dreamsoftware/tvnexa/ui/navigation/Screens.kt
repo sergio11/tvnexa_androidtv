@@ -7,6 +7,7 @@ import androidx.navigation.navArgument
 import com.dreamsoftware.tvnexa.ui.features.details.DetailScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.player.PlayerScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.profiles.advance.ProfileAdvanceScreenArgs
+import com.dreamsoftware.tvnexa.ui.features.profiles.blocking.ProfileBlockingChannelsScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.profiles.delete.DeleteProfileScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.profiles.save.SaveProfileScreenArgs
 import com.dreamsoftware.tvnexa.ui.features.profiles.secure.SecurePinScreenArgs
@@ -96,6 +97,24 @@ sealed class Screens(val path: String, arguments: List<NamedNavArgument> = empty
             fun parseArgs(args: Bundle): ProfileAdvanceScreenArgs? = with(args) {
                 getString("profile_id")?.let {
                     ProfileAdvanceScreenArgs(profileId = it)
+                }
+            }
+        }
+
+        data object ProfileBlockingChannels : Screens("blocking-channels/{profile_id}", arguments = listOf(
+            navArgument("profile_id") {
+                type = NavType.StringType
+            }
+        )) {
+            fun buildRoute(profileId: String): String =
+                path.replace(
+                    oldValue = "{profile_id}",
+                    newValue = profileId
+                )
+
+            fun parseArgs(args: Bundle): ProfileBlockingChannelsScreenArgs? = with(args) {
+                getString("profile_id")?.let {
+                    ProfileBlockingChannelsScreenArgs(profileId = it)
                 }
             }
         }

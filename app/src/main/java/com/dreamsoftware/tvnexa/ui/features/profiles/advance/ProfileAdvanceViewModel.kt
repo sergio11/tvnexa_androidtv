@@ -43,10 +43,10 @@ data class ProfileAdvanceUiState(
     override val error: String? = null,
     val profile: ProfileBO? = null,
     val tabs: List<ProfileAdvancedTab> = listOf(
-        ProfileAdvancedTab.ChannelBlockingTab,
+        ProfileAdvancedTab.ChangeSecurePinTab,
         ProfileAdvancedTab.TimeRestrictionsTab
     ),
-    val tabSelected: ProfileAdvancedTab = ProfileAdvancedTab.ChannelBlockingTab
+    val tabSelected: ProfileAdvancedTab = ProfileAdvancedTab.ChangeSecurePinTab
 ): UiState<ProfileAdvanceUiState>(isLoading, error) {
     override fun copyState(isLoading: Boolean, error: String?): ProfileAdvanceUiState =
         copy(isLoading = isLoading, error = error)
@@ -56,8 +56,8 @@ data class ProfileAdvanceUiState(
 sealed class ProfileAdvancedTab(
     @StringRes val titleRes: Int
 ) {
-    data object ChannelBlockingTab: ProfileAdvancedTab(
-        titleRes = R.string.profiles_advance_channel_blocking_tab_label_text
+    data object ChangeSecurePinTab: ProfileAdvancedTab(
+        titleRes = R.string.profiles_advance_change_pin_tab_label_text
     )
 
     data object TimeRestrictionsTab: ProfileAdvancedTab(

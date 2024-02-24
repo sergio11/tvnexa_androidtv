@@ -2,7 +2,6 @@ package com.dreamsoftware.tvnexa.ui.features.home.search
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -13,16 +12,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.lazy.grid.TvGridCells
-import androidx.tv.foundation.lazy.grid.TvGridItemSpan
-import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
-import com.dreamsoftware.tvnexa.ui.components.ChannelGridItem
-import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
+import com.dreamsoftware.tvnexa.ui.components.CommonChannelGrid
 import com.dreamsoftware.tvnexa.ui.components.CommonLoading
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
@@ -62,7 +56,7 @@ fun SearchScreenContent(
                         isEmpty = channels.isEmpty(),
                         error = error
                     )
-                    else -> ContentGrid(
+                    else -> CommonChannelGrid(
                         channels = channels,
                         onChannelPressed = onChannelPressed
                     )
@@ -97,33 +91,6 @@ fun EmptyOrErrorContent(isEmpty: Boolean, error: String?) {
                 error.orEmpty()
             }
         )
-    }
-}
-
-@Composable
-fun ContentGrid(
-    modifier: Modifier = Modifier,
-    channels: List<SimpleChannelBO>,
-    onChannelPressed: (SimpleChannelBO) -> Unit,
-) {
-    CommonFocusRequester { focusRequester ->
-        TvLazyVerticalGrid(
-            modifier = modifier,
-            columns = TvGridCells.Fixed(3),
-            contentPadding = PaddingValues(start = 12.dp, top = 12.dp, end = 12.dp, bottom = 48.dp),
-        ) {
-            items(channels.size) { idx ->
-                ChannelGridItem(
-                    modifier = if(idx == 0) {
-                        Modifier.focusRequester(focusRequester)
-                    } else {
-                        Modifier
-                    },
-                    channel = channels[idx],
-                    onChannelPressed = onChannelPressed
-                )
-            }
-        }
     }
 }
 

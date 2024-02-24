@@ -4,6 +4,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.dreamsoftware.tvnexa.ui.features.profiles.advance.ProfileAdvanceScreen
+import com.dreamsoftware.tvnexa.ui.features.profiles.blocking.ProfileBlockingChannelsScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.delete.DeleteProfileScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.management.ProfilesManagementScreen
 import com.dreamsoftware.tvnexa.ui.features.profiles.save.SaveProfileScreen
@@ -113,6 +114,25 @@ fun ProfilesNavigation(
                             onGoToDeleteProfile = {
                                 navigate(Screens.Profiles.DeleteProfile.buildRoute(it))
                             },
+                            onGoToBlockingChannels = {
+                                navigate(Screens.Profiles.ProfileBlockingChannels.buildRoute(it))
+                            },
+                            onBackPressed = {
+                                navigateUp()
+                            },
+                        )
+                    }
+                }
+            }
+        }
+
+
+        transitionComposable(Screens.Profiles.ProfileBlockingChannels.path) { navBackStackEntry ->
+            navBackStackEntry.arguments?.let { args ->
+                Screens.Profiles.ProfileBlockingChannels.parseArgs(args)?.let {
+                    with(navController) {
+                        ProfileBlockingChannelsScreen(
+                            args = it,
                             onBackPressed = {
                                 navigateUp()
                             },

@@ -129,9 +129,15 @@
     <string name="profiles_advance_main_title">Advanced Profile Settings</string>
     <string name="profiles_advance_main_description">Configure additional settings for this profile.</string>
     <string name="profiles_advance_form_confirm_button_text">Confirm</string>
+    <string name="profiles_advance_form_blocking_channels_button_text">Block Channels</string>
     <string name="profiles_advance_form_delete_button_text">Delete Profile?</string>
-    <string name="profiles_advance_channel_blocking_tab_label_text">Channel Blocking</string>
+    <string name="profiles_advance_change_pin_tab_label_text">Change secure pin</string>
     <string name="profiles_advance_time_restrictions_tab_label_text">Time Restrictions</string>
+
+    <!-- Blocking channels -->
+    <string name="profile_blocking_channels_form_confirm_button_text">All set</string>
+    <string name="profile_blocking_channels_title">Channel Citadel: Fortifying Your Space</string>
+    <string name="profile_blocking_channels_title_after_searching" formatted="false">Voilà! Found some channels for \" %s \"</string>
 
     <!-- Delete Profile -->
     <string name="delete_profile_main_title">Farewell, Profile!</string>
