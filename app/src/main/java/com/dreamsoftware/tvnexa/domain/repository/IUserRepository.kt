@@ -3,7 +3,6 @@ package com.dreamsoftware.tvnexa.domain.repository
 import com.dreamsoftware.tvnexa.domain.exception.DomainException
 import com.dreamsoftware.tvnexa.domain.model.CreateProfileRequestBO
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
-import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 import com.dreamsoftware.tvnexa.domain.model.UpdatedProfileRequestBO
 import com.dreamsoftware.tvnexa.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.tvnexa.domain.model.UserDetailBO
@@ -105,78 +104,4 @@ interface IUserRepository {
         DomainException.PinVerificationFailedException::class
     )
     suspend fun verifyPin(profileId: String, pin: Int)
-
-    /**
-     * Retrieves the list of blocked channels associated with the given profile ID.
-     * @param profileId The ID of the profile.
-     * @return The list of blocked channels.
-     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
-     */
-    @Throws(DomainException.InternalErrorException::class)
-    suspend fun getBlockedChannels(profileId: String): List<SimpleChannelBO>
-
-    /**
-     * Blocks a channel for a specific user profile.
-     *
-     * @param profileId The ID of the user profile.
-     * @param channelId The ID of the channel to be blocked.
-     * @throws DomainException.InternalErrorException if there's an internal error while processing the request.
-     * @throws DomainException.BlockChannelErrorException if there's an error while blocking the channel.
-     */
-    @Throws(
-        DomainException.InternalErrorException::class,
-        DomainException.BlockChannelErrorException::class
-    )
-    suspend fun blockChannel(profileId: String, channelId: String)
-
-    /**
-     * Unblocks a channel for a specific user profile.
-     *
-     * @param profileId The ID of the user profile.
-     * @param channelId The ID of the channel to be unblocked.
-     * @throws DomainException.InternalErrorException if there's an internal error while processing the request.
-     * @throws DomainException.UnblockChannelErrorException if there's an error while unblocking the channel.
-     */
-    @Throws(
-        DomainException.InternalErrorException::class,
-        DomainException.UnblockChannelErrorException::class
-    )
-    suspend fun unblockChannel(profileId: String, channelId: String)
-
-    /**
-     * Retrieves the list of favorite channels associated with the given profile ID.
-     * @param profileId The ID of the profile.
-     * @return The list of favorite channels.
-     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
-     */
-    @Throws(DomainException.InternalErrorException::class)
-    suspend fun getFavoriteChannels(profileId: String): List<SimpleChannelBO>
-
-    /**
-     * Saves a channel as a favorite for the specified profile.
-     *
-     * @param profileId The ID of the profile.
-     * @param channelId The ID of the channel to be saved as a favorite.
-     * @throws DomainException.InternalErrorException if an internal error occurs during the operation.
-     * @throws DomainException.SaveFavoriteChannelErrorException if an error occurs while saving the favorite channel.
-     */
-    @Throws(
-        DomainException.InternalErrorException::class,
-        DomainException.SaveFavoriteChannelErrorException::class
-    )
-    suspend fun saveFavoriteChannels(profileId: String, channelId: String)
-
-    /**
-     * Deletes a channel from the list of favorites for the specified profile.
-     *
-     * @param profileId The ID of the profile.
-     * @param channelId The ID of the channel to be deleted from favorites.
-     * @throws DomainException.InternalErrorException if an internal error occurs during the operation.
-     * @throws DomainException.DeleteFavoriteChannelErrorException if an error occurs while deleting the favorite channel.
-     */
-    @Throws(
-        DomainException.InternalErrorException::class,
-        DomainException.DeleteFavoriteChannelErrorException::class
-    )
-    suspend fun deleteFavoriteChannels(profileId: String, channelId: String)
 }

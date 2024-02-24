@@ -133,10 +133,12 @@ class DataModule {
     @Singleton
     fun provideChannelRepository(
         channelsDataSource: IChannelsDataSource,
+        userDataSource: IUserDataSource,
         simpleChannelMapper: IOneSideMapper<SimpleChannelResponseDTO, SimpleChannelBO>,
         channelDetailMapper: IOneSideMapper<ChannelDetailResponseDTO, ChannelDetailBO>
     ): IChannelRepository = ChannelRepositoryImpl(
         channelsDataSource = channelsDataSource,
+        userDataSource = userDataSource,
         simpleChannelMapper = simpleChannelMapper,
         channelMapper = channelDetailMapper
     )
@@ -160,7 +162,6 @@ class DataModule {
         profileMapper: IOneSideMapper<ProfileResponseDTO, ProfileBO>,
         updateProfileMapper: IOneSideMapper<UpdatedProfileRequestBO, UpdatedProfileRequestDTO>,
         createProfileMapper: IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>,
-        channelMapper: IOneSideMapper<SimpleChannelResponseDTO, SimpleChannelBO>,
         profileSessionDataSource: IProfileSessionDataSource,
         profileSessionMapper: IMapper<ProfileBO, ProfileSelectedPreferenceDTO>
     ): IUserRepository = UserRepositoryImpl(
@@ -170,7 +171,6 @@ class DataModule {
         profileMapper = profileMapper,
         updateProfileMapper = updateProfileMapper,
         createProfileMapper = createProfileMapper,
-        channelMapper = channelMapper,
         profileSessionDataSource = profileSessionDataSource,
         profileSessionMapper = profileSessionMapper
     )
