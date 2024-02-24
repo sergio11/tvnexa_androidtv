@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -118,21 +119,21 @@ private fun CommonDialogUI(
                 Row(
                     Modifier
                         .fillMaxWidth()
+                        .padding(vertical = 8.dp)
                         .background(background.copy(0.2F)),
                     horizontalArrangement = Arrangement.Center
                 ) {
                     onCancelClicked?.let {
                         CommonButton(
-                            modifier = Modifier.fillMaxWidth(0.5f),
                             type = CommonButtonTypeEnum.MEDIUM,
                             onClick = it,
                             textRes = cancelRes,
                             style = CommonButtonStyleTypeEnum.INVERSE
                         )
                     }
+                    Spacer(modifier = Modifier.width(8.dp))
                     onAcceptClicked?.let {
                         CommonButton(
-                            modifier = Modifier.fillMaxWidth(0.5f),
                             type = CommonButtonTypeEnum.MEDIUM,
                             onClick = it,
                             enabled = isAcceptEnabled,

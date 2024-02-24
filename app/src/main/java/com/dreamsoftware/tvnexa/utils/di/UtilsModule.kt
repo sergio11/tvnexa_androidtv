@@ -4,6 +4,8 @@ import android.content.Context
 import com.dreamsoftware.tvnexa.utils.AppEventBus
 import com.dreamsoftware.tvnexa.utils.IApplicationAware
 import com.dreamsoftware.tvnexa.utils.ISessionAware
+import com.dreamsoftware.tvnexa.utils.network.NetworkConnectivityCallback
+import com.dreamsoftware.tvnexa.utils.network.NetworkConnectivityMonitor
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,4 +35,14 @@ class UtilsModule {
     @Provides
     fun provideAppEventBus() = AppEventBus()
 
+    @Singleton
+    @Provides
+    fun provideNetworkCallback(appEventBus: AppEventBus) = NetworkConnectivityCallback(appEventBus)
+
+    @Singleton
+    @Provides
+    fun provideNetworkConnectivityMonitor(
+        @ApplicationContext context: Context,
+        networkConnectivityCallback: NetworkConnectivityCallback
+    ) = NetworkConnectivityMonitor(context, networkConnectivityCallback)
 }
