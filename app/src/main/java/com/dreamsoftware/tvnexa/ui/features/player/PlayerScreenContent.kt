@@ -27,6 +27,7 @@ import com.dreamsoftware.player.domain.state.PlayerStateListener
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
 import com.dreamsoftware.tvnexa.ui.components.CommonChannelHeaderInfo
+import com.dreamsoftware.tvnexa.ui.components.CommonFavoriteButton
 import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonVideoBackground
 import com.dreamsoftware.tvnexa.ui.features.player.components.PlayerControlsState
@@ -38,7 +39,8 @@ import timber.log.Timber
 @SuppressLint("UnsafeOptInUsageError")
 @Composable
 fun PlayerScreenContent(
-    uiState: PlayerUiState
+    uiState: PlayerUiState,
+    onFavoriteStateChanged: (Boolean) -> Unit,
 ) {
 
     val coroutineScope = rememberCoroutineScope()
@@ -63,23 +65,23 @@ fun PlayerScreenContent(
             }
         }
     ) {
-        uiState.channelDetail?.let {
-            PlayerControls(
-                modifier = Modifier.align(Alignment.BottomCenter),
-                channelBO = it,
-                isPlaying = playerState is PlayerState.Playing,
-                state = videoPlayerState
-            )
-        }
+        PlayerControls(
+            modifier = Modifier.align(Alignment.BottomCenter),
+            uiState = uiState,
+            isPlaying = playerState is PlayerState.Playing,
+            state = videoPlayerState,
+            onFavoriteStateChanged = onFavoriteStateChanged
+        )
     }
 }
 
 @Composable
 private fun PlayerControls(
     modifier: Modifier = Modifier,
+    uiState: PlayerUiState,
     isPlaying: Boolean,
-    state: PlayerControlsState,
-    channelBO: ChannelDetailBO
+    onFavoriteStateChanged: (Boolean) -> Unit,
+    state: PlayerControlsState
 ) {
     LaunchedEffect(isPlaying) {
         if (!isPlaying) {
@@ -88,53 +90,54 @@ private fun PlayerControls(
             state.showControls()
         }
     }
-
-    AnimatedVisibility(
-        modifier = modifier,
-        visible = state.isDisplayed,
-        enter = expandVertically { it },
-        exit = shrinkVertically { it },
-    ) {
-        Column(
-            modifier = Modifier
-                .background(
-                    brush = Brush.verticalGradient(
-                        colors = listOf(
-                            Color.Black,
-                            Color.Transparent,
-                            Color.Black,
-                        ),
-                    ),
-                )
-                .padding(
-                    horizontal = 56.dp,
-                    vertical = 32.dp,
-                ),
+    with(uiState) {
+        AnimatedVisibility(
+            modifier = modifier,
+            visible = state.isDisplayed,
+            enter = expandVertically { it },
+            exit = shrinkVertically { it },
         ) {
-            PlayerContentHeaders(
-                channelBO = channelBO
-            )
-            Spacer(modifier = Modifier.weight(1.0f))
-            Row(
-                modifier = Modifier.padding(bottom = 16.dp),
-                verticalAlignment = Alignment.CenterVertically,
+            Column(
+                modifier = Modifier
+                    .background(
+                        brush = Brush.verticalGradient(
+                            colors = listOf(
+                                Color.Black,
+                                Color.Transparent,
+                                Color.Black,
+                            ),
+                        ),
+                    )
+                    .padding(
+                        horizontal = 56.dp,
+                        vertical = 32.dp,
+                    ),
             ) {
-                CommonFocusRequester { focusRequester ->
-                    VideoPlayerControlsIcon(
-                        modifier = Modifier.focusRequester(focusRequester),
-                        icon = R.drawable.ic_auto_awesome_motion,
-                        state = state,
-                        isPlaying = isPlaying,
-                        contentDescription = "Playlist",
+                channelDetail?.let {
+                    PlayerContentHeaders(
+                        channelBO = it
                     )
                 }
-                VideoPlayerControlsIcon(
-                    modifier = Modifier.padding(start = 12.dp),
-                    icon = R.drawable.ic_settings,
-                    state = state,
-                    isPlaying = isPlaying,
-                    contentDescription = "Settings Icon",
-                )
+                Spacer(modifier = Modifier.weight(1.0f))
+                Row(
+                    modifier = Modifier.padding(bottom = 16.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                ) {
+                    CommonFocusRequester { focusRequester ->
+                        CommonFavoriteButton(
+                            modifier = Modifier.focusRequester(focusRequester),
+                            isFavorite = isSavedInFavorites,
+                            onStateChanged = onFavoriteStateChanged
+                        )
+                    }
+                    VideoPlayerControlsIcon(
+                        modifier = Modifier.padding(start = 12.dp),
+                        icon = R.drawable.ic_settings,
+                        state = state,
+                        isPlaying = isPlaying,
+                        contentDescription = "Settings Icon",
+                    )
+                }
             }
         }
     }

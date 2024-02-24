@@ -17,7 +17,14 @@ fun PlayerScreen(
         onBackPressed = onBackPressed
     ) { uiState ->
         PlayerScreenContent(
-            uiState = uiState
+            uiState = uiState,
+            onFavoriteStateChanged = { isFavorite ->
+                if(isFavorite) {
+                    saveAsFavorite()
+                } else {
+                    removeFromFavorites()
+                }
+            }
         )
     }
 }
