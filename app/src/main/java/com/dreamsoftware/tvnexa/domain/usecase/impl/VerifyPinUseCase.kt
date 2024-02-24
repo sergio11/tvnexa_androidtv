@@ -5,9 +5,9 @@ import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCaseWithParams
 
 class VerifyPinUseCase(
     private val userRepository: IUserRepository
-): BaseUseCaseWithParams<VerifyPinUseCase.Params, Boolean>() {
+): BaseUseCaseWithParams<VerifyPinUseCase.Params, Unit>() {
 
-    override suspend fun onExecuted(params: Params): Boolean = with(params) {
+    override suspend fun onExecuted(params: Params) = with(params) {
         userRepository.verifyPin(profileId, pin)
     }
 
