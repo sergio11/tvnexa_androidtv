@@ -1,5 +1,7 @@
 # TvNexa - Your Global IPTV Destination 🌐📺
 
+<img width="auto" height="200px" align="left" src="doc/main_logo.png" />
+
 Welcome to TvNexa, your ultimate online television platform that redefines the streaming experience. TvNexa is crafted with innovation, bringing you a diverse universe of television channels from around the world. Whether you're using Android TV or your mobile device, TvNexa is designed for seamless exploration and enjoyment of global content.
 
 <p align="center">
