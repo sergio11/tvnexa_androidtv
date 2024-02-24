@@ -12,6 +12,8 @@
 
 🌟 Experience the future of television streaming with TvNexa – Your Global IPTV Destination. Start exploring today!
 
+** 🔜 Stay tuned! TvNexa is continuously evolving, and the mobile version will be arriving soon to enhance your streaming experience even further! **
+
 <p align="center">
   <img src="https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white" />
   <img src="https://img.shields.io/badge/kotlin-%237F52FF.svg?style=for-the-badge&logo=kotlin&logoColor=white" />
