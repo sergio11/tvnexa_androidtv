@@ -2,17 +2,24 @@ package com.dreamsoftware.tvnexa.data.network.dto.response
 
 import com.squareup.moshi.Json
 
+/**
+ * Data class representing the response containing profile information.
+ *
+ * @property uuid The UUID of the profile.
+ * @property alias The alias of the profile.
+ * @property isAdmin Indicates whether the profile is an admin.
+ * @property enableNSFW Indicates whether NSFW content is enabled for the profile.
+ * @property avatarType The type of avatar for the profile.
+ */
 data class ProfileResponseDTO(
-    //The unique identifier of the profile.
     @Json(name = "uuid")
     val uuid: String,
-    // The alias associated with the profile.
     @Json(name = "alias")
     val alias: String,
-    // Indicates whether the profile is an admin.
     @Json(name = "is_admin")
     val isAdmin: Boolean,
-    // The type of the profile.
-    @Json(name = "type")
-    val type: String
+    @Json(name = "enable_NSFW")
+    val enableNSFW: Boolean,
+    @Json(name = "avatar_type")
+    val avatarType: String
 )

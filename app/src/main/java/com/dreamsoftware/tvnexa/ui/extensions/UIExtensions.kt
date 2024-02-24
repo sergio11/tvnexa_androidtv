@@ -5,10 +5,8 @@ import android.content.pm.PackageManager
 import android.view.KeyEvent
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
-import androidx.compose.ui.input.key.type
-import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import com.dreamsoftware.tvnexa.R
-import com.dreamsoftware.tvnexa.domain.model.ProfileTypeEnum
+import com.dreamsoftware.tvnexa.domain.model.AvatarTypeEnum
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -100,11 +98,11 @@ val String.Companion.EMPTY: String
 val Char.Companion.SPACE: Char
     get() = ' '
 
-fun ProfileTypeEnum.toDrawableResource(): Int = when(this) {
-    ProfileTypeEnum.BOY -> R.drawable.profile_avatar_boy
-    ProfileTypeEnum.GIRL -> R.drawable.profile_avatar_girl
-    ProfileTypeEnum.WOMAN -> R.drawable.profile_avatar_woman
-    ProfileTypeEnum.MAN -> R.drawable.profile_avatar_man
+fun AvatarTypeEnum.toDrawableResource(): Int = when(this) {
+    AvatarTypeEnum.BOY -> R.drawable.profile_avatar_boy
+    AvatarTypeEnum.GIRL -> R.drawable.profile_avatar_girl
+    AvatarTypeEnum.WOMAN -> R.drawable.profile_avatar_woman
+    AvatarTypeEnum.MAN -> R.drawable.profile_avatar_man
 }
 
 fun Context.isAndroidTV(): Boolean =

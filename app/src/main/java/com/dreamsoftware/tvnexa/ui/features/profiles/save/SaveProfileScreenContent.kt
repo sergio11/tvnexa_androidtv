@@ -16,7 +16,7 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.tvnexa.R
-import com.dreamsoftware.tvnexa.domain.model.ProfileTypeEnum
+import com.dreamsoftware.tvnexa.domain.model.AvatarTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonSwitch
 import com.dreamsoftware.tvnexa.ui.components.CommonText
@@ -34,7 +34,7 @@ fun SaveProfileScreenContent(
     onAliasChanged: (String) -> Unit,
     onPinChanged: (String) -> Unit,
     onNsfwChanged: (Boolean) -> Unit,
-    onProfileTypeChanged: (ProfileTypeEnum) -> Unit,
+    onProfileTypeChanged: (AvatarTypeEnum) -> Unit,
     onSaveProfilePressed: () -> Unit,
     onAdvanceConfigurationPressed: () -> Unit,
     onCancelPressed: () -> Unit
@@ -95,7 +95,7 @@ private fun CreateNewProfile(
     onAliasChanged: (String) -> Unit,
     onPinChanged: (String) -> Unit,
     onNsfwChanged: (Boolean) -> Unit,
-    onProfileTypeChanged: (ProfileTypeEnum) -> Unit,
+    onProfileTypeChanged: (AvatarTypeEnum) -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -125,7 +125,7 @@ private fun EditProfile(
     onAliasChanged: (String) -> Unit,
     onPinChanged: (String) -> Unit,
     onNsfwChanged: (Boolean) -> Unit,
-    onProfileTypeChanged: (ProfileTypeEnum) -> Unit,
+    onProfileTypeChanged: (AvatarTypeEnum) -> Unit,
 ) {
     ProfileAvatarSelected(
         profileType = uiState.profileType
@@ -152,7 +152,7 @@ private fun EditProfile(
 
 @Composable
 private fun ProfileAvatarSelected(
-    profileType: ProfileTypeEnum?
+    profileType: AvatarTypeEnum?
 ) {
     Column(
         modifier = Modifier
@@ -222,14 +222,14 @@ private fun SaveProfileFormContent(
 @Composable
 private fun ProfileSelector(
     modifier: Modifier,
-    onProfileTypeChanged: (ProfileTypeEnum) -> Unit
+    onProfileTypeChanged: (AvatarTypeEnum) -> Unit
 ) {
     Row(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        ProfileTypeEnum.entries.forEach {
+        AvatarTypeEnum.entries.forEach {
             ScalableAvatar(
                 avatarRes = it.toDrawableResource(),
                 focusedScale = Dimens.SAVE_PROFILE_AVATAR_FOCUSED_SCALE,

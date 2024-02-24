@@ -153,7 +153,7 @@ private fun ColumnScope.ProfileSelectedItem(
                         horizontalArrangement = Arrangement.Start
                     ) {
                         ScalableAvatar(
-                            avatarRes = type.toDrawableResource(),
+                            avatarRes = avatarType.toDrawableResource(),
                             focusedScale = HOME_SIDE_MENU_AVATAR_FOCUSED_SCALE,
                             size = HOME_SIDE_MENU_AVATAR_SIZE,
                             padding = HOME_SIDE_MENU_AVATAR_PADDING,

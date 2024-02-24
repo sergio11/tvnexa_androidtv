@@ -139,6 +139,18 @@ internal class UserRepositoryImpl(
     }
 
     /**
+     * Retrieves the profile business object for the specified profile ID.
+     *
+     * @param profileId The ID of the profile to retrieve.
+     * @return ProfileBO The business object representing the profile information.
+     * @throws InternalErrorException if there is an internal error during the operation.
+     */
+    @Throws(DomainException.InternalErrorException::class)
+    override suspend fun getProfileById(profileId: String): ProfileBO = safeExecute {
+        userDataSource.getProfileById(profileId).let(profileMapper::mapInToOut)
+    }
+
+    /**
      * Retrieves the selected profile from the session data.
      * @return The selected profile.
      * @throws [DomainException.InternalErrorException] if an error occurs during the operation.

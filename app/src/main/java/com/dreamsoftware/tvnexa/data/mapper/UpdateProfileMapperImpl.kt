@@ -11,8 +11,8 @@ class UpdateProfileMapperImpl @Inject constructor(): IOneSideMapper<UpdatedProfi
         UpdatedProfileRequestDTO(
             alias = alias,
             pin = pin,
-            isAdmin = isAdmin,
-            type = type
+            enableNSFW = enableNSFW,
+            avatarType = avatarType
         )
     }
 

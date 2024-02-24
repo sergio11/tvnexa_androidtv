@@ -72,6 +72,16 @@ interface IUserDataSource {
     suspend fun createProfile(data: CreateProfileRequestDTO): Boolean
 
     /**
+     * Retrieves the profile information for the specified profile ID.
+     *
+     * @param profileId The ID of the profile to retrieve.
+     * @return ProfileResponseDTO The profile information.
+     * @throws NetworkException if there is a network-related issue during the operation.
+     */
+    @Throws(NetworkException::class)
+    suspend fun getProfileById(profileId: String): ProfileResponseDTO
+
+    /**
      * Verifies a PIN associated with a user profile.
      *
      * @param profileId The identifier of the profile for PIN verification.

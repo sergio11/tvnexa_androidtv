@@ -30,7 +30,7 @@ internal class UserDataSourceImpl(
     private companion object {
         const val USER_PROFILE_CREATED_SUCCESSFULLY_CODE = 8006
         const val USER_PROFILE_DELETED_SUCCESSFULLY = 8005
-        const val USER_PROFILE_VERIFICATION_SUCCESSFULLY = 8007
+        const val USER_PROFILE_VERIFICATION_SUCCESSFULLY = 8008
     }
 
     /**
@@ -105,6 +105,18 @@ internal class UserDataSourceImpl(
     @Throws(NetworkException::class)
     override suspend fun createProfile(data: CreateProfileRequestDTO): Boolean = safeNetworkCall {
         userService.createProfile(data).code == USER_PROFILE_CREATED_SUCCESSFULLY_CODE
+    }
+
+    /**
+     * Retrieves the profile information for the specified profile ID.
+     *
+     * @param profileId The ID of the profile to retrieve.
+     * @return ProfileResponseDTO The profile information.
+     * @throws NetworkException if there is a network-related issue during the operation.
+     */
+    @Throws(NetworkException::class)
+    override suspend fun getProfileById(profileId: String): ProfileResponseDTO = safeNetworkCall {
+        userService.getProfile(profileId).data
     }
 
     /**
