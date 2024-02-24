@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalTvMaterial3Api::class)
+
 package com.dreamsoftware.tvnexa.ui.components
 
 import androidx.compose.foundation.BorderStroke
@@ -15,7 +17,6 @@ import androidx.tv.material3.FilterChip
 import androidx.tv.material3.FilterChipDefaults
 import androidx.tv.material3.MaterialTheme
 
-@OptIn(ExperimentalTvMaterial3Api::class)
 @Composable
 fun CommonChip(
     isSelected: Boolean,
@@ -40,7 +41,7 @@ fun CommonChip(
                 border = Border(
                     border = BorderStroke(
                         width = 2.dp,
-                        color = primary.copy(alpha = .5f)
+                        color = onPrimary
                     ),
                     shape = FilterChipDefaults.ContainerShape
                 ),
