@@ -11,7 +11,6 @@ import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 
 @Composable
 fun SignUpScreen(
-    modifier: Modifier = Modifier,
     viewModel: SignUpViewModel = hiltViewModel(),
     onBack: () -> Unit
 ) {
@@ -25,7 +24,6 @@ fun SignUpScreen(
         }
     ) { uiState ->
         SignUpScreenContent(
-            modifier = modifier,
             uiState = uiState,
             onFirstNameChanged = ::onFirstNameChanged,
             onLastNameChanged = ::onLastNameChanged,
@@ -34,8 +32,7 @@ fun SignUpScreen(
             onPasswordChanged = ::onPasswordChanged,
             onRepeatPasswordChanged = ::onRepeatPasswordChanged,
             onSigUpPressed = ::onSignUp,
-            onCancelPressed = onBack,
-            onErrorAcceptPressed = ::onErrorAccepted
+            onCancelPressed = onBack
         )
     }
 }
@@ -45,7 +42,6 @@ fun SignUpScreen(
 fun SignUpScreenPrev() {
     TvNexaTheme {
         SignUpScreen(
-            modifier = Modifier.fillMaxSize(),
             onBack = {}
         )
     }
