@@ -2,16 +2,13 @@ package com.dreamsoftware.tvnexa.domain.usecase.impl
 
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 import com.dreamsoftware.tvnexa.domain.repository.IUserRepository
-import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCaseWithParams
+import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCase
 
 class GetFavoriteChannelsUseCase(
     private val userRepository: IUserRepository
-): BaseUseCaseWithParams<GetFavoriteChannelsUseCase.Params, List<SimpleChannelBO>>() {
+): BaseUseCase<List<SimpleChannelBO>>() {
 
-    override suspend fun onExecuted(params: Params): List<SimpleChannelBO> =
-        userRepository.getFavoriteChannels(params.profileId)
-
-    data class Params(
-        val profileId: String
-    )
+    override suspend fun onExecuted(): List<SimpleChannelBO> = with(userRepository) {
+        getFavoriteChannels(profileId = getProfileSelected().uuid)
+    }
 }

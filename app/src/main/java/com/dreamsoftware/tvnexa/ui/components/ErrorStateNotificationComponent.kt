@@ -28,10 +28,9 @@ fun ErrorStateNotificationComponent(
     onRetryCalled: () -> Unit = {}
 ) {
     with(MaterialTheme.colorScheme) {
-        Box(modifier = Modifier
+        Box(modifier = modifier
             .fillMaxSize()
-            .padding(15.dp)
-            .then(modifier)) {
+            .padding(15.dp)) {
             Column(
                 modifier = Modifier
                     .align(Alignment.Center)

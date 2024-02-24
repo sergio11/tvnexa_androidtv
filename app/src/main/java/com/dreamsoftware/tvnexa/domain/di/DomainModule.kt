@@ -7,6 +7,7 @@ import com.dreamsoftware.tvnexa.domain.repository.ICountryRepository
 import com.dreamsoftware.tvnexa.domain.repository.IUserRepository
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileByIdUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.CreateProfileUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.DeleteFavoriteChannelUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.DeleteProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetBlockedChannelsUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetCategoriesUseCase
@@ -18,6 +19,7 @@ import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileSelectedUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfilesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetUserDetailUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.HasMultiplesProfilesUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.SaveFavoriteChannelUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SearchChannelsUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SelectProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignInUseCase
@@ -151,4 +153,14 @@ class DomainModule {
         sessionAware: ISessionAware,
         appEventBus: AppEventBus
     ): SignOffUseCase = SignOffUseCase(repository, sessionAware, appEventBus)
+
+    @Provides
+    @ViewModelScoped
+    fun provideSaveFavoriteChannelUseCase(repository: IUserRepository): SaveFavoriteChannelUseCase =
+        SaveFavoriteChannelUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideDeleteFavoriteChannelUseCase(repository: IUserRepository): DeleteFavoriteChannelUseCase =
+        DeleteFavoriteChannelUseCase(repository)
 }

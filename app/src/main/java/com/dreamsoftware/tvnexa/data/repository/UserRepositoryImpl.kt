@@ -143,7 +143,7 @@ internal class UserRepositoryImpl(
      *
      * @param profileId The ID of the profile to retrieve.
      * @return ProfileBO The business object representing the profile information.
-     * @throws InternalErrorException if there is an internal error during the operation.
+     * @throws [DomainException.InternalErrorException] if there is an internal error during the operation.
      */
     @Throws(DomainException.InternalErrorException::class)
     override suspend fun getProfileById(profileId: String): ProfileBO = safeExecute {
@@ -191,12 +191,55 @@ internal class UserRepositoryImpl(
      * @return The list of favorite channels.
      * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
      */
-    @Throws(
-        DomainException.InternalErrorException::class
-    )
+    @Throws(DomainException.InternalErrorException::class)
     override suspend fun getFavoriteChannels(profileId: String): List<SimpleChannelBO> = safeExecute {
         userDataSource.getFavoriteChannels(profileId)
             .let(channelMapper::mapInListToOutList)
             .toList()
+    }
+
+    /**
+     * Saves a channel as a favorite for the specified profile.
+     *
+     * @param profileId The ID of the profile.
+     * @param channelId The ID of the channel to be saved as a favorite.
+     * @throws DomainException.InternalErrorException if an internal error occurs during the operation.
+     * @throws DomainException.SaveFavoriteChannelErrorException if an error occurs while saving the favorite channel.
+     */
+    @Throws(
+        DomainException.InternalErrorException::class,
+        DomainException.SaveFavoriteChannelErrorException::class
+    )
+    override suspend fun saveFavoriteChannels(profileId: String, channelId: String) {
+        safeExecute {
+            userDataSource.saveFavoriteChannels(profileId, channelId).let { isSuccess ->
+                if (!isSuccess) {
+                    throw DomainException.SaveFavoriteChannelErrorException("Channel $channelId could not be saved as favorite")
+                }
+            }
+        }
+    }
+
+    /**
+     * Deletes a channel from the list of favorites for the specified profile.
+     *
+     * @param profileId The ID of the profile.
+     * @param channelId The ID of the channel to be deleted from favorites.
+     * @return true if the operation is successful, false otherwise.
+     * @throws DomainException.InternalErrorException if an internal error occurs during the operation.
+     * @throws DomainException.DeleteFavoriteChannelErrorException if an error occurs while deleting the favorite channel.
+     */
+    @Throws(
+        DomainException.InternalErrorException::class,
+        DomainException.DeleteFavoriteChannelErrorException::class
+    )
+    override suspend fun deleteFavoriteChannels(profileId: String, channelId: String) {
+        safeExecute {
+            userDataSource.deleteFavoriteChannels(profileId, channelId).let { isSuccess ->
+                if (!isSuccess) {
+                    throw DomainException.DeleteFavoriteChannelErrorException("Channel $channelId could not be deleted from favorites")
+                }
+            }
+        }
     }
 }

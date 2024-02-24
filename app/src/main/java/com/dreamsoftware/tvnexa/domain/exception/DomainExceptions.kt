@@ -65,4 +65,14 @@ sealed class DomainException(message: String? = null, cause: Throwable? = null) 
         override val message: String? = null,
         override val cause: Throwable? = null
     ) : DomainException(message, cause)
+
+    data class SaveFavoriteChannelErrorException(
+        override val message: String? = null,
+        override val cause: Throwable? = null
+    ) : DomainException(message, cause)
+
+    data class DeleteFavoriteChannelErrorException(
+        override val message: String? = null,
+        override val cause: Throwable? = null
+    ) : DomainException(message, cause)
 }
