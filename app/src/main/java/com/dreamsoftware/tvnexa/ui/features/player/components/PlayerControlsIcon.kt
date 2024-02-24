@@ -41,23 +41,26 @@ fun VideoPlayerControlsIcon(
         }
     }
 
-    Surface(
-        modifier = modifier.size(40.dp),
-        onClick = onClick,
-        shape = ClickableSurfaceDefaults.shape(shape = CircleShape),
-        colors = ClickableSurfaceDefaults.colors(
-            containerColor = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.2f),
-        ),
-        scale = ClickableSurfaceDefaults.scale(focusedScale = 1.05f),
-        interactionSource = interactionSource,
-    ) {
-        Icon(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(8.dp),
-            painter = painterResource(id = icon),
-            contentDescription = contentDescription,
-            tint = LocalContentColor.current,
-        )
+    with(MaterialTheme.colorScheme) {
+        Surface(
+            modifier = modifier.size(40.dp),
+            onClick = onClick,
+            shape = ClickableSurfaceDefaults.shape(shape = CircleShape),
+            colors = ClickableSurfaceDefaults.colors(
+                focusedContainerColor = primary.copy(alpha = 0.8f),
+                containerColor = primary,
+            ),
+            scale = ClickableSurfaceDefaults.scale(focusedScale = 1.05f),
+            interactionSource = interactionSource,
+        ) {
+            Icon(
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(8.dp),
+                painter = painterResource(id = icon),
+                contentDescription = contentDescription,
+                tint = onPrimary,
+            )
+        }
     }
 }
