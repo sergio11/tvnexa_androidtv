@@ -20,12 +20,13 @@ import androidx.tv.material3.Surface
 
 @Composable
 fun CommonFavoriteButton(
+    modifier: Modifier = Modifier,
     isFavorite: Boolean,
     onStateChanged: (Boolean) -> Unit,
 ) {
     Surface(
         shape = CircleShape,
-        modifier = Modifier
+        modifier = modifier
             .padding(12.dp)
             .size(40.dp)
     ) {
