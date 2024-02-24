@@ -72,7 +72,7 @@ fun MainNavigation(navController: NavHostController) {
         composable(Screens.SignUp.path) {
             with(navController) {
                 SignUpScreen(
-                    onBack = {
+                    onBackPressed = {
                         popBackStack()
                     }
                 )

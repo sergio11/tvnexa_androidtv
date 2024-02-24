@@ -1,8 +1,6 @@
 package com.dreamsoftware.tvnexa.ui.features.signup
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -12,14 +10,15 @@ import com.dreamsoftware.tvnexa.ui.theme.TvNexaTheme
 @Composable
 fun SignUpScreen(
     viewModel: SignUpViewModel = hiltViewModel(),
-    onBack: () -> Unit
+    onBackPressed: () -> Unit
 ) {
     CommonScreen(
         viewModel = viewModel,
+        onBackPressed = onBackPressed,
         onInitialUiState = { SignUpUiState() },
         onSideEffect = {
             if(it is SignUpSideEffects.RegisteredSuccessfully) {
-                onBack()
+                onBackPressed()
             }
         }
     ) { uiState ->
@@ -32,7 +31,7 @@ fun SignUpScreen(
             onPasswordChanged = ::onPasswordChanged,
             onRepeatPasswordChanged = ::onRepeatPasswordChanged,
             onSigUpPressed = ::onSignUp,
-            onCancelPressed = onBack
+            onCancelPressed = onBackPressed
         )
     }
 }
@@ -42,7 +41,7 @@ fun SignUpScreen(
 fun SignUpScreenPrev() {
     TvNexaTheme {
         SignUpScreen(
-            onBack = {}
+            onBackPressed = {}
         )
     }
 }
