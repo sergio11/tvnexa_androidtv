@@ -33,7 +33,7 @@ import javax.inject.Singleton
 class NetworkModule {
 
     private companion object {
-        const val TIMEOUT_IN_MINUTES: Long = 2
+        const val TIMEOUT_IN_MINUTES: Long = 1
     }
 
     /**

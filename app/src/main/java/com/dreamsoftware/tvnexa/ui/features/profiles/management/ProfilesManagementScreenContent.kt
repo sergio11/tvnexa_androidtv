@@ -12,17 +12,20 @@ fun ProfilesManagementScreenContent(
     onCompletePressed: () -> Unit,
     onProfileSelected: (ProfileBO) -> Unit
 ) {
-    CommonProfileScreenContent(
-        isLoading = uiState.isLoading,
-        mainTitleRes = R.string.profiles_management_main_title,
-        secondaryTitleRes = R.string.profiles_management_main_description,
-        primaryOptionTextRes = R.string.profiles_management_form_confirm_button_text,
-        onPrimaryOptionPressed = onCompletePressed
-    ) {
-        CommonProfileSelector(
-            profiles = uiState.profiles,
-            editMode = true,
-            onProfileSelected = onProfileSelected
-        )
+    with(uiState) {
+        CommonProfileScreenContent(
+            isLoading = isLoading,
+            error = error,
+            mainTitleRes = R.string.profiles_management_main_title,
+            secondaryTitleRes = R.string.profiles_management_main_description,
+            primaryOptionTextRes = R.string.profiles_management_form_confirm_button_text,
+            onPrimaryOptionPressed = onCompletePressed
+        ) {
+            CommonProfileSelector(
+                profiles = uiState.profiles,
+                editMode = true,
+                onProfileSelected = onProfileSelected
+            )
+        }
     }
 }

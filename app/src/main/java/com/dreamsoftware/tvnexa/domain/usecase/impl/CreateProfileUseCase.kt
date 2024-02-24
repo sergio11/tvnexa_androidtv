@@ -10,12 +10,17 @@ class CreateProfileUseCase(
 ): BaseUseCaseWithParams<CreateProfileUseCase.Params, Boolean>() {
 
     override suspend fun onExecuted(params: Params): Boolean = with(params) {
-        userRepository.createProfile(CreateProfileRequestBO(alias, pin, isAdmin, type))
+        userRepository.createProfile(CreateProfileRequestBO(
+            alias = alias,
+            pin = pin,
+            enableNSFW = enableNSFW,
+            avatarType = avatarType
+        ))
     }
     data class Params(
         val alias: String,
         val pin: Int,
-        val isAdmin: Boolean,
-        val type: AvatarTypeEnum
+        val enableNSFW: Boolean,
+        val avatarType: AvatarTypeEnum
     )
 }

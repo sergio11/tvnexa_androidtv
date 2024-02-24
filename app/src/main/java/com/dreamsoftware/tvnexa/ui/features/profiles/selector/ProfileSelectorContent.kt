@@ -13,18 +13,21 @@ fun ProfileSelectorContent(
     onAddProfilePressed: () -> Unit,
     onProfileManagementPressed: () -> Unit
 ) {
-    CommonProfileScreenContent(
-        isLoading = uiState.isLoading,
-        mainTitleRes = R.string.profile_selector_main_title,
-        secondaryTitleRes = R.string.profile_selector_secondary_title,
-        primaryOptionTextRes = R.string.profile_selector_add_profile_button_text,
-        secondaryOptionTextRes = R.string.profile_selector_profile_management_button_text,
-        onPrimaryOptionPressed = onAddProfilePressed,
-        onSecondaryOptionPressed = onProfileManagementPressed
-    ) {
-        CommonProfileSelector(
-            profiles = uiState.profiles,
-            onProfileSelected = onProfileSelected
-        )
+    with(uiState) {
+        CommonProfileScreenContent(
+            isLoading = uiState.isLoading,
+            error = error,
+            mainTitleRes = R.string.profile_selector_main_title,
+            secondaryTitleRes = R.string.profile_selector_secondary_title,
+            primaryOptionTextRes = R.string.profile_selector_add_profile_button_text,
+            secondaryOptionTextRes = R.string.profile_selector_profile_management_button_text,
+            onPrimaryOptionPressed = onAddProfilePressed,
+            onSecondaryOptionPressed = onProfileManagementPressed
+        ) {
+            CommonProfileSelector(
+                profiles = uiState.profiles,
+                onProfileSelected = onProfileSelected
+            )
+        }
     }
 }

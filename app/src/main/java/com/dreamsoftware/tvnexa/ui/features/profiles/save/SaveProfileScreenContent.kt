@@ -34,7 +34,7 @@ fun SaveProfileScreenContent(
     onAliasChanged: (String) -> Unit,
     onPinChanged: (String) -> Unit,
     onNsfwChanged: (Boolean) -> Unit,
-    onProfileTypeChanged: (AvatarTypeEnum) -> Unit,
+    onAvatarTypeChanged: (AvatarTypeEnum) -> Unit,
     onSaveProfilePressed: () -> Unit,
     onAdvanceConfigurationPressed: () -> Unit,
     onCancelPressed: () -> Unit
@@ -42,6 +42,7 @@ fun SaveProfileScreenContent(
     with(uiState) {
         CommonProfileScreenContent(
             isLoading = isLoading,
+            error = error,
             mainTitleRes = if(isEditMode) {
                 R.string.edit_profile_main_title
             } else {
@@ -73,7 +74,7 @@ fun SaveProfileScreenContent(
                         onAliasChanged = onAliasChanged,
                         onPinChanged = onPinChanged,
                         onNsfwChanged = onNsfwChanged,
-                        onProfileTypeChanged = onProfileTypeChanged,
+                        onAvatarTypeChanged = onAvatarTypeChanged,
                     )
                 } else {
                     CreateNewProfile(
@@ -81,7 +82,7 @@ fun SaveProfileScreenContent(
                         onAliasChanged = onAliasChanged,
                         onPinChanged = onPinChanged,
                         onNsfwChanged = onNsfwChanged,
-                        onProfileTypeChanged = onProfileTypeChanged,
+                        onAvatarTypeChanged = onAvatarTypeChanged,
                     )
                 }
             }
@@ -95,19 +96,19 @@ private fun CreateNewProfile(
     onAliasChanged: (String) -> Unit,
     onPinChanged: (String) -> Unit,
     onNsfwChanged: (Boolean) -> Unit,
-    onProfileTypeChanged: (AvatarTypeEnum) -> Unit,
+    onAvatarTypeChanged: (AvatarTypeEnum) -> Unit,
 ) {
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.SpaceEvenly
     ) {
         ProfileAvatarSelected(
-            profileType = uiState.profileType
+            profileType = uiState.avatarType
         )
         ProfileSelector(
             modifier = Modifier
                 .weight(0.25f),
-            onProfileTypeChanged = onProfileTypeChanged
+            onProfileTypeChanged = onAvatarTypeChanged
         )
     }
     Spacer(modifier = Modifier.width(30.dp))
@@ -125,10 +126,10 @@ private fun EditProfile(
     onAliasChanged: (String) -> Unit,
     onPinChanged: (String) -> Unit,
     onNsfwChanged: (Boolean) -> Unit,
-    onProfileTypeChanged: (AvatarTypeEnum) -> Unit,
+    onAvatarTypeChanged: (AvatarTypeEnum) -> Unit,
 ) {
     ProfileAvatarSelected(
-        profileType = uiState.profileType
+        profileType = uiState.avatarType
     )
     Spacer(modifier = Modifier.width(30.dp))
     Column(
@@ -145,7 +146,7 @@ private fun EditProfile(
         ProfileSelector(
             modifier = Modifier
                 .weight(0.3f),
-            onProfileTypeChanged = onProfileTypeChanged
+            onProfileTypeChanged = onAvatarTypeChanged
         )
     }
 }
@@ -211,7 +212,7 @@ private fun SaveProfileFormContent(
                 CommonSwitch(
                     modifier = Modifier.width(300.dp),
                     helpTextRes = R.string.save_profile_form_is_nsfw_help_text,
-                    checked = isNsfw,
+                    checked = enableNSFW,
                     onValueChanged = onNsfwChanged
                 )
             }
