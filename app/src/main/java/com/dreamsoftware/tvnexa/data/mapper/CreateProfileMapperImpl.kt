@@ -11,8 +11,8 @@ class CreateProfileMapperImpl @Inject constructor(): IOneSideMapper<CreateProfil
         CreateProfileRequestDTO(
             alias = alias,
             pin = pin,
-            isAdmin = isAdmin,
-            type = type.name
+            enableNSFW = enableNSFW,
+            avatarType = avatarType.name
         )
     }
 

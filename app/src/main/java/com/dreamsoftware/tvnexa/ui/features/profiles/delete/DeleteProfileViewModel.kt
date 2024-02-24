@@ -1,7 +1,7 @@
 package com.dreamsoftware.tvnexa.ui.features.profiles.delete
 
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
-import com.dreamsoftware.tvnexa.domain.usecase.GetProfileByIdUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileByIdUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.DeleteProfileUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel

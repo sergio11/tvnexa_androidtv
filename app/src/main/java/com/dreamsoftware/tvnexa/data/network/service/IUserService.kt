@@ -59,6 +59,16 @@ interface IUserService {
     ): ApiResponseDTO<ProfileResponseDTO>
 
     /**
+     * Retrieves the profile information for the specified profile ID.
+     *
+     * @param profileId The ID of the profile to retrieve.
+     * @return ApiResponseDTO<ProfileResponseDTO> An API response containing the profile information.
+     * @throws Exception if an error occurs while fetching the profile.
+     */
+    @GET("user/profiles/{profileId}")
+    suspend fun getProfile(@Path("profileId") profileId: String): ApiResponseDTO<ProfileResponseDTO>
+
+    /**
      * Deletes a specific user profile.
      *
      * @param profileId The identifier of the profile to be deleted.
@@ -87,7 +97,7 @@ interface IUserService {
     suspend fun verifyPin(
         @Path("profileId") profileId: String,
         @Body data: PinVerificationRequestDTO
-    ): ApiResponseDTO<Boolean>
+    ): ApiResponseDTO<String>
 
     /**
      * Retrieves a list of blocked channels for a specific user profile.
