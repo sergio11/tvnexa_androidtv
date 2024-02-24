@@ -41,6 +41,7 @@ import timber.log.Timber
 fun PlayerScreenContent(
     uiState: PlayerUiState,
     onFavoriteStateChanged: (Boolean) -> Unit,
+    onOpenSettingsPressed: () -> Unit
 ) {
 
     val coroutineScope = rememberCoroutineScope()
@@ -70,7 +71,8 @@ fun PlayerScreenContent(
             uiState = uiState,
             isPlaying = playerState is PlayerState.Playing,
             state = videoPlayerState,
-            onFavoriteStateChanged = onFavoriteStateChanged
+            onFavoriteStateChanged = onFavoriteStateChanged,
+            onOpenSettingsPressed = onOpenSettingsPressed
         )
     }
 }
@@ -81,6 +83,7 @@ private fun PlayerControls(
     uiState: PlayerUiState,
     isPlaying: Boolean,
     onFavoriteStateChanged: (Boolean) -> Unit,
+    onOpenSettingsPressed: () -> Unit,
     state: PlayerControlsState
 ) {
     LaunchedEffect(isPlaying) {
@@ -136,6 +139,7 @@ private fun PlayerControls(
                         state = state,
                         isPlaying = isPlaying,
                         contentDescription = "Settings Icon",
+                        onClick = onOpenSettingsPressed
                     )
                 }
             }
