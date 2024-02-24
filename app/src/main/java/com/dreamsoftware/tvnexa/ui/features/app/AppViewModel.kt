@@ -24,12 +24,20 @@ class AppViewModel @Inject constructor(
     private fun observeEvents() {
         viewModelScope.launch {
             appEventBus.events.collect { event ->
-                if(event is AppEvent.ComeFromStandby) {
-                    launchSideEffect(AppSideEffects.ComeFromStandby)
-                } else if (event is AppEvent.SignOff) {
-                    launchSideEffect(AppSideEffects.NoSessionActive)
+                when(event) {
+                    is AppEvent.ComeFromStandby -> launchSideEffect(AppSideEffects.ComeFromStandby)
+                    is AppEvent.SignOff -> launchSideEffect(AppSideEffects.NoSessionActive)
+                    is AppEvent.NetworkConnectivityStateChanged ->
+                        onNetworkConnectivityChanged(event.newState)
+                    AppEvent.GoToStandby -> {}
                 }
             }
+        }
+    }
+
+    private fun onNetworkConnectivityChanged(newState: Boolean) {
+        updateState {
+            it.copy(hasNetworkConnectivity = newState)
         }
     }
 }
@@ -37,6 +45,7 @@ class AppViewModel @Inject constructor(
 data class AppUiState(
     override val isLoading: Boolean = false,
     override val error: String? = null,
+    val hasNetworkConnectivity: Boolean = true
 ): UiState<AppUiState>(isLoading, error) {
     override fun copyState(isLoading: Boolean, error: String?): AppUiState =
         copy(isLoading = isLoading, error = error)

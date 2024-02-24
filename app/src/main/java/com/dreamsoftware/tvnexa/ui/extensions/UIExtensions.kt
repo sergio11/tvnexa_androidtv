@@ -1,7 +1,9 @@
 package com.dreamsoftware.tvnexa.ui.extensions
 
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.provider.Settings
 import android.view.KeyEvent
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
@@ -108,3 +110,12 @@ fun AvatarTypeEnum.toDrawableResource(): Int = when(this) {
 fun Context.isAndroidTV(): Boolean =
     packageManager.hasSystemFeature(PackageManager.FEATURE_LEANBACK)
 
+fun Context.restartApplication() {
+    packageManager.getLeanbackLaunchIntentForPackage(packageName)?.run {
+        addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+    }?.let(::startActivity)
+}
+
+fun Context.openSystemSettings() {
+    startActivity(Intent(Settings.ACTION_SETTINGS))
+}
