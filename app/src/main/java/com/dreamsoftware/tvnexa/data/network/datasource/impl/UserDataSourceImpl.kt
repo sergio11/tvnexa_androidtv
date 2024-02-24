@@ -33,6 +33,8 @@ internal class UserDataSourceImpl(
         const val USER_PROFILE_VERIFICATION_SUCCESSFULLY = 8008
         const val SAVE_FAVORITE_CHANNEL_SUCCESSFULLY = 8014
         const val DELETE_FAVORITE_CHANNEL_SUCCESSFULLY = 8015
+        const val CHANNEL_BLOCKED_SUCCESSFULLY = 8011
+        const val CHANNEL_UNBLOCKED_SUCCESSFULLY = 8012
     }
 
     /**
@@ -144,6 +146,32 @@ internal class UserDataSourceImpl(
     @Throws(NetworkException::class)
     override suspend fun getBlockedChannels(profileId: String): List<SimpleChannelResponseDTO> = safeNetworkCall {
         userService.getBlockedChannels(profileId).data
+    }
+
+    /**
+     * Saves the blocking status of a channel for a specific user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be blocked.
+     * @return `true` if the operation is successful, `false` otherwise.
+     * @throws NetworkException if there's an issue with the network connection.
+     */
+    @Throws(NetworkException::class)
+    override suspend fun blockChannel(profileId: String, channelId: String): Boolean = safeNetworkCall {
+        userService.blockChannel(profileId, channelId).code == CHANNEL_BLOCKED_SUCCESSFULLY
+    }
+
+    /**
+     * Deletes the blocking status of a channel for a specific user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be unblocked.
+     * @return `true` if the operation is successful, `false` otherwise.
+     * @throws NetworkException if there's an issue with the network connection.
+     */
+    @Throws(NetworkException::class)
+    override suspend fun unblockChannel(profileId: String, channelId: String): Boolean = safeNetworkCall {
+        userService.unblockChannel(profileId, channelId).code == CHANNEL_UNBLOCKED_SUCCESSFULLY
     }
 
     /**
