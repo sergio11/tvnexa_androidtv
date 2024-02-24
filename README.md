@@ -26,6 +26,10 @@
 
 🌐 **TvNexa: Bringing the World to Your Screen! 📺** TvNexa is an innovative online television platform developed for Android TV using Jetpack Compose for TV and Jetpack Material 3. The project also includes a mobile version for a consistent viewing experience across devices.
 
+<p align="center">
+  <img width="700px" src="doc/picture_23.gif" />
+</p>
+
 ## User-Focused Features 🚀
 
 - **User Profiles**: Create multiple profiles on your account for personalized experiences.
@@ -132,6 +136,10 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 
 <p align="center">
   <img width="700px" src="doc/picture_14.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_24.png" />
 </p>
 
 ### Profiles
