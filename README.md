@@ -1,6 +1,18 @@
 # TvNexa - Your Global IPTV Destination 🌐📺
 
-Welcome to TvNexa, your ultimate online television platform that redefines the streaming experience. TvNexa is crafted with innovation, bringing you a diverse universe of television channels from around the world. Whether you're using Android TV or your mobile device, TvNexa is designed for seamless exploration and enjoyment of global content.
+<img width="auto" height="200px" align="left" src="doc/main_logo.png" />
+
+📺 Welcome to TvNexa, your ultimate online television platform that redefines the streaming experience.
+
+🌐 TvNexa is not just another streaming service; it's a gateway to a diverse universe of television channels from around the world. The platform is meticulously crafted with innovation at its core, ensuring that Android users have access to an unparalleled selection of global content right at their fingertips.
+
+📱 Whether you're using Android TV, your smartphone, or tablet, TvNexa is designed for seamless exploration and enjoyment. With a user-friendly interface and intuitive features, discovering and accessing your favorite channels has never been easier.
+
+🚀 Join us on TvNexa and embark on an extraordinary journey through the world of entertainment. Whether you're craving the latest blockbuster movies, immersive documentaries, thrilling sports events, or captivating TV shows, TvNexa has something for everyone.
+
+🌟 Experience the future of television streaming with TvNexa – Your Global IPTV Destination. Start exploring today!
+
+**🔜 Stay tuned! TvNexa is continuously evolving, and the mobile version will be arriving soon to enhance your streaming experience even further!**
 
 <p align="center">
   <img src="https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white" />
@@ -8,7 +20,6 @@ Welcome to TvNexa, your ultimate online television platform that redefines the s
   <img src="https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white" />
   <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white" />
   <img src="https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white" />
-  
 </p>
 
 ## Overview 🌐
