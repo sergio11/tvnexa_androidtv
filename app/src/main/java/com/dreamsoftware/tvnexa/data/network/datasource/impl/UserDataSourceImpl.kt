@@ -140,12 +140,12 @@ internal class UserDataSourceImpl(
      * Retrieves a list of blocked channels for a specific user profile.
      *
      * @param profileId The identifier of the profile for which blocked channels are requested.
-     * @return A list of [SimpleChannelResponseDTO] representing blocked channels.
+     * @return A list of [String] representing blocked channels.
      * @throws NetworkException if there is a network-related error.
      */
     @Throws(NetworkException::class)
-    override suspend fun getBlockedChannels(profileId: String): List<SimpleChannelResponseDTO> = safeNetworkCall {
-        userService.getBlockedChannels(profileId).data
+    override suspend fun getBlockedChannels(profileId: String): List<String> = safeNetworkCall {
+        userService.getBlockedChannels(profileId).data.map { it.channelId }
     }
 
     /**

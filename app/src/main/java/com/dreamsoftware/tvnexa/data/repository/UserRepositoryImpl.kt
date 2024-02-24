@@ -6,7 +6,6 @@ import com.dreamsoftware.tvnexa.data.network.dto.request.PinVerificationRequestD
 import com.dreamsoftware.tvnexa.data.network.dto.request.UpdatedProfileRequestDTO
 import com.dreamsoftware.tvnexa.data.network.dto.request.UpdatedUserRequestDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.ProfileResponseDTO
-import com.dreamsoftware.tvnexa.data.network.dto.response.SimpleChannelResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.UserResponseDTO
 import com.dreamsoftware.tvnexa.data.preferences.datasource.IProfileSessionDataSource
 import com.dreamsoftware.tvnexa.data.preferences.dto.ProfileSelectedPreferenceDTO
@@ -14,14 +13,12 @@ import com.dreamsoftware.tvnexa.data.repository.core.SupportRepositoryImpl
 import com.dreamsoftware.tvnexa.domain.exception.DomainException
 import com.dreamsoftware.tvnexa.domain.model.CreateProfileRequestBO
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
-import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 import com.dreamsoftware.tvnexa.domain.model.UpdatedProfileRequestBO
 import com.dreamsoftware.tvnexa.domain.model.UpdatedUserRequestBO
 import com.dreamsoftware.tvnexa.domain.model.UserDetailBO
 import com.dreamsoftware.tvnexa.domain.repository.IUserRepository
 import com.dreamsoftware.tvnexa.utils.IMapper
 import com.dreamsoftware.tvnexa.utils.IOneSideMapper
-import kotlin.jvm.Throws
 
 /**
  * Implementation of [IUserRepository] that handles user-related data operations.
@@ -32,7 +29,6 @@ import kotlin.jvm.Throws
  * @param profileMapper Mapper to convert [ProfileResponseDTO] to [ProfileBO].
  * @param updateProfileMapper Mapper to convert [UpdatedProfileRequestBO] to [UpdatedProfileRequestDTO].
  * @param createProfileMapper Mapper to convert [CreateProfileRequestBO] to [CreateProfileRequestDTO].
- * @param channelMapper Mapper to convert [SimpleChannelResponseDTO] to [SimpleChannelBO].
  * @param profileSessionDataSource Data source responsible for managing profile session data in preferences.
  * @param profileSessionMapper Mapper to convert [ProfileBO] to [ProfileSelectedPreferenceDTO].
  */
@@ -43,7 +39,6 @@ internal class UserRepositoryImpl(
     private val profileMapper: IOneSideMapper<ProfileResponseDTO, ProfileBO>,
     private val updateProfileMapper: IOneSideMapper<UpdatedProfileRequestBO, UpdatedProfileRequestDTO>,
     private val createProfileMapper: IOneSideMapper<CreateProfileRequestBO, CreateProfileRequestDTO>,
-    private val channelMapper: IOneSideMapper<SimpleChannelResponseDTO, SimpleChannelBO>,
     private val profileSessionDataSource: IProfileSessionDataSource,
     private val profileSessionMapper: IMapper<ProfileBO, ProfileSelectedPreferenceDTO>
 ): SupportRepositoryImpl(), IUserRepository {
@@ -177,121 +172,6 @@ internal class UserRepositoryImpl(
             userDataSource.verifyPin(profileId, PinVerificationRequestDTO(pin)).let { isSuccess ->
                 if(!isSuccess) {
                     throw DomainException.PinVerificationFailedException("Pin verification failed for profile $profileId")
-                }
-            }
-        }
-    }
-
-    /**
-     * Retrieves the list of blocked channels associated with the given profile ID.
-     * @param profileId The ID of the profile.
-     * @return The list of blocked channels.
-     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
-     */
-    @Throws(DomainException.InternalErrorException::class)
-    override suspend fun getBlockedChannels(profileId: String): List<SimpleChannelBO> = safeExecute {
-        userDataSource.getBlockedChannels(profileId)
-            .let(channelMapper::mapInListToOutList)
-            .toList()
-    }
-
-    /**
-     * Blocks a channel for a specific user profile.
-     *
-     * @param profileId The ID of the user profile.
-     * @param channelId The ID of the channel to be blocked.
-     * @throws DomainException.InternalErrorException if there's an internal error while processing the request.
-     * @throws DomainException.BlockChannelErrorException if there's an error while blocking the channel.
-     */
-    @Throws(
-        DomainException.InternalErrorException::class,
-        DomainException.BlockChannelErrorException::class
-    )
-    override suspend fun blockChannel(profileId: String, channelId: String) {
-        safeExecute {
-            userDataSource.blockChannel(profileId, channelId).let { isSuccess ->
-                if (!isSuccess) {
-                    throw DomainException.BlockChannelErrorException("Channel $channelId could not be blocked")
-                }
-            }
-        }
-    }
-
-    /**
-     * Unblocks a channel for a specific user profile.
-     *
-     * @param profileId The ID of the user profile.
-     * @param channelId The ID of the channel to be unblocked.
-     * @throws DomainException.InternalErrorException if there's an internal error while processing the request.
-     * @throws DomainException.UnblockChannelErrorException if there's an error while unblocking the channel.
-     */
-    @Throws(
-        DomainException.InternalErrorException::class,
-        DomainException.UnblockChannelErrorException::class
-    )
-    override suspend fun unblockChannel(profileId: String, channelId: String) {
-        safeExecute {
-            userDataSource.unblockChannel(profileId, channelId).let { isSuccess ->
-                if (!isSuccess) {
-                    throw DomainException.UnblockChannelErrorException("Channel $channelId could not be unblocked")
-                }
-            }
-        }
-    }
-
-    /**
-     * Retrieves the list of favorite channels associated with the given profile ID.
-     * @param profileId The ID of the profile.
-     * @return The list of favorite channels.
-     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
-     */
-    @Throws(DomainException.InternalErrorException::class)
-    override suspend fun getFavoriteChannels(profileId: String): List<SimpleChannelBO> = safeExecute {
-        userDataSource.getFavoriteChannels(profileId)
-            .let(channelMapper::mapInListToOutList)
-            .toList()
-    }
-
-    /**
-     * Saves a channel as a favorite for the specified profile.
-     *
-     * @param profileId The ID of the profile.
-     * @param channelId The ID of the channel to be saved as a favorite.
-     * @throws DomainException.InternalErrorException if an internal error occurs during the operation.
-     * @throws DomainException.SaveFavoriteChannelErrorException if an error occurs while saving the favorite channel.
-     */
-    @Throws(
-        DomainException.InternalErrorException::class,
-        DomainException.SaveFavoriteChannelErrorException::class
-    )
-    override suspend fun saveFavoriteChannels(profileId: String, channelId: String) {
-        safeExecute {
-            userDataSource.saveFavoriteChannels(profileId, channelId).let { isSuccess ->
-                if (!isSuccess) {
-                    throw DomainException.SaveFavoriteChannelErrorException("Channel $channelId could not be saved as favorite")
-                }
-            }
-        }
-    }
-
-    /**
-     * Deletes a channel from the list of favorites for the specified profile.
-     *
-     * @param profileId The ID of the profile.
-     * @param channelId The ID of the channel to be deleted from favorites.
-     * @return true if the operation is successful, false otherwise.
-     * @throws DomainException.InternalErrorException if an internal error occurs during the operation.
-     * @throws DomainException.DeleteFavoriteChannelErrorException if an error occurs while deleting the favorite channel.
-     */
-    @Throws(
-        DomainException.InternalErrorException::class,
-        DomainException.DeleteFavoriteChannelErrorException::class
-    )
-    override suspend fun deleteFavoriteChannels(profileId: String, channelId: String) {
-        safeExecute {
-            userDataSource.deleteFavoriteChannels(profileId, channelId).let { isSuccess ->
-                if (!isSuccess) {
-                    throw DomainException.DeleteFavoriteChannelErrorException("Channel $channelId could not be deleted from favorites")
                 }
             }
         }

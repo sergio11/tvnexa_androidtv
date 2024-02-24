@@ -10,7 +10,6 @@ import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileByIdUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.CreateProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.DeleteFavoriteChannelUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.DeleteProfileUseCase
-import com.dreamsoftware.tvnexa.domain.usecase.impl.GetBlockedChannelsUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetCategoriesUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetChannelDetailUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetChannelsUseCase
@@ -70,13 +69,19 @@ class DomainModule {
 
     @Provides
     @ViewModelScoped
-    fun provideGetChannelsUseCase(repository: IChannelRepository): GetChannelsUseCase =
-        GetChannelsUseCase(repository)
+    fun provideGetChannelsUseCase(
+        channelRepository: IChannelRepository,
+        userRepository: IUserRepository
+    ): GetChannelsUseCase =
+        GetChannelsUseCase(userRepository, channelRepository)
 
     @Provides
     @ViewModelScoped
-    fun provideGetChannelDetailUseCase(repository: IChannelRepository): GetChannelDetailUseCase =
-        GetChannelDetailUseCase(repository)
+    fun provideGetChannelDetailUseCase(
+        channelRepository: IChannelRepository,
+        userRepository: IUserRepository
+    ): GetChannelDetailUseCase =
+        GetChannelDetailUseCase(userRepository, channelRepository)
 
     @Provides
     @ViewModelScoped
@@ -110,13 +115,11 @@ class DomainModule {
 
     @Provides
     @ViewModelScoped
-    fun provideGetBlockedChannelsUseCase(repository: IUserRepository): GetBlockedChannelsUseCase =
-        GetBlockedChannelsUseCase(repository)
-
-    @Provides
-    @ViewModelScoped
-    fun provideGetFavoriteChannelsUseCase(repository: IUserRepository): GetFavoriteChannelsUseCase =
-        GetFavoriteChannelsUseCase(repository)
+    fun provideGetFavoriteChannelsUseCase(
+        channelRepository: IChannelRepository,
+        userRepository: IUserRepository
+    ): GetFavoriteChannelsUseCase =
+        GetFavoriteChannelsUseCase(channelRepository, userRepository)
 
     @Provides
     @ViewModelScoped
@@ -125,8 +128,11 @@ class DomainModule {
 
     @Provides
     @ViewModelScoped
-    fun provideSearchChannelsUseCase(repository: IChannelRepository): SearchChannelsUseCase =
-        SearchChannelsUseCase(repository)
+    fun provideSearchChannelsUseCase(
+        channelRepository: IChannelRepository,
+        userRepository: IUserRepository
+    ): SearchChannelsUseCase =
+        SearchChannelsUseCase(userRepository, channelRepository)
 
     @Provides
     @ViewModelScoped
@@ -158,21 +164,33 @@ class DomainModule {
 
     @Provides
     @ViewModelScoped
-    fun provideSaveFavoriteChannelUseCase(repository: IUserRepository): SaveFavoriteChannelUseCase =
-        SaveFavoriteChannelUseCase(repository)
+    fun provideSaveFavoriteChannelUseCase(
+        userRepository: IUserRepository,
+        channelRepository: IChannelRepository
+    ): SaveFavoriteChannelUseCase =
+        SaveFavoriteChannelUseCase(userRepository, channelRepository)
 
     @Provides
     @ViewModelScoped
-    fun provideDeleteFavoriteChannelUseCase(repository: IUserRepository): DeleteFavoriteChannelUseCase =
-        DeleteFavoriteChannelUseCase(repository)
+    fun provideDeleteFavoriteChannelUseCase(
+        userRepository: IUserRepository,
+        channelRepository: IChannelRepository
+    ): DeleteFavoriteChannelUseCase =
+        DeleteFavoriteChannelUseCase(channelRepository, userRepository)
 
     @Provides
     @ViewModelScoped
-    fun provideBlockChannelUseCase(repository: IUserRepository): BlockChannelUseCase =
-        BlockChannelUseCase(repository)
+    fun provideBlockChannelUseCase(
+        userRepository: IUserRepository,
+        channelRepository: IChannelRepository
+    ): BlockChannelUseCase =
+        BlockChannelUseCase(channelRepository, userRepository)
 
     @Provides
     @ViewModelScoped
-    fun provideUnblockChannelUseCase(repository: IUserRepository): UnblockChannelUseCase =
-        UnblockChannelUseCase(repository)
+    fun provideUnblockChannelUseCase(
+        userRepository: IUserRepository,
+        channelRepository: IChannelRepository
+    ): UnblockChannelUseCase =
+        UnblockChannelUseCase(userRepository, channelRepository)
 }
