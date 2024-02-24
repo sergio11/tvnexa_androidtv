@@ -4,10 +4,12 @@ import com.dreamsoftware.tvnexa.data.network.dto.request.CreateProfileRequestDTO
 import com.dreamsoftware.tvnexa.data.network.dto.request.PinVerificationRequestDTO
 import com.dreamsoftware.tvnexa.data.network.dto.request.UpdatedProfileRequestDTO
 import com.dreamsoftware.tvnexa.data.network.dto.request.UpdatedUserRequestDTO
+import com.dreamsoftware.tvnexa.data.network.dto.response.ApiResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.ProfileResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.SimpleChannelResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.UserResponseDTO
 import com.dreamsoftware.tvnexa.data.network.exception.NetworkException
+import retrofit2.http.Path
 
 /**
  * Interface defining the contract for data operations related to user information.
@@ -110,4 +112,26 @@ interface IUserDataSource {
      */
     @Throws(NetworkException::class)
     suspend fun getFavoriteChannels(profileId: String): List<SimpleChannelResponseDTO>
+
+    /**
+     * Saves a channel as a favorite for the specified profile.
+     *
+     * @param profileId The ID of the profile.
+     * @param channelId The ID of the channel to be saved as a favorite.
+     * @return Boolean true if the operation is successful, false otherwise.
+     * @throws NetworkException if there is a network-related issue during the operation.
+     */
+    @Throws(NetworkException::class)
+    suspend fun saveFavoriteChannels(profileId: String, channelId: String): Boolean
+
+    /**
+     * Deletes a channel from the list of favorites for the specified profile.
+     *
+     * @param profileId The ID of the profile.
+     * @param channelId The ID of the channel to be deleted from favorites.
+     * @return Boolean true if the operation is successful, false otherwise.
+     * @throws NetworkException if there is a network-related issue during the operation.
+     */
+    @Throws(NetworkException::class)
+    suspend fun deleteFavoriteChannels(profileId: String, channelId: String): Boolean
 }
