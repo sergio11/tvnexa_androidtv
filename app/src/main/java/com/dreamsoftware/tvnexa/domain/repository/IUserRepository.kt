@@ -93,14 +93,18 @@ interface IUserRepository {
     suspend fun getProfileSelected(): ProfileBO
 
     /**
-     * Verifies the PIN associated with the given profile ID.
-     * @param profileId The ID of the profile for PIN verification.
+     * Verifies a PIN for a specific user profile.
+     *
+     * @param profileId The ID of the user profile.
      * @param pin The PIN to be verified.
-     * @return `true` if the PIN is verified successfully, `false` otherwise.
-     * @throws [DomainException.InternalErrorException] if an error occurs during the operation.
+     * @throws DomainException.InternalErrorException if there's an internal error while processing the request.
+     * @throws DomainException.PinVerificationFailedException if the PIN verification fails.
      */
-    @Throws(DomainException.InternalErrorException::class)
-    suspend fun verifyPin(profileId: String, pin: Int): Boolean
+    @Throws(
+        DomainException.InternalErrorException::class,
+        DomainException.PinVerificationFailedException::class
+    )
+    suspend fun verifyPin(profileId: String, pin: Int)
 
     /**
      * Retrieves the list of blocked channels associated with the given profile ID.
@@ -110,6 +114,34 @@ interface IUserRepository {
      */
     @Throws(DomainException.InternalErrorException::class)
     suspend fun getBlockedChannels(profileId: String): List<SimpleChannelBO>
+
+    /**
+     * Blocks a channel for a specific user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be blocked.
+     * @throws DomainException.InternalErrorException if there's an internal error while processing the request.
+     * @throws DomainException.BlockChannelErrorException if there's an error while blocking the channel.
+     */
+    @Throws(
+        DomainException.InternalErrorException::class,
+        DomainException.BlockChannelErrorException::class
+    )
+    suspend fun blockChannel(profileId: String, channelId: String)
+
+    /**
+     * Unblocks a channel for a specific user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be unblocked.
+     * @throws DomainException.InternalErrorException if there's an internal error while processing the request.
+     * @throws DomainException.UnblockChannelErrorException if there's an error while unblocking the channel.
+     */
+    @Throws(
+        DomainException.InternalErrorException::class,
+        DomainException.UnblockChannelErrorException::class
+    )
+    suspend fun unblockChannel(profileId: String, channelId: String)
 
     /**
      * Retrieves the list of favorite channels associated with the given profile ID.

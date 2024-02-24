@@ -109,6 +109,33 @@ interface IUserService {
     suspend fun getBlockedChannels(@Path("profileId") profileId: String): ApiResponseDTO<List<SimpleChannelResponseDTO>>
 
     /**
+     * Saves the blocking status of a channel for a specific user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be blocked.
+     * @return An [ApiResponseDTO] object representing the response from the API.
+     */
+    @PUT("user/profiles/{profileId}/blocked-channels/{channelId}")
+    suspend fun blockChannel(
+        @Path("profileId") profileId: String,
+        @Path("channelId") channelId: String
+    ): ApiResponseDTO<String>
+
+    /**
+     * Deletes the blocking status of a channel for a specific user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be unblocked.
+     * @return An [ApiResponseDTO] object representing the response from the API.
+     */
+    @DELETE("user/profiles/{profileId}/blocked-channels/{channelId}")
+    suspend fun unblockChannel(
+        @Path("profileId") profileId: String,
+        @Path("channelId") channelId: String
+    ): ApiResponseDTO<String>
+
+
+    /**
      * Retrieves a list of favorite channels for a specific user profile.
      *
      * @param profileId The identifier of the profile for which favorite channels are requested.

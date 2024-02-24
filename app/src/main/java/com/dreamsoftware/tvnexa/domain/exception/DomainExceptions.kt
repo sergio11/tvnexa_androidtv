@@ -75,4 +75,19 @@ sealed class DomainException(message: String? = null, cause: Throwable? = null) 
         override val message: String? = null,
         override val cause: Throwable? = null
     ) : DomainException(message, cause)
+
+    data class BlockChannelErrorException(
+        override val message: String? = null,
+        override val cause: Throwable? = null
+    ) : DomainException(message, cause)
+
+    data class UnblockChannelErrorException(
+        override val message: String? = null,
+        override val cause: Throwable? = null
+    ) : DomainException(message, cause)
+
+    data class PinVerificationFailedException(
+        override val message: String? = null,
+        override val cause: Throwable? = null
+    ) : DomainException(message, cause)
 }

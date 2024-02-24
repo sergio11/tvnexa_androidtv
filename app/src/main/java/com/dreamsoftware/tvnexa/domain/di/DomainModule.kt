@@ -5,6 +5,7 @@ import com.dreamsoftware.tvnexa.domain.repository.ICategoryRepository
 import com.dreamsoftware.tvnexa.domain.repository.IChannelRepository
 import com.dreamsoftware.tvnexa.domain.repository.ICountryRepository
 import com.dreamsoftware.tvnexa.domain.repository.IUserRepository
+import com.dreamsoftware.tvnexa.domain.usecase.impl.BlockChannelUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileByIdUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.CreateProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.DeleteFavoriteChannelUseCase
@@ -25,6 +26,7 @@ import com.dreamsoftware.tvnexa.domain.usecase.impl.SelectProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignInUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignOffUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SignUpUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.UnblockChannelUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.UpdateProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.UpdateUserDetailUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.VerifyPinUseCase
@@ -163,4 +165,14 @@ class DomainModule {
     @ViewModelScoped
     fun provideDeleteFavoriteChannelUseCase(repository: IUserRepository): DeleteFavoriteChannelUseCase =
         DeleteFavoriteChannelUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideBlockChannelUseCase(repository: IUserRepository): BlockChannelUseCase =
+        BlockChannelUseCase(repository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideUnblockChannelUseCase(repository: IUserRepository): UnblockChannelUseCase =
+        UnblockChannelUseCase(repository)
 }

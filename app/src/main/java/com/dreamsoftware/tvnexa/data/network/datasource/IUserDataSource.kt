@@ -4,12 +4,10 @@ import com.dreamsoftware.tvnexa.data.network.dto.request.CreateProfileRequestDTO
 import com.dreamsoftware.tvnexa.data.network.dto.request.PinVerificationRequestDTO
 import com.dreamsoftware.tvnexa.data.network.dto.request.UpdatedProfileRequestDTO
 import com.dreamsoftware.tvnexa.data.network.dto.request.UpdatedUserRequestDTO
-import com.dreamsoftware.tvnexa.data.network.dto.response.ApiResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.ProfileResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.SimpleChannelResponseDTO
 import com.dreamsoftware.tvnexa.data.network.dto.response.UserResponseDTO
 import com.dreamsoftware.tvnexa.data.network.exception.NetworkException
-import retrofit2.http.Path
 
 /**
  * Interface defining the contract for data operations related to user information.
@@ -102,6 +100,28 @@ interface IUserDataSource {
      */
     @Throws(NetworkException::class)
     suspend fun getBlockedChannels(profileId: String): List<SimpleChannelResponseDTO>
+
+    /**
+     * Saves the blocking status of a channel for a specific user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be blocked.
+     * @return `true` if the operation is successful, `false` otherwise.
+     * @throws NetworkException if there's an issue with the network connection.
+     */
+    @Throws(NetworkException::class)
+    suspend fun blockChannel(profileId: String, channelId: String): Boolean
+
+    /**
+     * Deletes the blocking status of a channel for a specific user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be unblocked.
+     * @return `true` if the operation is successful, `false` otherwise.
+     * @throws NetworkException if there's an issue with the network connection.
+     */
+    @Throws(NetworkException::class)
+    suspend fun unblockChannel(profileId: String, channelId: String): Boolean
 
     /**
      * Retrieves a list of favorite channels for a specific user profile.
