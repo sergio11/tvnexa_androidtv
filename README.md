@@ -129,6 +129,34 @@ Here are some screenshots from our app to give you a glimpse of its design and f
   <img width="700px" src="doc/picture_15.png" />
 </p>
 
+<p align="center">
+  <img width="700px" src="doc/picture_16.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_17.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_18.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_19.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_20.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_21.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_22.png" />
+</p>
+
 ### Settings
 
 <p align="center">
