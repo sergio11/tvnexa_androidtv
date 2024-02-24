@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -40,9 +41,9 @@ fun SearchScreenContent(
 ) {
     with(uiState) {
         Row(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier.fillMaxSize().padding(vertical = 24.dp)
         ) {
-            Column(modifier = Modifier.padding(horizontal = 12.dp, vertical = 24.dp)) {
+            Column(modifier = Modifier.padding(horizontal = 12.dp)) {
                 SearchView()
                 MiniKeyboard(
                     modifier = Modifier.width(300.dp),
@@ -53,29 +54,49 @@ fun SearchScreenContent(
                     onSpaceBarPressed = onSpaceBarPressed
                 )
             }
-            Column {
-
+            Column(modifier = Modifier.padding(horizontal = 12.dp)) {
+                GridHeader(term)
+                when {
+                    isLoading -> SearchingContent()
+                    channels.isEmpty() || !error.isNullOrBlank() -> EmptyOrErrorContent(
+                        isEmpty = channels.isEmpty(),
+                        error = error
+                    )
+                    else -> ContentGrid(
+                        channels = channels,
+                        onChannelPressed = onChannelPressed
+                    )
+                }
             }
-            when {
-                isLoading -> CommonLoading(
-                    modifier = Modifier.padding(horizontal = 16.dp),
-                    text = R.string.search_screen_search_results_loading
-                )
-                channels.isEmpty() || !error.isNullOrBlank() -> ErrorStateNotificationComponent(
-                    imageRes = R.drawable.default_placeholder,
-                    title = if(channels.isEmpty()) {
-                        stringResource(id = R.string.search_screen_search_no_results_found)
-                    } else {
-                        error.orEmpty()
-                    }
-                )
-                else -> ContentGrid(
-                    term = term,
-                    channels = channels,
-                    onChannelPressed = onChannelPressed
-                )
-             }
         }
+    }
+}
+
+@Composable
+fun SearchingContent() {
+    Column(
+        modifier = Modifier.fillMaxHeight(0.5f)
+    ) {
+        CommonLoading(
+            modifier = Modifier.padding(horizontal = 16.dp),
+            text = R.string.search_screen_search_results_loading
+        )
+    }
+}
+
+@Composable
+fun EmptyOrErrorContent(isEmpty: Boolean, error: String?) {
+    Column(
+        modifier = Modifier.fillMaxHeight(0.5f)
+    ) {
+        ErrorStateNotificationComponent(
+            imageRes = R.drawable.default_placeholder,
+            title = if (isEmpty) {
+                stringResource(id = R.string.search_screen_search_no_results_found)
+            } else {
+                error.orEmpty()
+            }
+        )
     }
 }
 
@@ -83,20 +104,14 @@ fun SearchScreenContent(
 fun ContentGrid(
     modifier: Modifier = Modifier,
     channels: List<SimpleChannelBO>,
-    term: String,
     onChannelPressed: (SimpleChannelBO) -> Unit,
 ) {
     CommonFocusRequester { focusRequester ->
         TvLazyVerticalGrid(
             modifier = modifier,
             columns = TvGridCells.Fixed(3),
-            contentPadding = PaddingValues(start = 12.dp, top = 24.dp, end = 12.dp, bottom = 48.dp),
+            contentPadding = PaddingValues(start = 12.dp, top = 12.dp, end = 12.dp, bottom = 48.dp),
         ) {
-            item(span = {
-                TvGridItemSpan(3)
-            }) {
-                GridHeader(term)
-            }
             items(channels.size) { idx ->
                 ChannelGridItem(
                     modifier = if(idx == 0) {
@@ -122,7 +137,7 @@ fun GridHeader(term: String) {
         },
         type = CommonTextTypeEnum.TITLE_LARGE,
         textColor = MaterialTheme.colorScheme.primary,
-        modifier = Modifier.padding(bottom = 24.dp, start = 8.dp),
+        modifier = Modifier.padding(vertical = 24.dp, horizontal = 8.dp),
     )
 }
 
@@ -134,7 +149,7 @@ fun SearchView() {
                 titleRes = R.string.search_screen_main_title,
                 type = CommonTextTypeEnum.TITLE_LARGE,
                 textColor = primary,
-                modifier = Modifier.padding(all = 12.dp),
+                modifier = Modifier.padding(vertical = 24.dp, horizontal = 8.dp),
             )
             Spacer(modifier = Modifier
                 .height(1.dp)

@@ -52,7 +52,7 @@ fun ErrorStateNotificationComponent(
                 CommonText(
                     modifier = Modifier
                         .padding(vertical = 10.dp, horizontal = 8.dp),
-                    type = CommonTextTypeEnum.TITLE_LARGE,
+                    type = CommonTextTypeEnum.TITLE_MEDIUM,
                     titleText = title,
                     textColor = primary,
                     textAlign = TextAlign.Center
