@@ -65,6 +65,14 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
         }
     }
 
+    /**
+     * Executes a use case asynchronously.
+     *
+     * @param useCase The use case to execute.
+     * @param onGetDefaultValue A function that provides a default value in case of failure.
+     * @param onMapExceptionToState A function to map exceptions to the state.
+     * @return The result of the use case execution.
+     */
     protected suspend fun <RESULT, UC: BaseUseCase<RESULT>> executeUseCase(
         useCase: UC,
         onGetDefaultValue: () -> RESULT,
@@ -81,6 +89,14 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
         }
     }
 
+    /**
+     * Executes a use case asynchronously.
+     *
+     * @param useCase The use case to execute.
+     * @param onSuccess A callback function for successful execution.
+     * @param onFailed A callback function for failed execution.
+     * @param onMapExceptionToState A function to map exceptions to the state.
+     */
     protected fun <RESULT, UC: BaseUseCase<RESULT>> executeUseCase(
         useCase: UC,
         onSuccess: (RESULT) -> Unit = {},
@@ -101,6 +117,15 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
         )
     }
 
+    /**
+     * Executes a use case with parameters asynchronously.
+     *
+     * @param useCase The use case to execute.
+     * @param params The parameters for the use case.
+     * @param onMapExceptionToState A function to map exceptions to the state.
+     * @param onGetDefaultValue A function that provides a default value in case of failure.
+     * @return The result of the use case execution.
+     */
     protected suspend fun <PARAMS, RESULT, UC: BaseUseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(
         useCase: UC,
         params: PARAMS,
@@ -121,6 +146,15 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
         }
     }
 
+    /**
+     * Executes a use case with parameters asynchronously, providing callbacks for success and failure.
+     *
+     * @param useCase The use case to execute.
+     * @param params The parameters for the use case.
+     * @param onSuccess A callback function to be invoked upon successful execution with the result.
+     * @param onFailed A callback function to be invoked upon failed execution.
+     * @param onMapExceptionToState A function to map exceptions to the state.
+     */
     protected fun <PARAMS, RESULT, UC: BaseUseCaseWithParams<PARAMS, RESULT>> executeUseCaseWithParams(
         useCase: UC,
         params: PARAMS,
@@ -143,18 +177,30 @@ abstract class SupportViewModel<STATE : UiState<STATE>, EFFECT : SideEffect> : V
         )
     }
 
+    /**
+     * Updates the state to represent loading state.
+     */
     private fun onLoading() {
         updateState {
             it.copyState(isLoading = true, error = null)
         }
     }
 
+    /**
+     * Updates the state to represent idle state.
+     */
     private fun onIdle() {
         updateState {
             it.copyState(isLoading = false)
         }
     }
 
+    /**
+     * Handles the occurrence of an error.
+     *
+     * @param ex The exception that occurred.
+     * @param onMapExceptionToState A function to map exceptions to the state.
+     */
     private fun onErrorOccurred(ex: Exception, onMapExceptionToState: ((Exception, STATE) -> STATE)?) {
         ex.printStackTrace()
         updateState {
