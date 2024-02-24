@@ -23,4 +23,5 @@ sealed interface AppEvent {
     data object GoToStandby : AppEvent
     data object ComeFromStandby : AppEvent
     data object SignOff: AppEvent
+    data class NetworkConnectivityStateChanged(val lastState: Boolean, val newState: Boolean): AppEvent
 }

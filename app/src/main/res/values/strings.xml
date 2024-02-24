@@ -4,7 +4,7 @@
     <string name="no_text_value">--</string>
     <string name="generic_error_exception">An error occurred, please try again.</string>
     <string name="dialog_generic_accept_button">Accept</string>
-    <string name="dialog_generic_cancel_button">Accept</string>
+    <string name="dialog_generic_cancel_button">Cancel</string>
     <string name="dialog_error_title">Ops....</string>
     <string name="image_content_description">Image can not be loaded</string>
     <string name="generic_form_invalid_data_provided">Invalid data provided, please check it and try again.</string>
