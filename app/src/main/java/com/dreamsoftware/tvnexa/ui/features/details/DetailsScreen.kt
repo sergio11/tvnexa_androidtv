@@ -26,7 +26,8 @@ fun DetailsScreen(
                      removeFromFavorites()
                  }
             },
-            onPlayChannelPressed = onPlayChannelPressed
+            onPlayChannelPressed = onPlayChannelPressed,
+            onErrorAccepted = ::onErrorAccepted
         )
     }
 }

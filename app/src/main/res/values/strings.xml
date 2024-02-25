@@ -40,6 +40,9 @@
     <string name="account_form_invalid_lastname">You must provided a valid lastname</string>
     <string name="account_form_invalid_username">The username must have a minimum length of 5 characters</string>
     <string name="account_form_empty_username">You must provided a valid username</string>
+    <string name="account_form_invalid_profile_alias">The profile alias must have a minimum length of 5 characters</string>
+    <string name="account_form_invalid_secure_pin">The secure pin must have a length of 6 digits</string>
+    <string name="account_form_avatar_profile_type_required">You must selected an avatar profile type</string>
 
     <!-- Sign In -->
     <string name="sign_in_main_title_text">Welcome to TVNexa!</string>
@@ -111,6 +114,8 @@
     <string name="save_profile_confirm_button_text">Save it, Champ!</string>
     <string name="save_profile_cancel_button_text">Maybe Later</string>
     <string name="save_profile_advance_configuration_button_text">Advance config</string>
+    <string name="save_profile_form_invalid_data_provided">Invalid data provided for the profile. Please check your inputs and try again.</string>
+
 
     <!-- Secure Pin -->
     <string name="secure_pin_main_title">Oops! Profile Locked</string>

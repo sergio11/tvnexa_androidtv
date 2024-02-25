@@ -34,11 +34,12 @@ fun disableCertificateValidation() {
 }
 
 
-inline fun <T1 : Any, T2 : Any, R> combinedLet(value1: T1?, value2: T2?, block: (T1, T2) -> R) {
+inline fun <T1 : Any, T2 : Any, R> combinedLet(value1: T1?, value2: T2?, block: (T1, T2) -> R): R? =
     if (value1 != null && value2 != null) {
         block(value1, value2)
+    } else {
+        null
     }
-}
 
 fun getAndroidVersion(): String =
     "Android " + Build.VERSION.RELEASE

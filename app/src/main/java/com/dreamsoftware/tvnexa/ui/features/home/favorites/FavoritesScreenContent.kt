@@ -30,10 +30,12 @@ import com.dreamsoftware.tvnexa.ui.components.ErrorStateNotificationComponent
 fun FavoritesScreenContent(
     uiState: FavoritesUiState,
     onChannelPressed: (SimpleChannelBO) -> Unit,
+    onErrorAccepted: () -> Unit
 ) {
     with(uiState) {
         CommonScreenContent(
-            error = error
+            error = error,
+            onErrorAccepted = onErrorAccepted
         ) {
             Row(modifier = Modifier.fillMaxSize()) {
                 when {

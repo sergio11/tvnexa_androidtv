@@ -37,12 +37,14 @@ fun SaveProfileScreenContent(
     onAvatarTypeChanged: (AvatarTypeEnum) -> Unit,
     onSaveProfilePressed: () -> Unit,
     onAdvanceConfigurationPressed: () -> Unit,
-    onCancelPressed: () -> Unit
+    onCancelPressed: () -> Unit,
+    onErrorAccepted: () -> Unit
 ) {
     with(uiState) {
         CommonProfileScreenContent(
             isLoading = isLoading,
             error = error,
+            onErrorAccepted = onErrorAccepted,
             mainTitleRes = if(isEditMode) {
                 R.string.edit_profile_main_title
             } else {
@@ -62,7 +64,7 @@ fun SaveProfileScreenContent(
             },
             onPrimaryOptionPressed = onSaveProfilePressed,
             onSecondaryOptionPressed = onCancelPressed,
-            onTertiaryOptionPressed = onAdvanceConfigurationPressed
+            onTertiaryOptionPressed = onAdvanceConfigurationPressed,
         ) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,

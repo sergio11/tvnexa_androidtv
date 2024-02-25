@@ -20,7 +20,8 @@ fun SecurePinScreenContent(
     uiState: SecurePinUiState,
     onUnlockPinChanged: (unlockPin: String) -> Unit,
     onVerifyPressed: () -> Unit,
-    onCancelPressed: () -> Unit
+    onCancelPressed: () -> Unit,
+    onErrorAccepted: () -> Unit
 ) {
     with(uiState) {
         CommonProfileScreenContent(
@@ -31,7 +32,8 @@ fun SecurePinScreenContent(
             primaryOptionTextRes = R.string.secure_pin_form_accept_button_text,
             secondaryOptionTextRes = R.string.secure_pin_form_cancel_button_text,
             onPrimaryOptionPressed = onVerifyPressed,
-            onSecondaryOptionPressed = onCancelPressed
+            onSecondaryOptionPressed = onCancelPressed,
+            onErrorAccepted = onErrorAccepted
         ) { mainFocusRequester ->
             CommonFocusRequester { focusRequester ->
                 CommonTextField(

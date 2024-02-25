@@ -26,7 +26,8 @@ fun SecurePinScreen(
             uiState = uiState,
             onUnlockPinChanged = ::onUnlockPinChanged,
             onVerifyPressed = ::onVerifyPin,
-            onCancelPressed = onBackPressed
+            onCancelPressed = onBackPressed,
+            onErrorAccepted = ::onErrorAccepted
         )
     }
 }
