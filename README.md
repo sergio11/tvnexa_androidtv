@@ -208,6 +208,22 @@ You can personalize your profile avatar 🧑‍🤝‍🧑, set an alias 🆔, a
   <img width="700px" src="doc/picture_22.png" />
 </p>
 
+<p align="center">
+  <img width="700px" src="doc/picture_35.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_36.gif" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_37.gif" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_38.png" />
+</p>
+
 ### Home channels
 
 🏠 Welcome to TV Nexa's HOME!
