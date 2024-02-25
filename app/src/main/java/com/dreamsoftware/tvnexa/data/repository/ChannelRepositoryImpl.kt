@@ -253,6 +253,19 @@ internal class ChannelRepositoryImpl(
         }
     }
 
+    /**
+     * Checks if a channel is saved as a favorite for a user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be checked.
+     * @return `true` if the channel is saved as a favorite for the user profile, `false` otherwise.
+     * @throws DomainException.InternalErrorException If there is an internal error while processing the operation.
+     */
+    @Throws(DomainException.InternalErrorException::class)
+    override suspend fun isChannelSavedAsFavorite(profileId: String, channelId: String): Boolean = safeExecute {
+        userDataSource.isChannelSavedAsFavorite(profileId, channelId)
+    }
+
     private fun isChannelBlocked(
         blockedChannels: List<String>,
         channelId: String,

@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.tv.foundation.PivotOffsets
 import androidx.tv.foundation.lazy.list.TvLazyRow
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
+import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
 import com.dreamsoftware.tvnexa.ui.components.ScalableAvatar
@@ -41,39 +42,36 @@ fun CommonProfileSelector(
     editMode: Boolean = false,
     onProfileSelected: (ProfileBO) -> Unit
 ) {
-    val requester = remember { FocusRequester() }
     var selectedAvatar by remember { mutableStateOf("") }
-    LaunchedEffect(Unit) {
-        delay(1000)
-        requester.requestFocus()
-    }
-    Column(
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        TvLazyRow(
-            horizontalArrangement = Arrangement.Center,
-            pivotOffsets = PivotOffsets(0.5f, 0.5f),
-            modifier = Modifier.fillMaxWidth(),
+    CommonFocusRequester { requester ->
+        Column(
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            items(profiles.size) {
-                val profile = profiles[it]
-                ScalableAvatar(
-                    avatarRes = profile.avatarType.toDrawableResource(),
-                    editMode = editMode,
-                    modifier = Modifier
-                        .then(if (it == 1) Modifier.focusRequester(requester) else Modifier)
-                        .onFocusChanged {
-                            selectedAvatar = profile.alias
-                        },
-                    onPressed = {
-                        onProfileSelected(profile)
-                    }
-                )
+            TvLazyRow(
+                horizontalArrangement = Arrangement.Center,
+                pivotOffsets = PivotOffsets(0.5f, 0.5f),
+                modifier = Modifier.fillMaxWidth(),
+            ) {
+                items(profiles.size) {
+                    val profile = profiles[it]
+                    ScalableAvatar(
+                        avatarRes = profile.avatarType.toDrawableResource(),
+                        editMode = editMode,
+                        modifier = Modifier
+                            .then(if (it == 1) Modifier.focusRequester(requester) else Modifier)
+                            .onFocusChanged {
+                                selectedAvatar = profile.alias
+                            },
+                        onPressed = {
+                            onProfileSelected(profile)
+                        }
+                    )
+                }
             }
-        }
-        Spacer(modifier = Modifier.size(30.dp))
-        if (selectedAvatar.isNotEmpty()) {
-            ProfileAvatarName(name = selectedAvatar)
+            Spacer(modifier = Modifier.size(30.dp))
+            if (selectedAvatar.isNotEmpty()) {
+                ProfileAvatarName(name = selectedAvatar)
+            }
         }
     }
 }
@@ -98,7 +96,9 @@ private fun ProfileAvatarName(name: String) {
             type = CommonTextTypeEnum.HEADLINE_LARGE,
             textBold = true,
             textAlign = TextAlign.Center,
-            modifier = Modifier.fillMaxWidth().padding(top = 32.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 32.dp),
         )
     }
 }

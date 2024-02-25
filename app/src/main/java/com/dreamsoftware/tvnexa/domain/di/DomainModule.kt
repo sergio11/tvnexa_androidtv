@@ -28,6 +28,7 @@ import com.dreamsoftware.tvnexa.domain.usecase.impl.SignUpUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.UnblockChannelUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.UpdateProfileUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.UpdateUserDetailUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.VerifyChannelSavedAsFavoriteUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.VerifyPinUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.VerifyUserSessionUseCase
 import com.dreamsoftware.tvnexa.utils.AppEventBus
@@ -193,4 +194,12 @@ class DomainModule {
         channelRepository: IChannelRepository
     ): UnblockChannelUseCase =
         UnblockChannelUseCase(userRepository, channelRepository)
+
+    @Provides
+    @ViewModelScoped
+    fun provideVerifyChannelSavedAsFavoriteUseCase(
+        channelRepository: IChannelRepository,
+        userRepository: IUserRepository
+    ): VerifyChannelSavedAsFavoriteUseCase =
+        VerifyChannelSavedAsFavoriteUseCase(channelRepository, userRepository)
 }
