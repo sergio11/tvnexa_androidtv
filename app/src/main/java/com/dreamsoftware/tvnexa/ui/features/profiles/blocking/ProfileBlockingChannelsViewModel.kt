@@ -2,8 +2,10 @@ package com.dreamsoftware.tvnexa.ui.features.profiles.blocking
 
 import com.dreamsoftware.tvnexa.domain.model.ProfileBO
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
+import com.dreamsoftware.tvnexa.domain.usecase.impl.BlockChannelUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileByIdUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SearchChannelsUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.UnblockChannelUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportSearchViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
@@ -14,7 +16,9 @@ import javax.inject.Inject
 @HiltViewModel
 class ProfileBlockingChannelsViewModel @Inject constructor(
     private val getProfileByIdUseCase: GetProfileByIdUseCase,
-    searchChannelsUseCase: SearchChannelsUseCase
+    searchChannelsUseCase: SearchChannelsUseCase,
+    private val blockChannelUseCase: BlockChannelUseCase,
+    private val unblockChannelUseCase: UnblockChannelUseCase
 ): SupportSearchViewModel<ProfileBlockingChannelsUiState, ProfileAdvanceSideEffects>(searchChannelsUseCase) {
 
     override val currentTerm: String
@@ -38,10 +42,38 @@ class ProfileBlockingChannelsViewModel @Inject constructor(
         )
     }
 
+    fun onBlockChannel(channel: SimpleChannelBO) {
+        executeUseCaseWithParams(
+            useCase = blockChannelUseCase,
+            params = BlockChannelUseCase.Params(channelId = channel.channelId),
+            onSuccess = {
+                onBlockChannelCompleted(channelId = channel.channelId)
+            }
+        )
+    }
+
+    fun onUnblockChannel(channel: SimpleChannelBO) {
+        executeUseCaseWithParams(
+            useCase = unblockChannelUseCase,
+            params = UnblockChannelUseCase.Params(channelId = channel.channelId),
+            onSuccess = {
+                onUnblockChannelCompleted(channelId = channel.channelId)
+            }
+        )
+    }
+
     private fun onLoadProfileCompleted(profileBO: ProfileBO) {
         updateState {
             it.copy(profile = profileBO)
         }
+    }
+
+    private fun onBlockChannelCompleted(channelId: String) {
+
+    }
+
+    private fun onUnblockChannelCompleted(channelId: String) {
+
     }
 }
 
