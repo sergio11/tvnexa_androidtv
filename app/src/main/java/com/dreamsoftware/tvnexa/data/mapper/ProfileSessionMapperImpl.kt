@@ -12,7 +12,9 @@ class ProfileSessionMapperImpl @Inject constructor(): IMapper<ProfileBO, Profile
         ProfileSelectedPreferenceDTO(
             uuid = uuid,
             alias = alias,
-            isAdmin = enableNSFW,
+            enableNSFW = enableNSFW,
+            isSecured = isSecured,
+            isAdmin = isAdmin,
             type = avatarType.name
         )
     }
@@ -24,7 +26,9 @@ class ProfileSessionMapperImpl @Inject constructor(): IMapper<ProfileBO, Profile
         ProfileBO(
             uuid = uuid,
             alias = alias,
-            enableNSFW = isAdmin,
+            enableNSFW = enableNSFW,
+            isSecured = isSecured,
+            isAdmin = isAdmin,
             avatarType = runCatching { AvatarTypeEnum.valueOf(type) }.getOrDefault(AvatarTypeEnum.BOY)
         )
     }

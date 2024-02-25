@@ -9,9 +9,9 @@ fun String.isEmailValid() =
 
 fun String.isEmailNotValid() = !isEmailValid()
 
-fun String?.isSecurePinValid() = toString().length == SECURE_PIN_LENGTH
+fun Int.isSecurePinValid() = toString().length == SECURE_PIN_LENGTH
 
-fun String?.isSecurePinNotValid() = !isSecurePinValid()
+fun Int.isSecurePinNotValid() = !isSecurePinValid()
 
 fun String.isProfileAliasValid() = length >= MIN_ALIAS_LENGTH
 
@@ -26,7 +26,7 @@ fun String.isPasswordValid(): Boolean {
             any { it in setOf('!', '@', '#', '$', '%', '^', '&', '*') }
 }
 
-fun String.isPasswordNotValid(): Boolean = !isNotBlank()
+fun String.isPasswordNotValid(): Boolean = !isPasswordValid()
 
 fun String.isUsernameValid(): Boolean =
     length >= MIN_USERNAME_LENGTH

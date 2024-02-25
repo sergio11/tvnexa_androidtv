@@ -14,9 +14,9 @@ data class CreateProfileRequestDTO(
     @Json(name = "alias")
     val alias: String,
     @Json(name = "pin")
-    val pin: Int,
+    val pin: Int?,
     @Json(name = "enable_NSFW")
     val enableNSFW: Boolean,
-    @Json(name = "type")
+    @Json(name = "avatar_type")
     val avatarType: String
 )

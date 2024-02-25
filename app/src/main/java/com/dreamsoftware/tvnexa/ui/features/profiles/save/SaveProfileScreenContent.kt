@@ -197,6 +197,7 @@ private fun SaveProfileFormContent(
                     icon = Icons.Filled.Person,
                     type = CommonTextFieldTypeEnum.TEXT,
                     value = alias,
+                    errorMessage = aliasError,
                     labelRes = R.string.save_profile_form_alias_label_text,
                     onValueChange = onAliasChanged
                 )
@@ -205,6 +206,7 @@ private fun SaveProfileFormContent(
                     CommonTextField(
                         icon = Icons.Filled.Key,
                         value = securePin,
+                        errorMessage = securePinError,
                         type = CommonTextFieldTypeEnum.NUMBER_SECRET,
                         labelRes = R.string.save_profile_form_pin_label_text,
                         onValueChange = onPinChanged

@@ -12,7 +12,9 @@ class ProfileMapperImpl @Inject constructor(): IOneSideMapper<ProfileResponseDTO
         ProfileBO(
             uuid = uuid,
             alias = alias,
-            enableNSFW = isAdmin,
+            enableNSFW = enableNSFW,
+            isSecured = isSecured,
+            isAdmin = isAdmin,
             avatarType = runCatching { AvatarTypeEnum.valueOf(avatarType) }.getOrDefault(AvatarTypeEnum.BOY)
         )
     }

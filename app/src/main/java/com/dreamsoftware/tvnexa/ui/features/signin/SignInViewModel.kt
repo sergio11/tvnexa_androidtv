@@ -74,4 +74,4 @@ sealed interface SignInSideEffects: SideEffect {
 }
 
 private const val DEMO_USER_EMAIL = "ssanchez@tvnexa.com"
-private const val DEMO_USER_PASSWORD = "12345678"
+private const val DEMO_USER_PASSWORD = "PasswOrd!11"

@@ -35,6 +35,7 @@ internal class UserDataSourceImpl(
         const val DELETE_FAVORITE_CHANNEL_SUCCESSFULLY = 8015
         const val CHANNEL_BLOCKED_SUCCESSFULLY = 8011
         const val CHANNEL_UNBLOCKED_SUCCESSFULLY = 8012
+        const val IS_CHANNEL_SAVED_IN_FAVORITES_CODE = 8016
     }
 
     /**
@@ -210,5 +211,18 @@ internal class UserDataSourceImpl(
     @Throws(NetworkException::class)
     override suspend fun deleteFavoriteChannels(profileId: String, channelId: String): Boolean = safeNetworkCall {
         userService.deleteFavoriteChannels(profileId, channelId).code == DELETE_FAVORITE_CHANNEL_SUCCESSFULLY
+    }
+
+    /**
+     * Checks if a channel is saved as a favorite for a user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be checked.
+     * @return `true` if the channel is saved as a favorite for the user profile, `false` otherwise.
+     * @throws NetworkException If there is an issue with the network during the operation.
+     */
+    @Throws(NetworkException::class)
+    override suspend fun isChannelSavedAsFavorite(profileId: String, channelId: String): Boolean = safeNetworkCall {
+        userService.isChannelSavedAsFavorite(profileId, channelId).code == IS_CHANNEL_SAVED_IN_FAVORITES_CODE
     }
 }

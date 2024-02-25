@@ -171,4 +171,20 @@ interface IUserService {
         @Path("profileId") profileId: String,
         @Path("channelId") channelId: String
     ): ApiResponseDTO<String>
+
+
+    /**
+     * Checks if a channel is saved as a favorite for a user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be checked.
+     * @return ApiResponseDTO<String>? A response containing information about whether the channel
+     *         is saved as a favorite for the user profile. It returns a null value if the response
+     *         cannot be retrieved.
+     */
+    @GET("user/profiles/{profileId}/favorite-channels/{channelId}")
+    suspend fun isChannelSavedAsFavorite(
+        @Path("profileId") profileId: String,
+        @Path("channelId") channelId: String
+    ): ApiResponseDTO<String>
 }

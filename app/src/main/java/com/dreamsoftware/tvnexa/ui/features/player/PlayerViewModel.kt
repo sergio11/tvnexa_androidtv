@@ -4,6 +4,7 @@ import com.dreamsoftware.tvnexa.domain.model.ChannelDetailBO
 import com.dreamsoftware.tvnexa.domain.usecase.impl.DeleteFavoriteChannelUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.GetChannelDetailUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.SaveFavoriteChannelUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.VerifyChannelSavedAsFavoriteUseCase
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
@@ -14,7 +15,8 @@ import javax.inject.Inject
 class PlayerViewModel @Inject constructor(
     private val getChannelDetailUseCase: GetChannelDetailUseCase,
     private val saveFavoriteChannelUseCase: SaveFavoriteChannelUseCase,
-    private val deleteFavoriteChannelUseCase: DeleteFavoriteChannelUseCase
+    private val deleteFavoriteChannelUseCase: DeleteFavoriteChannelUseCase,
+    private val verifyChannelSavedAsFavoriteUseCase: VerifyChannelSavedAsFavoriteUseCase
 ): SupportViewModel<PlayerUiState, PlayerSideEffects>() {
 
     private lateinit var channelId: String
@@ -27,6 +29,11 @@ class PlayerViewModel @Inject constructor(
             useCase = getChannelDetailUseCase,
             params = GetChannelDetailUseCase.Params(channelId = channelId),
             onSuccess = ::onChannelDetailLoadSuccessfully
+        )
+        executeUseCaseWithParams(
+            useCase = verifyChannelSavedAsFavoriteUseCase,
+            params = VerifyChannelSavedAsFavoriteUseCase.Params(channelId = channelId),
+            onSuccess = ::onVerifyChannelSavedAsFavorite
         )
     }
 
@@ -65,6 +72,12 @@ class PlayerViewModel @Inject constructor(
     private fun onDeleteChannelFromFavorites() {
         updateState {
             it.copy(isSavedInFavorites = false)
+        }
+    }
+
+    private fun onVerifyChannelSavedAsFavorite(isFavorite: Boolean) {
+        updateState {
+            it.copy(isSavedInFavorites = isFavorite)
         }
     }
 }

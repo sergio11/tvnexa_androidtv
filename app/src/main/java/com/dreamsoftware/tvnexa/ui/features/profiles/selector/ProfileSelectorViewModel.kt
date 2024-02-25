@@ -24,7 +24,7 @@ class ProfileSelectorViewModel @Inject constructor(
     }
 
     fun onProfileSelected(profileBO: ProfileBO) {
-        val isProfileLocked = profileBO.enableNSFW
+        val isProfileLocked = profileBO.isSecured
         updateState {
             it.copy(profileSelected = profileBO)
         }
