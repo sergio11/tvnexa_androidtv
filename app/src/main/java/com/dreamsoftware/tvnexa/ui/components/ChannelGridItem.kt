@@ -1,11 +1,15 @@
 package com.dreamsoftware.tvnexa.ui.components
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -13,6 +17,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
+import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 
 @OptIn(ExperimentalTvMaterial3Api::class)
@@ -59,6 +64,24 @@ fun ChannelGridItem(
                         onPrimaryContainer
                     }
                 )
+            }
+            if(channel.isBlocked) {
+                Box(
+                    modifier = Modifier
+                        .fillMaxSize()
+                        .background(
+                            primary.copy(0.6f),
+                            RoundedCornerShape(12.dp)
+                        )
+                ) {
+                    CommonImageRes(
+                        modifier = Modifier
+                            .align(Alignment.Center)
+                            .fillMaxSize(0.5f),
+                        imageRes = R.drawable.channel_blocked,
+                        tint = onPrimary
+                    )
+                }
             }
         }
     }

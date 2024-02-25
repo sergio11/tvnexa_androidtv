@@ -24,7 +24,13 @@ fun ProfileBlockingChannelsScreen(
             onClearPressed = ::onClearPressed,
             onBackSpacePressed = ::onBackSpacePressed,
             onSpaceBarPressed = ::onSpaceBarPressed,
-            onChannelPressed = {},
+            onChannelPressed = { channel ->
+                if(channel.isBlocked) {
+                    onUnblockChannel(channel)
+                } else {
+                    onBlockChannel(channel)
+                }
+            },
             onErrorAccepted = ::onErrorAccepted
         )
     }
