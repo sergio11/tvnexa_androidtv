@@ -1,9 +1,21 @@
 package com.dreamsoftware.tvnexa.domain.extensions
 
+private const val SECURE_PIN_LENGTH = 6
+private const val MIN_USERNAME_LENGTH = 5
+private const val MIN_ALIAS_LENGTH = 5
+
 fun String.isEmailValid() =
     matches(Regex("^[a-zA-Z0-9_!#\$%&'*+/=?`{|}~^.-]+@[a-zA-Z0-9.-]+\$"))
 
 fun String.isEmailNotValid() = !isEmailValid()
+
+fun String?.isSecurePinValid() = toString().length == SECURE_PIN_LENGTH
+
+fun String?.isSecurePinNotValid() = !isSecurePinValid()
+
+fun String.isProfileAliasValid() = length >= MIN_ALIAS_LENGTH
+
+fun String.isProfileAliasNotValid() = !isProfileAliasValid()
 
 fun String.isPasswordValid(): Boolean {
     val minLength = 8
@@ -14,10 +26,10 @@ fun String.isPasswordValid(): Boolean {
             any { it in setOf('!', '@', '#', '$', '%', '^', '&', '*') }
 }
 
-fun String.isPasswordNotValid(): Boolean = !isPasswordValid()
+fun String.isPasswordNotValid(): Boolean = !isNotBlank()
 
 fun String.isUsernameValid(): Boolean =
-    length >= 5
+    length >= MIN_USERNAME_LENGTH
 
 fun String.isUsernameNotValid() = !isUsernameValid()
 

@@ -26,12 +26,14 @@ fun ProfileAdvanceScreenContent(
     onConfirmPressed: () -> Unit,
     onDeleteProfilePressed: () -> Unit,
     onBlockingChannelsPressed: () -> Unit,
-    onNewTabSelected: (ProfileAdvancedTab) -> Unit
+    onNewTabSelected: (ProfileAdvancedTab) -> Unit,
+    onErrorAccepted: () -> Unit
 ) {
     with(uiState) {
         CommonProfileScreenContent(
             isLoading = isLoading,
             error = error,
+            onErrorAccepted = onErrorAccepted,
             mainTitleRes = R.string.profiles_advance_main_title,
             secondaryTitleRes = R.string.profiles_advance_main_description,
             primaryOptionTextRes = R.string.profiles_advance_form_confirm_button_text,

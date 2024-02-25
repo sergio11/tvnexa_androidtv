@@ -19,7 +19,8 @@ fun DeleteProfileScreen(
         DeleteProfileScreenContent(
             uiState = uiState,
             onDeletePressed = ::onDeleteProfile,
-            onCancelPressed = onBackPressed
+            onCancelPressed = onBackPressed,
+            onErrorAccepted = ::onErrorAccepted
         )
     }
 }

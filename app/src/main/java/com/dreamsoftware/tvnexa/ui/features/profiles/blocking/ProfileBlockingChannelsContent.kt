@@ -24,12 +24,14 @@ fun ProfileBlockingChannelsContent(
     onClearPressed: () -> Unit,
     onBackSpacePressed: () -> Unit,
     onSpaceBarPressed: () -> Unit,
-    onChannelPressed: (SimpleChannelBO) -> Unit
+    onChannelPressed: (SimpleChannelBO) -> Unit,
+    onErrorAccepted: () -> Unit
 ) {
     with(uiState) {
         CommonProfileScreenContent(
             isLoading = isLoading,
             error = error,
+            onErrorAccepted = onErrorAccepted,
             mainTitleRes = R.string.profile_blocking_channels_title,
             secondaryTitleText = if(term.isNotBlank()) {
                 stringResource(id = R.string.profile_blocking_channels_title_after_searching, term)

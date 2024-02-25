@@ -32,7 +32,8 @@ fun SaveProfileScreen(
             onAdvanceConfigurationPressed = {
                 args?.profileId?.let(onGoToAdvanceConfiguration)
             },
-            onCancelPressed = onBackPressed
+            onCancelPressed = onBackPressed,
+            onErrorAccepted = ::onErrorAccepted
         )
     }
 }
