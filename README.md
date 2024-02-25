@@ -172,6 +172,8 @@ Once you've entered all the necessary information, click "Register," and you're 
 
 ### Profiles
 
+Each user on TvNexa can create up to 5 profiles to customize their experience and apply parental control rules. Each profile can be optionally protected by a security PIN, which will be required to unlock the profile. 🔒👨‍👩‍👧‍👦✨
+
 <p align="center">
   <img width="700px" src="doc/picture_15.png" />
 </p>
@@ -187,6 +189,8 @@ Once you've entered all the necessary information, click "Register," and you're 
 <p align="center">
   <img width="700px" src="doc/picture_18.png" />
 </p>
+
+You can personalize your profile avatar 🧑‍🤝‍🧑, set an alias 🆔, and enable options like NSFW to access channels with adult content 🚫👀. Additionally, you can utilize more advanced profile management features, such as blocking specific channels 🚫📺 or setting viewing time limits ⏰.
 
 <p align="center">
   <img width="700px" src="doc/picture_19.png" />
@@ -224,6 +228,8 @@ Once you've entered all the necessary information, click "Register," and you're 
 
 ### Search channels
 
+Here you can search for your favorite channels by simply entering the name in the search field 🔍. Whether you're looking for entertainment shows, news, sports, or educational content 🎬📰🏀📚, we're confident you'll find something you like! Once you find a channel that interests you, simply click on it to get more information and start enjoying the content 📺👀.
+
 <p align="center">
   <img width="700px" src="doc/picture_31.png" />
 </p>
@@ -233,6 +239,12 @@ Once you've entered all the necessary information, click "Register," and you're 
 </p>
 
 ### Channel detail
+
+Here you can find detailed information about the channel you have selected. From a general description to the option to bookmark it as a favorite and watch the streaming in fullscreen, everything is at your fingertips! 📺🔍
+
+Explore the options to learn more about the channel and its features. If you like what you see, you can bookmark the channel for easy access in the future. 🌟
+
+Once you're ready to enjoy the content, simply click on the play button to watch the streaming in fullscreen. ▶️🔍
 
 <p align="center">
   <img width="700px" src="doc/picture_28.png" />
@@ -245,11 +257,25 @@ Once you've entered all the necessary information, click "Register," and you're 
 
 ### Favorite channels
 
+🌟 Welcome to your favorite channels!
+
+This screen is your personalized space where you can easily access all your favorite channels in one place. Never miss out on your favorite shows and content!
+
+Explore the list of channels you've marked as favorites and quickly access their live stream or on-demand content. Enjoy the convenience of having your favorite channels at your fingertips at all times! 📺🎉
+
 <p align="center">
   <img width="700px" src="doc/picture_25.png" />
 </p>
 
 ### Full screen player
+
+📺 Welcome to the Full-Screen Player!
+
+Here, you can fully immerse yourself in the viewing experience of your favorite programs. Enjoy streaming in fullscreen and don't miss a single detail.
+
+Moreover, while you're enjoying the content, you also have the option to bookmark the channel as a favorite with just one click. This way, you can easily access it in the future!
+
+Sit back, relax, and enjoy your favorite content in all its glory with our Full-Screen Player! 🎬🔍
 
 <p align="center">
   <img width="700px" src="doc/picture_26.png" />
