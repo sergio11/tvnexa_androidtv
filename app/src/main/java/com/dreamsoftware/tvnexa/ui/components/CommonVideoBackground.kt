@@ -36,6 +36,7 @@ import com.dreamsoftware.tvnexa.utils.disableCertificateValidation
  * @param modifier Modifier for the video background.
  * @param videHlsResource HLS video resource URL.
  * @param videoResourceId Raw resource ID for the video.
+ * @param isContentBlocked Flag to indicate if content playback is blocked.
  * @param disableCertValidation Flag to disable certificate validation.
  * @param playerStateListener Listener for player state events.
  * @param onLeft Callback for left D-pad key press.
@@ -49,6 +50,7 @@ fun CommonVideoBackground(
     modifier: Modifier = Modifier,
     videHlsResource: String? = null,
     @RawRes videoResourceId: Int? = null,
+    isContentBlocked: Boolean = false,
     disableCertValidation: Boolean = true,
     playerStateListener: PlayerStateListener? = null,
     onLeft: (() -> Unit)? = null,
@@ -84,8 +86,16 @@ fun CommonVideoBackground(
     } else {
         ErrorStateNotificationComponent(
             modifier = Modifier.fillMaxSize(),
-            imageRes = R.drawable.tv_sad_icon,
-            title = stringResource(id = R.string.generic_channel_can_not_reproduce)
+            imageRes = if(isContentBlocked) {
+                R.drawable.channel_blocked
+            } else {
+                R.drawable.tv_sad_icon
+            },
+            title = stringResource(id = if(isContentBlocked) {
+                R.string.generic_channel_content_blocked_by_parent_control_rules
+            } else {
+                R.string.generic_channel_can_not_reproduce
+            })
         )
     }
 }

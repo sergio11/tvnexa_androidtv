@@ -24,8 +24,6 @@ fun ErrorStateNotificationComponent(
     modifier: Modifier = Modifier,
     @DrawableRes imageRes: Int,
     title: String,
-    isRetryButtonVisible: Boolean = false,
-    onRetryCalled: () -> Unit = {}
 ) {
     with(MaterialTheme.colorScheme) {
         Box(modifier = modifier
@@ -54,16 +52,10 @@ fun ErrorStateNotificationComponent(
                         .padding(vertical = 10.dp, horizontal = 8.dp),
                     type = CommonTextTypeEnum.TITLE_MEDIUM,
                     titleText = title,
+                    maxLines = 3,
                     textColor = primary,
                     textAlign = TextAlign.Center
                 )
-                if (isRetryButtonVisible) {
-                    /*CommonButton(
-                        text = R.string.retry_button_text,
-                        containerColor = Purple40,
-                        onClick = onRetryCalled
-                    )*/
-                }
             }
         }
     }

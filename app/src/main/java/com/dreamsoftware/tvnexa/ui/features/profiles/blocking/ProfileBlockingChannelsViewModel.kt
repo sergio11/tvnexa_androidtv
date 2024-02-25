@@ -68,12 +68,26 @@ class ProfileBlockingChannelsViewModel @Inject constructor(
         }
     }
 
-    private fun onBlockChannelCompleted(channelId: String) {
+    private fun updateChannelCompleted(channelId: String, isBlocked: Boolean) {
+        updateState { state ->
+            state.copy(
+                channels = state.channels.map { channel ->
+                    if (channel.channelId == channelId) {
+                        channel.copy(isBlocked = isBlocked)
+                    } else {
+                        channel
+                    }
+                }
+            )
+        }
+    }
 
+    private fun onBlockChannelCompleted(channelId: String) {
+        updateChannelCompleted(channelId, isBlocked = true)
     }
 
     private fun onUnblockChannelCompleted(channelId: String) {
-
+        updateChannelCompleted(channelId, isBlocked = false)
     }
 }
 

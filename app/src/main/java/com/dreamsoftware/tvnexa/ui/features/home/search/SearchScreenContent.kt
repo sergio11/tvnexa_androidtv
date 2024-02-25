@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,11 +15,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
-import com.dreamsoftware.tvnexa.ui.components.CommonChannelGrid
-import com.dreamsoftware.tvnexa.ui.components.CommonLoading
+import com.dreamsoftware.tvnexa.ui.components.CommonChannelsLCE
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
-import com.dreamsoftware.tvnexa.ui.components.ErrorStateNotificationComponent
 import com.dreamsoftware.tvnexa.ui.components.MiniKeyboard
 
 @Composable
@@ -50,52 +47,21 @@ fun SearchScreenContent(
             }
             Column(modifier = Modifier.padding(horizontal = 12.dp)) {
                 GridHeader(term)
-                when {
-                    isLoading -> SearchingContent()
-                    channels.isEmpty() || !error.isNullOrBlank() -> EmptyOrErrorContent(
-                        isEmpty = channels.isEmpty(),
-                        error = error
-                    )
-                    else -> CommonChannelGrid(
-                        channels = channels,
-                        onChannelPressed = onChannelPressed
-                    )
-                }
+                CommonChannelsLCE(
+                    loadingResultsTitleRes = R.string.search_screen_search_results_loading,
+                    noResultFoundTitleRes = R.string.search_screen_search_no_results_found,
+                    isLoading = isLoading,
+                    channels = channels,
+                    error = error,
+                    onChannelPressed = onChannelPressed
+                )
             }
         }
     }
 }
 
 @Composable
-fun SearchingContent() {
-    Column(
-        modifier = Modifier.fillMaxHeight(0.5f)
-    ) {
-        CommonLoading(
-            modifier = Modifier.padding(horizontal = 16.dp),
-            text = R.string.search_screen_search_results_loading
-        )
-    }
-}
-
-@Composable
-fun EmptyOrErrorContent(isEmpty: Boolean, error: String?) {
-    Column(
-        modifier = Modifier.fillMaxHeight(0.5f)
-    ) {
-        ErrorStateNotificationComponent(
-            imageRes = R.drawable.default_placeholder,
-            title = if (isEmpty) {
-                stringResource(id = R.string.search_screen_search_no_results_found)
-            } else {
-                error.orEmpty()
-            }
-        )
-    }
-}
-
-@Composable
-fun GridHeader(term: String) {
+private fun GridHeader(term: String) {
     CommonText(
         titleText = if(term.isNotBlank()) {
             stringResource(id = R.string.search_screen_search_results_title_with_term, term)
@@ -109,7 +75,7 @@ fun GridHeader(term: String) {
 }
 
 @Composable
-fun SearchView() {
+private fun SearchView() {
     with(MaterialTheme.colorScheme) {
         Column {
             CommonText(
