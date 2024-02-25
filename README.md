@@ -48,6 +48,11 @@ The backend architecture of TvNexa, powered by TvNexa Architecture, is designed 
 
 This backend architecture ensures a seamless and enriching experience for users on the TvNexa platform.
 
+
+<p align="center">
+  <img width="700px" src="doc/picture_41.png" />
+</p>
+
 ## User-Focused Features 🚀
 
 - **User Profiles**: Create multiple profiles on your account for personalized experiences.
@@ -168,6 +173,14 @@ Once you've entered all the necessary information, click "Register," and you're 
 
 <p align="center">
   <img width="700px" src="doc/picture_24.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_39.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_40.png" />
 </p>
 
 ### Profiles
