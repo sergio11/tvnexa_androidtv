@@ -30,6 +30,24 @@
   <img width="700px" src="doc/picture_23.gif" />
 </p>
 
+**Consuming TvNexa Architecture Services:** TvNexa leverages the services provided by TvNexa Architecture, which offers a robust backend infrastructure for handling diverse television content. For detailed information about the backend architecture and services, please refer to [TvNexa Architecture](https://github.com/sergio11/tvnexa_architecture).
+
+**Backend Overview**:
+
+The backend architecture of TvNexa, powered by TvNexa Architecture, is designed to efficiently manage the diverse range of television content available on the platform. Here's a brief overview:
+
+- **Quartz Jobs for EPG Integration 🕒**: Quartz Jobs manage the integration of electronic program guide (EPG) data into TvNexa. They retrieve detailed program information from various sources and store it in the MariaDB Galera cluster.
+  
+- **MariaDB Galera Cluster with Jetbrains Exposed 🗃️**: TvNexa utilizes a MariaDB Galera cluster for efficient and secure data storage. Jetbrains Exposed is integrated to manage data storage and retrieval within the cluster.
+  
+- **API Development with Ktor 🚀**: The API layer is developed using the Ktor framework, facilitating rapid and efficient data retrieval from MariaDB Galera to serve end-users.
+  
+- **Redis Cluster for Caching 🔄**: Redis Cluster is implemented as a caching system to enhance data retrieval performance through the Ktor API.
+  
+- **Read and Write Clusters 📚🖊️**: The storage environment is divided into Read and Write clusters to optimize data access. The Read Cluster serves end-users via the Ktor API, while the Write Cluster handles data ingestion and updates.
+
+This backend architecture ensures a seamless and enriching experience for users on the TvNexa platform.
+
 ## User-Focused Features 🚀
 
 - **User Profiles**: Create multiple profiles on your account for personalized experiences.
