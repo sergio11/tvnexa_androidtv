@@ -210,6 +210,14 @@ You can personalize your profile avatar 🧑‍🤝‍🧑, set an alias 🆔, a
 
 ### Home channels
 
+🏠 Welcome to TV Nexa's HOME!
+
+In the HOME section, you'll find the main menu of the application, allowing you to easily navigate through all available sections. From here, you can explore the lists of channels by country, view previews of the currently selected channel, and filter them by categories to quickly find the content that interests you the most.
+
+Additionally, you can access the details of each channel by simply clicking on it, where you'll find additional information and options to customize your viewing experience.
+
+Don't forget to explore the various options and features that TV Nexa has to offer. Enjoy the convenience of accessing a wide variety of content from the comfort of your home!
+
 <p align="center">
   <img width="700px" src="doc/picture_34.png" />
 </p>
