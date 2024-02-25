@@ -66,11 +66,10 @@ fun DetailsScreenContent(
 private fun ChannelDetailPreview(channelDetail: ChannelDetailBO?) {
     Box(modifier = Modifier
         .fillMaxSize()) {
-        channelDetail?.streamUrl?.let {
-            CommonVideoBackground(
-                videHlsResource = it
-            )
-        }
+        CommonVideoBackground(
+            videHlsResource = channelDetail?.streamUrl,
+            isContentBlocked = channelDetail?.isBlocked ?: false
+        )
     }
     Box(
         modifier = Modifier

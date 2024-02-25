@@ -57,6 +57,7 @@ fun PlayerScreenContent(
     }
     CommonVideoBackground(
         videHlsResource = uiState.channelDetail?.streamUrl,
+        isContentBlocked = uiState.channelDetail?.isBlocked ?: false,
         playerStateListener = stateListener,
         onEnter = {
             if (!videoPlayerState.isDisplayed) {

@@ -11,6 +11,7 @@
     <string name="generic_progress_dialog_title">Loading…</string>
     <string name="generic_progress_dialog_description">Please wait a moment…</string>
     <string name="generic_channel_can_not_reproduce">Oops! Looks like we can\'t play this channel right now. Why not give it another shot later?</string>
+    <string name="generic_channel_content_blocked_by_parent_control_rules">The content of this channel is blocked by parent control rules.</string>
     <string name="generic_lost_network_connectivity_dialog_title">Oh no! We\'ve Lost Connection to the Galaxy</string>
     <string name="generic_lost_network_connectivity_dialog_description">It seems our spaceship has hit a cosmic glitch. Let\'s navigate back to the network settings and get back on track!</string>
     <string name="generic_lost_network_connectivity_dialog_open_settings_button_text">Open Settings</string>
@@ -143,7 +144,8 @@
     <string name="profile_blocking_channels_form_confirm_button_text">All set</string>
     <string name="profile_blocking_channels_title">Channel Citadel: Fortifying Your Space</string>
     <string name="profile_blocking_channels_title_after_searching" formatted="false">Voilà! Found some channels for \" %s \"</string>
-
+    <string name="profile_blocking_channels_search_results_loading">Hold on tight! Loading up those search results…</string>
+    <string name="profile_blocking_channels_no_results_found">Oopsie-daisy! No matches found here.</string>
     <!-- Delete Profile -->
     <string name="delete_profile_main_title">Farewell, Profile!</string>
     <string name="delete_profile_main_description">Are you absolutely certain you want to bid farewell to this profile? 🌟</string>

@@ -30,7 +30,7 @@ import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
 
 @Composable
 fun CommonProfileScreenContent(
-    isLoading: Boolean,
+    isLoading: Boolean? = null,
     error: String?,
     onErrorAccepted: () -> Unit,
     @StringRes mainTitleRes: Int? = null,
@@ -51,11 +51,13 @@ fun CommonProfileScreenContent(
         onErrorAccepted = onErrorAccepted
     ) {
         CommonProfileGradientBox {
-            LoadingDialog(
-                isShowingDialog = isLoading,
-                titleRes = R.string.generic_progress_dialog_title,
-                descriptionRes = R.string.generic_progress_dialog_description
-            )
+            isLoading?.let {
+                LoadingDialog(
+                    isShowingDialog = it,
+                    titleRes = R.string.generic_progress_dialog_title,
+                    descriptionRes = R.string.generic_progress_dialog_description
+                )
+            }
             AppLogoInverse(
                 modifier = Modifier
                     .align(Alignment.TopStart)
