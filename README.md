@@ -30,6 +30,24 @@
   <img width="700px" src="doc/picture_23.gif" />
 </p>
 
+**Consuming TvNexa Architecture Services:** TvNexa leverages the services provided by TvNexa Architecture, which offers a robust backend infrastructure for handling diverse television content. For detailed information about the backend architecture and services, please refer to [TvNexa Architecture](https://github.com/sergio11/tvnexa_architecture).
+
+**Backend Overview**:
+
+The backend architecture of TvNexa, powered by TvNexa Architecture, is designed to efficiently manage the diverse range of television content available on the platform. Here's a brief overview:
+
+- **Quartz Jobs for EPG Integration 🕒**: Quartz Jobs manage the integration of electronic program guide (EPG) data into TvNexa. They retrieve detailed program information from various sources and store it in the MariaDB Galera cluster.
+  
+- **MariaDB Galera Cluster with Jetbrains Exposed 🗃️**: TvNexa utilizes a MariaDB Galera cluster for efficient and secure data storage. Jetbrains Exposed is integrated to manage data storage and retrieval within the cluster.
+  
+- **API Development with Ktor 🚀**: The API layer is developed using the Ktor framework, facilitating rapid and efficient data retrieval from MariaDB Galera to serve end-users.
+  
+- **Redis Cluster for Caching 🔄**: Redis Cluster is implemented as a caching system to enhance data retrieval performance through the Ktor API.
+  
+- **Read and Write Clusters 📚🖊️**: The storage environment is divided into Read and Write clusters to optimize data access. The Read Cluster serves end-users via the Ktor API, while the Write Cluster handles data ingestion and updates.
+
+This backend architecture ensures a seamless and enriching experience for users on the TvNexa platform.
+
 ## User-Focused Features 🚀
 
 - **User Profiles**: Create multiple profiles on your account for personalized experiences.
@@ -98,9 +116,11 @@ By embracing MVI architecture with Clean Architecture and leveraging Jetpack Com
 
 ## App Screenshots
 
+Here are some screenshots from our app to give you a glimpse of its design and functionality.
+
 ### Onboarding
 
-Here are some screenshots from our app to give you a glimpse of its design and functionality.
+Here we have the Onboarding screens 📱, if the user doesn't have an active session, they will be redirected to the landing page 🏞️, where they can view the application presentation 📝 and navigate to the login 🔒 or create a new account screens if they don't have one. 🆕
 
 <p align="center">
   <img width="700px" src="doc/picture_2.png" />
@@ -115,6 +135,8 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 </p>
 
 ### Sign In
+
+The user will be able to log in to TVNexa by providing their email and password. If they don't have an account, they can access the registration screen to create a new one. 🔐✉️🔑 If they don't have an account, they can access the registration screen to create a new one. 🆕
 
 <p align="center">
   <img width="700px" src="doc/picture_10.png" />
@@ -134,6 +156,12 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 
 ### Sign Up
 
+On this screen, you can create your account on TvNexa. Registering is quick, easy, and will open up a world of possibilities. Ready to get started?
+
+Simply fill out the required fields, such as your name, email address, and a secure password. Make sure to choose a password that's easy to remember but hard to guess to keep your account safe.
+
+Once you've entered all the necessary information, click "Register," and you're all set! You're now part of our community. You'll be able to access all the features and exclusive content we offer.
+
 <p align="center">
   <img width="700px" src="doc/picture_14.png" />
 </p>
@@ -143,6 +171,10 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 </p>
 
 ### Profiles
+
+Each user on TvNexa can create up to 5 profiles to customize their experience and apply parental control rules. Each profile can be optionally protected by a security PIN, which will be required to unlock the profile. 🔒👨‍👩‍👧‍👦✨
+
+You can personalize your profile avatar 🧑‍🤝‍🧑, set an alias 🆔, and enable options like NSFW to access channels with adult content 🚫👀. Additionally, you can utilize more advanced profile management features, such as blocking specific channels 🚫📺 or setting viewing time limits ⏰.
 
 <p align="center">
   <img width="700px" src="doc/picture_15.png" />
@@ -176,7 +208,31 @@ Here are some screenshots from our app to give you a glimpse of its design and f
   <img width="700px" src="doc/picture_22.png" />
 </p>
 
+<p align="center">
+  <img width="700px" src="doc/picture_35.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_36.gif" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_37.gif" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_38.png" />
+</p>
+
 ### Home channels
+
+🏠 Welcome to TV Nexa's HOME!
+
+In the HOME section, you'll find the main menu of the application, allowing you to easily navigate through all available sections. From here, you can explore the lists of channels by country, view previews of the currently selected channel, and filter them by categories to quickly find the content that interests you the most.
+
+Additionally, you can access the details of each channel by simply clicking on it, where you'll find additional information and options to customize your viewing experience.
+
+Don't forget to explore the various options and features that TV Nexa has to offer. Enjoy the convenience of accessing a wide variety of content from the comfort of your home!
 
 <p align="center">
   <img width="700px" src="doc/picture_34.png" />
@@ -196,6 +252,8 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 
 ### Search channels
 
+Here you can search for your favorite channels by simply entering the name in the search field 🔍. Whether you're looking for entertainment shows, news, sports, or educational content 🎬📰🏀📚, we're confident you'll find something you like! Once you find a channel that interests you, simply click on it to get more information and start enjoying the content 📺👀.
+
 <p align="center">
   <img width="700px" src="doc/picture_31.png" />
 </p>
@@ -205,6 +263,12 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 </p>
 
 ### Channel detail
+
+Here you can find detailed information about the channel you have selected. From a general description to the option to bookmark it as a favorite and watch the streaming in fullscreen, everything is at your fingertips! 📺🔍
+
+Explore the options to learn more about the channel and its features. If you like what you see, you can bookmark the channel for easy access in the future. 🌟
+
+Once you're ready to enjoy the content, simply click on the play button to watch the streaming in fullscreen. ▶️🔍
 
 <p align="center">
   <img width="700px" src="doc/picture_28.png" />
@@ -217,17 +281,39 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 
 ### Favorite channels
 
+🌟 Welcome to your favorite channels!
+
+This screen is your personalized space where you can easily access all your favorite channels in one place. Never miss out on your favorite shows and content!
+
+Explore the list of channels you've marked as favorites and quickly access their live stream or on-demand content. Enjoy the convenience of having your favorite channels at your fingertips at all times! 📺🎉
+
 <p align="center">
   <img width="700px" src="doc/picture_25.png" />
 </p>
 
 ### Full screen player
 
+📺 Welcome to the Full-Screen Player!
+
+Here, you can fully immerse yourself in the viewing experience of your favorite programs. Enjoy streaming in fullscreen and don't miss a single detail.
+
+Moreover, while you're enjoying the content, you also have the option to bookmark the channel as a favorite with just one click. This way, you can easily access it in the future!
+
+Sit back, relax, and enjoy your favorite content in all its glory with our Full-Screen Player! 🎬🔍
+
 <p align="center">
   <img width="700px" src="doc/picture_26.png" />
 </p>
 
 ### Settings
+
+⚙️ Welcome to Settings!
+
+In this section, you have access to various options to manage your user account and preferences. You can view information about your user account and log out if needed. Additionally, you can find details about the developer, access help, terms and conditions, and learn more about the AndroidTV STB and the app.
+
+If you have any questions or need assistance, don't hesitate to explore the help section or contact support for further assistance.
+
+Enjoy customizing your experience with our app! 🛠️🔍
 
 <p align="center">
   <img width="700px" src="doc/picture_4.png" />
@@ -248,4 +334,23 @@ Here are some screenshots from our app to give you a glimpse of its design and f
 <p align="center">
   <img width="700px" src="doc/picture_8.png" />
 </p>
+
+## Contribution
+Contributions to TvNexa Android are highly encouraged! If you're interested in adding new features, resolving bugs, or enhancing the project's functionality, please feel free to submit pull requests.
+
+## Credits
+TvNexa is developed and maintained by Sergio Sánchez Sánchez (Dream Software). Special thanks to the open-source community and the contributors who have made this project possible. If you have any questions, feedback, or suggestions, feel free to reach out at dreamsoftware92@gmail.com.
+
+ ## Visitors Count
+
+<img width="auto" src="https://profile-counter.glitch.me/tvnexa_androidtv/count.svg" />
+ 
+ ## Please Share & Star the repository to keep me motivated.
+  <a href = "https://github.com/sergio11/tvnexa_androidtv/stargazers">
+     <img src = "https://img.shields.io/github/stars/sergio11/tvnexa_androidtv" />
+  </a>
+
+<div> Icons and images takes from <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es'</a></div>
+
+Template mockup from https://previewed.app/template/AFC0B4CB
 
