@@ -176,6 +176,57 @@ Here are some screenshots from our app to give you a glimpse of its design and f
   <img width="700px" src="doc/picture_22.png" />
 </p>
 
+### Home channels
+
+<p align="center">
+  <img width="700px" src="doc/picture_34.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_32.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_29.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_27.png" />
+</p>
+
+### Search channels
+
+<p align="center">
+  <img width="700px" src="doc/picture_31.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_30.png" />
+</p>
+
+### Channel detail
+
+<p align="center">
+  <img width="700px" src="doc/picture_28.png" />
+</p>
+
+<p align="center">
+  <img width="700px" src="doc/picture_33.png" />
+</p>
+
+
+### Favorite channels
+
+<p align="center">
+  <img width="700px" src="doc/picture_25.png" />
+</p>
+
+### Full screen player
+
+<p align="center">
+  <img width="700px" src="doc/picture_26.png" />
+</p>
+
 ### Settings
 
 <p align="center">
