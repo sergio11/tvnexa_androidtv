@@ -44,7 +44,8 @@ fun AppScreen(
                     },
                     onRestartAppPressed = {
                         restartApplication()
-                    }
+                    },
+                    onErrorAccepted = ::onErrorAccepted
                 )
             }
         }

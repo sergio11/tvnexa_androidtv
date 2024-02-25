@@ -23,19 +23,23 @@ import kotlinx.coroutines.launch
 @Composable
 fun CommonScreenContent(
     error: String? = null,
+    onErrorAccepted: () -> Unit,
     content: @Composable BoxScope.() -> Unit
 ) {
     with(MaterialTheme.colorScheme) {
         val snackState = remember { SnackbarHostState() }
         val snackScope = rememberCoroutineScope()
+
         LaunchedEffect(key1 = error)
         {
             if (!error.isNullOrBlank()) {
                 snackScope.launch {
                     snackState.showSnackbar(error)
+                    onErrorAccepted()
                 }
             }
         }
+
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.Center

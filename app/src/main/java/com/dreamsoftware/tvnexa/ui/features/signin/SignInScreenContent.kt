@@ -55,7 +55,8 @@ fun SignInScreenContent(
     onGoToSignUp: () -> Unit
 ) {
     CommonScreenContent(
-        error = uiState.error
+        error = uiState.error,
+        onErrorAccepted = onErrorAcceptPressed
     ) {
         SignInDialog(uiState = uiState)
         SignInVideoBackground()

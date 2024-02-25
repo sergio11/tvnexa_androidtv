@@ -31,7 +31,8 @@ fun SignUpScreen(
             onPasswordChanged = ::onPasswordChanged,
             onRepeatPasswordChanged = ::onRepeatPasswordChanged,
             onSigUpPressed = ::onSignUp,
-            onCancelPressed = onBackPressed
+            onCancelPressed = onBackPressed,
+            onErrorAccepted = ::onErrorAccepted
         )
     }
 }

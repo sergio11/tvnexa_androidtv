@@ -10,7 +10,8 @@ import com.dreamsoftware.tvnexa.ui.features.profiles.components.CommonProfileSel
 fun ProfilesManagementScreenContent(
     uiState: ProfilesManagementUiState,
     onCompletePressed: () -> Unit,
-    onProfileSelected: (ProfileBO) -> Unit
+    onProfileSelected: (ProfileBO) -> Unit,
+    onErrorAccepted: () -> Unit
 ) {
     with(uiState) {
         CommonProfileScreenContent(
@@ -19,7 +20,8 @@ fun ProfilesManagementScreenContent(
             mainTitleRes = R.string.profiles_management_main_title,
             secondaryTitleRes = R.string.profiles_management_main_description,
             primaryOptionTextRes = R.string.profiles_management_form_confirm_button_text,
-            onPrimaryOptionPressed = onCompletePressed
+            onPrimaryOptionPressed = onCompletePressed,
+            onErrorAccepted = onErrorAccepted
         ) {
             CommonProfileSelector(
                 profiles = uiState.profiles,

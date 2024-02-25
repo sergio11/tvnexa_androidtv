@@ -41,11 +41,13 @@ import com.dreamsoftware.tvnexa.ui.theme.Dimens
 fun DetailsScreenContent(
     uiState: DetailUiState,
     onFavoriteStateChanged: (Boolean) -> Unit,
-    onPlayChannelPressed: (channelId: String) -> Unit
+    onPlayChannelPressed: (channelId: String) -> Unit,
+    onErrorAccepted: () -> Unit
 ) {
     with(uiState) {
         CommonScreenContent(
-            error = error
+            error = error,
+            onErrorAccepted = onErrorAccepted
         ) {
             Box {
                 ChannelDetailPreview(channelDetail = channelDetail)

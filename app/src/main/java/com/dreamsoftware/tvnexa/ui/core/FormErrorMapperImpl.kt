@@ -34,6 +34,9 @@ class FormErrorMapperImpl(
                 )
                 FormFieldKey.FIRST_NAME -> getString(R.string.account_form_invalid_firstname)
                 FormFieldKey.LAST_NAME -> getString(R.string.account_form_invalid_lastname)
+                FormFieldKey.PROFILE_ALIAS -> getString(R.string.account_form_invalid_profile_alias)
+                FormFieldKey.SECURE_PIN -> getString(R.string.account_form_invalid_secure_pin)
+                FormFieldKey.AVATAR_TYPE -> getString(R.string.account_form_avatar_profile_type_required)
             }
         } else {
             String.EMPTY

@@ -1,15 +1,17 @@
 package com.dreamsoftware.tvnexa.ui.features.profiles.save
 
-import com.dreamsoftware.tvnexa.domain.model.ProfileBO
 import com.dreamsoftware.tvnexa.domain.model.AvatarTypeEnum
-import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileByIdUseCase
+import com.dreamsoftware.tvnexa.domain.model.FormFieldKey
+import com.dreamsoftware.tvnexa.domain.model.ProfileBO
 import com.dreamsoftware.tvnexa.domain.usecase.impl.CreateProfileUseCase
+import com.dreamsoftware.tvnexa.domain.usecase.impl.GetProfileByIdUseCase
 import com.dreamsoftware.tvnexa.domain.usecase.impl.UpdateProfileUseCase
+import com.dreamsoftware.tvnexa.ui.core.IFormErrorMapper
 import com.dreamsoftware.tvnexa.ui.core.SideEffect
 import com.dreamsoftware.tvnexa.ui.core.SupportViewModel
 import com.dreamsoftware.tvnexa.ui.core.UiState
 import com.dreamsoftware.tvnexa.ui.extensions.EMPTY
-import com.dreamsoftware.tvnexa.utils.combinedLet
+import com.dreamsoftware.tvnexa.ui.features.profiles.save.error.SaveProfileScreenSimpleErrorMapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -17,7 +19,9 @@ import javax.inject.Inject
 class SaveProfileViewModel @Inject constructor(
     private val getProfileByIdUseCase: GetProfileByIdUseCase,
     private val createProfileUseCase: CreateProfileUseCase,
-    private val updateProfileUseCase: UpdateProfileUseCase
+    private val updateProfileUseCase: UpdateProfileUseCase,
+    private val formErrorMapper: IFormErrorMapper,
+    private val saveProfileScreenSimpleErrorMapper: SaveProfileScreenSimpleErrorMapper
 ): SupportViewModel<SaveProfileUiState, SaveProfileSideEffects>() {
 
     override fun onGetDefaultState(): SaveProfileUiState = SaveProfileUiState()
@@ -79,27 +83,27 @@ class SaveProfileViewModel @Inject constructor(
                 ),
                 onSuccess = {
                     onSaveProfileSuccessfully()
-                }
+                },
+                onMapExceptionToState = ::onMapExceptionToState
             )
         }
     }
 
     private fun onCreateProfile() {
         with(uiState.value) {
-            combinedLet(avatarType, securePin.toIntOrNull()) { type, pin ->
-                executeUseCaseWithParams(
-                    useCase = createProfileUseCase,
-                    params = CreateProfileUseCase.Params(
-                        alias = alias,
-                        pin = pin,
-                        enableNSFW = enableNSFW,
-                        avatarType = type
-                    ),
-                    onSuccess = {
-                        onSaveProfileSuccessfully()
-                    }
-                )
-            }
+            executeUseCaseWithParams(
+                useCase = createProfileUseCase,
+                params = CreateProfileUseCase.Params(
+                    alias = alias,
+                    pin = securePin,
+                    enableNSFW = enableNSFW,
+                    avatarType = avatarType
+                ),
+                onSuccess = {
+                    onSaveProfileSuccessfully()
+                },
+                onMapExceptionToState = ::onMapExceptionToState
+            )
         }
     }
 
@@ -117,6 +121,13 @@ class SaveProfileViewModel @Inject constructor(
     private fun onSaveProfileSuccessfully() {
         launchSideEffect(SaveProfileSideEffects.SaveProfileSuccessfully)
     }
+
+    private fun onMapExceptionToState(ex: Exception, uiState: SaveProfileUiState) =
+        uiState.copy(
+            error = saveProfileScreenSimpleErrorMapper.mapToMessage(ex),
+            aliasError = formErrorMapper.mapToMessage(key = FormFieldKey.PROFILE_ALIAS, ex),
+            securePinError = formErrorMapper.mapToMessage(key = FormFieldKey.SECURE_PIN,  ex)
+        )
 }
 
 data class SaveProfileUiState(
@@ -124,7 +135,9 @@ data class SaveProfileUiState(
     override val error: String? = null,
     val isEditMode: Boolean = false,
     val alias: String = String.EMPTY,
+    val aliasError: String = String.EMPTY,
     val securePin: String = String.EMPTY,
+    val securePinError: String = String.EMPTY,
     val enableNSFW: Boolean = false,
     val avatarType: AvatarTypeEnum? = null
 ): UiState<SaveProfileUiState>(isLoading, error) {

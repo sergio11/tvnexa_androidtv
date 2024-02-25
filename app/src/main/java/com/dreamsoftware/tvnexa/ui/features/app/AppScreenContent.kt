@@ -12,11 +12,13 @@ fun AppScreenContent(
     uiState: AppUiState,
     navController: NavHostController,
     onOpenSettingsPressed: () -> Unit,
-    onRestartAppPressed: () -> Unit
+    onRestartAppPressed: () -> Unit,
+    onErrorAccepted: () -> Unit,
 ) {
     with(uiState) {
         CommonScreenContent(
-            error = error
+            error = error,
+            onErrorAccepted = onErrorAccepted
         ) {
             Box {
                 MainNavigation(navController)

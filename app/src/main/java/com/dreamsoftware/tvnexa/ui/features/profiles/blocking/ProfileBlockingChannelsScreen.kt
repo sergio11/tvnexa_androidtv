@@ -24,7 +24,8 @@ fun ProfileBlockingChannelsScreen(
             onClearPressed = ::onClearPressed,
             onBackSpacePressed = ::onBackSpacePressed,
             onSpaceBarPressed = ::onSpaceBarPressed,
-            onChannelPressed = {}
+            onChannelPressed = {},
+            onErrorAccepted = ::onErrorAccepted
         )
     }
 }

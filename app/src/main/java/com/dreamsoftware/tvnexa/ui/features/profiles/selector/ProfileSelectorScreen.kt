@@ -27,7 +27,8 @@ fun ProfileSelectorScreen(
             uiState = uiState,
             onProfileSelected = ::onProfileSelected,
             onAddProfilePressed = onGoToAddProfile,
-            onProfileManagementPressed = onGoToProfileManagement
+            onProfileManagementPressed = onGoToProfileManagement,
+            onErrorAccepted = ::onErrorAccepted
         )
     }
 }

@@ -54,11 +54,13 @@ fun SignUpScreenContent(
     onPasswordChanged: (String) -> Unit,
     onRepeatPasswordChanged: (String) -> Unit,
     onSigUpPressed: () -> Unit,
-    onCancelPressed: () -> Unit
+    onCancelPressed: () -> Unit,
+    onErrorAccepted: () -> Unit
 ) {
     with(uiState) {
         CommonScreenContent(
-            error = error
+            error = error,
+            onErrorAccepted = onErrorAccepted
         ) {
             SignUpDialog(uiState = uiState)
             SignUpBackground()
@@ -298,7 +300,8 @@ fun SignUpPrev() {
             onPasswordChanged = {},
             onRepeatPasswordChanged = {},
             onSigUpPressed = {},
-            onCancelPressed = {}
+            onCancelPressed = {},
+            onErrorAccepted = {}
         )
     }
 }

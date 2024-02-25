@@ -11,7 +11,8 @@ fun ProfileSelectorContent(
     uiState: ProfileSelectorUiState,
     onProfileSelected: (ProfileBO) -> Unit,
     onAddProfilePressed: () -> Unit,
-    onProfileManagementPressed: () -> Unit
+    onProfileManagementPressed: () -> Unit,
+    onErrorAccepted: () -> Unit
 ) {
     with(uiState) {
         CommonProfileScreenContent(
@@ -22,7 +23,8 @@ fun ProfileSelectorContent(
             primaryOptionTextRes = R.string.profile_selector_add_profile_button_text,
             secondaryOptionTextRes = R.string.profile_selector_profile_management_button_text,
             onPrimaryOptionPressed = onAddProfilePressed,
-            onSecondaryOptionPressed = onProfileManagementPressed
+            onSecondaryOptionPressed = onProfileManagementPressed,
+            onErrorAccepted = onErrorAccepted
         ) {
             CommonProfileSelector(
                 profiles = uiState.profiles,

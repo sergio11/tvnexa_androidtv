@@ -27,7 +27,8 @@ fun ProfileAdvanceScreen(
             onBlockingChannelsPressed = {
                 onGoToBlockingChannels(args.profileId)
             },
-            onNewTabSelected = ::onNewTabSelected
+            onNewTabSelected = ::onNewTabSelected,
+            onErrorAccepted = ::onErrorAccepted
         )
     }
 }

@@ -18,7 +18,8 @@ fun FavoritesScreen(
            uiState = uiState,
            onChannelPressed = {
                onGoToChannelDetail(it.channelId)
-           }
+           },
+           onErrorAccepted = ::onErrorAccepted
        )
     }
 }

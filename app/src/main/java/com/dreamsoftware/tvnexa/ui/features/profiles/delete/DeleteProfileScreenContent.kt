@@ -19,7 +19,8 @@ import com.dreamsoftware.tvnexa.ui.theme.Dimens
 fun DeleteProfileScreenContent(
     uiState: DeleteProfileUiState,
     onDeletePressed: () -> Unit,
-    onCancelPressed: () -> Unit
+    onCancelPressed: () -> Unit,
+    onErrorAccepted: () -> Unit,
 ) {
     with(uiState) {
         CommonProfileScreenContent(
@@ -30,7 +31,8 @@ fun DeleteProfileScreenContent(
             primaryOptionTextRes = R.string.delete_profile_form_accept_button_text,
             secondaryOptionTextRes = R.string.delete_profile_form_cancel_button_text,
             onPrimaryOptionPressed = onDeletePressed,
-            onSecondaryOptionPressed = onCancelPressed
+            onSecondaryOptionPressed = onCancelPressed,
+            onErrorAccepted = onErrorAccepted
         ) {
             CommonFocusRequester {
                 ScalableAvatar(

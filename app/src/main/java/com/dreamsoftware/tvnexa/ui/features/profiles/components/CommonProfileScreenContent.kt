@@ -32,6 +32,7 @@ import com.dreamsoftware.tvnexa.ui.components.LoadingDialog
 fun CommonProfileScreenContent(
     isLoading: Boolean,
     error: String?,
+    onErrorAccepted: () -> Unit,
     @StringRes mainTitleRes: Int? = null,
     mainTitleText: String? = null,
     @StringRes secondaryTitleRes: Int? = null,
@@ -46,7 +47,8 @@ fun CommonProfileScreenContent(
 ) {
     val mainActionFocusRequester = remember { FocusRequester() }
     CommonScreenContent(
-        error = error
+        error = error,
+        onErrorAccepted = onErrorAccepted
     ) {
         CommonProfileGradientBox {
             LoadingDialog(

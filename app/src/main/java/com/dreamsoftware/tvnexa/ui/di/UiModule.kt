@@ -4,6 +4,7 @@ import android.content.Context
 import com.dreamsoftware.tvnexa.ui.core.FormErrorMapperImpl
 import com.dreamsoftware.tvnexa.ui.features.signin.error.SignInScreenSimpleErrorMapper
 import com.dreamsoftware.tvnexa.ui.core.IFormErrorMapper
+import com.dreamsoftware.tvnexa.ui.features.profiles.save.error.SaveProfileScreenSimpleErrorMapper
 import com.dreamsoftware.tvnexa.ui.features.signup.error.SignUpScreenSimpleErrorMapper
 import dagger.Module
 import dagger.Provides
@@ -23,6 +24,10 @@ class UiModule {
     @Provides
     @ViewModelScoped
     fun provideSignUpScreenErrorMapper(@ApplicationContext context: Context) = SignUpScreenSimpleErrorMapper(context)
+
+    @Provides
+    @ViewModelScoped
+    fun provideSaveProfileScreenSimpleErrorMapper(@ApplicationContext context: Context) = SaveProfileScreenSimpleErrorMapper(context)
 
     @Provides
     @ViewModelScoped
