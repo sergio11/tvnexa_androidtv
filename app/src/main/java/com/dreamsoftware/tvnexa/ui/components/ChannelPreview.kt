@@ -37,26 +37,29 @@ fun ChannelPreview(
             ),
             elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
         ) {
-            Box {
-                Log.d("ATV_CHANNEL_PREVIEW", "ChannelPreview - ${channel.name} - ${channel.streamUrl}")
-                CommonVideoBackground(
-                    videHlsResource = channel.streamUrl
-                )
-                Column(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .background(primaryContainer.copy(alpha = 0.6f))
-                        .padding(vertical = 20.dp, horizontal = 15.dp),
-                    verticalArrangement = Arrangement.Bottom
-                ) {
-                    CommonChannelHeaderInfo(
-                        name = channel.name,
-                        logo = channel.logo,
-                        city = channel.city,
-                        isNsfw = channel.isNsfw,
-                        countryCode = country.code,
-                        countryFlag = country.flag
+            with(channel) {
+                Box {
+                    Log.d("ATV_CHANNEL_PREVIEW", "ChannelPreview - ${name} - ${streamUrl}")
+                    CommonVideoBackground(
+                        videHlsResource = streamUrl,
+                        isContentBlocked = isBlocked
                     )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(primaryContainer.copy(alpha = 0.6f))
+                            .padding(vertical = 20.dp, horizontal = 15.dp),
+                        verticalArrangement = Arrangement.Bottom
+                    ) {
+                        CommonChannelHeaderInfo(
+                            name = name,
+                            logo = logo,
+                            city = city,
+                            isNsfw = isNsfw,
+                            countryCode = country.code,
+                            countryFlag = country.flag
+                        )
+                    }
                 }
             }
         }

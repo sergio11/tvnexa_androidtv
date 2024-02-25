@@ -70,7 +70,7 @@ fun ChannelGridItem(
                     modifier = Modifier
                         .fillMaxSize()
                         .background(
-                            primary.copy(0.6f),
+                            onPrimary.copy(0.6f),
                             RoundedCornerShape(12.dp)
                         )
                 ) {
@@ -79,7 +79,7 @@ fun ChannelGridItem(
                             .align(Alignment.Center)
                             .fillMaxSize(0.5f),
                         imageRes = R.drawable.channel_blocked,
-                        tint = onPrimary
+                        tint = primary
                     )
                 }
             }

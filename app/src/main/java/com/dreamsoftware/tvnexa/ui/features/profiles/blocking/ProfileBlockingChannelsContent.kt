@@ -10,7 +10,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
-import com.dreamsoftware.tvnexa.ui.components.CommonChannelGrid
+import com.dreamsoftware.tvnexa.ui.components.CommonChannelsLCE
 import com.dreamsoftware.tvnexa.ui.components.MiniKeyboard
 import com.dreamsoftware.tvnexa.ui.extensions.EMPTY
 import com.dreamsoftware.tvnexa.ui.features.profiles.components.CommonProfileScreenContent
@@ -29,7 +29,6 @@ fun ProfileBlockingChannelsContent(
 ) {
     with(uiState) {
         CommonProfileScreenContent(
-            isLoading = isLoading,
             error = error,
             onErrorAccepted = onErrorAccepted,
             mainTitleRes = R.string.profile_blocking_channels_title,
@@ -53,8 +52,12 @@ fun ProfileBlockingChannelsContent(
                     onBackSpacePressed = onBackSpacePressed,
                     onSpaceBarPressed = onSpaceBarPressed
                 )
-                CommonChannelGrid(
+                CommonChannelsLCE(
+                    noResultFoundTitleRes = R.string.profile_blocking_channels_no_results_found,
+                    loadingResultsTitleRes = R.string.profile_blocking_channels_search_results_loading,
+                    isLoading = isLoading,
                     channels = channels,
+                    error = error,
                     onChannelPressed = onChannelPressed
                 )
             }

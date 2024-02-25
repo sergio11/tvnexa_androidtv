@@ -2,29 +2,22 @@
 
 package com.dreamsoftware.tvnexa.ui.features.home.favorites
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusRequester
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.tv.foundation.lazy.grid.TvGridCells
-import androidx.tv.foundation.lazy.grid.TvGridItemSpan
-import androidx.tv.foundation.lazy.grid.TvLazyVerticalGrid
 import androidx.tv.material3.ExperimentalTvMaterial3Api
 import androidx.tv.material3.MaterialTheme
 import com.dreamsoftware.tvnexa.R
 import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
-import com.dreamsoftware.tvnexa.ui.components.ChannelGridItem
-import com.dreamsoftware.tvnexa.ui.components.CommonFocusRequester
-import com.dreamsoftware.tvnexa.ui.components.CommonLoading
+import com.dreamsoftware.tvnexa.ui.components.CommonChannelsLCE
 import com.dreamsoftware.tvnexa.ui.components.CommonScreenContent
 import com.dreamsoftware.tvnexa.ui.components.CommonText
 import com.dreamsoftware.tvnexa.ui.components.CommonTextTypeEnum
-import com.dreamsoftware.tvnexa.ui.components.ErrorStateNotificationComponent
+
+private const val CHANNELS_GRID_COLUMN_COUNT = 5
 
 @Composable
 fun FavoritesScreenContent(
@@ -37,53 +30,18 @@ fun FavoritesScreenContent(
             error = error,
             onErrorAccepted = onErrorAccepted
         ) {
-            Row(modifier = Modifier.fillMaxSize()) {
-                when {
-                    isLoading -> CommonLoading(
-                        modifier = Modifier.padding(horizontal = 16.dp),
-                        text = R.string.favorites_screen_loading
-                    )
-                    channels.isEmpty() || !error.isNullOrBlank() -> ErrorStateNotificationComponent(
-                        imageRes = R.drawable.default_placeholder,
-                        title = if(channels.isEmpty()) {
-                            stringResource(id = R.string.favorites_screen_no_channels_found_text)
-                        } else {
-                            error.orEmpty()
-                        }
-                    )
-                    else -> ContentGrid(
-                        channels = channels,
-                        onChannelPressed = onChannelPressed
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-private fun ContentGrid(
-    channels: List<SimpleChannelBO>,
-    onChannelPressed: (SimpleChannelBO) -> Unit,
-) {
-    CommonFocusRequester { focusRequester ->
-        TvLazyVerticalGrid(
-            columns = TvGridCells.Fixed(5),
-            contentPadding = PaddingValues(start = 24.dp, top = 24.dp, end = 24.dp, bottom = 48.dp),
-        ) {
-            item(span = {
-                TvGridItemSpan(5)
-            }) {
+            Column(modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 12.dp)
+            ) {
                 GridHeader()
-            }
-            items(channels.size) { idx ->
-                ChannelGridItem(
-                    modifier = if(idx == 0) {
-                        Modifier.focusRequester(focusRequester)
-                    } else {
-                        Modifier
-                    },
-                    channel = channels[idx],
+                CommonChannelsLCE(
+                    gridColumnCount = CHANNELS_GRID_COLUMN_COUNT,
+                    noResultFoundTitleRes = R.string.favorites_screen_no_channels_found_text,
+                    loadingResultsTitleRes = R.string.favorites_screen_loading,
+                    isLoading = isLoading,
+                    channels = channels,
+                    error = error,
                     onChannelPressed = onChannelPressed
                 )
             }
@@ -95,7 +53,7 @@ private fun ContentGrid(
 private fun GridHeader() {
     CommonText(
         type = CommonTextTypeEnum.TITLE_LARGE,
-        modifier = Modifier.padding(bottom = 24.dp, start = 8.dp),
+        modifier = Modifier.padding(vertical = 24.dp, horizontal = 8.dp),
         titleRes = R.string.favorites_screen_main_title,
         textColor = MaterialTheme.colorScheme.primary,
     )

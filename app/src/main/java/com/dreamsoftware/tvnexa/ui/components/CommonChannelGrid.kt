@@ -12,13 +12,14 @@ import com.dreamsoftware.tvnexa.domain.model.SimpleChannelBO
 @Composable
 fun CommonChannelGrid(
     modifier: Modifier = Modifier,
+    gridColumnCount: Int,
     channels: List<SimpleChannelBO>,
     onChannelPressed: (SimpleChannelBO) -> Unit,
 ) {
     CommonFocusRequester { focusRequester ->
         TvLazyVerticalGrid(
             modifier = modifier,
-            columns = TvGridCells.Fixed(3),
+            columns = TvGridCells.Fixed(gridColumnCount),
             contentPadding = PaddingValues(start = 12.dp, top = 12.dp, end = 12.dp, bottom = 48.dp),
         ) {
             items(channels.size) { idx ->
