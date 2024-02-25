@@ -174,6 +174,8 @@ Once you've entered all the necessary information, click "Register," and you're 
 
 Each user on TvNexa can create up to 5 profiles to customize their experience and apply parental control rules. Each profile can be optionally protected by a security PIN, which will be required to unlock the profile. 🔒👨‍👩‍👧‍👦✨
 
+You can personalize your profile avatar 🧑‍🤝‍🧑, set an alias 🆔, and enable options like NSFW to access channels with adult content 🚫👀. Additionally, you can utilize more advanced profile management features, such as blocking specific channels 🚫📺 or setting viewing time limits ⏰.
+
 <p align="center">
   <img width="700px" src="doc/picture_15.png" />
 </p>
@@ -189,8 +191,6 @@ Each user on TvNexa can create up to 5 profiles to customize their experience an
 <p align="center">
   <img width="700px" src="doc/picture_18.png" />
 </p>
-
-You can personalize your profile avatar 🧑‍🤝‍🧑, set an alias 🆔, and enable options like NSFW to access channels with adult content 🚫👀. Additionally, you can utilize more advanced profile management features, such as blocking specific channels 🚫📺 or setting viewing time limits ⏰.
 
 <p align="center">
   <img width="700px" src="doc/picture_19.png" />
@@ -282,6 +282,14 @@ Sit back, relax, and enjoy your favorite content in all its glory with our Full-
 </p>
 
 ### Settings
+
+⚙️ Welcome to Settings!
+
+In this section, you have access to various options to manage your user account and preferences. You can view information about your user account and log out if needed. Additionally, you can find details about the developer, access help, terms and conditions, and learn more about the AndroidTV STB and the app.
+
+If you have any questions or need assistance, don't hesitate to explore the help section or contact support for further assistance.
+
+Enjoy customizing your experience with our app! 🛠️🔍
 
 <p align="center">
   <img width="700px" src="doc/picture_4.png" />
