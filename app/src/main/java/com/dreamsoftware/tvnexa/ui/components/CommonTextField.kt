@@ -7,6 +7,7 @@ import androidx.annotation.StringRes
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
@@ -128,7 +129,9 @@ fun CommonTextField(
             )
             if (isError) {
                 CommonText(
-                    modifier = Modifier.padding(top = 5.dp),
+                    modifier = Modifier
+                        .padding(top = 5.dp)
+                        .width(250.dp),
                     type = CommonTextTypeEnum.LABEL_MEDIUM,
                     titleText = errorMessage.orEmpty(),
                     textColor = error

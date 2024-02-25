@@ -154,4 +154,15 @@ interface IUserDataSource {
      */
     @Throws(NetworkException::class)
     suspend fun deleteFavoriteChannels(profileId: String, channelId: String): Boolean
+
+    /**
+     * Checks if a channel is saved as a favorite for a user profile.
+     *
+     * @param profileId The ID of the user profile.
+     * @param channelId The ID of the channel to be checked.
+     * @return `true` if the channel is saved as a favorite for the user profile, `false` otherwise.
+     * @throws NetworkException If there is an issue with the network during the operation.
+     */
+    @Throws(NetworkException::class)
+    suspend fun isChannelSavedAsFavorite(profileId: String, channelId: String): Boolean
 }

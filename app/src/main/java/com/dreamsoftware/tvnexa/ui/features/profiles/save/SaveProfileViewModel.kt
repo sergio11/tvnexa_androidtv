@@ -95,7 +95,7 @@ class SaveProfileViewModel @Inject constructor(
                 useCase = createProfileUseCase,
                 params = CreateProfileUseCase.Params(
                     alias = alias,
-                    pin = securePin,
+                    pin = securePin.toIntOrNull(),
                     enableNSFW = enableNSFW,
                     avatarType = avatarType
                 ),

@@ -8,7 +8,6 @@ import com.dreamsoftware.tvnexa.domain.model.CreateProfileRequestBO
 import com.dreamsoftware.tvnexa.domain.model.FormFieldKey
 import com.dreamsoftware.tvnexa.domain.repository.IUserRepository
 import com.dreamsoftware.tvnexa.domain.usecase.core.BaseUseCaseWithParams
-import com.dreamsoftware.tvnexa.utils.combinedLet
 
 class CreateProfileUseCase(
     private val userRepository: IUserRepository
@@ -19,20 +18,18 @@ class CreateProfileUseCase(
             throw DomainException.InvalidDataException("Invalid profile data",
                 field = it.first, value = it.second)
         } ?: with(params) {
-            combinedLet(avatarType, pin?.toIntOrNull()) { type, pin ->
-                userRepository.createProfile(CreateProfileRequestBO(
-                    alias = alias,
-                    pin = pin,
-                    enableNSFW = enableNSFW,
-                    avatarType = type
-                ))
-            } ?: false
+            userRepository.createProfile(CreateProfileRequestBO(
+                alias = alias,
+                pin = pin,
+                enableNSFW = enableNSFW,
+                avatarType = avatarType ?: AvatarTypeEnum.BOY
+            ))
         }
 
     private fun validateData(params: Params): Pair<FormFieldKey, String?>? = with(params) {
         when {
             alias.isProfileAliasNotValid() -> FormFieldKey.PROFILE_ALIAS to alias
-            pin.isSecurePinNotValid() -> FormFieldKey.SECURE_PIN to pin.toString()
+            pin != null && pin.isSecurePinNotValid() -> FormFieldKey.SECURE_PIN to pin.toString()
             avatarType == null -> FormFieldKey.AVATAR_TYPE to null
             else -> null
         }
@@ -40,7 +37,7 @@ class CreateProfileUseCase(
 
     data class Params(
         val alias: String,
-        val pin: String?,
+        val pin: Int?,
         val enableNSFW: Boolean,
         val avatarType: AvatarTypeEnum?
     )
