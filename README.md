@@ -116,9 +116,11 @@ By embracing MVI architecture with Clean Architecture and leveraging Jetpack Com
 
 ## App Screenshots
 
+Here are some screenshots from our app to give you a glimpse of its design and functionality.
+
 ### Onboarding
 
-Here are some screenshots from our app to give you a glimpse of its design and functionality.
+Here we have the Onboarding screens 📱, if the user doesn't have an active session, they will be redirected to the landing page 🏞️, where they can view the application presentation 📝 and navigate to the login 🔒 or create a new account screens if they don't have one. 🆕
 
 <p align="center">
   <img width="700px" src="doc/picture_2.png" />
