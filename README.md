@@ -354,7 +354,26 @@ Contributions to TvNexa Android are highly encouraged! If you're interested in a
 ## Credits
 TvNexa is developed and maintained by Sergio Sánchez Sánchez (Dream Software). Special thanks to the open-source community and the contributors who have made this project possible. If you have any questions, feedback, or suggestions, feel free to reach out at dreamsoftware92@gmail.com.
 
- ## Visitors Count
+## Acknowledgements 🙏
+
+We express our deep appreciation to [Freepik](https://www.freepik.es/) for generously providing the resources used in this project.
+<div> Icons and images takes from <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es'</a></div>
+
+Template mockup from https://previewed.app/template/AFC0B4CB
+
+I want to extend my sincere gratitude to [Umair Khalid](https://github.com/UmairKhalid786) for his outstanding work on the [ComposeTv](https://github.com/UmairKhalid786/ComposeTv) repository. This repository has been an invaluable resource and a crucial starting point for my project.
+
+Through ComposeTv, I've had the opportunity to learn and explore new techniques and concepts in development. Umair Khalid's clear documentation and high-quality code have been instrumental in my understanding and professional growth.
+
+Thanks to this repository, I've been able to not only acquire new knowledge but also effectively apply it to my project, allowing me to evolve and adapt it to my own needs and goals.
+
+Umair Khalid's dedication and effort in sharing his work with the community are admirable. His contribution has had a significant impact on my professional and personal development, and I'm deeply grateful for it.
+
+Once again, thank you to Umair Khalid for his generosity and for providing a solid foundation for my project. His work continues to inspire and benefit developers worldwide.
+
+Thank you!
+
+## Visitors Count
 
 <img width="auto" src="https://profile-counter.glitch.me/tvnexa_androidtv/count.svg" />
  
@@ -362,8 +381,3 @@ TvNexa is developed and maintained by Sergio Sánchez Sánchez (Dream Software).
   <a href = "https://github.com/sergio11/tvnexa_androidtv/stargazers">
      <img src = "https://img.shields.io/github/stars/sergio11/tvnexa_androidtv" />
   </a>
-
-<div> Icons and images takes from <a href="https://www.freepik.com" title="Freepik"> Freepik </a> from <a href="https://www.flaticon.es/" title="Flaticon">www.flaticon.es'</a></div>
-
-Template mockup from https://previewed.app/template/AFC0B4CB
-
