@@ -28,6 +28,37 @@ This app, **TvNexa**, includes images and resources designed by [Freepik](https:
   <img src="https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white" />
 </p>
 
+## Featured Projects 🌟  
+
+#### [**MelodiqTV - Your Music Haven** 🎶✨](https://github.com/sergio11/melodiqtv_android) 
+Turn your TV into a music hub with **MelodiqTV**, offering:  
+- **A vast library of music videos** sorted by genre  
+- **Customizable user profiles**  
+- **Real-time sync** with Firebase  
+
+#### [**FitFlexTV - Your Fitness Companion** 🏋️‍♂️💪](https://github.com/sergio11/fitflextv_android)
+Stay active and fit with **FitFlexTV**, featuring:  
+- **A variety of workouts** including yoga and HIIT  
+- **Personalized fitness plans**  
+- **Smooth navigation** optimized for Smart TVs  
+
+#### [**SaboryTV - Your Culinary Guide** 🍳📺 ](https://github.com/sergio11/saborytv_android)
+Refine your cooking skills with **SaboryTV**, providing:  
+- **Step-by-step video recipes** tailored to your taste  
+- **Hands-free navigation** for seamless cooking  
+- **Expert guidance** from professional chefs  
+  
+#### [**NimbusTV - Effortless M3U Streaming** 🌐📺](https://github.com/sergio11/nimbustv_android)
+Simplify streaming with **NimbusTV**, your go-to M3U playlist solution:  
+- **Support for multiple playlists**: Organize by theme (sports, news, etc.)  
+- **EPG integration**: Real-time programming schedules with reminders  
+- **Advanced streaming formats**: HLS, DASH, and more  
+
+## Why Check Out These Projects? 💡  
+- **Learn Modern TV Development**: Explore practical implementations of Jetpack Compose and advanced architecture.  
+- **Hone Your Skills**: Tackle real-world challenges like streaming, multi-user setups, and immersive UIs.  
+- **Get Inspired**: Use these projects as templates for your own creations.  
+
 ## Overview 🌐
 
 🌐 **TvNexa: Bringing the World to Your Screen! 📺** TvNexa is an innovative online television platform developed for Android TV using Jetpack Compose for TV and Jetpack Material 3. The project also includes a mobile version for a consistent viewing experience across devices.
