@@ -1,6 +1,6 @@
 # TvNexa - Your Global IPTV Destination 🌐📺
 
-<img width="auto" height="200px" align="left" src="doc/main_logo.png" />
+<img width="auto" height="300px" align="left" src="doc/tv_nexa_logo.webp" />
 
 📺 Welcome to TvNexa, your ultimate online television platform that redefines the streaming experience.
 
@@ -13,6 +13,8 @@
 🌟 Experience the future of television streaming with TvNexa – Your Global IPTV Destination. Start exploring today!
 
 **🔜 Stay tuned! TvNexa is continuously evolving, and the mobile version will be arriving soon to enhance your streaming experience even further!**
+
+🔗 **Powered by the IPTV-org API**, TvNexa gives you access to a wide range of publicly available IPTV channels from around the world. You can explore more about this API [here](https://github.com/iptv-org/api).
 
 🙏🙏 I want to extend my sincere gratitude to [Umair Khalid](https://github.com/UmairKhalid786) for his outstanding work on the [ComposeTv](https://github.com/UmairKhalid786/ComposeTv) repository. This repository has been an invaluable resource and a crucial starting point for my project.
 
@@ -27,6 +29,11 @@ This app, **TvNexa**, includes images and resources designed by [Freepik](https:
   <img src="https://img.shields.io/badge/JWT-000000?style=for-the-badge&logo=JSON%20web%20tokens&logoColor=white" />
   <img src="https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=mui&logoColor=white" />
 </p>
+
+## ⚠️ Disclaimer:
+This project has been developed **for educational purposes only**. The main goal of TvNexa is to learn how to develop Android TV applications using modern tools like **Jetpack Compose** and best practices.
+
+This repository does not host any streaming or content-related materials. All IPTV channels and streaming content are sourced directly from the **IPTV-org API**, which provides publicly available IPTV channels for demonstration purposes. TvNexa serves only as a platform for showcasing how to interact with and display these channels in an Android TV app. 
 
 ## Featured Projects 🌟  
 
@@ -384,6 +391,11 @@ Enjoy customizing your experience with our app! 🛠️🔍
 <p align="center">
   <img width="700px" src="doc/picture_8.png" />
 </p>
+
+## ⚠️ Disclaimer:
+This project has been developed **for educational purposes only**. The main goal of TvNexa is to learn how to develop Android TV applications using modern tools like **Jetpack Compose** and best practices.
+
+This repository does not host any streaming or content-related materials. All IPTV channels and streaming content are sourced directly from the **IPTV-org API**, which provides publicly available IPTV channels for demonstration purposes. TvNexa serves only as a platform for showcasing how to interact with and display these channels in an Android TV app. 
 
 ## Contribution
 Contributions to TvNexa Android are highly encouraged! If you're interested in adding new features, resolving bugs, or enhancing the project's functionality, please feel free to submit pull requests.
