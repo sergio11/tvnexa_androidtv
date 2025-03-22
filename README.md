@@ -1,18 +1,14 @@
-# TvNexa - Your Global IPTV Destination 🌐📺
+# TvNexa - My Personal Streaming Project 🌐📺
 
 <img width="auto" height="300px" align="left" src="doc/tv_nexa_logo.webp" />
 
-📺 Welcome to TvNexa, your ultimate online television platform that redefines the streaming experience.
+📺 **TvNexa** is a personal project I developed to enhance my skills in **Android TV development** and **streaming applications**. The goal of this project was to create a simple, yet powerful platform that brings global television channels right to your fingertips, while learning and experimenting with the best development practices in the Android ecosystem.
 
-🌐 TvNexa is not just another streaming service; it's a gateway to a diverse universe of television channels from around the world. The platform is meticulously crafted with innovation at its core, ensuring that Android users have access to an unparalleled selection of global content right at their fingertips.
+📱 The project supports **Android TV** providing a seamless viewing experience across different devices. The app's interface was crafted with simplicity in mind, allowing users to easily browse through channels and enjoy their favorite content.
 
-📱 Whether you're using Android TV, your smartphone, or tablet, TvNexa is designed for seamless exploration and enjoyment. With a user-friendly interface and intuitive features, discovering and accessing your favorite channels has never been easier.
+🚀 This project served as a way to sharpen my skills in **Jetpack Compose for TV**, **Clean Architecture**, and **UI/UX best practices** for TV platforms. I also had the opportunity to dive deeper into **streaming technologies** while ensuring smooth, responsive performance on large screens.
 
-🚀 Join us on TvNexa and embark on an extraordinary journey through the world of entertainment. Whether you're craving the latest blockbuster movies, immersive documentaries, thrilling sports events, or captivating TV shows, TvNexa has something for everyone.
-
-🌟 Experience the future of television streaming with TvNexa – Your Global IPTV Destination. Start exploring today!
-
-**🔜 Stay tuned! TvNexa is continuously evolving, and the mobile version will be arriving soon to enhance your streaming experience even further!**
+🌟 **TvNexa** is my personal journey into developing a full-featured  streaming service. The project has been an invaluable learning experience.
 
 🔗 **Powered by the IPTV-org API**, TvNexa gives you access to a wide range of publicly available IPTV channels from around the world. You can explore more about this API [here](https://github.com/iptv-org/api).
 
@@ -72,30 +68,33 @@ Simplify streaming with **NimbusTV**, your go-to M3U playlist solution:
 
 ## Overview 🌐
 
-🌐 **TvNexa: Bringing the World to Your Screen! 📺** TvNexa is an innovative online television platform developed for Android TV using Jetpack Compose for TV and Jetpack Material 3. The project also includes a mobile version for a consistent viewing experience across devices.
+🌐 **TvNexa: Bringing the World to Your Screen! 📺**  
+**TvNexa** is a personal project I developed to deepen my skills in **Android TV development**, backend integration, and **modern architecture**. The platform is built using **Jetpack Compose for TV** and **Jetpack Material 3**, with the goal of creating a seamless and consistent viewing experience across devices, including Android TV and mobile platforms.
 
 <p align="center">
   <img width="700px" src="doc/picture_23.gif" />
 </p>
 
-**Consuming TvNexa Architecture Services:** TvNexa leverages the services provided by TvNexa Architecture, which offers a robust backend infrastructure for handling diverse television content. For detailed information about the backend architecture and services, please refer to [TvNexa Architecture](https://github.com/sergio11/tvnexa_architecture).
+The main purpose of **TvNexa** was to explore the challenges and best practices in building a **cross-platform IPTV streaming service**. Through this project, I aimed to learn how to handle real-time data streaming, manage large amounts of television content efficiently, and create a user-friendly interface that works on both TV and mobile devices.
 
-**Backend Overview**:
+### **Consuming TvNexa Architecture Services**  
+TvNexa utilizes **TvNexa Architecture** services, which handle the backend for managing the television content seamlessly. Working on this allowed me to gain practical experience with backend technologies, **data storage**, and API integration.
 
-The backend architecture of TvNexa, powered by TvNexa Architecture, is designed to efficiently manage the diverse range of television content available on the platform. Here's a brief overview:
+### **Backend Overview**:
 
-- **Quartz Jobs for EPG Integration 🕒**: Quartz Jobs manage the integration of electronic program guide (EPG) data into TvNexa. They retrieve detailed program information from various sources and store it in the MariaDB Galera cluster.
-  
-- **MariaDB Galera Cluster with Jetbrains Exposed 🗃️**: TvNexa utilizes a MariaDB Galera cluster for efficient and secure data storage. Jetbrains Exposed is integrated to manage data storage and retrieval within the cluster.
-  
-- **API Development with Ktor 🚀**: The API layer is developed using the Ktor framework, facilitating rapid and efficient data retrieval from MariaDB Galera to serve end-users.
-  
-- **Redis Cluster for Caching 🔄**: Redis Cluster is implemented as a caching system to enhance data retrieval performance through the Ktor API.
-  
-- **Read and Write Clusters 📚🖊️**: The storage environment is divided into Read and Write clusters to optimize data access. The Read Cluster serves end-users via the Ktor API, while the Write Cluster handles data ingestion and updates.
+The backend architecture is powered by **TvNexa Architecture**. Here are some of the key technologies and concepts I worked with to ensure efficient performance and data management:
 
-This backend architecture ensures a seamless and enriching experience for users on the TvNexa platform.
+- **Quartz Jobs for EPG Integration 🕒**: I implemented **Quartz Jobs** to handle the integration of Electronic Program Guide (EPG) data, retrieving program schedules from various sources and storing them in the **MariaDB Galera cluster** for reliable and consistent access.
 
+- **MariaDB Galera Cluster with Jetbrains Exposed 🗃️**: Using **MariaDB Galera Cluster** for data storage and **Jetbrains Exposed** as an ORM allowed me to efficiently manage data and ensure that it’s easily retrievable for serving to end users.
+
+- **API Development with Ktor 🚀**: Developing the API layer with **Ktor** was an exciting challenge. It enabled me to efficiently retrieve data from the MariaDB Galera cluster and serve it to the frontend for a smooth user experience.
+
+- **Redis Cluster for Caching 🔄**: To improve the performance of the app, I integrated **Redis Cluster** as a caching solution to reduce load times and enhance the speed of data retrieval.
+
+- **Read and Write Clusters 📚🖊️**: The backend architecture is optimized with **Read and Write clusters**, where the **Read Cluster** handles user queries via the API, and the **Write Cluster** takes care of data ingestion and updates.
+
+This backend architecture allowed me to gain valuable experience in handling the infrastructure of a real-time streaming service and managing data at scale.
 
 <p align="center">
   <img width="700px" src="doc/picture_41.png" />
@@ -103,13 +102,20 @@ This backend architecture ensures a seamless and enriching experience for users 
 
 ## User-Focused Features 🚀
 
-- **User Profiles**: Create multiple profiles on your account for personalized experiences.
-- **Parental Controls**: Apply parental control measures, including channel blocking, NSFW content blocking, and time restrictions.
-- **Favorite Channels Management**: Easily manage and organize your favorite channels.
-- **Search Functionality**: Search for specific channels with ease.
-- **Intuitive Navigation**: Enjoy a simple and intuitive navigation experience.
-- **Channel Categorization**: Channels are classified by categories and countries for easy browsing.
-- **Electronic Program Guide (EPG)**: Access channel schedules and program information through the EPG.
+Throughout the development of **TvNexa**, my main goal was to build a platform that not only showcases my learning but also offers practical and user-friendly features. These are some of the features I implemented as part of the project:
+
+- **User Profiles**: I added functionality for creating multiple profiles, allowing users to personalize their content and enjoy a tailored experience.
+- **Parental Controls**: I integrated parental control measures, including **channel blocking**, **NSFW content filtering**, and **time-based restrictions**, ensuring the app can be safely used by all family members.
+- **Favorite Channels Management**: The app allows users to manage their favorite channels, helping them easily access their most-watched content.
+- **Search Functionality**: Implementing a powerful search feature made it simple for users to find specific channels quickly.
+- **Intuitive Navigation**: The user interface was designed with simplicity and clarity in mind, allowing easy navigation through the content.
+- **Channel Categorization**: I created a system for categorizing channels by themes and countries, making browsing more convenient and structured.
+
+### **What I Learned** 💡
+
+This project served as an excellent opportunity to improve my skills in both **Android TV development** and **backend architecture**. I focused on applying **Clean Architecture** to maintain a scalable, testable, and maintainable codebase while using modern tools like **Jetpack Compose** for building a responsive TV UI. Additionally, I gained hands-on experience with backend technologies like **MariaDB**, **Redis**, and **Ktor**, which helped me understand how to build robust, real-time systems.
+
+The project allowed me to explore various aspects of software development, including UI/UX design, backend integration, real-time data management, and performance optimization. **TvNexa** has been a valuable learning experience
 
 ## Technical Details 🛠️
 
@@ -167,13 +173,13 @@ Jetpack Compose is utilized throughout TvNexa to build the user interface, provi
 
 By embracing MVI architecture with Clean Architecture and leveraging Jetpack Compose, TvNexa sets a high standard for online television platforms, prioritizing performance, maintainability, and user satisfaction.
 
-## App Screenshots
+## App Screenshots 📸
 
-Here are some screenshots from our app to give you a glimpse of its design and functionality.
+Hey there! 👋 Here are some screenshots of my **TVNexa** app to give you a sneak peek of its design and functionality. Let me walk you through the main features of the app! 🚀
 
 ### Onboarding
 
-Here we have the Onboarding screens 📱, if the user doesn't have an active session, they will be redirected to the landing page 🏞️, where they can view the application presentation 📝 and navigate to the login 🔒 or create a new account screens if they don't have one. 🆕
+First up, we have the Onboarding screens 📱. If a user doesn't have an active session, they'll be redirected to the landing page 🏞️, where they can explore the app's features 📝 and navigate to the login 🔒 or create a new account screen if they don't have one yet. 🆕
 
 <p align="center">
   <img width="700px" src="doc/picture_2.png" />
@@ -189,7 +195,7 @@ Here we have the Onboarding screens 📱, if the user doesn't have an active ses
 
 ### Sign In
 
-The user will be able to log in to TVNexa by providing their email and password. If they don't have an account, they can access the registration screen to create a new one. 🔐✉️🔑 If they don't have an account, they can access the registration screen to create a new one. 🆕
+Users can log in to **TVNexa** by simply entering their email and password 🔐✉️🔑. If they don't have an account, they can easily access the registration screen to create a new one 🆕
 
 <p align="center">
   <img width="700px" src="doc/picture_10.png" />
@@ -209,11 +215,7 @@ The user will be able to log in to TVNexa by providing their email and password.
 
 ### Sign Up
 
-On this screen, you can create your account on TvNexa. Registering is quick, easy, and will open up a world of possibilities. Ready to get started?
-
-Simply fill out the required fields, such as your name, email address, and a secure password. Make sure to choose a password that's easy to remember but hard to guess to keep your account safe.
-
-Once you've entered all the necessary information, click "Register," and you're all set! You're now part of our community. You'll be able to access all the features and exclusive content we offer.
+On this screen, you can create your TVNexa account! 📝 Registering is quick and easy, unlocking a world of entertainment. Just fill out your name, email, and create a secure password, and boom – you're in! 🚀
 
 <p align="center">
   <img width="700px" src="doc/picture_14.png" />
@@ -233,9 +235,7 @@ Once you've entered all the necessary information, click "Register," and you're 
 
 ### Profiles
 
-Each user on TvNexa can create up to 5 profiles to customize their experience and apply parental control rules. Each profile can be optionally protected by a security PIN, which will be required to unlock the profile. 🔒👨‍👩‍👧‍👦✨
-
-You can personalize your profile avatar 🧑‍🤝‍🧑, set an alias 🆔, and enable options like NSFW to access channels with adult content 🚫👀. Additionally, you can utilize more advanced profile management features, such as blocking specific channels 🚫📺 or setting viewing time limits ⏰.
+With **TVNexa**, you can create up to **5 profiles** per account 👨‍👩‍👧‍👦✨. Each profile can have its own personalized avatar 🧑‍🤝‍🧑, alias 🆔, and even parental controls! 🔒 Block channels 🚫📺, set time limits ⏰, and manage content restrictions like NSFW 🚫👀.
 
 <p align="center">
   <img width="700px" src="doc/picture_15.png" />
@@ -285,15 +285,9 @@ You can personalize your profile avatar 🧑‍🤝‍🧑, set an alias 🆔, a
   <img width="700px" src="doc/picture_38.png" />
 </p>
 
-### Home channels
+### Home Channels
 
-🏠 Welcome to TV Nexa's HOME!
-
-In the HOME section, you'll find the main menu of the application, allowing you to easily navigate through all available sections. From here, you can explore the lists of channels by country, view previews of the currently selected channel, and filter them by categories to quickly find the content that interests you the most.
-
-Additionally, you can access the details of each channel by simply clicking on it, where you'll find additional information and options to customize your viewing experience.
-
-Don't forget to explore the various options and features that TV Nexa has to offer. Enjoy the convenience of accessing a wide variety of content from the comfort of your home!
+🏠 Welcome to the **Home** section of TVNexa! Here, you'll find the main menu to easily navigate through everything the app has to offer. You can explore channel lists by country, preview currently playing channels, and filter them by category 🎬📰🏀. Customize your experience by clicking on any channel to get more details and access extra options.
 
 <p align="center">
   <img width="700px" src="doc/picture_34.png" />
@@ -311,9 +305,9 @@ Don't forget to explore the various options and features that TV Nexa has to off
   <img width="700px" src="doc/picture_27.png" />
 </p>
 
-### Search channels
+### Search Channels
 
-Here you can search for your favorite channels by simply entering the name in the search field 🔍. Whether you're looking for entertainment shows, news, sports, or educational content 🎬📰🏀📚, we're confident you'll find something you like! Once you find a channel that interests you, simply click on it to get more information and start enjoying the content 📺👀.
+Looking for something specific? 🔍 Simply type the channel name, and TVNexa will help you find it! Whether it's entertainment, news, sports, or educational content 🎬📰🏀📚, we've got you covered.
 
 <p align="center">
   <img width="700px" src="doc/picture_31.png" />
@@ -323,13 +317,9 @@ Here you can search for your favorite channels by simply entering the name in th
   <img width="700px" src="doc/picture_30.png" />
 </p>
 
-### Channel detail
+### Channel Detail
 
-Here you can find detailed information about the channel you have selected. From a general description to the option to bookmark it as a favorite and watch the streaming in fullscreen, everything is at your fingertips! 📺🔍
-
-Explore the options to learn more about the channel and its features. If you like what you see, you can bookmark the channel for easy access in the future. 🌟
-
-Once you're ready to enjoy the content, simply click on the play button to watch the streaming in fullscreen. ▶️🔍
+Once you find the channel you like, click on it to see more details! 📺 You can view its description, bookmark it as a favorite 🌟, and watch the stream in fullscreen for the ultimate viewing experience 🔍.
 
 <p align="center">
   <img width="700px" src="doc/picture_28.png" />
@@ -339,28 +329,17 @@ Once you're ready to enjoy the content, simply click on the play button to watch
   <img width="700px" src="doc/picture_33.png" />
 </p>
 
+### Favorite Channels
 
-### Favorite channels
-
-🌟 Welcome to your favorite channels!
-
-This screen is your personalized space where you can easily access all your favorite channels in one place. Never miss out on your favorite shows and content!
-
-Explore the list of channels you've marked as favorites and quickly access their live stream or on-demand content. Enjoy the convenience of having your favorite channels at your fingertips at all times! 📺🎉
+🌟 Welcome to your **Favorite Channels** list! This section lets you access all your saved channels in one place. It's a quick way to enjoy your preferred content without any hassle. 📺🎉
 
 <p align="center">
   <img width="700px" src="doc/picture_25.png" />
 </p>
 
-### Full screen player
+### Full-Screen Player
 
-📺 Welcome to the Full-Screen Player!
-
-Here, you can fully immerse yourself in the viewing experience of your favorite programs. Enjoy streaming in fullscreen and don't miss a single detail.
-
-Moreover, while you're enjoying the content, you also have the option to bookmark the channel as a favorite with just one click. This way, you can easily access it in the future!
-
-Sit back, relax, and enjoy your favorite content in all its glory with our Full-Screen Player! 🎬🔍
+Want to dive into the full-screen experience? 📺🎬 Here, you can watch your favorite shows in all their glory! And, if you like a channel, you can quickly bookmark it for future access.
 
 <p align="center">
   <img width="700px" src="doc/picture_26.png" />
@@ -368,13 +347,7 @@ Sit back, relax, and enjoy your favorite content in all its glory with our Full-
 
 ### Settings
 
-⚙️ Welcome to Settings!
-
-In this section, you have access to various options to manage your user account and preferences. You can view information about your user account and log out if needed. Additionally, you can find details about the developer, access help, terms and conditions, and learn more about the AndroidTV STB and the app.
-
-If you have any questions or need assistance, don't hesitate to explore the help section or contact support for further assistance.
-
-Enjoy customizing your experience with our app! 🛠️🔍
+⚙️ Finally, welcome to **Settings**! Customize your account preferences, log out, or check out app info. If you need help, the support section is just a click away! 🛠️🔍
 
 <p align="center">
   <img width="700px" src="doc/picture_4.png" />
