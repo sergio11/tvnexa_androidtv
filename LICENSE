@@ -199,3 +199,17 @@
    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
    See the License for the specific language governing permissions and
    limitations under the License.
+
+### Third-Party Code Attribution
+
+This project includes code and concepts derived from the following third-party repositories:
+
+#### 1. **ComposeTv** by Umair Khalid
+- **Repository:** [https://github.com/UmairKhalid786/ComposeTv](https://github.com/UmairKhalid786/ComposeTv)
+- **License:** Apache License 2.0
+
+This project is based on techniques and components from the **ComposeTv** repository, which was originally developed for building Android TV apps using Jetpack Compose. Although the code from **ComposeTv** was not directly copied, several techniques, components, and concepts have been adapted to meet the needs of this project, such as custom UI elements and Android TV-specific optimizations.
+
+A copy of the original Apache License 2.0 is included in the [`LICENSE-COMPOSETV`](LICENSE-COMPOSETV) file.
+
+I would like to express our sincere gratitude to the authors and contributors of **ComposeTv** for their amazing work, which has had a significant impact on the development of **TvNexa**.
