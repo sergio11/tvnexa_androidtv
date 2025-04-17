@@ -253,14 +253,6 @@ With **TVNexa**, you can create up to **5 profiles** per account 👨‍👩‍�
 </p>
 
 <p align="center">
-  <img width="700px" src="doc/picture_36.gif" />
-</p>
-
-<p align="center">
-  <img width="700px" src="doc/picture_37.gif" />
-</p>
-
-<p align="center">
   <img width="700px" src="doc/picture_38.png" />
 </p>
 
