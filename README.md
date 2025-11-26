@@ -367,8 +367,4 @@ Umair Khalid's dedication and effort in sharing his work with the community are 
 Once again, thank you to Umair Khalid for his generosity and for providing a solid foundation for my project. His work continues to inspire and benefit developers worldwide.
 
 Thank you!
-
-## Visitors Count
-
-<img width="auto" src="https://profile-counter.glitch.me/tvnexa_androidtv/count.svg" />
  
